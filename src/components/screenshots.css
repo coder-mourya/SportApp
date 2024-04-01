@@ -1,0 +1,42 @@
+.screenshots{
+  background-color: #283593;
+}
+.screenShots-info{
+  width: 49%;
+}
+.screenShots-info p{
+  font-size: 12px;
+  
+}
+
+/* Slider.css */
+.swiper-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+.swiper-slide img {
+  width: 100%;
+  
+}
+
+.swiper-slide-active img {
+  width: 100%;
+}
+
+
+.swiper-slide-next + .swiper-slide img {
+  opacity: 0.8;
+}
+
+.swiper-slide-prev + .swiper-slide img {
+  opacity: 0.8;
+}
+
+.swiper-slide:last-child img {
+  width: 40%; /* Set the width as needed */
+}
+
+
+

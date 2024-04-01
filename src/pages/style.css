@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap');
+
+
+.Home-heading {
+    color: var(--Black-100, #03061F);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+}
+
+strong {
+    color: #d32f2f;
+}
+
+
+/*Home peragraph */
+.custm-pera {
+    color: var(--Black-100, #03061F);
+text-align: center;
+font-family: "Space Grotesk";
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+
+
+
+
+
+/* app link */
+.links img {
+    width: 9rem;
+    transition: width 0.3s ease;
+}
+
+.app-links:hover{
+    color: black;
+    
+}
+
+.applinkMargin{
+    margin-left: 7%;
+    margin-top: 3rem;
+}
+
+
+/* player piks*/
+
+.player-list ul {
+    list-style-type: none;
+
+}
+
+.player-list ul li {
+    display: inline;
+
+}
+
+.player-list ul li img {
+    width: 15%;
+    margin: -5rem 1rem;
+}
+
+.player-padding {
+    padding-bottom: 10rem !important;
+}
+
+
+

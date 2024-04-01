@@ -1,0 +1,21 @@
+.feedback{
+    background-color: #f4ceceeb;
+}
+
+.download-app{
+    width: 80%;
+}
+
+.feedback-link{
+    margin-top: 7rem;
+    margin-left: 6rem;
+}
+
+.feedback-link h1{
+    font-weight: 800;
+    font-size: 64px;
+}
+
+.feedback-link p{
+    font-size: 20px;
+}

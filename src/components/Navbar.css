@@ -1,0 +1,40 @@
+.navbar-nav {
+    font-size: 20px;
+    font-weight: 400;
+    font-style: normal;
+    
+  }
+  
+  .links-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-toggler {
+    border: none; /* Removing border for cleaner appearance */
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-font {
+    font-size: 20px;
+    margin-right: 15px; /* Adjust margin as needed */
+    font-weight: 600;
+  }
+  .logo-font > img{
+    margin-top: 10px;
+  }
+  
+  .nav-link {
+    padding: 10px 15px; /* Add padding to increase clickable area */
+    color: black !important;
+
+  }
+  
+  .login-btn {
+    margin-left: 15px; /* Adjust margin as needed */
+  }
+  

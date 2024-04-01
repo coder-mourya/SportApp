@@ -1,0 +1,75 @@
+.contact-us {
+    background-color: #080f41;
+    padding: 4rem;
+}
+
+
+
+.contact-text h1 {
+    font-size: 2rem;
+}
+
+.contact-text p {
+    font-size: 12px;
+    margin-bottom: 40px;
+    margin-top: 1rem;
+}
+
+
+
+.list ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.list li {
+    margin-right: 5rem;
+    font-size: 12px;
+}
+
+.list h3,
+.list p {
+    margin: 0;
+    font-size: 18px;
+}
+
+
+.form input {
+    padding: 8px;
+    border-radius: 10px;
+    margin: 0.5rem;
+}
+
+select {
+    width: 60%;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 0.5rem;
+    font-size: 12px;
+}
+
+
+
+textarea {
+    width: 60%;
+    height: 20vh;
+
+    margin-top: 0.5rem;
+    border-radius: 10px;
+}
+
+.submit-btn {
+    background-color: #d32f2f;
+    color: rgba(255, 255, 255, 0.834);
+    margin: 0.5rem 0 0 21rem;
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+    font-size: 12px;
+}
+
+#sportsSelect:nth-child(1){
+ font-size: 12px;
+}
