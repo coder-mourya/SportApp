@@ -40,22 +40,35 @@ const Contact = () => {
                 <div className="col-md-6">
 
                     <form className="form">
-                        <input
 
-                            type="text"
-                            placeholder="Name"
-                            
+                        <div className="row mb-2">
 
-                        />
+                            <div className="col-6">
 
-                        <input
+                                <input
 
-                            type="text"
-                            placeholder="Email address"
-                        />
-                        <br />
+                                    type="text"
+                                    placeholder="Name"
 
-                        <select name="role" id="sportsSelect">
+                                    className="form-control "
+                                />
+                            </div>
+
+                            <div className="col-6">
+
+                                <input
+
+                                    type="text"
+                                    placeholder="Email address"
+
+                                    className="form-control"
+
+                                />
+                            </div>
+                        </div>
+
+
+                        <select name="role" id="sportsSelect" className="form-select my-3">
 
                             <option value="">--Select your role--</option>
                             <option value="role 1">Role 1</option>
@@ -64,16 +77,22 @@ const Contact = () => {
 
 
                         </select>
-                        <br />
 
-                        <textarea name="message" id="message" cols="30" rows="8" placeholder="Write your message here...">
+
+                        <textarea name="message"
+                            id="message" cols="30"
+                            rows="8"
+                            placeholder="Write your message here..."
+                            className="form-control my-4 ">
 
                         </textarea>
-                        <br />
 
-                        <button className="btn submit-btn">
+<div className="text-end submit-btn">
+
+                        <button className="btn btn-danger">
                             submit
                         </button>
+</div>
                     </form>
                 </div>
             </div>

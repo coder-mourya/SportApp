@@ -1,0 +1,89 @@
+
+.loveInfo h1{
+    font-size: 50px;
+    font-weight: 800;
+    
+}
+
+.loveInfo p{
+    margin-top: 30px;
+    color: black;
+    
+}
+
+.round-button {
+    width: 50px; /* Adjust width as needed */
+    height:50px; /* Adjust height as needed */
+    border-radius: 50%; /* Make it round */
+    line-height: 40px; /* Vertically center content */
+   
+    padding:  0;
+    background-color: #FBEBEB;
+  }
+
+  .round-button img{
+    width: 10px;
+  }
+  
+  .round-button:hover {
+    background-color: #ddd; /* Change background color on hover */
+  }
+  
+  .round-button:focus {
+    outline: none; /* Remove default focus outline */
+  }
+
+
+  
+
+  
+
+ .cardsAnimat  .cards img {
+    width: 3rem;
+  }
+
+  
+ 
+  .cardsAnimat .cards {
+    
+    background-color: #f4f5f9;
+    height: 80%; 
+    
+  }
+  
+
+  .cards-container{
+    
+    display: flex;
+    flex-direction: row-reverse; 
+    overflow-x: hidden;
+  }
+
+  .cardsAnimat{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .col-2 {
+    flex: 0 0 auto; /* Ensure columns don't grow or shrink */
+    margin-right: 10px; /* Adjust margin between cards */
+}
+
+
+
+.cardsAnimat .cards{
+  animation: moveCards 15s linear infinite;
+
+}
+  
+  @keyframes moveCards {
+    from {
+        transform: translateX(100%); /* Start from the right side */
+    }
+    to {
+        transform: translateX(-100%); /* Move to the left side */
+    }
+}
+
+
+  

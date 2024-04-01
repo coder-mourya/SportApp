@@ -29,7 +29,7 @@ import img11 from "./screenShots/img11.png";
 
 const AppScreenShots = () => {
 
-  const images = [home , img1 ,  img2, img3, img4, img5, img6, img7, img8, img9, img10, img11]
+  const images = [home, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11]
   const duplicates = [...images, ...images.slice(0, 5)];
 
   return (
@@ -50,6 +50,7 @@ const AppScreenShots = () => {
 
         <Swiper
           effect={'coverflow'}
+
           grabCursor={true}
           loop={true}
           spaceBetween={150}
@@ -57,7 +58,7 @@ const AppScreenShots = () => {
 
 
           autoplay={{
-            delay: 100000,
+            delay: 5000,
             disableOnInteraction: false
           }}
           coverflowEffect={{
@@ -72,12 +73,16 @@ const AppScreenShots = () => {
 
         >
           {duplicates.map((image, index) => (
-          <SwiperSlide key={index}>
-            <img src={image} alt={`Slide ${index}`} />
-          </SwiperSlide>
-        ))}
 
-       
+
+            <SwiperSlide key={index} className={index === Math.floor(duplicates.length / 2) ? 'center-slide' : ''}>
+              <img src={image} alt={`Slide ${index}`} />
+            </SwiperSlide>
+
+
+          ))}
+
+
 
 
         </Swiper>

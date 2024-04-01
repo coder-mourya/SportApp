@@ -15,6 +15,8 @@ import FAQ from "../components/FAQ";
 import Awesome from "../components/Awesome";
 import Feedback from "../components/Feedback";
 import Contact from "../components/Contact";
+import Love from "../components/CMLove";
+import AppScreenShots from "../components/AppScreenShots"
 
 
 
@@ -38,16 +40,16 @@ const Home = () => {
                 <h1 className="mt-5 Home-heading text-animation1"><b>Empowering Athletes, Uniting</b> <strong>Champions</strong></h1>
 
 
-                <div className="container d-flex justify-content-center">
+                <div className="container-fluid d-flex justify-content-center row">
 
-                    <div>
+                    <div className="col-md-2 ">
 
-                        <img src={sidePick} alt="sidepick" className="side-icons animation1 " />
+                        <img src={sidePick} alt="sidepick" className="side-icons animation1" />
                     </div>
 
 
 
-                    <div className="mt-3">
+                    <div className="mt-3 col-md-8">
 
                         <p className="mt-2  custm-pera text-center my-4 text-animation2">Unleash your potential, celebrate victories, and connect with a community that shares your sporting passion on SportsNerve. Your journey to excellence starts here</p>
 
@@ -61,7 +63,7 @@ const Home = () => {
 
                     </div>
 
-                    <div>
+                    <div className="col-md-2">
 
                         <img src={RightSideImg} alt="right-sidePick" className="side-icons animation2" />
                     </div>
@@ -95,6 +97,15 @@ const Home = () => {
 
             <section>
                 <Awesome />
+            </section>
+
+            <section>
+
+                <AppScreenShots />
+            </section>
+
+            <section>
+                <Love />
             </section>
 
 

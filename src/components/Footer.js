@@ -22,7 +22,7 @@ const Footer = () => {
                             <li id="logo"><img src={logo} alt="footer logo" /><b>Sportsnerve</b></li>
                             <li><img src={Home} alt="home" /><span> 11-03 PLQ 1, Paya Lebar Quarter 
                                 </span>
-                                <p className="cutm-address ml-5">Singapore 408533</p>
+                                <p className="cutm-address">Singapore 408533</p>
                                 </li>
                             <li><img src={mail} alt="mail" /><span>info@sportsnerve.com</span></li>
                             <li><img src={phone} alt="phone" /><span>+65 7979797972</span></li>

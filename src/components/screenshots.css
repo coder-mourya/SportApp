@@ -1,5 +1,6 @@
 .screenshots{
   background-color: #283593;
+ 
 }
 .screenShots-info{
   width: 49%;
@@ -16,6 +17,8 @@
 }
 
 
+
+
 .swiper-slide img {
   width: 100%;
   
@@ -23,20 +26,20 @@
 
 .swiper-slide-active img {
   width: 100%;
+
 }
 
 
 .swiper-slide-next + .swiper-slide img {
-  opacity: 0.8;
+  opacity: 1;
+  
 }
 
 .swiper-slide-prev + .swiper-slide img {
-  opacity: 0.8;
+  opacity: 1;
 }
 
-.swiper-slide:last-child img {
-  width: 40%; /* Set the width as needed */
-}
+
 
 
 
