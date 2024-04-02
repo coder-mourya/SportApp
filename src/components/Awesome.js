@@ -21,7 +21,7 @@ const Awesome = () => {
 
             </div>
 
-            <div className="contant">
+            <div className="contant ">
                 <h1><b>More awesome</b> <strong>feature</strong></h1>
 
                 <p className="mt-4">Immerse yourself in the SportsNerve ecosystem, where flawless event coordination and personalized training empower your journey. Discover unity, pursue excellence, and embrace triumph within the realm of sports.</p>
@@ -31,9 +31,9 @@ const Awesome = () => {
 
 
 
-            <div className="">
+            <div className="container-fluid">
 
-                <div className="row d-flex justify-content-center">
+                <div className="row d-flex justify-content-center ">
 
                     <div className="team-building text-start cards col-md-4 my-2 row">
 
@@ -89,7 +89,7 @@ const Awesome = () => {
                     </div>
                 </div>
 
-                <div className="row  d-flex justify-content-center" >
+                <div className="row  d-flex justify-content-center " >
 
                     <div className="Attendance Tracking text-start cards col-md-4 my-2 row">
                         <div className="col-md-3">

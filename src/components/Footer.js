@@ -15,14 +15,15 @@ const Footer = () => {
         <div className="container-fluid footer g-0">
 
             <div className=" d-flex justify-content-center">
+                
                 <div className="row container">
 
                     <div className="col-md-4 info mt-3">
                         <ul>
-                            <li id="logo"><img src={logo} alt="footer logo" /><b>Sportsnerve</b></li>
+                            <li id="logo"><img src={logo} alt="footer logo" /><span>Sportsnerve</span></li>
                             <li><img src={Home} alt="home" /><span> 11-03 PLQ 1, Paya Lebar Quarter 
                                 </span>
-                                <p className="cutm-address">Singapore 408533</p>
+                                 <p className="cutm-address">Singapore 408533</p>
                                 </li>
                             <li><img src={mail} alt="mail" /><span>info@sportsnerve.com</span></li>
                             <li><img src={phone} alt="phone" /><span>+65 7979797972</span></li>
@@ -38,7 +39,7 @@ const Footer = () => {
 
                         <div className="importantLinks ">
                             <ul>
-                                <li><h6>Important Links</h6></li>
+                                <li><h5>Important Links</h5></li>
                                 <li><Link to={"/About"}>About us</Link></li>
                                 <li><Link to={"/Features"}> Features</Link></li>
                                 <li><Link to={"/FAQ"}>FAQ's</Link></li>
@@ -48,7 +49,7 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-4 ">
+                    <div className="col-md-4 subscribe ">
 
                         <div className="box container  mr-5 mt-5 text-white">
 
@@ -90,10 +91,10 @@ const Footer = () => {
 
                 <div className="col-md-6 d-flex justify-content-end list-items">
                     <ul >
-                        <li><i class="fa-brands fa-facebook"></i></li>
-                        <li><i class="fa-brands fa-twitter"></i></li>
-                        <li><i class="fa-brands fa-instagram"></i></li>
-                        <li><i class="fa-brands fa-linkedin"></i></li>
+                        <li><i className="fa-brands me-1 fa-facebook"></i></li>
+                        <li><i className="fa-brands me-1 fa-twitter"></i></li>
+                        <li><i className="fa-brands me-1 fa-instagram"></i></li>
+                        <li><i className="fa-brands me-1 fa-linkedin"></i></li>
                     </ul>
                 </div>
             </div>

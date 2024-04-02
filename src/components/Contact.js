@@ -87,12 +87,12 @@ const Contact = () => {
 
                         </textarea>
 
-<div className="text-end submit-btn">
+                        <div className="text-end submit-btn">
 
-                        <button className="btn btn-danger">
-                            submit
-                        </button>
-</div>
+                            <button className="btn btn-danger">
+                                submit
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

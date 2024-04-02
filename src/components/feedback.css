@@ -1,6 +1,10 @@
-.feedback{
-    background-color: #f4ceceeb;
+.feedback {
+    background-color: #f4ceceeb; /* Set background color */
+    background-image: url("./feedbackIcons/Group 25.png"); /* Set background image */
+    background-size: 30%;
+    background-position: center; /* Center the background image */
 }
+
 
 .download-app{
     width: 80%;

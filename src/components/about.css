@@ -1,0 +1,28 @@
+.about {
+    background-color: #283593;
+    padding: 3rem 0;
+}
+
+.about h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.director-info  {
+    font-size: 2.75rem;
+    font-weight: 800;
+}
+
+.info-profession {
+    font-size: 1.75rem;
+}
+
+.info-para {
+    font-size: 1.25rem;
+}
+
+.director-pick img {
+    max-width: 100%;
+    height: auto;
+}
