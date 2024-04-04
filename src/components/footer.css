@@ -133,6 +133,8 @@
 
   .list-items ul li i{
     font-size: 1.5rem;
+    color: #0a2640;
+    cursor: pointer;
   }
 
 

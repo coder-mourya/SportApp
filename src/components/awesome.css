@@ -17,21 +17,20 @@
 }
 
 .video{
-    min-width: 100%;
-    min-height: 100%;
+   width: 100%;
     
     opacity: 0.5;
 }
 
 .contant {
     position: relative;
-    z-index: 1; /* Ensure content stays above the video */
+    z-index: 1;
     text-align: center;  
-    padding: 70px;
+    
 }
 
 .contant p{
-    padding: 0  10rem;
+    width: 80%;
     font-size: 20px;
 }
 
@@ -46,7 +45,7 @@
     background-color: #ffffff;
     border-radius: 10px;
     width: 27rem;
-    height: 10rem;
+    height: 10.5rem;
     margin: 1rem  1rem !important;
     padding: 2rem;
 }

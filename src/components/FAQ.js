@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./FAQ.css"; // Import custom CSS for styling
+import "./Allfonts.css";
 
 const FAQ = () => {
   // State to keep track of active accordion item
@@ -14,10 +15,10 @@ const FAQ = () => {
     <div className="container">
 
       <div className="container text-center mt-5 FQA">
-        <h1 >
+        <h1 className="allFonts">
           <b>Frequently asked</b> <strong>questions</strong>
         </h1>
-        <p>Sed ut perspiciatis unde omins iste natus error sit voluptatem accusatium doloremque.</p>
+        <p className="allFonts-p">Sed ut perspiciatis unde omins iste natus error sit voluptatem accusatium doloremque.</p>
       </div>
 
       <div className="container mt-5 d-flex justify-content-center">

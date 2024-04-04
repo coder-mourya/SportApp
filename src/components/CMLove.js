@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./love.css";
+import "./Allfonts.css";
+
 import left from "./img/left-arow.png"
 import right from "./img/right-arow.png"
 import user1 from "./img/user1.png";
@@ -33,11 +35,11 @@ const Love = () => {
 
                     <div className="col-md-9 loveInfo text-start">
 
-                        <h1>
+                        <h1 className="allFonts">
                             15k+ <strong> Customers Love</strong>
                         </h1>
 
-                        <p>
+                        <p className="allFonts-p">
                             Stay up-to-date with the latest matches, tournaments, and competitions across a multitude of sports. From international
                             championships to local leagues, our app ensures you never miss a moment of the action.
                         </p>

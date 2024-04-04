@@ -6,20 +6,20 @@
 .about h1 {
     font-size: 3rem;
     font-weight: 800;
-    margin-bottom: 0;
+    
 }
 
 .director-info  {
-    font-size: 2.75rem;
+    font-size: 4rem;
     font-weight: 800;
 }
 
 .info-profession {
-    font-size: 1.75rem;
+    font-size: 1.9375rem;
 }
 
 .info-para {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
 }
 
 .director-pick img {

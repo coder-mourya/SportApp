@@ -1,8 +1,51 @@
+.sizeChart {
+    background-color: #283593;
+    padding: 3rem 0;
+    
+}
+.sizeChart h1{
+    font-size: 3rem;
+    font-weight: 800;
+   
+}
 .pick1 img{
     width: 50%;
-    padding: 2rem;
+    margin: 1rem 0 0 2rem;
 }
 
+
+
+
 .charts{
-    border-radius: 3px ;
+    border-collapse: collapse;
+    margin: 20px 0;
+    width: 90%;
+    border-radius: 10px ;
+    overflow: hidden;
+    box-shadow: 0 0 28px rgba(0, 0, 0, 0.10);
 }
+
+.charts thead tr{
+    background-color: #E6E7E9;
+
+}
+
+.charts th,
+.charts td{
+    padding: 15px 17px;
+}
+
+.charts tbody tr{
+    border-bottom:1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+
+}
+
+
+
+
+
+
+
+

@@ -3,18 +3,18 @@
  
 }
 .screenShots-info{
-  width: 49%;
+  width: 100%;
 }
 .screenShots-info p{
   font-size: 12px;
   
 }
 
+
+
+
 /* Slider.css */
-.swiper-container {
-  width: 100%;
-  margin: 0 auto;
-}
+
 
 
 
@@ -31,13 +31,14 @@
 
 
 .swiper-slide-next + .swiper-slide img {
-  opacity: 1;
+  opacity: 0.5;
   
 }
 
 .swiper-slide-prev + .swiper-slide img {
-  opacity: 1;
+  opacity: 0.5;
 }
+
 
 
 

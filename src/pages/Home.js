@@ -1,5 +1,7 @@
 import React from "react";
 import "./style.css";
+import "../components/Allfonts.css";
+
 import "./animation.css";
 import sidePick from "./img/sidepick.png";
 import RightSideImg from "./img/right-side.png";
@@ -34,10 +36,10 @@ const Home = () => {
 
         <div className="container-fluid g-0 text-center  ">
 
-            <section className="Player-picks container  mb-5">
+            <section className="Player-picks   mb-5">
 
 
-                <h1 className="mt-5 Home-heading text-animation1"><b>Empowering Athletes, Uniting</b> <strong>Champions</strong></h1>
+                <h1 className="mt-5 Home-heading text-animation1 allFonts"><b>Empowering Athletes, Uniting</b> <strong>Champions</strong></h1>
 
 
                 <div className="container-fluid d-flex justify-content-center row">
@@ -51,7 +53,7 @@ const Home = () => {
 
                     <div className="mt-3 col-md-8">
 
-                        <p className="mt-2  custm-pera text-center my-4 text-animation2">Unleash your potential, celebrate victories, and connect with a community that shares your sporting passion on SportsNerve. Your journey to excellence starts here</p>
+                        <p className="mt-2  custm-pera text-center my-4 text-animation2 allFonts-p">Unleash your potential, celebrate victories, and connect with a community that shares your sporting passion on SportsNerve. Your journey to excellence starts here</p>
 
                         <div className="applinkMargin">
 

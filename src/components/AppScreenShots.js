@@ -1,8 +1,8 @@
 // AppScreenShots.js
 import React from 'react';
-
+import "./Allfonts.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import "./screenshots.css"
+import "./Appscreenshots.css"
 // Import Swiper styles
 import 'swiper/css';
 import "swiper/css/effect-coverflow";
@@ -38,8 +38,9 @@ const AppScreenShots = () => {
 
 
       <div className='screenShots-info text-white container my-5'>
-        <h1><b>Our App </b><strong>Screenshots</strong></h1>
-        <p>Stay up-to-date with the latest matches, tournaments, and competitions across a multitude of sports. From international
+        <h1 className='allFonts'><b>Our App </b><strong>Screenshots</strong></h1>
+
+        <p className='allFonts-p mt-4'>Stay up-to-date with the latest matches, tournaments, and competitions across a multitude of sports. From international
           championships to local leagues, our app ensures you never miss a moment of the action.</p>
       </div>
 
@@ -63,7 +64,7 @@ const AppScreenShots = () => {
           }}
           coverflowEffect={{
             rotate: 0,
-            stretch: 1,
+            stretch: 0,
             depth: 100,
             modifier: 3,
           }}

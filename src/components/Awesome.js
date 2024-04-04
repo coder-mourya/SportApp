@@ -1,5 +1,7 @@
 import React from "react";
-import "./awesome.css"
+import "./awesome.css";
+import "./Allfonts.css";
+
 import Video from "./img/video.mp4"
 import Team from "./img/team.png"
 import Player from "./img/player.png";
@@ -21,10 +23,19 @@ const Awesome = () => {
 
             </div>
 
-            <div className="contant ">
-                <h1><b>More awesome</b> <strong>feature</strong></h1>
 
-                <p className="mt-4">Immerse yourself in the SportsNerve ecosystem, where flawless event coordination and personalized training empower your journey. Discover unity, pursue excellence, and embrace triumph within the realm of sports.</p>
+
+
+
+            <div className="contant container mt-5 ">
+                <div>
+                    <h1 className="allFonts"><b>More awesome</b> <strong>feature</strong></h1>
+
+                </div>
+                <div className=" d-flex justify-content-center">
+
+                    <p className="mt-4 allFonts-p">Immerse yourself in the SportsNerve ecosystem, where flawless event coordination and personalized training empower your journey. Discover unity, pursue excellence, and embrace triumph within the realm of sports.</p>
+                </div>
             </div>
 
 
@@ -142,6 +153,7 @@ const Awesome = () => {
                 </div>
             </div>
         </div>
+
     )
 }
 
