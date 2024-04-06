@@ -1,8 +1,8 @@
 import React from "react";
-import "./style.css";
-import "../components/Allfonts.css";
+import "../assets/Styles/home.css";
+import "../assets/Styles/Allfonts.css";
 
-import "./animation.css";
+import "../assets/Styles/animation.css";
 import sidePick from "./img/sidepick.png";
 import RightSideImg from "./img/right-side.png";
 import playStore from "./img/play store.png";
@@ -36,7 +36,7 @@ const Home = () => {
 
         <div className="container-fluid g-0 text-center  ">
 
-            <section className="Player-picks   mb-5">
+            <section className="Player-picks  container-fluid  mb-5">
 
 
                 <h1 className="mt-5 Home-heading text-animation1 allFonts"><b>Empowering Athletes, Uniting</b> <strong>Champions</strong></h1>
@@ -47,6 +47,7 @@ const Home = () => {
                     <div className="col-md-2 ">
 
                         <img src={sidePick} alt="sidepick" className="side-icons animation1" />
+
                     </div>
 
 
@@ -75,19 +76,32 @@ const Home = () => {
 
 
 
-                <div className="player-list">
+              {  <div className="container g-0 ">
+                   
+                        
+                            <div className="row align-items-center">
+                                <div className="col">
+                                    <img src={Player1} alt="player 1" className="player-padding leftPlay  player1 img-fluid" />
+                                </div>
+                                <div className="col">
+                                    <img src={Player2} alt="player 2" className="player2 " />
+                                </div>
+                                <div className="col">
+                                    <img src={Ball} alt="ball"  className="ball img-fluid" />
+                                </div>
+                                <div className="col">
+                                    <img src={Player3} alt="player 3" className="player3 " />
+                                </div>
+                                <div className="col">
+                                    <img src={Player4} alt="Player 4" className="player-padding rightPlay player4 img-fluid" />
+                                </div>
+                            </div>
+                        
+                    
+    </div>}
 
-                    <ul>
-                        <li><img src={Player1} alt="player 1 " className="player-padding player1" /></li>
-                        <li><img src={Player2} alt="player 2" className="player2" /></li>
 
-                        <li><img src={Ball} alt="ball" className="ball" /></li>
 
-                        <li><img src={Player3} alt="player 3" className="player3" /></li>
-                        <li><img src={Player4} alt="Player 4" className=" player-padding player4" /></li>
-
-                    </ul>
-                </div>
             </section>
 
 

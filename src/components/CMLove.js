@@ -1,27 +1,54 @@
-import React, { useState } from "react";
-import "./love.css";
-import "./Allfonts.css";
+import React from "react";
+import { useRef } from "react";
+import "../assets/Styles/Cmlove.css";
+import "../assets/Styles/Allfonts.css";
 
-import left from "./img/left-arow.png"
-import right from "./img/right-arow.png"
-import user1 from "./img/user1.png";
-import userIcon from "./img/usericon.png";
-import user2 from "./img/user2.png";
-import user3 from "./img/user3.png";
+
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+
+import left from  "../assets/img/left-arow.png"
+import right from "../assets/img/right-arow.png"
+import user1 from "../assets/img/user1.png";
+import userIcon from"../assets/img/usericon.png";
+import user2 from "../assets/img/user2.png";
+import user3 from "../assets/img/user3.png";
 
 
 const Love = () => {
 
-    const [position , setPosition]  = useState(0);
-    const totalCards = 5;
+    const owlCarouselRef = useRef(null);
+    const breakpoints = {
 
-    const handleLeft = () =>{
-        setPosition((prevPosition) => Math.max(0, prevPosition - 1));
+        0: {
+            items: 1 // On small screens (phones), show 1 item
+          },
+         
+          600: {
+            items: 2 // On laptops, show 3 items
+          },
+          1200: {
+            items: 3 // On larger screens, show 4 items
+          }
+
+       
+
     }
 
-    const handRight = () =>{
-        setPosition((prevPosition) =>  Math.min(totalCards - 1, prevPosition + 1));
-    }
+
+    const handleNextButtonClick = () => {
+        if (owlCarouselRef && owlCarouselRef.current) {
+          owlCarouselRef.current.next();
+        }
+      };
+    
+      const handlePrevButtonClick = () => {
+        if (owlCarouselRef && owlCarouselRef.current) {
+          owlCarouselRef.current.prev();
+        }
+      };
+
 
 
     return (
@@ -47,8 +74,8 @@ const Love = () => {
 
                     <div className="col-md-3 text-end ">
 
-                        <button className="btn round-button mx-2" onClick={handleLeft}><img src={left} alt="left" /></button>
-                        <button className="btn round-button mx-2" onClick={handRight}><img src={right} alt="right" /></button>
+                        <button className="btn round-button mx-2" onClick={handleNextButtonClick}><img src={left} alt="left" /></button>
+                        <button className="btn round-button mx-2" onClick={handlePrevButtonClick} ><img src={right} alt="right" /></button>
 
                     </div>
 
@@ -56,18 +83,34 @@ const Love = () => {
             </div>
 
 
-            <div className="container-fluid  cards-container"  style={{ transform: `translateX(${position * -100}%)` }}>
+            <div className="container-fluid  cards-container" >
 
-                <div className="cardsAnimat " >
+                <div className="cardsAnimat" >
 
-                    
-                        <div className="cards  ">
+                    <OwlCarousel className='owl-theme'
+                        items={3}
+                        loop
+                        autoplay={true}
+                        autoplayTimeout={2000}
+                        smartSpeed={2000}
+                        margin={10}
+                        center={true}
+                        responsive={breakpoints}
+                        
+
+                        dots={false}
+                        ref={owlCarouselRef}
+                    >
+
+
+
+                        <div className="cards  item ">
 
                             <div className="user row">
 
                                 <div className="col-3">
 
-                                    <img src={user2} alt="user 2" />
+                                    <img src={user2} alt="user 2" className=" img-fluid" />
                                 </div>
 
                                 <div className="col-6 text-start">
@@ -78,7 +121,7 @@ const Love = () => {
 
                                 <div className="col-3">
 
-                                    <img src={userIcon} alt="user icon" />
+                                    <img src={userIcon} alt="user icon" className=" img-fluid" />
                                 </div>
 
                             </div>
@@ -95,16 +138,16 @@ const Love = () => {
 
 
                         </div>
-                    
 
-                    
-                        <div className="cards">
+
+
+                        <div className="cards item">
 
                             <div className="user row">
 
                                 <div className="col-3">
 
-                                    <img src={user1} alt="user 1" />
+                                    <img src={user1} alt="user 1"  className=" img-fluid"/>
                                 </div>
 
                                 <div className="col-6 text-start">
@@ -132,15 +175,15 @@ const Love = () => {
 
 
                         </div>
-                   
 
-                        <div className="cards">
+
+                        <div className="cards item">
 
                             <div className="user row">
 
                                 <div className="col-3">
 
-                                    <img src={user3} alt="user 3" />
+                                    <img src={user3} alt="user 3"  className=" img-fluid"/>
                                 </div>
 
                                 <div className="col-6 text-start">
@@ -168,16 +211,16 @@ const Love = () => {
 
 
                         </div>
-                   
 
-                  
-                        <div className="cards">
+
+
+                        <div className="cards item">
 
                             <div className="user row">
 
                                 <div className="col-3">
 
-                                    <img src={user1} alt="user 1" />
+                                    <img src={user1} alt="user 1"  className=" img-fluid"/>
                                 </div>
 
                                 <div className="col-6 text-start">
@@ -205,16 +248,16 @@ const Love = () => {
 
 
                         </div>
-                   
 
-                   
-                        <div className="cards">
+
+
+                        <div className="cards item">
 
                             <div className="user row">
 
                                 <div className="col-3">
 
-                                    <img src={user1} alt="user 1" />
+                                    <img src={user1} alt="user 1"  className=" img-fluid"/>
                                 </div>
 
                                 <div className="col-6 text-start">
@@ -242,7 +285,7 @@ const Love = () => {
 
 
                         </div>
-               
+                    </OwlCarousel>
                 </div>
 
 

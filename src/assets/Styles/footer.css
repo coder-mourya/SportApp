@@ -63,11 +63,15 @@
 .box{
     background-color: #26308a;
     border-radius: 15px;
-    height: 13rem;
-    padding: 3rem 1rem 1rem 2rem;
+    width: 74%;
+    height: 14rem;
+    padding: 2rem ;
+}
+.box h2{
+  font-size: 32px;
 }
 .box p{
-    font-size: 12px;
+    font-size: 20px;
 }
 
 .input-group {
@@ -76,17 +80,12 @@
   }
 
   .input-group input {
-    padding: 7px 100px 14px 7px; 
+    padding: 18px 100px 14px 7px; 
     width: 100%;
-   
-  
     border: none;
   }
 
-  .input-group input::placeholder{
-    font-size: 12px;
-  }
-
+  
   
   .input-group button {
     position: absolute;
@@ -103,6 +102,11 @@
   }
 
 
+  .footer-links{
+    margin-right: 11%;
+  }
+
+  /*bottom footer */
 
   .footer-bottom{
     background-color: #f4f5f9;
@@ -139,4 +143,25 @@
 
 
 
- 
+  @media screen and (max-width: 992px) {
+    .box h2{
+      font-size: 20px;
+    }
+    .box p{
+        font-size: 12px;
+    }
+
+    .box{
+      width: 100%;
+    }
+
+    .info ul {
+      padding-left: 0;
+    }
+
+    .info ul li img{
+      width: 8%;
+      
+  }
+}
+  

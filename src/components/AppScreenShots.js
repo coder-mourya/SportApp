@@ -1,8 +1,9 @@
 // AppScreenShots.js
 import React from 'react';
-import "./Allfonts.css";
+import "../assets/Styles/Allfonts.css";
+
 import { Swiper, SwiperSlide } from 'swiper/react';
-import "./Appscreenshots.css"
+import "../assets/Styles/Appscreenshots.css"
 // Import Swiper styles
 import 'swiper/css';
 import "swiper/css/effect-coverflow";
@@ -11,26 +12,46 @@ import { Autoplay, EffectCoverflow, A11y } from 'swiper/modules';
 
 
 
-import home from "./screenShots/Home.png";
-import img1 from "./screenShots/img1.png";
-import img2 from "./screenShots/img2.png";
-import img3 from "./screenShots/img3.png";
-import img4 from "./screenShots/img4.png";
-import img5 from "./screenShots/img5.png";
-import img6 from "./screenShots/img6.png";
-import img7 from "./screenShots/img7.png";
-import img8 from "./screenShots/img8.png";
-import img9 from "./screenShots/img9.png";
-import img10 from "./screenShots/img10.png";
-import img11 from "./screenShots/img11.png";
+import home from "../assets/screenShots/Home.png";
+import img1 from "../assets/screenShots/img1.png";
+import img2 from "../assets/screenShots/img2.png";
+import img3 from "../assets/screenShots/img3.png";
+import img4 from "../assets/screenShots/img4.png";
+import img5 from "../assets/screenShots/img5.png";
+import img6 from "../assets/screenShots/img6.png";
+import img7 from "../assets/screenShots/img7.png";
+import img8 from "../assets/screenShots/img8.png";
+import img9 from "../assets/screenShots/img9.png";
+import img10 from"../assets/screenShots/img10.png";
+import img11 from"../assets/screenShots/img11.png";
 
+
+//import coverImage from "./screenShots/Device.png"
 
 
 
 const AppScreenShots = () => {
 
   const images = [home, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11]
-  const duplicates = [...images, ...images.slice(0, 5)];
+  const duplicates = [...images];
+
+
+  const breakpoints = {
+    // when window width is >= 992px (large devices), show 3 images per view
+    992: {
+      slidesPerView: 3
+    },
+    // when window width is >= 768px (medium devices) and < 992px, show 2 images per view
+    768: {
+      slidesPerView: 2
+    },
+    // when window width is < 768px (small devices), show 1 image per view
+    0: {
+      slidesPerView: 1
+    }
+  };
+
+
 
   return (
     <div className="container-fluid screenshots py-5 ">
@@ -47,46 +68,59 @@ const AppScreenShots = () => {
 
 
 
-      <div className="container swiper-container">
+      <div className='cover'>
+{/*
+        <div className=' d-flex justify-content-center align-content-center align-items-center'>
 
-        <Swiper
-          effect={'coverflow'}
-
-          grabCursor={true}
-          loop={true}
-          spaceBetween={150}
-          slidesPerView={3}
+          <img src={coverImage} alt="cover img" className='backgoundImg' />
+        </div>*/}
 
 
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false
-          }}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 100,
-            modifier: 3,
-          }}
+        <div className="container swiper-container">
 
-          modules={[Autoplay, A11y, EffectCoverflow]}
-          className="mySwiper"
+          <Swiper
+            effect={'coverflow'}
 
-        >
-          {duplicates.map((image, index) => (
-
-
-            <SwiperSlide key={index} className={index === Math.floor(duplicates.length / 2) ? 'center-slide' : ''}>
-              <img src={image} alt={`Slide ${index}`} />
-            </SwiperSlide>
-
-
-          ))}
+            grabCursor={true}
+            loop={true}
+            spaceBetween={150}
 
 
 
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false
+            }}
 
-        </Swiper>
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 3,
+            }}
+
+            modules={[Autoplay, A11y, EffectCoverflow]}
+            className="mySwiper"
+            breakpoints={breakpoints}
+
+
+          >
+            {duplicates.map((image, index) => (
+
+
+              <SwiperSlide id='centerImg' key={index} className={index === Math.floor(duplicates.length / 2) ? 'center-slide' : ''}>
+
+                <img src={image} alt={`Slide ${index}`} />
+              </SwiperSlide>
+
+
+            ))}
+
+
+
+
+          </Swiper>
+        </div>
       </div>
 
     </div>

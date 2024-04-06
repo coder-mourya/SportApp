@@ -1,19 +1,20 @@
 import React from "react";
-import "./awesome.css";
-import "./Allfonts.css";
+import "../assets/Styles/awesome.css";
+import "../assets/Styles/Allfonts.css";
 
-import Video from "./img/video.mp4"
-import Team from "./img/team.png"
-import Player from "./img/player.png";
-import Training from "./img/training.png";
-import Attendance from "./img/attendance.png";
-import Feedback from "./img/rating.png";
-import Security from "./img/security.png"
+
+import Video from "../assets/img/video.mp4"
+import Team from "../assets/img/team.png"
+import Player from "../assets/img/player.png";
+import Training from "../assets/img/training.png";
+import Attendance from "../assets/img/attendance.png";
+import Feedback from "../assets/img/rating.png";
+import Security from "../assets/img/security.png"
 
 const Awesome = () => {
     return (
 
-        <div className="Awesome-feature container-fluid">
+        <div className="Awesome-feature container-fluid ">
 
             <div className="video-background">
 
@@ -27,7 +28,7 @@ const Awesome = () => {
 
 
 
-            <div className="contant container mt-5 ">
+            <div className="contant  mt-5 ">
                 <div>
                     <h1 className="allFonts"><b>More awesome</b> <strong>feature</strong></h1>
 
@@ -42,11 +43,11 @@ const Awesome = () => {
 
 
 
-            <div className="container-fluid">
+            <div className="container-fluid ">
 
                 <div className="row d-flex justify-content-center ">
 
-                    <div className="team-building text-start cards col-md-4 my-2 row">
+                    <div className="team-building text-start cards col-md-2   my-2 row">
 
                         <div className="col-md-3">
 
@@ -62,7 +63,7 @@ const Awesome = () => {
                         </div>
                     </div>
 
-                    <div className="Player Profiles text-start cards col-md-4 my-2 row">
+                    <div className="Player Profiles text-start cards col-md-2  my-2 row">
 
                         <div className="col-md-3">
 
@@ -82,7 +83,7 @@ const Awesome = () => {
 
 
 
-                    <div className="Training Listings text-start cards col-md-4 my-2 row">
+                    <div className="Training Listings text-start cards col-md-2  my-2 row">
 
                         <div className="col-md-3">
 
@@ -98,11 +99,11 @@ const Awesome = () => {
                             </p>
                         </div>
                     </div>
-                </div>
 
-                <div className="row  d-flex justify-content-center " >
 
-                    <div className="Attendance Tracking text-start cards col-md-4 my-2 row">
+
+
+                    <div className="Attendance Tracking text-start cards col-md-2  my-2 row">
                         <div className="col-md-3">
 
                             <img src={Attendance} alt="attendance " className="card-pick" />
@@ -118,7 +119,7 @@ const Awesome = () => {
                         </div>
                     </div>
 
-                    <div className="Feedback and Ratings text-start cards col-md-4 my-2 row">
+                    <div className="Feedback and Ratings text-start cards col-md-2  my-2 row">
                         <div className="col-md-3">
 
                             <img src={Feedback} alt=" feedback" className="card-pick" />
@@ -136,7 +137,7 @@ const Awesome = () => {
                     </div>
 
 
-                    <div className="Security and Privacy text-start cards col-md-4 my-2 row">
+                    <div className="Security and Privacy text-start cards col-md-2  my-2 row">
                         <div className="col-md-3">
 
                             <img src={Security} alt="Security" className="card-pick" />
@@ -149,8 +150,8 @@ const Awesome = () => {
                                 measures.</p>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
 

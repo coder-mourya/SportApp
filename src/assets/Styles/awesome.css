@@ -1,0 +1,94 @@
+.Awesome-feature {
+    position: relative;
+    width: 100%;
+    height: 800px;
+    /* Adjust as needed */
+    overflow: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    background-color: rgba(243, 210, 240, 0.9);
+}
+
+.video {
+    width: 100%;
+
+    opacity: 0.5;
+}
+
+.contant {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+
+}
+
+.contant p {
+    width: 80%;
+    font-size: 20px;
+}
+
+.contant h1 {
+    font-weight: 800;
+}
+
+
+
+
+.cards {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 27rem;
+    height: 11rem;
+    margin: 1rem 1rem !important;
+    padding: 2rem;
+}
+
+
+
+.cards p {
+    font-size: 17px;
+
+}
+
+.card-pick {
+    width: 50px;
+}
+
+@media screen and (min-width : 1920px) {
+      .cards{
+        width: 28rem;
+        height: auto;
+      }
+}
+
+@media screen and (max-width : 1418px) {
+        .Awesome-feature{
+        width: 100%;
+        height: 100%;
+
+        }
+
+        .video{
+            display: none;
+        }
+}
+
+/* Media query for smaller devices */
+@media screen and (max-width: 992px) {
+    .cards{
+        height: 13rem;
+     
+    }
+    .card-pick {
+        width: 40px;
+        margin-bottom: 1rem;
+    }
+}

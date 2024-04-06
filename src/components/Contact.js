@@ -1,5 +1,7 @@
 import React from "react";
-import "./contact.css";
+import "../assets/Styles/contact.css";
+import "../assets/Styles/Allfonts.css";
+
 
 const Contact = () => {
     return (
@@ -8,28 +10,28 @@ const Contact = () => {
             <div className="row  ">
 
                 <div className="col-md-6  text-start contact-text">
-                    <h1><b>Reach Out & Feature <br />
+                    <h1 className="allFonts"><b>Reach Out & Feature <br />
                         Request Form !</b></h1>
 
-                    <p >We value your input within our sports ecosystem. Your insights
+                    <p className="allFonts-p">We value your input within our sports ecosystem. Your insights
                         are crucial in helping us improve and enhance your SportsNerve experience.</p>
 
                     <div className="list">
                         <ul>
                             <li>
 
-                                <h3>125+</h3>
-                                <p>Sports types</p>
+                                <h3 className="allFotns">125+</h3>
+                                <p className="allFonts-p">Sports types</p>
 
                             </li>
                             <li>
-                                <h3>100k+</h3>
-                                <p>teams</p>
+                                <h3 className="allFotns">100k+</h3>
+                                <p className="allFonts-p">teams</p>
                             </li>
 
                             <li>
-                                <h3>20+</h3>
-                                <p>Unique Features</p>
+                                <h3 className="allFotns">20+</h3>
+                                <p className="allFonts-p">Unique Features</p>
                             </li>
                         </ul>
 
@@ -90,7 +92,7 @@ const Contact = () => {
                         <div className="text-end submit-btn">
 
                             <button className="btn btn-danger">
-                                submit
+                                Submit
                             </button>
                         </div>
                     </form>

@@ -1,27 +1,28 @@
 import React from "react";
-import "./appFeacturers.css";
-import Contact from "./Contact";
-import Team from "./FeaturesImg/team.png"
-import Player from "./FeaturesImg/player.png";
-import Training from "./FeaturesImg/training.png";
-import Attendance from "./FeaturesImg/attendance.png";
-import Feedback from "./FeaturesImg/rating.png";
-import Security from "./FeaturesImg/security.png";
-import Event from "./FeaturesImg/event planning.png";
-import Mailer from "./FeaturesImg/mailer.png";
-import Expences from "./FeaturesImg/expenses.png";
-import Calander from "./FeaturesImg/calendar.png";
-import Chat from "./FeaturesImg/chat.png";
-import user from "./FeaturesImg/user.png";
-import personalized from "./FeaturesImg/personalized.png";
-import notification from "./FeaturesImg/notification.png";
-import Interactive from "./FeaturesImg/Interactive.png";
-import app from "./FeaturesImg/app.png";
-import stories from "./FeaturesImg/stories.png";
-import support from "./FeaturesImg/support.png";
-import tracking from "./FeaturesImg/tracking.png";
-import coach from "./FeaturesImg/coach.png";
-import share from "./FeaturesImg/share.png";
+import "../assets/Styles/appFeacturers.css";
+import "../assets/Styles/Allfonts.css";
+import Contact from "../components/Contact";
+import Team from "../assets/FeaturesImg/team.png"
+import Player from "../assets/FeaturesImg/player.png";
+import Training from "../assets/FeaturesImg/training.png";
+import Attendance from "../assets/FeaturesImg/attendance.png";
+import Feedback from "../assets/FeaturesImg/rating.png";
+import Security from "../assets/FeaturesImg/security.png";
+import Event from "../assets/FeaturesImg/event planning.png";
+import Mailer from "../assets/FeaturesImg/mailer.png";
+import Expences from "../assets/FeaturesImg/expenses.png";
+import Calander from "../assets/FeaturesImg/calendar.png";
+import Chat from "../assets/FeaturesImg/chat.png";
+import user from "../assets/FeaturesImg/user.png";
+import personalized from "../assets/FeaturesImg/personalized.png";
+import notification from "../assets/FeaturesImg/notification.png";
+import Interactive from "../assets/FeaturesImg/Interactive.png";
+import app from "../assets/FeaturesImg/app.png";
+import stories from "../assets/FeaturesImg/stories.png";
+import support from "../assets/FeaturesImg/support.png";
+import tracking from "../assets/FeaturesImg/tracking.png";
+import coach from "../assets/FeaturesImg/coach.png";
+import share from "../assets/FeaturesImg/share.png";
 
 
 
@@ -31,8 +32,8 @@ const Features = () => {
 
       <div className="container-fluid g-0">
 
-         <div className="features-Head d-flex justify-content-center align-items-center about text-white">
-            <h1>App Features</h1>
+         <div className="features-Head d-flex justify-content-center align-items-center about text-white backIcon">
+            <h1 className="allFonts">App Features</h1>
          </div>
 
 
@@ -42,7 +43,7 @@ const Features = () => {
 
                <div className="row d-flex justify-content-center Feactures-border ">
 
-                  <div className="team-building text-start cards col-md-4 my-2 row">
+                  <div className="team-building text-start cards col-md-2 my-2 row">
 
                      <div className="col-md-3">
 
@@ -58,7 +59,7 @@ const Features = () => {
                      </div>
                   </div>
 
-                  <div className="Player Profiles text-start cards col-md-4 my-2 row">
+                  <div className="Player Profiles text-start cards col-md-2 my-2 row">
 
                      <div className="col-md-3">
 
@@ -78,7 +79,7 @@ const Features = () => {
 
 
 
-                  <div className="Training Listings text-start cards col-md-4 my-2 row">
+                  <div className="Training Listings text-start cards col-md-2 my-2 row">
 
                      <div className="col-md-3">
 
@@ -94,11 +95,11 @@ const Features = () => {
                         </p>
                      </div>
                   </div>
-               </div>
 
-               <div className="row  d-flex justify-content-center Feactures-border" >
 
-                  <div className="Attendance Tracking text-start cards col-md-4 my-2 row">
+
+
+                  <div className="Attendance Tracking text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Attendance} alt="attendance " className="card-pick" />
@@ -114,7 +115,7 @@ const Features = () => {
                      </div>
                   </div>
 
-                  <div className="Feedback and Ratings text-start cards col-md-4 my-2 row">
+                  <div className="Feedback and Ratings text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Feedback} alt=" feedback" className="card-pick" />
@@ -132,7 +133,7 @@ const Features = () => {
                   </div>
 
 
-                  <div className="Security and Privacy text-start cards col-md-4 my-2 row">
+                  <div className="Security and Privacy text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Security} alt="Security" className="card-pick" />
@@ -150,7 +151,7 @@ const Features = () => {
 
                <div className="row  d-flex justify-content-center Feactures-border" >
 
-                  <div className="Attendance Tracking text-start cards col-md-4 my-2 row">
+                  <div className="Attendance Tracking text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Event} alt="event " className="card-pick" />
@@ -167,7 +168,7 @@ const Features = () => {
                      </div>
                   </div>
 
-                  <div className="Feedback and Ratings text-start cards col-md-4 my-2 row">
+                  <div className="Feedback and Ratings text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Mailer} alt=" mailer" className="card-pick" />
@@ -186,7 +187,7 @@ const Features = () => {
                   </div>
 
 
-                  <div className="Security and Privacy text-start cards col-md-4 my-2 row">
+                  <div className="Security and Privacy text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Expences} alt="expenses" className="card-pick" />
@@ -200,11 +201,11 @@ const Features = () => {
                      </div>
                   </div>
 
-               </div>
 
-               <div className="row  d-flex justify-content-center Feactures-border" >
 
-                  <div className="Attendance Tracking text-start cards col-md-4 my-2 row">
+
+
+                  <div className="Attendance Tracking text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Calander} alt="calander " className="card-pick" />
@@ -220,7 +221,7 @@ const Features = () => {
                      </div>
                   </div>
 
-                  <div className="Feedback and Ratings text-start cards col-md-4 my-2 row">
+                  <div className="Feedback and Ratings text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Chat} alt=" chat" className="card-pick" />
@@ -239,7 +240,7 @@ const Features = () => {
                   </div>
 
 
-                  <div className="Security and Privacy text-start cards col-md-4 my-2 row">
+                  <div className="Security and Privacy text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={user} alt="user" className="card-pick" />
@@ -256,7 +257,7 @@ const Features = () => {
 
                <div className="row  d-flex justify-content-center Feactures-border" >
 
-                  <div className="Attendance Tracking text-start cards col-md-4 my-2 row">
+                  <div className="Attendance Tracking text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={personalized} alt="personalized " className="card-pick" />
@@ -272,7 +273,7 @@ const Features = () => {
                      </div>
                   </div>
 
-                  <div className="Feedback and Ratings text-start cards col-md-4 my-2 row">
+                  <div className="Feedback and Ratings text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={notification} alt=" notification" className="card-pick" />
@@ -290,7 +291,7 @@ const Features = () => {
                   </div>
 
 
-                  <div className="Security and Privacy text-start cards col-md-4 my-2 row">
+                  <div className="Security and Privacy text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={Interactive} alt="interactive" className="card-pick" />
@@ -303,12 +304,12 @@ const Features = () => {
                      </div>
                   </div>
 
-               </div>
 
 
-               <div className="row  d-flex justify-content-center Feactures-border" >
 
-                  <div className="Attendance Tracking text-start cards col-md-4 my-2 row">
+
+
+                  <div className="Attendance Tracking text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={stories} alt="stories " className="card-pick" />
@@ -324,7 +325,7 @@ const Features = () => {
                      </div>
                   </div>
 
-                  <div className="Feedback and Ratings text-start cards col-md-4 my-2 row">
+                  <div className="Feedback and Ratings text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={app} alt=" app" className="card-pick" />
@@ -341,7 +342,7 @@ const Features = () => {
                   </div>
 
 
-                  <div className="Security and Privacy text-start cards col-md-4 my-2 row">
+                  <div className="Security and Privacy text-start cards col-md-2 my-2 row">
                      <div className="col-md-3">
 
                         <img src={support} alt="support" className="card-pick" />

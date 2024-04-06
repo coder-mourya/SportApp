@@ -1,12 +1,13 @@
 import React from "react";
-import "../pages/style.css"
-import "./services.css"
-import "./Allfonts.css";
+import "../assets/Styles/home.css"
+import "../assets/Styles/services.css"
+import "../assets/Styles/Allfonts.css";
 
-import TeamIcon from "./img/creat team.png";
-import Event from "./img/creat event.png";
-import Coaching from "./img/coaching.png";
-import Booking from "./img/booking.png";
+
+import TeamIcon from "../assets/img/creat team.png";
+import Event from    "../assets/img/creat event.png";
+import Coaching from "../assets/img/coaching.png";
+import Booking from  "../assets/img/booking.png";
 import {Link }from "react-router-dom"
 
 const services = () => {
@@ -22,7 +23,7 @@ const services = () => {
 
             <div className="d-flex justify-content-center container">
 
-                <p className="services allFonts-p">We have a mobile application which will be a sports acu system. Where users can build their  teams decide whoare the admins of the team. Then have a profile of every individual player where every player explaine about their background in specific sports, expertise and provide expectatione from team.</p>
+                <p className="services allFonts-p mt-4">We have a mobile application which will be a sports acu system. Where users can build their  teams decide whoare the admins of the team. Then have a profile of every individual player where every player explaine about their background in specific sports, expertise and provide expectatione from team.</p>
 
             </div>
 

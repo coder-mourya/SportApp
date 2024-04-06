@@ -1,12 +1,12 @@
 import React from "react";
-import "./sizeChart.css"
-import pick1 from "./img/size-pick1.png"
-import pick2 from "./img/pick2.png";
-import pick3 from "./img/pick3.png";
-import pick4 from "./img/pick4.png";
-import pick5 from "./img/pick5.png";
-import pick6 from "./img/pick6.png";
-import Contact from "./Contact";
+import "../assets/Styles/sizeChart.css"
+import pick1 from "../assets/img/size-pick1.png"
+import pick2 from "../assets/img/pick2.png";
+import pick3 from "../assets/img/pick3.png";
+import pick4 from "../assets/img/pick4.png";
+import pick5 from "../assets/img/pick5.png";
+import pick6 from "../assets/img/pick6.png";
+import Contact from "../components/Contact";
 
 
 
@@ -15,7 +15,7 @@ const Chart = () => {
 
         <div className="container-fluid g-0">
 
-            <div className="sizeChart d-flex justify-content-center align-items-center text-white">
+            <div className="sizeChart d-flex justify-content-center align-items-center text-white backIcon">
                 <h1>Size chart</h1>
             </div>
 

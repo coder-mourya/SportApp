@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "./FAQ.css"; // Import custom CSS for styling
-import "./Allfonts.css";
+import "../assets/Styles/FAQ.css"; // Import custom CSS for styling
+import "../assets/Styles/Allfonts.css";
+
 
 const FAQ = () => {
   // State to keep track of active accordion item
@@ -35,7 +36,7 @@ const FAQ = () => {
           </div>
 
           <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleAccordion(2)}>
+            <button className="accordion-header cust-border" onClick={() => toggleAccordion(2)}>
               How can I join a team on sportsnerve?
               {activeItem === 2 ? <i className="fa-solid fa-minus accordion-icon"></i> : <i className="fa-solid fa-plus accordion-icon"></i>}
             </button>
@@ -46,7 +47,7 @@ const FAQ = () => {
           </div>
 
           <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleAccordion(3)}>
+            <button className="accordion-header cust-border" onClick={() => toggleAccordion(3)}>
             How shall I invite my team members to join team ?
               {activeItem === 3 ?  <i className="fa-solid fa-minus accordion-icon"></i> : <i className="fa-solid fa-plus accordion-icon"></i>}
             </button>
@@ -58,7 +59,7 @@ const FAQ = () => {
 
 
           <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleAccordion(4)}>
+            <button className="accordion-header cust-border" onClick={() => toggleAccordion(4)}>
             How can I download details of my team ?
               {activeItem === 4 ?  <i className="fa-solid fa-minus accordion-icon"></i> : <i className="fa-solid fa-plus accordion-icon"></i>}
             </button>
@@ -70,7 +71,7 @@ const FAQ = () => {
 
 
           <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleAccordion(5)}>
+            <button className="accordion-header cust-border" onClick={() => toggleAccordion(5)}>
             How many admins I will have in application ?
               {activeItem === 5 ?  <i className="fa-solid fa-minus accordion-icon"></i> : <i className="fa-solid fa-plus accordion-icon"></i>}
             </button>
@@ -82,7 +83,7 @@ const FAQ = () => {
 
 
           <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleAccordion(6)}>
+            <button className="accordion-header cust-border" onClick={() => toggleAccordion(6)}>
             What are the recommendations for Team profile & cover image?
               {activeItem === 6 ?  <i className="fa-solid fa-minus accordion-icon"></i> : <i className="fa-solid fa-plus accordion-icon"></i>}
             </button>

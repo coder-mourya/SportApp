@@ -35,11 +35,8 @@
 
 
   
-
-  
-
- .cardsAnimat  .cards img {
-    width: 3rem;
+  .userAbout{
+    margin-top: 1rem;
   }
 
   
@@ -52,38 +49,40 @@
   }
   
 
-  .cards-container{
+  /*.cards-container{
     
     display: flex;
     flex-direction: row-reverse; 
     overflow-x: hidden;
-  }
+  }*/
 
-  .cardsAnimat{
+  /*.cardsAnimat{
     display: flex;
     flex-direction: row;
-  }
+  
+  }*/
 
-  .col-2 {
-    flex: 0 0 auto; /* Ensure columns don't grow or shrink */
-    margin-right: 10px; /* Adjust margin between cards */
-}
+ /* .col-2 {
+    flex: 0 0 auto; 
+    margin-right: 10px; 
+}*/
 
 
 
-.cardsAnimat .cards{
+/*.cardsAnimat .cards{
   animation: moveCards 15s linear infinite;
 
 }
   
   @keyframes moveCards {
     from {
-        transform: translateX(100%); /* Start from the right side */
+        transform: translateX(100%); 
     }
     to {
-        transform: translateX(-100%); /* Move to the left side */
+        transform: translateX(-100%); 
     }
-}
+} */
+
 
 
   

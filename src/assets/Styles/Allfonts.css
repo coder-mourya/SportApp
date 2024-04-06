@@ -1,0 +1,38 @@
+.allFonts{
+    font-size: 3vw !important;
+}
+
+.allFonts-p{
+    font-size: 1.30vw !important;
+}
+
+@media screen and (min-width: 1920px) {
+    /* Your styles for Full HD screens go here */
+    /* For example: */
+    .allFonts{
+        font-size: 64px !important;
+    }
+
+    .allFonts-p{
+        font-size: 20px !important;
+    }
+  }
+
+  /* back iocn for about , app features, size chart */
+
+  .backIcon{    
+    background: url('../feedbackIcons/feebackIcon.png');
+  }
+  
+
+/* Media query for smaller devices */
+@media screen and (max-width: 992px) {
+    .allFonts {
+        font-size: 2rem !important;
+    }
+
+    .allFonts-p {
+        font-size: 1rem !important;
+    }
+}
+  

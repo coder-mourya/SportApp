@@ -1,6 +1,6 @@
 .feedback {
     background-color: #f4ceceeb; /* Set background color */
-    background-image: url("./feedbackIcons/feebackIcon.png") ; /* Set background image */
+    background-image: url("../feedbackIcons/feebackIcon.png") ; /* Set background image */
     background-size: 100%;
     background-position: center; /* Center the background image */
 }
@@ -11,8 +11,7 @@
 }
 
 .feedback-link{
-    margin-top: 7rem;
-    margin-left: 6rem;
+   padding: 2rem;
 }
 
 .feedback-link h1{

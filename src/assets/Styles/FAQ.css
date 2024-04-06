@@ -18,6 +18,7 @@
 .accordion-header {
     background-color: transparent;
     border: none;
+    
     padding: 17px 15px ;
     cursor: pointer;
     width: 100%;
@@ -27,10 +28,16 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 8px ; /* Adjusted border-radius */
-    border-top: 1px solid #ccc;
+    
     font-weight: bold;
     
   }
+
+  .cust-border{
+    border-top: 1px solid #ccc;
+  }
+
+  
 
   
   
@@ -53,18 +60,22 @@
     margin-left: 8px;
     color: #d32f2f;
     opacity: 0.7;
+
   }
-
- 
-
-  
 
  
   
   /* Add space between accordion items */
   .accordion-item {
     margin-bottom: 1.5rem;
-    border-radius: 8px; /* Ensure accordion item has consistent border radius */
+    border-radius: 8px; /* Ensure accordion item has consistent border radius */    
     
   }
+  
+
+  @media screen and (max-width: 992px) {
+    .accordion{
+      width: 100%;
+  }
+}
   
