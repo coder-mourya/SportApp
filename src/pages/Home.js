@@ -44,7 +44,7 @@ const Home = () => {
 
                 <div className="container-fluid d-flex justify-content-center row">
 
-                    <div className="col-md-2 ">
+                    <div className="col-md-2  ">
 
                         <img src={sidePick} alt="sidepick" className="side-icons animation1" />
 
@@ -68,7 +68,7 @@ const Home = () => {
 
                     <div className="col-md-2">
 
-                        <img src={RightSideImg} alt="right-sidePick" className="side-icons animation2" />
+                        <img src={RightSideImg} alt="right-sidePick" className="side-icons icon-right animation2" />
                     </div>
 
                 </div>
@@ -76,29 +76,29 @@ const Home = () => {
 
 
 
-              {  <div className="container g-0 ">
-                   
-                        
-                            <div className="row align-items-center">
-                                <div className="col">
-                                    <img src={Player1} alt="player 1" className="player-padding leftPlay  player1 img-fluid" />
-                                </div>
-                                <div className="col">
-                                    <img src={Player2} alt="player 2" className="player2 " />
-                                </div>
-                                <div className="col">
-                                    <img src={Ball} alt="ball"  className="ball img-fluid" />
-                                </div>
-                                <div className="col">
-                                    <img src={Player3} alt="player 3" className="player3 " />
-                                </div>
-                                <div className="col">
-                                    <img src={Player4} alt="Player 4" className="player-padding rightPlay player4 img-fluid" />
-                                </div>
-                            </div>
-                        
-                    
-    </div>}
+                <div className="container g-0  player-list">
+
+                    <ul className="row align-items-center list-unstyled">
+                        <li className="col">
+                            <img src={Player1} alt="player 1" className="player-padding leftPlay player1 img-fluid" />
+                        </li>
+                        <li className="col">
+                            <img src={Player2} alt="player 2" className="player2 " />
+                        </li>
+                        <li className="col">
+                            <img src={Ball} alt="ball" className="ball img-fluid" />
+                        </li>
+                        <li className="col">
+                            <img src={Player3} alt="player 3" className="player3 " />
+                        </li>
+                        <li className="col">
+                            <img src={Player4} alt="Player 4" className="player-padding rightPlay player4 img-fluid" />
+                        </li>
+                    </ul>
+
+
+
+                </div>
 
 
 

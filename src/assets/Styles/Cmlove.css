@@ -47,6 +47,24 @@
     height: 80%; 
     
   }
+
+  .chCards  {
+    width: 27rem;
+    height: 11rem;
+    margin: 1rem 1rem !important;
+    padding: 2rem;
+  }
+
+  /* Media query for smaller devices */
+@media screen and (max-width: 992px) {
+  .chCards  {
+    width: 22rem;
+  
+    margin: 1rem 1rem !important;
+    padding: 2rem;
+  }
+
+}
   
 
   /*.cards-container{

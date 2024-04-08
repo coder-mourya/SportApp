@@ -55,10 +55,13 @@ line-height: normal;
     margin-top: 0;
 }
 
+.icon-right{
+    margin-top: 0;
+}
 
 /* player piks*/
 
-/*.player-list ul {
+.player-list ul {
     list-style-type: none;
 
 }
@@ -69,17 +72,18 @@ line-height: normal;
 }
 
 .player-list ul li img {
-    width: 15%;
+    width: 100%;
     margin: -5rem 1rem;
-}*/
+}
 
 
 .player-padding {
-    padding-bottom: 10rem !important;
+    padding-bottom: 12rem !important;
 }
 
 .ball{
     width: 80% !important;
+    margin-left: 3rem !important;
 }
 
 
@@ -90,15 +94,30 @@ line-height: normal;
     }
 
     .player2 , .player3{
-        width: 12rem  !important;
+        width:  10rem !important;
     }
 
     .side-icons{
-        margin-top: 1rem;
+         margin-top: 1rem !important;
+    }
+
+    .icon-right{
+        margin-top: 4rem !important;
     }
 
     .ball{
         display: none;
+        
+    }
+
+    .player-padding {
+        padding-bottom: 0 !important;
+    }
+
+
+    .player-list ul li img {
+       
+        margin: 0;
     }
   }
 
