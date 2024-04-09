@@ -41,6 +41,8 @@ const Love = () => {
         fetchData();
 
     }, []);
+
+    //user images 
     const userImages = [user1, user2, user3];
 
 
@@ -117,9 +119,9 @@ const Love = () => {
                         <OwlCarousel className='owl-theme'
                             items={3}
                             loop
-                            // autoplay={true}
-                            // autoplayTimeout={2000}
-                            // smartSpeed={2000}
+                            autoplay={true}
+                            autoplayTimeout={2000}
+                            smartSpeed={2000}
                             margin={10}
                             center={true}
                             responsive={breakpoints}

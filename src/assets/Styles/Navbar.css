@@ -1,6 +1,4 @@
-.offcanvas {
-  display: none;
-}
+
 
 body {
   padding-top: 6rem;
@@ -70,7 +68,7 @@ body {
     font-size: 1rem;
   }
 
-  .offcanvas {
+  .smallOffcanvas {
     display: block;
   }
 }

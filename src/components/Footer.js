@@ -1,5 +1,5 @@
 import React from "react";
-import logo from  "../assets/img/footerLogo.png";
+import logo from  "../assets/img/logo.png";
 import Home from  "../assets/img/home.png";
 import phone from "../assets/img/phone.png";
 import mail from  "../assets/img/mail.png";
@@ -19,7 +19,7 @@ const Footer = () => {
 
                 <div className="row container-fluid">
 
-                    <div className="col-md-4 info mt-3">
+                    <div className="col-md-4  info mt-3">
                         <ul>
                             <li id="logo"><img src={logo} alt="footer logo" /><span>Sportsnerve</span></li>
                             <li><img src={Home} alt="home" /><span> 11-03 PLQ 1, Paya Lebar Quarter
@@ -50,7 +50,7 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-6 subscribe ">
+                    <div className="col-md-6   subscribe ">
 
                         
                         <div  className=" ">

@@ -9,11 +9,12 @@ import FAQ from './components/FAQ';
 import Chart from './pages/SizeChart';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-
+import LoginForm from './components/AfterLogin/Login';
 
 function App() {
   return (
    <>
+   
    <Navbar/>
    
    <Routes>
@@ -24,6 +25,7 @@ function App() {
     <Route exact path='/FAQ' element ={<FAQ />} />
     <Route exact path='/Chart' element ={<Chart />} />
     <Route exact path='/Contact-us' element ={<Contact />} />
+    <Route exact path='/login'  element={<LoginForm />} />
 
    </Routes>
   <Footer />
