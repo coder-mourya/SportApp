@@ -9,7 +9,7 @@ body {
 
 .navbar {
   background-color: #ffffff !important;
-
+  z-index: 0;
 }
 
 .navbar-nav {
@@ -70,5 +70,9 @@ body {
 
   .smallOffcanvas {
     display: block;
+  }
+
+  .navbar{
+    z-index: 2;
   }
 }

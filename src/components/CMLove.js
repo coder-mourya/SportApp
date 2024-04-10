@@ -12,10 +12,10 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import left from "../assets/img/left-arow.png"
 import right from "../assets/img/right-arow.png"
 import userIcon from "../assets/img/usericon.png";
-import user1 from "../assets/img/user1.png";
-import user2 from "../assets/img/user2.png";
-import user3 from "../assets/img/user3.png";
-import dummyData from "../assets/img/dummyData.json";
+// import user1 from "../assets/img/user1.png";
+// import user2 from "../assets/img/user2.png";
+// import user3 from "../assets/img/user3.png";
+import {Reviews} from "../assets/DummyData/dummyData";
 
 
 const Love = () => {
@@ -33,7 +33,7 @@ const Love = () => {
             try {
 
 
-                setData(dummyData);
+                setData(Reviews);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -43,7 +43,7 @@ const Love = () => {
     }, []);
 
     //user images 
-    const userImages = [user1, user2, user3];
+    // const userImages = [user1, user2, user3];
 
 
     const breakpoints = {
@@ -132,7 +132,7 @@ const Love = () => {
                                 <div key={index} className="cards chCards item">
                                     <div className="user row">
                                         <div className="col-3">
-                                            <img src={userImages[index]} alt={`User ${index + 1}`} className="card-pick" />
+                                            <img src={item.image} alt={item.name} className="card-pick" />
                                         </div>
                                         <div className="col-6 text-start">
                                             <h5>{item.name}</h5>

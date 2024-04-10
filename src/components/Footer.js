@@ -15,7 +15,8 @@ const Footer = () => {
     return (
         <div className="container-fluid footer g-0">
 
-            <div className=" d-flex justify-content-center">
+            {/* footer top */}
+            <div className=" d-flex justify-content-center footer-top">
 
                 <div className="row container-fluid">
 

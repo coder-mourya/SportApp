@@ -147,7 +147,7 @@
 
 
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1024px) {
   .box h2 {
     font-size: 20px;
   }
@@ -163,13 +163,15 @@
   .info ul {
     padding-left: 0;
   }
-
+ .info ul li {
+  margin: 1rem;
+ }
   .info ul li img {
     width: 8%;
 
   }
 
   .cutm-address {
-    margin-left: 3.5rem;
+    margin-left: 3.5rem !important;
   }
 }

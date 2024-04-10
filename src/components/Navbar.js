@@ -56,7 +56,7 @@ const Navbar = () => {
           </ul>
         </div>
         {/* Login offcanvas  */}
-        <Offcanvas show={showLogin} onHide={handleCloseLogin} placement="end">
+        <Offcanvas show={showLogin} onHide={handleCloseLogin} placement="end" backdrop="static">
           <Offcanvas.Header closeButton>
             <Offcanvas.Title> <img src={logo} alt="logo" /> Sportsnerve</Offcanvas.Title>
           </Offcanvas.Header>
