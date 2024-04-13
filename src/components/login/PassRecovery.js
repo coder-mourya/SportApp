@@ -59,7 +59,7 @@ const PassRecovery = () => {
                             <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Resend</button>
                             <div  className=' d-flex justify-content-center mt-4'>
 
-                                <Link to={"./login"}>Back to login</Link>
+                                <Link to={"/login"}>Back to login</Link>
                             </div>
                         </form>
                     </div>

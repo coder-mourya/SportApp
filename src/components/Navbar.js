@@ -3,18 +3,26 @@ import { Link } from "react-router-dom";
 import logo from "../assets/img/logo.png";
 import "../assets/Styles/Navbar.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import LoginForm from "./AfterLogin/Login";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 
   const [show, setShow] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleShowLogin = () => setShowLogin(true)
-  const handleCloseLogin = () => setShowLogin(false)
+
+  const Navigate = useNavigate()
+
+  const handleLogin = () => {
+
+    Navigate("/login");
+    handleClose()
+
+  }
+
+
 
 
   return (
@@ -50,20 +58,12 @@ const Navbar = () => {
 
             <li className="nav-item mx-3 login-btn">
 
-              <button className="btn btn-danger login" onClick={handleShowLogin}>Login</button>
+              <button className="btn btn-danger login"  onClick={handleLogin}>Login</button>
 
             </li>
           </ul>
         </div>
-        {/* Login offcanvas  */}
-        <Offcanvas show={showLogin} onHide={handleCloseLogin} placement="end" backdrop="static">
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title> <img src={logo} alt="logo" /> Sportsnerve</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <LoginForm />
-          </Offcanvas.Body>
-        </Offcanvas>
+
 
 
       </div>
@@ -72,39 +72,31 @@ const Navbar = () => {
       <Offcanvas show={show} onHide={handleClose} placement="end">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title> Sportsnerve </Offcanvas.Title>
-
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul className="navbar-nav ms-auto links-container">
             <li className="nav-item mx-3">
-              <Link to={'About'} className="nav-link">About us</Link>
+              <Link to={'About'} className="nav-link" onClick={handleClose}>About us</Link>
             </li>
             <li className="nav-item mx-3">
-              <Link to={'Features'} className="nav-link">App Features</Link>
+              <Link to={'Features'} className="nav-link" onClick={handleClose}>App Features</Link>
             </li>
             <li className="nav-item mx-3">
-              <Link to={'FAQ'} className="nav-link">FAQ's</Link>
+              <Link to={'FAQ'} className="nav-link" onClick={handleClose}>FAQ's</Link>
             </li>
             <li className="nav-item mx-3">
-              <Link to={'Chart'} className="nav-link">Size chart</Link>
+              <Link to={'Chart'} className="nav-link" onClick={handleClose}>Size chart</Link>
             </li>
             <li className="nav-item mx-3">
-              <Link to={'Contact-us'} className="nav-link">Contact us</Link>
+              <Link to={'Contact-us'} className="nav-link" onClick={handleClose}>Contact us</Link>
             </li>
-
-
             <li className="nav-item mx-3 login-btn">
-
-            <Link to={"/login"}>
-
-            <button className="btn btn-danger login">Login</button>
-            </Link>  
-              
-
+              <button className="btn btn-danger login" onClick={handleLogin} >Login</button>
             </li>
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
+
     </nav>
   )
 }

@@ -1,0 +1,112 @@
+/* Sidebar styles */
+.sidebar img {
+    width: 15%;
+    margin-right: 5px;
+}
+
+
+/* Toggler button styles */
+.hamburger {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+}
+
+.sidebar {
+    /* position: fixed;   */
+    left: 0;
+    transition: left 0.3s ease;
+    animation-duration: 0.3s;
+    /* overflow-y: auto;  */
+
+}
+
+/* Active state styles */
+.active {
+    transform: translateX(0);
+}
+
+/* Sidebar links styles */
+.links {
+    padding: 20px;
+}
+
+.links a {
+    display: block;
+    color: #4F5163;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.links a:hover{
+    color: black;
+}
+
+.link{
+    padding: 1rem;
+}
+.link:hover {
+    background-color: #FDF4F4;
+}
+
+
+.active {
+    animation-name: slideCome;
+}
+
+.inactive {
+    animation-name: slideOut;
+
+}
+
+
+@keyframes slideCome {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+ /* main container  */
+
+ .options{
+    padding-top: 1rem;
+    border-radius: 10%;
+ }
+
+ .viewAll{
+    color: #D32F2F;
+ }
+
+ .event-1, .event-2{
+    width: 45%;
+    padding: 1rem 0;
+ }
+
+ .event-1 p, .event-2 p{
+    color: #4F5163;
+ }
+
+
+ .event-1{
+    margin-right: 1rem;
+ }
+  
+ .event-2{
+    margin-left: 1rem;
+ }

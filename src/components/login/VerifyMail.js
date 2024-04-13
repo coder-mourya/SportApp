@@ -1,24 +1,15 @@
 // ForgotPassword.js
 import React from 'react';
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS file
-import forgot from "../../assets/afterLogin picks/forgot.png";
+import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 import mail from "../../assets/afterLogin picks/mail.png";
-import { useNavigate } from "react-router-dom";
-
-
-const ForgotPassword = () => {
+import { Link } from 'react-router-dom';
+import pen from "../../assets/afterLogin picks/pen.png"
 
 
 
-    const navigate = useNavigate();
-
-
-    const handlesendEmail = () => {
-        navigate('/PassRecovery');
-    };
-
-
+const VerifyMail = () => {
     return (
         <div className="ForgotPassword container-fluid ">
             <div className="blur-background"></div>
@@ -29,18 +20,20 @@ const ForgotPassword = () => {
                     <div className='text-center'>
                         <div className="forgot-password-img">
 
-                            <img src={forgot} alt="forgot password" />
+                            <img src={recover} alt="forgot password" />
                         </div>
 
                         <div className='cotainer '>
 
-                            <h3 className="mb-3">Forgot Password ?</h3>
+                            <h3 className="mb-3">Verify your e-mail</h3>
                         </div>
                         <div className=' d-flex justify-content-center'>
 
-                            <p className="mb-3 w-50">To reset your password, please enter your
-                                email address</p>
+                            <p className='pb-0'>You will need to verify your e-mail address to
+                                complete registration
+                            </p>
                         </div>
+                        <p>sanju2171991@gmail.com <img src={pen} alt="pen" /> </p>
                     </div>
 
 
@@ -65,7 +58,11 @@ const ForgotPassword = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4" onClick={handlesendEmail}>Send Link</button>
+                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Resend</button>
+                            <div className=' d-flex justify-content-center mt-4'>
+
+                                <Link to={"./login"}>Back to login</Link>
+                            </div>
                         </form>
                     </div>
 
@@ -78,4 +75,4 @@ const ForgotPassword = () => {
     );
 }
 
-export default ForgotPassword;
+export default VerifyMail;

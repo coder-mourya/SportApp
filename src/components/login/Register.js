@@ -14,7 +14,7 @@ const Register = () => {
         <div className="Create-account container-fluid ">
             <div className="blur-background"></div>
             <div className="container-right">
-                <div className='container'>
+                <div className='container account_info'>
                     <div className='cotainer mt-3'>
                         <h3 className="mb-3">Create an account</h3>
                     </div>
