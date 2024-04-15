@@ -17,6 +17,7 @@ import Pending from "./components/login/PendingMail";
 import Category from "./components/login/Category";
 import LoggedInHome from "./pages/AfterLogin/LoggedInHome";
 
+
 function App() {
   // const location = useLocation();
   // const isLoginRoute = location.pathname === '/login' || location.pathname === '/ForgotPassword' || location.pathname === '/PassRecovery' || location.pathname === '/Register' || location.pathname === '/VerifyMail' || location.pathname === '/Pending';

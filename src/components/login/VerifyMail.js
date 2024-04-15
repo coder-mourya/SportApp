@@ -5,11 +5,21 @@ import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 import mail from "../../assets/afterLogin picks/mail.png";
 import { Link } from 'react-router-dom';
-import pen from "../../assets/afterLogin picks/pen.png"
+import pen from "../../assets/afterLogin picks/pen.png";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 const VerifyMail = () => {
+
+    const Navigate = useNavigate();
+
+    const handleVerifyMail = () =>{
+        Navigate("/Category")
+    }
+
+
     return (
         <div className="ForgotPassword container-fluid ">
             <div className="blur-background"></div>
@@ -58,10 +68,10 @@ const VerifyMail = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Resend</button>
+                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4" onClick={handleVerifyMail}>Resend</button>
                             <div className=' d-flex justify-content-center mt-4'>
 
-                                <Link to={"./login"}>Back to login</Link>
+                                <Link to={"/login"}>Back to login</Link>
                             </div>
                         </form>
                     </div>

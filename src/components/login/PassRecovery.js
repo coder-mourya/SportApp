@@ -26,12 +26,12 @@ const PassRecovery = () => {
 
                             <h3 className="mb-3">Sent e-mail</h3>
                         </div>
-                        <div className=' d-flex justify-content-center'>
+                        <div className=''>
 
-                            <p className='pb-0'>We have sent the reset password link to
+                            <p className='pb-0 mb-0'>We have sent the reset password link to
                             </p>
-                        </div>
                         <p>sanju2171991@gmail.com</p>
+                        </div>
                     </div>
 
 
@@ -57,7 +57,7 @@ const PassRecovery = () => {
                             </div>
 
                             <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Resend</button>
-                            <div  className=' d-flex justify-content-center mt-4'>
+                            <div className=' d-flex justify-content-center mt-4'>
 
                                 <Link to={"/login"}>Back to login</Link>
                             </div>
@@ -66,7 +66,7 @@ const PassRecovery = () => {
 
                 </div>
                 <div className="login-bootm-img">
-                    <img src={bootmImg} alt="group pick" />
+                    <img src={bootmImg} alt="group pick" className='custom-spacing' />
                 </div>
             </div>
         </div>

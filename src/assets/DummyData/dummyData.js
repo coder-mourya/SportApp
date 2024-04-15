@@ -8,6 +8,14 @@ import ball from "../afterLogin picks/Sports category icons/bolyball.png";
 import bat from "../afterLogin picks/Sports category icons/bat.png";
 import badminton from "../afterLogin picks/Sports category icons/badminton.png";
 
+// dummy users "message" 
+import chat1 from "../afterLogin picks/home/chat1.png";
+import chat2 from "../afterLogin picks/home/chat2.png";
+import chat3 from "../afterLogin picks/home/chat3.png";
+import chat4 from "../afterLogin picks/home/chat4.png";
+import chat5 from "../afterLogin picks/home/chat5.png";
+
+
 export const Reviews = [
     {
         "id": 1,
@@ -106,3 +114,17 @@ export const category = [
         "image": ball
     },
 ]
+
+
+
+// Sample user data with image URLs
+export const chats = [
+  { id: 1, "name": 'John Doe', "message": 'Hello there!',  "image": chat1 },
+  { id: 2, "name": 'Jane', "message": 'Hey, how are you?', "image": chat2 },
+  { id: 3, "name": 'Jane Smith', "message": 'What\'s up?', "image": chat3 },
+  { id: 4, "name": 'Alice', "message": 'Nice weather today, isn\'t it?', "image": chat4 },
+  { id: 5, "name": 'Bob', "message": 'How\'s your day going?', "image": chat5 }
+
+
+    // Add more users if needed
+  ];

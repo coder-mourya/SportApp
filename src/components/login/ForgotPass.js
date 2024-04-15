@@ -27,18 +27,18 @@ const ForgotPassword = () => {
                 <div className='container'>
 
                     <div className='text-center'>
-                        <div className="forgot-password-img">
+                        <div className="forgot-password-img d-flex justify-content-center">
 
                             <img src={forgot} alt="forgot password" />
                         </div>
 
-                        <div className='cotainer '>
+                        <div className='cotainer  d-flex justify-content-center'>
 
                             <h3 className="mb-3">Forgot Password ?</h3>
                         </div>
-                        <div className=' d-flex justify-content-center'>
+                        <div className='d-flex justify-content-center'>
 
-                            <p className="mb-3 w-50">To reset your password, please enter your
+                            <p className="mb-3 w-75">To reset your password, please enter your
                                 email address</p>
                         </div>
                     </div>
@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                                     <span className="input-group-text">
                                         <img src={mail} alt="mail" />
                                     </span>
-                                    
+
                                     <input
                                         type="email"
                                         className="form-control"
@@ -72,7 +72,7 @@ const ForgotPassword = () => {
 
                 </div>
                 <div className="login-bootm-img">
-                    <img src={bootmImg} alt="group pick" />
+                    <img src={bootmImg} alt="group pick"  className='custom-spacing'/>
                 </div>
             </div>
         </div>

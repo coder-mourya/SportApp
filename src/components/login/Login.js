@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 import mail from "../../assets/afterLogin picks/mail.png";
 import password from "../../assets/afterLogin picks/password.png";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const Navigate = useNavigate()
 
-  useEffect(() =>{
-
-    const body = document.querySelector("body");
-    
-    body.classList.add('modal-open');
-    
-    return () =>{
-      body.classList.remove('modal-open');
-    
-    }
-
-  }, [])
+  const handleCrose = () =>{
+    Navigate("/")
+}
 
   return (
     <div className="Login container-fluid">
@@ -26,9 +19,11 @@ const LoginForm = () => {
 
       <div className="container-right">
         <div className="container">
-          <div className="mt-5">
+          <div className="mt-5  d-flex justify-content-between">
 
             <h3 className="mb-4">Login</h3>
+            <p className='cros' onClick={handleCrose}>&#10060;</p>
+            
           </div>
 
 
@@ -79,8 +74,8 @@ const LoginForm = () => {
             </form>
           </div>
         </div>
-        <div className="login-bootm-img">
-          <img src={bootmImg} alt="group pick" />
+        <div className="login-bootm-img mt-5">
+          <img src={bootmImg} alt="group pick" className="custom-spacing"/>
         </div>
       </div>
     </div>

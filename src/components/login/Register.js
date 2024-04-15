@@ -7,16 +7,29 @@ import nickname from "../../assets/afterLogin picks/name.png";
 import mobile from "../../assets/afterLogin picks/mobile.png";
 import dob from "../../assets/afterLogin picks/dob.png";
 // import gender from "../../assets/afterLogin picks/name.png";
+import { useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
+
+    const Navigate = useNavigate();
+
+    const handleRegister = () =>{
+        Navigate("/VerifyMail")
+    }
+
+    const handleCrose = () =>{
+        Navigate("/")
+    }
     return (
         <div className="Create-account container-fluid ">
             <div className="blur-background"></div>
             <div className="container-right">
                 <div className='container account_info'>
-                    <div className='cotainer mt-3'>
+                    <div className='cotainer mt-3 d-flex justify-content-between'>
                         <h3 className="mb-3">Create an account</h3>
+            <p className='cros' onClick={handleCrose}>&#10060;</p>
+
                     </div>
                     <div className='p-md-4'>
                         <form>
@@ -122,7 +135,7 @@ const Register = () => {
                                 <input type="checkbox" className="form-check-input" id="terms" />
                                 <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions</label>
                             </div>
-                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Create an account</button>
+                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4" onClick={handleRegister}>Create an account</button>
                         </form>
                     </div>
                 </div>
