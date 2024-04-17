@@ -5,10 +5,10 @@ import "../assets/Styles/Allfonts.css";
 
 
 import TeamIcon from "../assets/img/creat team.png";
-import Event from    "../assets/img/creat event.png";
+import Event from "../assets/img/creat event.png";
 import Coaching from "../assets/img/coaching.png";
-import Booking from  "../assets/img/booking.png";
-import {Link }from "react-router-dom"
+import Booking from "../assets/img/booking.png";
+import { Link } from "react-router-dom"
 
 const services = () => {
     return (
@@ -23,7 +23,9 @@ const services = () => {
 
             <div className="d-flex justify-content-center container">
 
-                <p className="services allFonts-p mt-4">We have a mobile application which will be a sports acu system. Where users can build their  teams decide whoare the admins of the team. Then have a profile of every individual player where every player explaine about their background in specific sports, expertise and provide expectatione from team.</p>
+                <p className="services allFonts-p mt-4">Welcome to our comprehensive sports platform, where we seamlessly elevate teams through streamlined management and communication tools.
+                    From optimizing training sessions with effortless scheduling and performance evaluation for sports facilities, to providing tailored expense
+                    management and payment solutions for sporting communities, we're dedicated to enhancing every aspect of your sporting journey</p>
 
             </div>
 
@@ -36,14 +38,14 @@ const services = () => {
                         <img src={TeamIcon} alt="team icon" />
                         <h4>create team</h4>
                         <p>Then have a profile of every indivdual player where every player explains.</p>
-                        <Link to={"#"} className="service-link">Get started &#8594;</Link>
+                        <Link to={"/ComingSoon"} className="service-link">Get started &#8594;</Link>
                     </div>
 
                     <div className="col-md-3  text-start service-box">
                         <img src={Event} alt="event" />
                         <h4>Create event</h4>
                         <p>Then have a profile of every indivdual player where every player explains.</p>
-                        <Link to={"#"} className="service-link">Get started &#8594;</Link>
+                        <Link to={"/ComingSoon"} className="service-link">Get started &#8594;</Link>
 
 
                     </div>
@@ -52,7 +54,7 @@ const services = () => {
                         <img src={Coaching} alt="coaching" />
                         <h4 >Coaching & training  </h4>
                         <p>Then have a profile of every indivdual player where every player explains.</p>
-                        <Link to={"#"} className="service-link">Get started &#8594;</Link>
+                        <Link to={"/ComingSoon"} className="service-link">Get started &#8594;</Link>
 
 
                     </div>
@@ -60,7 +62,7 @@ const services = () => {
                         <img src={Booking} alt="Booking" />
                         <h4 >Booking</h4>
                         <p>Then have a profile of every indivdual player where every player explains.</p>
-                        <Link to={"#"} className="service-link">Get started &#8594;</Link>
+                        <Link to={"/ComingSoon"} className="service-link">Get started &#8594;</Link>
 
 
                     </div>

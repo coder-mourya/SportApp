@@ -1,8 +1,8 @@
 import React from "react";
-import logo from  "../assets/img/logo.png";
-import Home from  "../assets/img/home.png";
+import logo from "../assets/img/logo.png";
+import Home from "../assets/img/home.png";
 import phone from "../assets/img/phone.png";
-import mail from  "../assets/img/mail.png";
+import mail from "../assets/img/mail.png";
 import "../assets/Styles/Allfonts.css";
 import "../assets/Styles/footer.css"
 import { Link } from "react-router-dom"
@@ -53,8 +53,8 @@ const Footer = () => {
 
                     <div className="col-md-6   subscribe ">
 
-                        
-                        <div  className=" ">
+
+                        <div className=" ">
 
 
                             <div className="box container  mr-5 mt-5 text-white">
@@ -99,10 +99,10 @@ const Footer = () => {
 
                 <div className="col-md-6 d-flex justify-content-end list-items">
                     <ul >
-                        <li><i className="fa-brands me-1 fa-facebook"></i></li>
-                        <li><i className="fa-brands me-1 fa-twitter"></i></li>
-                        <li><i className="fa-brands me-1 fa-instagram"></i></li>
-                        <li><i className="fa-brands me-1 fa-linkedin"></i></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61551467306390" target="blank"><i className="fa-brands me-1 fa-facebook"></i></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCBVVZt2pw9W2MsCdHHTIbOg" target="blank"><i className="fa-brands fa-youtube"></i></a></li>
+                        <li><a href="https://www.instagram.com/sportsnerve" target="blank"><i className="fa-brands me-1 fa-instagram"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/sportsnerve-solutions-pte-ltd" target="blank"><i className="fa-brands me-1 fa-linkedin" ></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -1,29 +1,31 @@
-.allFonts{
+.allFonts {
     font-size: 3vw !important;
 }
 
-.allFonts-p{
+.allFonts-p {
     font-size: 1.30vw !important;
 }
 
 @media screen and (min-width: 1920px) {
+
     /* Your styles for Full HD screens go here */
     /* For example: */
-    .allFonts{
+    .allFonts {
         font-size: 64px !important;
     }
 
-    .allFonts-p{
+    .allFonts-p {
         font-size: 20px !important;
     }
-  }
+}
 
-  /* back iocn for about , app features, size chart */
+/* back iocn for about , app features, size chart */
 
-  .backIcon{    
-    background: url('../feedbackIcons/feebackIcon.png');
-  }
-  
+.backIcon {
+    background: url('../feedbackIcons/feebackIcon.png') repeat;
+
+}
+
 
 /* Media query for smaller devices */
 @media screen and (max-width: 992px) {
@@ -35,4 +37,3 @@
         font-size: 1rem !important;
     }
 }
-  

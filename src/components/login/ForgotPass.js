@@ -11,17 +11,21 @@ const ForgotPassword = () => {
 
 
 
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
 
 
     const handlesendEmail = () => {
-        navigate('/PassRecovery');
+        Navigate('/PassRecovery');
     };
+
+    const handleClose = () =>{
+        Navigate("/")
+    }
 
 
     return (
         <div className="ForgotPassword container-fluid ">
-            <div className="blur-background"></div>
+            <div className="blur-background" onClick={handleClose}></div>
             <div className="container-right">
 
                 <div className='container'>
@@ -66,7 +70,7 @@ const ForgotPassword = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4" onClick={handlesendEmail}>Send Link</button>
+                            <button type="submit" className="btn btn-danger py-2 login-botton mt-4" onClick={handlesendEmail}>Send Link</button>
                         </form>
                     </div>
 

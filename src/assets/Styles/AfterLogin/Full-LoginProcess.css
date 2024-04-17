@@ -25,8 +25,13 @@ input {
     height: auto;
     /* Adjust the spacing between the image and input field */
 }
+.input-group span{
+    background-color: #ffffff;
+}
 
-
+.custom-color{
+    color: #283593;
+}
 
 
 .blur-background {

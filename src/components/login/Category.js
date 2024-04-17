@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS file
 import { category } from "../../assets/DummyData/dummyData";
 import search from "../../assets/afterLogin picks/Sports category icons/Search.png";
+import {useNavigate} from "react-router-dom";
+
 
 const Category = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -20,6 +22,11 @@ const Category = () => {
         // Fetch sports data when component mounts
         fetchSports();
     }, []); // Empty dependency array to run only once
+
+    const Navigate = useNavigate();
+    const handleClose = () =>{
+        Navigate("/")
+    }
 
     // Function to handle sport selection
     const handleSportSelect = (sportId) => {
@@ -45,7 +52,7 @@ const Category = () => {
 
     return (
         <div className="ForgotPassword container-fluid ">
-            <div className="blur-background"></div>
+            <div className="blur-background" onClick={handleClose}></div>
             <div className="container-right">
                 <div className='container'>
                     <div className='text-center mt-4'>

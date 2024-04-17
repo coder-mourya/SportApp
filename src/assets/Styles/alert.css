@@ -1,0 +1,36 @@
+/* Alert component styles */
+.alert {
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  
+  /* Success alert style */
+  .alert.success {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  /* Error alert style */
+  .alert.error {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  /* Close button style */
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
+  

@@ -1,9 +1,45 @@
 import React from "react";
 import "../assets/Styles/contact.css";
 import "../assets/Styles/Allfonts.css";
+import axios from "axios";
+import { useState  } from "react";
 
 
 const Contact = () => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("");
+    const [message, setMessage] = useState("");
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        try {
+          // Make API call using Axios
+          const response = await axios.post("https://www.zohoapis.in/crm/v2/Leads", {
+            name,
+            email,
+            role,
+            message,
+          });
+    
+          // Handle the response
+          console.log("Response:", response.data);
+    
+          // Reset form fields after successful submission
+          setName("");
+          setEmail("");
+          setRole("");
+          setMessage("");
+        } catch (error) {
+          // Handle errors
+          console.error("Error:", error);
+        }
+      };
+
+      
+
     return (
         <div className=" contact-us text-white mt-5">
 
@@ -41,7 +77,7 @@ const Contact = () => {
 
                 <div className="col-md-6">
 
-                    <form className="form">
+                    <form className="form" onSubmit={handleSubmit}>
 
                         <div className="row mb-2">
 
@@ -51,8 +87,9 @@ const Contact = () => {
 
                                     type="text"
                                     placeholder="Name"
-
+        value={name}
                                     className="form-control "
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
 
@@ -64,18 +101,26 @@ const Contact = () => {
                                     placeholder="Email address"
 
                                     className="form-control"
+                                    value={email}
+                  onChange={(e) => setEmail(e.target.value)}
 
                                 />
                             </div>
                         </div>
 
 
-                        <select name="role" id="sportsSelect" className="form-select my-3">
+                        <select 
+                        name="role"
+                         id="sportsSelect" 
+                         className="form-select my-3"
+                         value={role}
+              onChange={(e) => setRole(e.target.value)}
+                         >
 
                             <option value="">--Select your role--</option>
-                            <option value="role 1">Role 1</option>
-                            <option value="role 2">Role 2</option>
-                            <option value="role 3">Role 3</option>
+                            <option value="User">User</option>
+                            <option value="Facility Manager">Facility Manager</option>
+                            <option value="Coach">Coach</option>
 
 
                         </select>
@@ -85,13 +130,17 @@ const Contact = () => {
                             id="message" cols="30"
                             rows="8"
                             placeholder="Write your message here..."
-                            className="form-control my-4 ">
+                            className="form-control my-4 "
+                            value={message}
+              onChange={(e) => setMessage(e.target.value)}
+                            >
+                                
 
                         </textarea>
 
                         <div className="text-end submit-btn">
 
-                            <button className="btn btn-danger">
+                            <button className="btn btn-danger" type="submit">
                                 Submit
                             </button>
                         </div>

@@ -54,7 +54,7 @@ const Home = () => {
 
                     <div className="mt-3 col-md-8">
 
-                        <p className="mt-2  custm-pera text-center my-4 text-animation2 allFonts-p">Unleash your potential, celebrate victories, and connect with a community that shares your sporting passion on SportsNerve. Your journey to excellence starts here</p>
+                        <p className="mt-2  custm-pera text-center my-4 text-animation2 allFonts-p">Discover seamless sports management and communication tools for teams, optimized training scheduling, and tailored expense solutions—all in one platform, designed to elevate your sporting journey.</p>
 
                         <div className="applinkMargin">
 

@@ -5,13 +5,19 @@ import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 import mail from "../../assets/afterLogin picks/mail.png";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const PassRecovery = () => {
+
+    const Navigate = useNavigate();
+    const handleClose = () =>{
+        Navigate("/")
+    }
     return (
         <div className="ForgotPassword container-fluid ">
-            <div className="blur-background"></div>
+            <div className="blur-background" onClick={handleClose}></div>
             <div className="container-right">
 
                 <div className='container'>

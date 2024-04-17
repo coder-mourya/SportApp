@@ -145,6 +145,27 @@
   cursor: pointer;
 }
 
+.footer-bottom .list-items ul li:nth-child(1) i:hover{
+      color: #26308A;
+}
+
+.footer-bottom .list-items ul li:nth-child(2) i:hover{
+  color: #d32f2f;
+}
+
+.footer-bottom .list-items ul li:nth-child(3) i:hover {
+  /* Apply linear gradient as background */
+  background: linear-gradient(90deg, rgba(253, 130, 29, 1) 10%, rgba(162, 58, 180, 1) 52%, rgba(69, 85, 252, 1) 96%);
+  -webkit-background-clip: text; /* Clip the background to the text */
+  -webkit-text-fill-color: transparent; /* Make the text transparent to show the background */
+}
+
+.footer-bottom .list-items ul li:nth-child(4) i:hover{
+  color: #087BB7;
+}
+
+
+
 
 
 @media screen and (max-width: 1024px) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import sport from "../../assets/afterLogin picks/home/2.png";
 import team from "../../assets/afterLogin picks/home/team.png";
 import event from "../../assets/afterLogin picks/home/event.png";
@@ -16,8 +16,9 @@ import help from "../../assets/afterLogin picks/home/Help.png";
 import training from "../../assets/afterLogin picks/home/event2.png";
 import Events from "../../components/AfterLogin/Events";
 import ChatComponent from "../../components/AfterLogin/ChatComponent";
+import SidebarComponent from "../../components/AfterLogin/Sidebar"
 
-// import GoogleMapComponent from "../../components/AfterLogin/LocationMap";
+
 
 
 const LoggedInHome = () => {
@@ -28,82 +29,77 @@ const LoggedInHome = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  useEffect(() => {
+    console.log('Sidebar state:', sidebarOpen); // Log the state to check if it's updating correctly
+  }, [sidebarOpen]);
+
   return (
-    <div className="LoggedInHome container-fluid bodyColor pb-5 g-0">
+    <div className="LoggedInHome container-fluid bodyColor pb-5 ">
       <div className="row">
 
-        <div className={`col-md-2 sidebar ${sidebarOpen ? "active" : "inactive"}`}>
-          {/* Toggler button */}
-          <div className="hamburger" onClick={toggleSidebar}>
-            &#9776;
+        <div className="col-md-2">
+          <div className="sidebar-header">
+            <div className="hamburger" onClick={toggleSidebar}>
+              {sidebarOpen ? '✕' : '☰'}
+            </div>
           </div>
 
-          {/* Links */}
-          <div className={`links itemsColor `}>
-            <Link to={"/home"} onClick={toggleSidebar}>
-              {sidebarOpen ? (
-                <div className="link">
+          <div className={`sidebar ${sidebarOpen ? 'active' : 'inactive'}`}>
+
+            <div className="sidebar-header2">
+              <div className="hamburger-2" onClick={toggleSidebar}>
+                {sidebarOpen ? '✕' : '☰'}
+
+              </div>
+            </div>
+
+            <nav className={`sideBar-links ${sidebarOpen ? 'open' : 'closed'}`}>
+              <Link to="/home" onClick={toggleSidebar}>
+                <div className="innerLink">
                   <img src={home} alt="home" />
                   <span>Home</span>
                 </div>
-              ) : null}
-            </Link>
-
-            <Link to={"/schedule"} onClick={toggleSidebar}>
-              {sidebarOpen ? (
-                <div className="link">
+              </Link>
+              <Link to="/schedule" onClick={toggleSidebar}>
+                <div className="innerLink ">
                   <img src={event2} alt="schedule" />
-                  <span>Schedule</span>
+                  <span >Schedule</span>
                 </div>
-              ) : null}
-            </Link>
-
-            <Link to={"/event"} onClick={toggleSidebar}>
-              {sidebarOpen ? (
-                <div className="link">
+              </Link>
+              <Link to="/event" onClick={toggleSidebar}>
+                <div className="innerLink">
                   <img src={team2} alt="event" />
                   <span>Event</span>
                 </div>
-              ) : null}
-            </Link>
-
-            <Link to={"/training"} onClick={toggleSidebar}>
-              {sidebarOpen ? (
-                <div className="link">
+              </Link>
+              <Link to="/training" onClick={toggleSidebar}>
+                <div className="innerLink">
                   <img src={training} alt="training" />
                   <span>Training</span>
                 </div>
-              ) : null}
-            </Link>
-
-            <Link to={"/fav"} onClick={toggleSidebar}>
-              {sidebarOpen ? (
-                <div className="link">
+              </Link>
+              <Link to="/fav" onClick={toggleSidebar}>
+                <div className="innerLink">
                   <img src={fav} alt="fav" />
                   <span>Favourite</span>
                 </div>
-              ) : null}
-            </Link>
-
-            <Link to={"/help"} onClick={toggleSidebar}>
-              {sidebarOpen ? (
-                <div className="link">
+              </Link>
+              <Link to="/help" onClick={toggleSidebar}>
+                <div className="innerLink">
                   <img src={help} alt="help" />
                   <span>Help</span>
                 </div>
-              ) : null}
-            </Link>
-
-            <Link to={"/payment"} onClick={toggleSidebar}>
-              {sidebarOpen ? (
-                <div className="link">
+              </Link>
+              <Link to="/payment" onClick={toggleSidebar}>
+                <div className="innerLink">
                   <img src={payment} alt="payment" />
                   <span>Payment</span>
                 </div>
-              ) : null}
-            </Link>
+              </Link>
+            </nav>
           </div>
 
+<SidebarComponent sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
         </div>
 

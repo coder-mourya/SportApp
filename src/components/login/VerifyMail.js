@@ -19,10 +19,15 @@ const VerifyMail = () => {
         Navigate("/Category")
     }
 
+ 
+    const handleClose = () =>{
+        Navigate("/")
+    }
+
 
     return (
         <div className="ForgotPassword container-fluid ">
-            <div className="blur-background"></div>
+            <div className="blur-background" onClick={handleClose}></div>
             <div className="container-right">
 
                 <div className='container'>

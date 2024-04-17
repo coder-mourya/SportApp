@@ -13,16 +13,20 @@ const LoginForm = () => {
     Navigate("/")
 }
 
+const handleLogin = () =>{
+  Navigate("/LoggedInHome")
+}
+
   return (
     <div className="Login container-fluid">
-      <div className="blur-background"></div>
+      <div className="blur-background" onClick={handleCrose}></div>
 
       <div className="container-right">
         <div className="container">
           <div className="mt-5  d-flex justify-content-between">
 
             <h3 className="mb-4">Login</h3>
-            <p className='cros' onClick={handleCrose}>&#10060;</p>
+            
             
           </div>
 
@@ -63,13 +67,13 @@ const LoginForm = () => {
                 </div>
               </div>
               <div className="mb-3 text-end ">
-                <Link to={"/ForgotPassword"} className=" text-decoration-none">Forgot password ?</Link>
+                <Link to={"/ForgotPassword"} className=" text-decoration-none custom-color">Forgot password ?</Link>
               </div>
-              <button type="submit" className="btn btn-danger py-2 login-botton">
+              <button type="submit" className="btn btn-danger py-2 login-botton" onClick={handleLogin}>
                 Login
               </button>
               <div className="mt-3 text-center">
-                <p>Don't have an account? <Link to={"/Register"} className=" text-decoration-none">Sign Up</Link></p>
+                <p>Don't have an account? <Link to={"/Register"} className=" text-decoration-none custom-color">Sign Up</Link></p>
               </div>
             </form>
           </div>

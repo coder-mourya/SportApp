@@ -23,12 +23,12 @@ const Register = () => {
     }
     return (
         <div className="Create-account container-fluid ">
-            <div className="blur-background"></div>
+            <div className="blur-background" onClick={handleCrose}></div>
             <div className="container-right">
                 <div className='container account_info'>
                     <div className='cotainer mt-3 d-flex justify-content-between'>
                         <h3 className="mb-3">Create an account</h3>
-            <p className='cros' onClick={handleCrose}>&#10060;</p>
+            
 
                     </div>
                     <div className='p-md-4'>

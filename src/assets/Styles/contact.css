@@ -5,6 +5,7 @@
 
 
 
+
 .contact-text h1 {
     font-size: 64px;
 }
@@ -81,3 +82,22 @@ form textarea {
 }
   
 
+/* contact page styles  */
+
+.custom-contact .contact-us {
+    background-color: #ffffff;
+    margin-top: 0;
+}
+
+
+.custom-contact .contact-text p,
+.custom-contact .contact-text h1,
+.custom-contact .contact-text h3{
+    color: black;
+}
+
+.custom-contact input,
+.custom-contact select,
+.custom-contact textarea{
+    background-color: #EAEBF5;
+}

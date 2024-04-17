@@ -1,0 +1,58 @@
+.custom-sidebar {
+  background-color: #f0f0f0;
+  left: 0 !important;
+
+}
+
+.ps-sidebar-container {
+
+  background-color: #ffffff !important;
+}
+
+.custom-menu {
+  height: 100vh;
+}
+
+.custom-menu-item a {
+  font-size: 1vw;
+  color: #4F5163;
+  text-decoration: none;
+
+
+}
+
+.custom-menu-item {
+  margin: 1rem 0;
+}
+
+.innerLink {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10%;
+  text-decoration: none !important;
+  color: #4F5163;
+  transition: background-color 0.3s ease;
+}
+
+.innerLink img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+
+.ps-menu-button:hover {
+  background-color: transparent !important;
+}
+
+.ps-menu-button {
+  padding-left: 5px !important;
+}
+
+
+@media screen and (max-width: 768px) {
+  .custom-sidebar {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from './components/Navbar';
 import About from "./pages/About"
 import Features from './pages/App-features';
@@ -16,24 +16,32 @@ import VerifyMail from "./components/login/VerifyMail";
 import Pending from "./components/login/PendingMail";
 import Category from "./components/login/Category";
 import LoggedInHome from "./pages/AfterLogin/LoggedInHome";
+import FAQPage from "./pages/FAQPage";
+import ContactPage from "./pages/ContactPage";
+import ComingSoon from "./components/ComingSoon";
 
 
 function App() {
   // const location = useLocation();
   // const isLoginRoute = location.pathname === '/login' || location.pathname === '/ForgotPassword' || location.pathname === '/PassRecovery' || location.pathname === '/Register' || location.pathname === '/VerifyMail' || location.pathname === '/Pending';
 
+  const location = useLocation();
+  const isRoute = location.pathname === "/ComingSoon";
+
   return (
     <>
       <Navbar />
 
       <Routes>
-        
+        {/* page Routes */}
         <Route exact path='/' element={<Home />} />
         <Route exact path='/About' element={<About />} />
         <Route exact path='/Features' element={<Features />} />
         <Route exact path='/FAQ' element={<FAQ />} />
         <Route exact path='/Chart' element={<Chart />} />
         <Route exact path='/Contact-us' element={<Contact />} />
+        <Route exact path='/FAQPage'  element={<FAQPage />} />
+        <Route exact path='/ContactPage' element={<ContactPage />} />
 
         {/* Login routes */}
         <Route exact path='/login' element={<LoginForm />} />
@@ -47,10 +55,14 @@ function App() {
         {/* LoggedIn Routes */}
 
         <Route exact path='/LoggedInHome'  element={<LoggedInHome />} />
+
+        {/* temprary routes */}
+        <Route exact path='/ComingSoon' element={<ComingSoon />} />
       </Routes>
 
       {/* {!isLoginRoute && <Footer />} */}
-      <Footer />
+      
+      {!isRoute && <Footer />}
     </>
   );
 }
