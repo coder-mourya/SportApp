@@ -1,5 +1,5 @@
 .screenshots {
-  background-color: #283593;
+  background-color: #080F41 ;
 
 }
 
@@ -49,8 +49,14 @@
 
 .swiper-slide img {
   width: 100%;
-  
 }
+
+.swiper-container {
+  width: 80%; /* Adjust the value as needed */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+
 
 
 

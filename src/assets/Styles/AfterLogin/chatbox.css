@@ -1,0 +1,70 @@
+.chat-box-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.chat-box-button {
+  position: absolute;
+  bottom: 0; /* Adjust this value as needed */
+  right: 0;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.chat-box-button.open {
+  transform: rotate(360deg);
+}
+
+.chat-box {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  /* padding: 20px; */
+  max-width: 300px;
+  margin-bottom: 80px;
+  animation: slide-up 0.3s ease-in-out;
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* chat component  */
+
+/* messages  */
+.filter {
+  width: 70%;
+}
+
+.media img {
+  width: 15%;
+  margin-right: 1rem;
+}
+
+.media-text h5 {
+  font-size: 1rem;
+}
+
+.search input {
+  background-color: #F4F5F9;
+  padding: 2px 3px;
+}

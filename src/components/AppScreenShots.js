@@ -84,7 +84,7 @@ const AppScreenShots = () => {
             grabCursor={true}
             loop={true}
             spaceBetween={150}
-
+            
 
 
             autoplay={{

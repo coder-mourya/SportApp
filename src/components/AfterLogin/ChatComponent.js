@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import filter from "../../assets/afterLogin picks/home/filter.png";
 import { chats } from '../../assets/DummyData/dummyData';
+import "../../assets/Styles/AfterLogin/chatbox.css"
 
 const ChatComponent = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -22,9 +23,16 @@ const ChatComponent = () => {
       
     }, []); // Empty dependencies array to run the effect only once
 
+    const truncateMessage = (message, maxLength) => {
+        if (message.length > maxLength) {
+            return message.slice(0, maxLength) + '...';
+        }
+        return message;
+    };
+
     return (
         <div className="container-fluid mt-5 ">
-            <div className='itemsColor p-4 rounded-4'>
+            <div className='itemsColor p-4 '>
                 {/* First line: Heading and filter icon */}
                 <div className="row align-items-center mb-3">
                     <div className="col">
@@ -60,7 +68,8 @@ const ChatComponent = () => {
                                 />
                                 <div className='media-text pt-2'>
                                     <h5 className="my-0">{user.name}</h5>
-                                    <p>{user.message}</p>
+                                    <p>{truncateMessage(user.message, 15)}</p>
+
                                 </div>
                             </div>
                         ))}

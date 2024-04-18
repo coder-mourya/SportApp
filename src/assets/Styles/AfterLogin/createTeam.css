@@ -1,0 +1,18 @@
+.Team-options button{
+   margin-right: 1rem;
+   width: 10rem;
+}
+
+.Team-options{
+    margin-left: 1.5rem;
+    width: 44%;
+}
+
+
+.create-options button{
+    margin-left: 1rem;
+}
+
+.myTeam img {
+    width: 30%;
+}

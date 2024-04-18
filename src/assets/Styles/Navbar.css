@@ -1,7 +1,7 @@
 
 
 body {
-  padding-top: 6rem;
+  padding-top: 7rem;
   margin-right: 0;
 }
 
@@ -10,6 +10,7 @@ body {
 .navbar {
   background-color: #ffffff !important;
   z-index: 2;
+  padding: 0;
 }
 
 .navbar-nav {
@@ -55,6 +56,7 @@ body {
 
 .login {
   font-size: 1.30vw;
+  width: 7.37rem;
 }
 
 

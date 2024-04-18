@@ -19,6 +19,8 @@ import LoggedInHome from "./pages/AfterLogin/LoggedInHome";
 import FAQPage from "./pages/FAQPage";
 import ContactPage from "./pages/ContactPage";
 import ComingSoon from "./components/ComingSoon";
+import CreateTeam from "./pages/AfterLogin/CreateTeam";
+import ChatBox from './components/AfterLogin/ChatBox';
 
 
 function App() {
@@ -26,7 +28,7 @@ function App() {
   // const isLoginRoute = location.pathname === '/login' || location.pathname === '/ForgotPassword' || location.pathname === '/PassRecovery' || location.pathname === '/Register' || location.pathname === '/VerifyMail' || location.pathname === '/Pending';
 
   const location = useLocation();
-  const isRoute = location.pathname === "/ComingSoon";
+  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam';
 
   return (
     <>
@@ -55,10 +57,13 @@ function App() {
         {/* LoggedIn Routes */}
 
         <Route exact path='/LoggedInHome'  element={<LoggedInHome />} />
+        <Route exact path='/CreateTeam' element={<CreateTeam />} />
 
         {/* temprary routes */}
         <Route exact path='/ComingSoon' element={<ComingSoon />} />
+
       </Routes>
+      {isRoute && <ChatBox />}
 
       {/* {!isLoginRoute && <Footer />} */}
       

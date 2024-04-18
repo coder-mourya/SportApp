@@ -1,7 +1,29 @@
+/* sidebar for big screen  */
 .custom-sidebar {
   background-color: #f0f0f0;
   left: 0 !important;
+  position: fixed !important;
+  top: 7rem;
+ 
+}
 
+
+.hamburger {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 999;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.css-1wvake5 {
+  border: none !important;
+}
+
+.css-dip3t8 {
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
 }
 
 .ps-sidebar-container {
@@ -25,7 +47,7 @@
   margin: 1rem 0;
 }
 
-.innerLink {
+.custom-menu-item .innerLink {
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -35,7 +57,7 @@
   transition: background-color 0.3s ease;
 }
 
-.innerLink img {
+.custom-menu-item  .innerLink img {
   width: 30px;
   height: 30px;
   margin-right: 10px;
@@ -50,6 +72,134 @@
   padding-left: 5px !important;
 }
 
+
+
+/* sidebar for small */
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: #fff;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  display: none;
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar.inactive {
+  transform: translateX(-200px);
+  height: 1rem;  
+}
+
+/* Toggler button styles */
+.sidebar-header {
+  display: flex;
+  justify-content: flex-start;
+  background-color: #fff;
+  z-index: 1;
+  /* Ensure the header is on top */
+}
+
+.sidebar-header2 {
+  display: none;
+}
+
+
+
+.hamburger-2 {
+  display: none;
+}
+
+/* Sidebar links styles */
+.sideBar-links {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sideBar-links.open {
+  transform: translateX(0);
+}
+
+.innerLink {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 10%;
+  text-decoration: none !important;
+  color: #4F5163;
+  transition: background-color 0.3s ease;
+}
+
+.sideBar-links > a {
+  text-decoration: none !important;
+}
+
+.innerLink:hover {
+  background-color: #FDF4F4;
+}
+
+.innerLink img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .hamburger {
+      display: none;
+      /* position: fixed;
+     top: 6rem;
+      z-index: 1;
+      cursor: pointer;
+      font-size: 24px; */
+
+  }
+
+  .sidebar-header {
+      display: none;
+      /* justify-content: flex-start;
+      
+      background-color: #fff;
+      z-index: 1; */
+      /* Ensure the header is on top */
+  }
+
+  .sidebar-header2 {
+      display: flex;
+      justify-content: end;
+
+  }
+
+  .hamburger-2 {
+      display: inline;
+      position: fixed;
+      top: 1rem;
+      z-index: 1;
+      cursor: pointer;
+      font-size: 24px;
+  }
+
+  .sidebar{
+      display: inline-block;
+  }
+
+
+}
 
 @media screen and (max-width: 768px) {
   .custom-sidebar {
