@@ -1,3 +1,4 @@
+
 /* FAQ.css */
 
 .FQA h1{
@@ -18,15 +19,21 @@
 .accordion-header {
     background-color: transparent;
     border: none;
-    
+    color: black;
     padding: 17px 15px ;
     cursor: pointer;
     width: 100%;
     height: 5rem;
     text-align: left;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     border-radius: 8px ; /* Adjusted border-radius */
     
     font-weight: bold;
@@ -38,16 +45,13 @@
   }
 
   
-
-  
-  
   .accordion-content {
     display: none;
     padding: 10px;
     background-color: transparent;
     border-radius: 0 0 8px 8px; /* Adjusted border-radius */
     text-align: left;
-
+    color: black;
     
   }
   

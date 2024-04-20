@@ -21,11 +21,11 @@ import ContactPage from "./pages/ContactPage";
 import ComingSoon from "./components/ComingSoon";
 import CreateTeam from "./pages/AfterLogin/CreateTeam";
 import ChatBox from './components/AfterLogin/ChatBox';
+import Create from './components/AfterLogin/CreateTeam/Create';
 
 
 function App() {
-  // const location = useLocation();
-  // const isLoginRoute = location.pathname === '/login' || location.pathname === '/ForgotPassword' || location.pathname === '/PassRecovery' || location.pathname === '/Register' || location.pathname === '/VerifyMail' || location.pathname === '/Pending';
+
 
   const location = useLocation();
   const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam';
@@ -58,6 +58,7 @@ function App() {
 
         <Route exact path='/LoggedInHome'  element={<LoggedInHome />} />
         <Route exact path='/CreateTeam' element={<CreateTeam />} />
+        <Route exact path='/Create' element={<Create />} />
 
         {/* temprary routes */}
         <Route exact path='/ComingSoon' element={<ComingSoon />} />

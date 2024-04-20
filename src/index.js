@@ -11,11 +11,10 @@ const root = document.getElementById('root');
 
 ReactDOM.createRoot(root).render(
 
-  <Router>
+  <Router scrollRestoration="manual">
     <ScrollToTop />
 
     <App />
-
 
   </Router>
 

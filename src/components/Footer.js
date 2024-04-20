@@ -20,7 +20,7 @@ const Footer = () => {
 
                 <div className="row container-fluid">
 
-                    <div className="col-md-4  info mt-3">
+                    <div className="col-md-4   info mt-3">
                         <ul>
                             <li id="logo"><img src={logo} alt="footer logo" /><span>Sportsnerve</span></li>
                             <li><img src={Home} alt="home" /><span> 11-03 PLQ 1, Paya Lebar Quarter
@@ -33,7 +33,7 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    <div className="col-md-2 mt-3  d-flex justify-content-center">
+                    <div className="col-md-2  mt-3  d-flex justify-content-center">
 
 
 
@@ -75,13 +75,15 @@ const Footer = () => {
 
                             </div>
 
-                            <div className="footer-links text-end  my-5">
+                            <div className="footer-links  d-flex  justify-content-md-end justify-content-center  my-5">
 
-                                <a href="https://play.google.com/store/apps/details?id=com.sportsnerve.usersapp&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="links"><img src={playStore} alt="play store pick" className="mt-2 app-links" /></a>
+                                <a href="https://play.google.com/store/apps/details?id=com.sportsnerve.usersapp&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="links"><img src={playStore} alt="play store pick" className="mt-2 app-links   me-2" /></a>
 
-                                <a href="https://apps.apple.com/us/app/sports-nerve/id6468219398" target="_blank" rel="noopener noreferrer" className="mx-3 links"><img src={appStore} alt="app-Store-pick" className="mt-2 app-links" /></a>
+                                <a href="https://apps.apple.com/us/app/sports-nerve/id6468219398" target="_blank" rel="noopener noreferrer" className="mx-md-3 links"><img src={appStore} alt="app-Store-pick" className="mt-2 app-links  ms-2" /></a>
 
                             </div>
+
+                           
 
                         </div>
                     </div>
@@ -90,7 +92,7 @@ const Footer = () => {
 
 
             <div className="footer-bottom container-fluid align-items-center d-flex justify-content-between g-0 row">
-                <div className="col-md-6">
+                <div className="col-md-6 ">
 
                     <p>
                         Copyright &copy; 2024. All rights reserved.

@@ -1,86 +1,99 @@
+.loveInfo h1 {
+  font-size: 50px;
+  font-weight: 800;
 
-.loveInfo h1{
-    font-size: 50px;
-    font-weight: 800;
-    
 }
 
-.loveInfo p{
-    margin-top: 30px;
-    color: black;
-    
+.loveInfo p {
+  margin-top: 30px;
+  color: black;
+
 }
 
 .round-button {
-    width: 50px; /* Adjust width as needed */
-    height:50px; /* Adjust height as needed */
-    border-radius: 50%; /* Make it round */
-    line-height: 40px; /* Vertically center content */
-   
-    padding:  0;
-    background-color: #FBEBEB;
-  }
+  width: 50px;
+  /* Adjust width as needed */
+  height: 50px;
+  /* Adjust height as needed */
+  border-radius: 50%;
+  /* Make it round */
+  line-height: 40px;
+  /* Vertically center content */
 
-  .round-button img{
-    width: 10px;
-  }
-  
-  .round-button:hover {
-    background-color: #ddd; /* Change background color on hover */
-  }
-  
-  .round-button:focus {
-    outline: none; /* Remove default focus outline */
-  }
+  padding: 0;
+  background-color: #FBEBEB;
+}
+
+.round-button img {
+  width: 10px;
+}
+
+.round-button:hover {
+  background-color: #ddd;
+  /* Change background color on hover */
+}
+
+.round-button:focus {
+  outline: none;
+  /* Remove default focus outline */
+}
 
 
-  
-  .userAbout{
-    margin-top: 1rem;
-  }
 
-  
- 
-  .cardsAnimat .cards {
-    
-    background-color: #f4f5f9;
-    height: 80%; 
-    
-  }
+.userAbout {
+  margin-top: 1rem;
+}
 
-  .chCards  {
-    width: 27rem;
-    height: 11rem;
-    margin: 1rem 1rem !important;
+
+
+.cardsAnimat .cards {
+
+  background-color: #f4f5f9;
+  height: 80%;
+
+}
+
+.chCards {
+  width: 27rem;
+  height: 11rem;
+  margin: 1rem 1rem !important;
+  padding: 2rem;
+}
+
+/* Media query for smaller devices */
+@media screen and (max-width: 1284px) {
+  .chCards {
+    width: 20rem;
+
+    margin: 0 2rem !important;
     padding: 2rem;
   }
 
-  /* Media query for smaller devices */
-@media screen and (max-width: 992px) {
-  .chCards  {
-    width: 22rem;
-  
-    margin: 1rem 1rem !important;
-    padding: 2rem;
+  .round-button {
+    display: none;
   }
 
 }
-  
 
-  /*.cards-container{
+
+
+
+
+
+/*.cards-container{
     
     display: flex;
     flex-direction: row-reverse; 
     overflow-x: hidden;
   }*/
 
-  /*.cardsAnimat{
+/*.cardsAnimat{
     display: flex;
     flex-direction: row;
   
   }*/
 
- /* .col-2 {
+/* .col-2 {
     flex: 0 0 auto; 
     margin-right: 10px; 
 }*/
@@ -100,7 +113,3 @@
         transform: translateX(-100%); 
     }
 } */
-
-
-
-  

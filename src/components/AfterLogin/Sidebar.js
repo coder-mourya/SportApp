@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 
 import "../../assets/Styles/AfterLogin/sidbar.css"
@@ -15,13 +15,13 @@ import fav from "../../assets/afterLogin picks/home/fav.png";
 import help from "../../assets/afterLogin picks/home/Help.png";
 import training from "../../assets/afterLogin picks/home/event2.png";
 
-const SidebarComponent = () => {
+const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
 
-  const [sidebarOpen, setIsSidebarOpen] = useState(false);
+  // const [sidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!sidebarOpen);
-  };
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!sidebarOpen);
+  // };
 
   
   return (

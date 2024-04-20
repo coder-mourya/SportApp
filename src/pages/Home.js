@@ -56,7 +56,7 @@ const Home = () => {
 
                         <p className="mt-2  custm-pera text-center my-4 text-animation2 allFonts-p">Discover seamless sports management and communication tools for teams, optimized training scheduling, and tailored expense solutions—all in one platform, designed to elevate your sporting journey.</p>
 
-                        <div className="applinkMargin">
+                        <div className="applinkMargin d-flex justify-content-center ">
 
                             <a href="https://play.google.com/store/apps/details?id=com.sportsnerve.usersapp&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="mx-2  links"><img src={playStore} alt="play store pick" className="mt-2 app-links" /></a>
 

@@ -2,7 +2,7 @@ import React from "react";
 import "../assets/Styles/contact.css";
 import "../assets/Styles/Allfonts.css";
 import axios from "axios";
-import { useState  } from "react";
+import { useState } from "react";
 
 
 const Contact = () => {
@@ -14,38 +14,38 @@ const Contact = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
-        try {
-          // Make API call using Axios
-          const response = await axios.post("https://www.zohoapis.in/crm/v2/Leads", {
-            name,
-            email,
-            role,
-            message,
-          });
-    
-          // Handle the response
-          console.log("Response:", response.data);
-    
-          // Reset form fields after successful submission
-          setName("");
-          setEmail("");
-          setRole("");
-          setMessage("");
-        } catch (error) {
-          // Handle errors
-          console.error("Error:", error);
-        }
-      };
 
-      
+        try {
+            // Make API call using Axios
+            const response = await axios.post("https://www.zohoapis.in/crm/v2/Leads", {
+                name,
+                email,
+                role,
+                message,
+            });
+
+            // Handle the response
+            console.log("Response:", response.data);
+
+            // Reset form fields after successful submission
+            setName("");
+            setEmail("");
+            setRole("");
+            setMessage("");
+        } catch (error) {
+            // Handle errors
+            console.error("Error:", error);
+        }
+    };
+
+
 
     return (
-        <div className=" contact-us text-white mt-5">
+        <div className=" contact-us text-white mt-5 ">
 
             <div className="row  ">
 
-                <div className="col-md-6  text-start contact-text">
+                <div className="col-md-6   text-md-start  contact-text">
                     <h1 className="allFonts"><b>Reach Out & Feature <br />
                         Request Form !</b></h1>
 
@@ -75,25 +75,25 @@ const Contact = () => {
                 </div>
 
 
-                <div className="col-md-6">
+                <div className="col-md-6 ">
 
                     <form className="form" onSubmit={handleSubmit}>
 
                         <div className="row mb-2">
 
-                            <div className="col-6">
+                            <div className="col-md-6">
 
                                 <input
 
                                     type="text"
                                     placeholder="Name"
-        value={name}
+                                    value={name}
                                     className="form-control "
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-md-6">
 
                                 <input
 
@@ -102,20 +102,20 @@ const Contact = () => {
 
                                     className="form-control"
                                     value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => setEmail(e.target.value)}
 
                                 />
                             </div>
                         </div>
 
 
-                        <select 
-                        name="role"
-                         id="sportsSelect" 
-                         className="form-select my-3"
-                         value={role}
-              onChange={(e) => setRole(e.target.value)}
-                         >
+                        <select
+                            name="role"
+                            id="sportsSelect"
+                            className="form-select my-3"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                        >
 
                             <option value="">--Select your role--</option>
                             <option value="User">User</option>
@@ -132,9 +132,9 @@ const Contact = () => {
                             placeholder="Write your message here..."
                             className="form-control my-4 "
                             value={message}
-              onChange={(e) => setMessage(e.target.value)}
-                            >
-                                
+                            onChange={(e) => setMessage(e.target.value)}
+                        >
+
 
                         </textarea>
 

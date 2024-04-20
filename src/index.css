@@ -9,7 +9,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
   
+  height: -webkit-fill-available;
+
   
+}
+
+html{
+  height: -webkit-fill-available;
 }
 
 code {

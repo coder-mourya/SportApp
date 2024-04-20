@@ -1,3 +1,5 @@
+
+
 .feedback {
     background-color: #f4ceceeb; /* Set background color */
     background-image: url("../feedbackIcons/feebackIcon.png") ; /* Set background image */
@@ -5,6 +7,9 @@
     background-position: center; /* Center the background image */
 }
 
+.feedback-link .app-links{
+    width: 9rem!important;
+}
 
 .download-app{
     width: 80%;
@@ -21,4 +26,13 @@
 
 .feedback-link p{
     font-size: 20px;
+}
+
+@media screen and (max-width: 1284px) {
+    
+    /* .feedback-link .app-links{
+        width: 6rem!important;
+    } */
+
+    
 }

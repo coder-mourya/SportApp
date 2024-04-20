@@ -3,7 +3,7 @@
   background-color: #f0f0f0;
   left: 0 !important;
   position: fixed !important;
-  top: 7rem;
+  top: 4.5rem;
  
 }
 
@@ -33,6 +33,7 @@
 
 .custom-menu {
   height: 100vh;
+  padding-top: 2rem;
 }
 
 .custom-menu-item a {

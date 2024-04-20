@@ -1,3 +1,5 @@
+
+
 .contact-us {
     background-color: #080f41;
     padding: 4rem;
@@ -19,6 +21,8 @@
 
 
 .list ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     list-style-type: none;
     padding: 0;
@@ -41,7 +45,7 @@
 .form input {
     padding: 15px 8px;
     border-radius: 10px;
-    margin: 0.5rem;
+    margin: 0.5rem 0;
 }
 
 select {
@@ -49,7 +53,7 @@ select {
     border-radius: 10px;
     padding: 15px 8px !important;
 
-    margin: 0.5rem;
+    margin: 0.5rem 0;
     font-size: 12px;
 }
 
@@ -59,7 +63,7 @@ form textarea {
     width: 60%;
     height: 20vh;
 
-    margin: 0.5rem;
+    margin: 0.5rem 0;
 
     border-radius: 10px;
 }
@@ -71,16 +75,7 @@ form textarea {
    background-color: #D32F2F;
 }
 
-@media screen and (max-width: 992px) {
-    .submit-btn button{
-        width: 50%;
-        font-size: 1rem;
-        font-weight: 400;
-        background-color: #D32F2F;
-     }
-  
-}
-  
+
 
 /* contact page styles  */
 
@@ -100,4 +95,20 @@ form textarea {
 .custom-contact select,
 .custom-contact textarea{
     background-color: #EAEBF5;
+}
+
+
+@media screen and (max-width: 1284px) {
+    .submit-btn button{
+        width: 50%;
+        font-size: 1rem;
+        font-weight: 400;
+        background-color: #D32F2F;
+     }
+
+     .contact-us {
+        background-color: #080f41;
+        padding: 1.5rem;
+    }
+  
 }

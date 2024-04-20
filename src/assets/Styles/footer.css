@@ -1,3 +1,5 @@
+
+
 .footer {
   background-color: #eaebf5;
   height: 100%;
@@ -53,7 +55,7 @@
 }
 
 .cutm-address {
-  margin-left: 2.5rem;
+  margin-left: 2.9rem;
 }
 
 
@@ -95,7 +97,9 @@
   position: absolute;
   top: 50%;
   right: 2%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
   background: none;
   padding: 5px 20px;
   border: none;
@@ -108,6 +112,9 @@
 
 .footer-links {
   margin-right: 11%;
+}
+.footer-links img{
+    width: 8rem;
 }
 
 /*bottom footer */
@@ -125,6 +132,8 @@
 }
 
 .footer-bottom ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   list-style-type: none;
 
@@ -155,6 +164,8 @@
 
 .footer-bottom .list-items ul li:nth-child(3) i:hover {
   /* Apply linear gradient as background */
+  background: -webkit-gradient(linear, left top, right top, color-stop(10%, rgba(253, 130, 29, 1)), color-stop(52%, rgba(162, 58, 180, 1)), color-stop(96%, rgba(69, 85, 252, 1)));
+  background: -o-linear-gradient(left, rgba(253, 130, 29, 1) 10%, rgba(162, 58, 180, 1) 52%, rgba(69, 85, 252, 1) 96%);
   background: linear-gradient(90deg, rgba(253, 130, 29, 1) 10%, rgba(162, 58, 180, 1) 52%, rgba(69, 85, 252, 1) 96%);
   -webkit-background-clip: text; /* Clip the background to the text */
   -webkit-text-fill-color: transparent; /* Make the text transparent to show the background */
@@ -168,7 +179,7 @@
 
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1284px) {
   .box h2 {
     font-size: 20px;
   }
@@ -185,8 +196,13 @@
     padding-left: 0;
   }
  .info ul li {
-  margin: 1rem;
+  margin: 1rem 0;
  }
+
+ .info ul li span {
+  margin: 20px 18px;
+}
+
   .info ul li img {
     width: 8%;
 
@@ -195,4 +211,14 @@
   .cutm-address {
     margin-left: 3.5rem !important;
   }
+
+  .footer-links {
+    margin-right: 0;
+    /* margin-left: 2rem !important; */
+  }
+
+    .footer-bottom {
+      padding: 1.3rem 0 0.6rem 4rem;
+  
+    }
 }

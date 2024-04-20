@@ -15,7 +15,7 @@ import userIcon from "../assets/img/usericon.png";
 // import user1 from "../assets/img/user1.png";
 // import user2 from "../assets/img/user2.png";
 // import user3 from "../assets/img/user3.png";
-import {Reviews} from "../assets/DummyData/dummyData";
+import { Reviews } from "../assets/DummyData/dummyData";
 
 
 const Love = () => {
@@ -77,6 +77,15 @@ const Love = () => {
     };
 
 
+    const sliceDescription = (description) => {
+        const maxLength = 80; // Maximum length of sliced description
+        if (description.length > maxLength) {
+            return `${description.slice(0, maxLength)}...`; // Slice the description if it's longer than maxLength
+        }
+        return description; // Return the original description if it's within maxLength
+    };
+
+
 
     return (
 
@@ -99,7 +108,7 @@ const Love = () => {
                         </p>
                     </div>
 
-                    <div className="col-md-3 text-end ">
+                    <div className="col-md-3 text-end  ">
 
                         <button className="btn round-button mx-2" onClick={handleNextButtonClick}><img src={left} alt="left" /></button>
                         <button className="btn round-button mx-2" onClick={handlePrevButtonClick} ><img src={right} alt="right" /></button>
@@ -129,7 +138,7 @@ const Love = () => {
                             dots={false}
                         >
                             {data.map((item, index) => (
-                                <div key={index} className="cards chCards item">
+                                <div key={index} className="cards chCards item ">
                                     <div className="user row">
                                         <div className="col-3">
                                             <img src={item.image} alt={item.name} className="card-pick" />
@@ -143,7 +152,7 @@ const Love = () => {
                                         </div>
                                     </div>
                                     <div className="userAbout text-start">
-                                        <p>{item.description}</p>
+                                    <p>{sliceDescription(item.description)}</p>
                                     </div>
                                 </div>
                             ))}

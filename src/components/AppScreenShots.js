@@ -12,7 +12,7 @@ import { Autoplay, EffectCoverflow, A11y } from 'swiper/modules';
 
 
 
-import home from "../assets/screenShots/Home.png";
+import home from "../assets/screenShots/home.png";
 import img1 from "../assets/screenShots/img1.png";
 import img2 from "../assets/screenShots/img2.png";
 import img3 from "../assets/screenShots/img3.png";
@@ -43,7 +43,7 @@ const AppScreenShots = () => {
     },
     // when window width is >= 768px (medium devices) and < 992px, show 2 images per view
     768: {
-      slidesPerView: 2
+      slidesPerView: 1
     },
     // when window width is < 768px (small devices), show 1 image per view
     0: {

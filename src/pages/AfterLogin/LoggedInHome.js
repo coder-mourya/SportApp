@@ -9,35 +9,36 @@ import Events from "../../components/AfterLogin/Events";
 import YoutubeVideo from "../../components/AfterLogin/YoutubeVideo";
 import SidebarComponent from "../../components/AfterLogin/Sidebar";
 import SidebarSmall from "../../components/AfterLogin/SidebarSmallDevice";
+import { useState } from "react";
 
 
 
 
 const LoggedInHome = () => {
 
-  // const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // const toggleSidebar = () => {
-  //   setSidebarOpen(!sidebarOpen);
-  // };
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mainContainerClass, setMainContainerClass] = useState('col-md-8');
 
-  // useEffect(() => {
-  //   console.log('Sidebar state:', sidebarOpen); // Log the state to check if it's updating correctly
-  // }, [sidebarOpen]);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+    setMainContainerClass(sidebarOpen ? 'col-md-8 ' : 'col-md-7 ');
+  };
 
+ 
   return (
     <div className="LoggedInHome container-fluid bodyColor pb-5 ">
       <div className="row">
 
-        <div className="col-md-2">
+        <div className="col">
           
 
           <SidebarSmall />
-          <SidebarComponent  />
+          <SidebarComponent toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
 
         </div>
 
-        <div className="col-md-7 main    mt-5">
+        <div className={`${mainContainerClass} main mt-5`}>
 
           <div className="row">
             <div className="col-md-6">
