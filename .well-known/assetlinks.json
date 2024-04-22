@@ -1,0 +1,42 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.sportsnerve.usersapp",
+      "sha256_cert_fingerprints": [
+        "E4:EE:3C:09:DD:F6:D0:7F:A5:96:9F:AE:83:5F:07:0C:AB:04:34:C8:1D:96:9D:66:BA:CA:C1:30:FD:FA:8C:58",
+        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
+        "4D:38:BF:78:B3:03:C8:FE:59:60:94:FA:6B:33:D7:D7:42:7B:33:21:C0:78:E7:C2:E4:93:0D:5D:4E:F6:18:43"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.facility",
+      "sha256_cert_fingerprints": [
+        "06:C9:DA:4E:4F:F6:A4:F6:BD:95:62:59:7C:F1:6D:CA:CE:10:6A:C2:39:A5:54:72:B9:61:3A:16:3F:FC:25:66",
+        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.sportsnerve.facility",
+      "sha256_cert_fingerprints": [
+        "06:C9:DA:4E:4F:F6:A4:F6:BD:95:62:59:7C:F1:6D:CA:CE:10:6A:C2:39:A5:54:72:B9:61:3A:16:3F:FC:25:66",
+        "73:F3:56:85:76:BD:E6:EC:D4:DE:74:8B:09:84:BA:12:34:3F:E3:D7:08:E6:A8:0E:9E:86:BC:50:ED:E9:8D:C0"
+      ]
+    }
+  }
+]

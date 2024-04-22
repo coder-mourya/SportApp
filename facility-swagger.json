@@ -1,0 +1,4112 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0",
+      "title": "Sports Nerve App"
+    },
+    "host": "petstore.swagger.io",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "Auth"
+      },
+      {
+        "name": "Facility-admin",
+        "description": "Facility admin profile"
+      },
+      {
+        "name": "Facility",
+        "description": "Facility"
+      },
+      {
+        "name": "Coach",
+        "description": "Coach"
+      },
+      {
+        "name": "Common",
+        "description": "Common route for facility and coach"
+      },
+      {
+        "name": "Training",
+        "description": "Training"
+      },
+      {
+        "name": "Promotion",
+        "description": "Promotion api"
+      },
+      {
+        "name": "Schedule",
+        "description": "Schedule api"
+      } ,
+      {
+        "name": "Evaluation",
+        "description": "Evaluation api"
+      },
+      {
+        "name": "Rating-Review",
+        "description": "Rating-Review api"
+      },
+      {
+        "name": "Dashboard",
+        "description": "Dashboard api"
+      },
+      {
+        "name": "Notifications",
+        "description": "Notifications"
+      }    
+      
+    ],
+    "schemes": ["http", "https"],
+    "paths": {
+      "/api/v1/facility/auth/check_mobile_exists": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Check Mobile number already exists",
+          "description": "Using this api we will check user mobile no exists or not, according these api response we will call login or signup api",
+          "operationId": "check_mobile_exists",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "mobile",
+              "in": "formData",
+              "description": "Mobile Number",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "8196071707"
+            },
+            {
+              "name": "countryCode",
+              "in": "formData",
+              "description": "Country code",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "+91"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/facility/delete/account": {
+        "delete": {
+          "tags": ["Auth"],
+          "summary": "Delete Account",
+          "description": "Delete Account",
+          "operationId": "delete_facility_account",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/auth/check_email_exists": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Check email address already exists",
+          "description": "Using this api we will check user email address exists or not",
+          "operationId": "check_email_exists",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email address",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "tanya@mailinator.com"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/facility/auth/login": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Facility login",
+          "description": "",
+          "operationId": "login",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "userType",
+              "enum": ["facility_admin","facility_manager","coach"],
+              "in": "formData",
+              "description": "Facility type",
+              "default": "facility_admin",
+              "type": "string",
+              "format": "Enum"
+            },
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "nitish.singh@gmail.com"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "description": "Password",
+              "required": true,
+              "type": "string",
+              "format": "String",
+              "default": "12345678"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/facility/auth/register": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Facility Register",
+          "description": "",
+          "operationId": "register",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "userType",
+              "enum": ["facility_admin"],
+              "in": "formData",
+              "description": "User Type",
+              "required": true,
+              "default": "facility_admin",
+              "type": "string",
+              "format": "Enum"
+            },
+            {
+              "name": "name",
+              "in": "formData",
+              "description": "Name of the company",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "Test facility"
+            },
+            {
+              "name": "adminName",
+              "in": "formData",
+              "description": "Name of the facilty admin",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "Test facility"
+            },
+            {
+              "name": "countryAlphaCode",
+              "in": "formData",
+              "description": "Country alpha Code",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "IND"
+            },
+            {
+              "name": "countryCode",
+              "in": "formData",
+              "description": "Country Code",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "+91"
+            },
+            {
+              "name": "country",
+              "in": "formData",
+              "description": "Enter country",
+              "required": true,
+              "type": "string",
+              "format": "string"
+            },
+            {
+              "name": "mobile",
+              "in": "formData",
+              "description": "Mobile Number",
+              "required": true,
+              "type": "number",
+              "format": "number",
+              "default": "9690716309"
+            },            
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Enter email",
+              "type": "string",
+              "format": "string",
+              "default": "nitish.ripenaps@gmail.com"
+            }, 
+            {
+              "name": "password",
+              "in": "formData",
+              "description": "Password",
+              "required": true,
+              "type": "string",
+              "format": "String",
+              "default": "12345678"
+            },       
+            
+            {
+              "name": "deviceType",
+              "enum": ["ios", "android"],
+              "in": "formData",
+              "description": "Device Type",
+              "required": true,
+              "default": "ios",
+              "type": "string",
+              "format": "Enum"
+            },
+            {
+              "name": "deviceToken",             
+              "in": "formData",
+              "description": "Device Token for fcm ",
+              "required": false,
+              "default": "",
+              "type": "string",
+              "format": "string"
+            }
+            
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/facility/auth/sendLink": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Send Reset Password Link To User",
+          "description": "",
+          "operationId": "sendLink",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "tanya@mailinator.com"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/facility/auth/send/mail-verification/link": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Send Email Verification Link To User",
+          "description": "",
+          "operationId": "send_mail_verification_link",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "tanya@mailinator.com"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/facility/auth/resend/mail-verification/link": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Resend Email Verification Link To User",
+          "description": "",
+          "operationId": "resend_link",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "formData",
+              "description": "User Id",
+              "required": true,
+              "type": "string",
+              "format": "string"
+            },
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "tanya@mailinator.com"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/facility/change/email": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Change email after signup",
+          "description": "Change email after signup",
+          "operationId": "change_email",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email address",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "tanya@mailinator.com"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/logout": {
+        "get": {
+          "tags": ["Auth"],
+          "summary": "Logout Facility",
+          "description": "Logout Facility",
+          "operationId": "logout_facility",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/check/coachEsists": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "Check coach exists or not",
+          "description": "Check coach exists or not",
+          "operationId": "logout_facility",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email address",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "tanya@mailinator.com"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/update/deviceToken": {
+        "put": {
+          "tags": ["Auth"],
+          "summary": "Update device token",
+          "description": "Update device token",
+          "operationId": "update_device_token",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "deviceToken",
+              "in": "formData",
+              "description": "Enter device token",
+              "required": true,
+              "type": "string",
+              "format": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/update-profile": {
+        "post": {
+          "tags": ["Facility-admin"],
+          "summary": "Update facility admin profile",
+          "description": "",
+          "operationId": "update-profile",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [  
+            {
+              "name": "profileImage",
+              "in": "formData",
+              "description": "facility profile image",
+              "required": false,
+              "type": "file"
+            },          
+            {
+              "name": "name",
+              "in": "formData",
+              "description": "Name of the company",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "Test facility"
+            },
+            {
+              "name": "adminName",
+              "in": "formData",
+              "description": "Name of the facilty admin",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "Test facility"
+            },
+            {
+              "name": "countryAlphaCode",
+              "in": "formData",
+              "description": "Country alpha Code",
+              "required": true,
+              "type": "string",
+              "format": "string",
+              "default": "IND"
+            },
+            {
+              "name": "countryCode",
+              "in": "formData",
+              "description": "country code",
+              "required": true,
+              "type": "string",              
+              "default": "+91"
+            },
+            {
+              "name": "mobile",
+              "in": "formData",
+              "description": "mobile",
+              "required": true,
+              "type": "integer",              
+              "default": "8987654367"
+            }          
+            
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/get-facility": {
+        "get": {
+          "tags": ["Facility"],
+          "summary": "Get My facility list ",
+        "description": "Get my facility list",
+          "operationId": "get-facility",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Enter Page No To Get Listing Accordingly",
+              "type": "integer",
+              "format": "integer",
+              "default": 1
+            },
+            {
+              "name": "search",
+              "in": "query",
+              "description": "Search by facility name",
+              "type": "string",
+              "format": "string"
+            }
+           
+          ],     
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/get-facility-details": {
+        "get": {
+          "tags": ["Facility"],
+          "summary": "Get My facility details ",
+        "description": "Get my facility details",
+          "operationId": "get-facility-details",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [
+            
+            {
+              "name": "facilityId",
+              "in": "query",
+              "description": "Enter facility id to get details",
+              "type": "string",
+              "format": "string"
+              
+            }    
+           
+          ],     
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },
+      "/api/v1/facility/verify-stripe-account": {
+        "post": {
+          "tags": ["Facility"],
+          "summary": "Check stripe account id ",
+          "description": "",
+          "operationId": "verify-stripe-account",
+          "consumes": ["multipart/form-data"],
+          "produces": ["application/json"],
+          "parameters": [  
+            {
+              "name": "stripeId",
+              "in": "formData",
+              "description": "stripe id",
+              "required": true,
+              "type": "string"
+            } 
+            
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "security": [
+            {
+              "Authorization": {
+                "type": "apiKey",
+                "name": "authorization",
+                "in": "header"
+              }
+            }
+          ]
+        }
+      },    
+    "/api/v1/facility/add-facility": {
+      "post": {
+        "tags": ["Facility"],
+        "summary": "Add new facility",
+        "description": "",
+        "operationId": "add-facility",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name":"action",
+            "in":"formData",
+            "description":"",
+            "enum": ["add","update"],
+            "type":"string",
+            "default":"add"
+          },
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "description": "facility cover image",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },
+          {
+            "name": "countryAlphaCode",
+            "in": "formData",
+            "description": "Country alpha Code",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "IND"
+          },
+          {
+            "name": "countryCode",
+            "in": "formData",
+            "description": "countryCode",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "+91"
+          },
+          {
+            "name": "mobile",
+            "in": "formData",
+            "description": "mobile",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "7896543786"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "description": "address",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "country",
+            "in": "formData",
+            "description": "country",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "India"
+          },{
+            "name": "state",
+            "in": "formData",
+            "description": "state",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "UP"
+          },{
+            "name": "city",
+            "in": "formData",
+            "description": "city",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "Noida"
+          },{
+            "name": "pincode",
+            "in": "formData",
+            "description": "pincode",
+            "required": false,
+            "type": "integer",
+            "format": "string",
+            "default": "201307"
+          }
+          ,{
+            "name": "latitude",
+            "in": "formData",
+            "description": "latitude",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "22.4567654"
+          },
+          {
+            "name": "longitude",
+            "in": "formData",
+            "description": "longitude",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "22.4567654"
+          },{
+            "name": "openingTime",
+            "in": "formData",
+            "description": "openingTime",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "08:05 AM"
+          },{
+            "name": "closingTime",
+            "in": "formData",
+            "description": "closingTime",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "10:10 PM"
+          },{
+            "name": "googleMapId",
+            "in": "formData",
+            "description": "googleMapId",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "amsqwejkqwhejqwgdbsn"
+          },{
+            "name": "color",
+            "in": "formData",
+            "description": "color",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "#fffffff"
+          },
+          {
+            "name": "chosenSports",
+            "in": "formData",
+            "required": true,
+            "type": "array",            
+            "description": "Sport id in array []"
+          }, 
+            {
+            "name": "stripeId",
+            "in": "formData",
+            "description": "stripe Id",
+            "required": false,
+            "type": "string",
+            "format": "string"          
+          },
+          {
+            "name": "facilityId",
+            "in": "formData",
+            "description": "facility id in case of update",
+            "required": false,
+            "type": "string",
+            "format": "string"          
+          }
+                
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/delete-facility/{facilityId}": {
+      "delete": {
+        "tags": ["Facility"],
+        "summary": "Delete facility",
+        "description": "Delete facility",
+        "operationId": "delete-facility",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "facilityId",
+            "in": "path",
+            "description": "Enter Id Of The facility",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-coaches": {
+      "get": {
+        "tags": ["Coach"],
+        "summary": "Get My coach list ",
+      "description": "Get my coach list",
+        "operationId": "get-coaches",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search by coach name",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "query",
+            "description": "Get coaches by sport",
+            "type": "string",
+            "format": "string"
+          }
+         
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-coach-details/{id}": {
+      "get": {
+        "tags": ["Coach"],
+        "summary": "Get My coach details ",
+      "description": "Get my coach details",
+        "operationId": "get-coaches-details",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Enter _id of the coach",
+            "type": "string",
+            "format": "string",
+            "required" : true
+          }
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/add-coach": {
+      "post": {
+        "tags": ["Coach"],
+        "summary": "Add new coach",
+        "description": "",
+        "operationId": "add-coach",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "description": "coach cover image",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "profileImage",
+            "in": "formData",
+            "description": "coach profile image",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },
+          {
+            "name": "countryCode",
+            "in": "formData",
+            "description": "countryCode",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "+91"
+          },
+          {
+            "name": "countryAlphaCode",
+            "in": "formData",
+            "description": "countryAlphaCode",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "+91"
+          },
+          {
+            "name": "mobile",
+            "in": "formData",
+            "description": "mobile",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "7896543786"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "email",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "test@gmail.com"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "description": "address",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "country",
+            "in": "formData",
+            "description": "country",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "state",
+            "in": "formData",
+            "description": "state",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "city",
+            "in": "formData",
+            "description": "city",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "pincode",
+            "in": "formData",
+            "description": "pincode",
+            "required": true,
+            "type": "integer",
+            "format": "string",
+            "default": "201307"
+          },{
+            "name": "latitude",
+            "in": "formData",
+            "description": "latitude",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "22.4567654"
+          },
+          {
+            "name": "longitude",
+            "in": "formData",
+            "description": "longitude",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "22.4567654"
+          },{
+            "name": "about",
+            "in": "formData",
+            "description": "about coach",
+            "required": false,
+            "type": "string",
+            "format": "string"
+           
+          },          
+          {
+            "name": "chosenSports",
+            "in": "formData",
+            "required": true,
+            "type": "array",            
+            "description": "Sport id in array []"
+          }                
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/update-coach": {
+      "post": {
+        "tags": ["Coach"],
+        "summary": "Update coach profile after coach login",
+        "description": "",
+        "operationId": "update-coach",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "description": "coach cover image",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "profileImage",
+            "in": "formData",
+            "description": "coach profile image",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },
+          {
+            "name": "countryAlphaCode",
+            "in": "formData",
+            "description": "Country alpha Code",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "IND"
+          },
+          {
+            "name": "countryCode",
+            "in": "formData",
+            "description": "countryCode",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "+91"
+          },
+          {
+            "name": "mobile",
+            "in": "formData",
+            "description": "mobile",
+            "required": false,
+            "type": "integer",
+            "format": "string",
+            "default": "7896543786"
+          },          
+          {
+            "name": "address",
+            "in": "formData",
+            "description": "address",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "country",
+            "in": "formData",
+            "description": "country",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "state",
+            "in": "formData",
+            "description": "state",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "city",
+            "in": "formData",
+            "description": "city",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "Test"
+          },{
+            "name": "pincode",
+            "in": "formData",
+            "description": "pincode",
+            "required": false,
+            "type": "integer",
+            "format": "string",
+            "default": "201301"
+          },{
+            "name": "latitude",
+            "in": "formData",
+            "description": "latitude",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "22.4567654"
+          },
+          {
+            "name": "longitude",
+            "in": "formData",
+            "description": "longitude",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "22.4567654"
+          },{
+            "name": "about",
+            "in": "formData",
+            "description": "about coach",
+            "required": false,
+            "type": "string",
+            "format": "string"
+           
+          },          
+          {
+            "name": "chosenSports",
+            "in": "formData",
+            "required": false,
+            "type": "array",            
+            "description": "Sport id in array []"
+          }                
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/delete-coach/{coachId}": {
+      "delete": {
+        "tags": ["Coach"],
+        "summary": "Delete coach",
+        "description": "Delete coach",
+        "operationId": "delete-coach",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "coachId",
+            "in": "path",
+            "description": "Enter Id Of The coach",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-profile": {
+      "get": {
+        "tags": ["Common"],
+        "summary": "Get profile ",
+        "description": "Get profile",
+        "operationId": "get-profile",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [         
+          {
+            "name": "userType",
+            "enum": ["facility_admin","facility_manager","coach"],
+            "in": "query",
+            "description": "Facility type",
+            "default": "facility_admin",
+            "type": "string",
+            "format": "Enum"
+          }         
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/change/password": {
+      "post": {
+        "tags": ["Common"],
+        "summary": "Change password",
+        "description": "Change password",
+        "operationId": "change_facility_password",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userType",
+            "enum": ["facility_admin","facility_manager","coach"],
+            "in": "formData",
+            "description": "Facility type",
+            "default": "facility_admin",
+            "type": "string",
+            "format": "Enum"
+          },
+          {
+            "name": "oldPassword",
+            "in": "formData",
+            "description": "Enter old password",
+            "required": true,
+            "type": "string",
+            "format": "string"            
+          },
+          {
+            "name": "newPassword",
+            "in": "formData",
+            "description": "Enter new password",
+            "required": true,
+            "type": "string",
+            "format": "string"            
+          },
+          {
+            "name": "confirmPassword",
+            "in": "formData",
+            "description": "Enter confirm password",
+            "required": true,
+            "type": "string",
+            "format": "string"           
+          }                 
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/help": {
+      "post": {
+        "tags": ["Common"],
+        "summary": "Help & support",
+        "description": "Help & support",
+        "operationId": "help",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [          
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "Enter title",
+            "required": true,
+            "type": "string",
+            "format": "string"            
+          },
+          {
+            "name": "message",
+            "in": "formData",
+            "description": "Enter message",
+            "required": true,
+            "type": "string",
+            "format": "string"            
+          },
+          {
+            "name": "feedback",
+            "in": "formData",
+            "description": "Enter feedback",
+            "required": false,
+            "type": "string",
+            "format": "string"           
+          }                 
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/facility/list": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get facility  list for training ",
+        "description": "Get facility  list for training",
+        "operationId": "get-facility-list-for-training",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/coach/list": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get coach  list for training ",
+        "description": "Get coach  list for training",
+        "operationId": "get-coach-list-for-training",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/create-training": {
+      "post": {
+        "tags": ["Training"],
+        "summary": "create trainning",
+        "description": "create trainning",
+        "operationId": "create-trainning",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "sportId",
+            "in": "formData",
+            "description": "Enter sportId",
+            "required": true,
+            "type": "string",
+            "format": "string"           
+          },   
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "description": "select cover image",
+            "required": true,
+            "type": "array",
+            "items":{
+              "type":"file"
+            }                    
+          },       
+          {
+            "name": "trainingName",
+            "in": "formData",
+            "description": "Enter training name",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default":"Test"           
+          },
+          {
+            "name": "facilityId",
+            "in": "formData",
+            "description": "Enter  facilityId",
+            "required": true,
+            "type": "string",
+            "format": "string"                    
+          },
+          {
+            "name": "curriculum",
+            "in": "formData",
+            "description": "curriculum",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "test"
+          },
+          {
+            "name": "coachesId",
+            "in": "formData",
+            "description": "coachesId",
+            "required": true,
+            "type": "array"            
+          },          
+          {
+            "name": "ageGroupFrom",
+            "in": "formData",
+            "description": "ageGroupFrom",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "5 year"
+          },
+          {
+            "name": "ageGroupTo",
+            "in": "formData",
+            "description": "ageGroupTo",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "20 year"
+          },
+          {
+            "name": "proficiencyLevel",
+            "in": "formData",
+            "description": "proficiencyLevel (Beginners,Intermediate,Advanced)",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Beginners"
+          },
+          {
+            "name": "startDate",
+            "in": "formData",
+            "description": "startDate",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "endDate",
+            "in": "formData",
+            "description": "endDate",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "days",
+            "in": "formData",
+            "description": "days [sunday,monday]",
+            "required": true,
+            "type": "array"            
+          },
+          {
+            "name": "localCountry",
+            "in": "formData",
+            "description": "Enter localCountry ( country name get from localcountry timezone like Asia/Yerevan)",
+            "required": true,
+            "type": "string"       
+          },
+          {
+            "name": "sessionTimeDuration",
+            "in": "formData",
+            "description": "sessionTimeDuration",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "2 Hour"
+          },
+          {
+            "name": "sunday",
+            "in": "formData",
+            "description": "slots for sunday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }          
+          },
+          {
+            "name": "monday",
+            "in": "formData",
+            "description": "slots for monday (06:00 AM-08:00 AM,08:00 AM-10:00 AM)",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }            
+          },
+          {
+            "name": "tuesday",
+            "in": "formData",
+            "description": "slots for tuesday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }            
+          },
+          {
+            "name": "wednesday",
+            "in": "formData",
+            "description": "slots for wednesday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }             
+          },
+          {
+            "name": "thursday",
+            "in": "formData",
+            "description": "slots for thursday",
+            "required": false,
+            "type": "array"  ,
+            "items": {
+              "type" : "object"
+            }            
+          },
+          {
+            "name": "friday",
+            "in": "formData",
+            "description": "slots for friday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }            
+          },
+          {
+            "name": "saturday",
+            "in": "formData",
+            "description": "slots for saturday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }             
+          },
+          {
+            "name": "minimumSession",
+            "in": "formData",
+            "description": "minimumSession",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "2"
+          },
+          {
+            "name": "maximumSession",
+            "in": "formData",
+            "description": "maximumSession",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "10"
+          },
+          {
+            "name": "minimumStudent",
+            "in": "formData",
+            "description": "minimumStudent",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "2"
+          },
+          {
+            "name": "maximumStudent",
+            "in": "formData",
+            "description": "maximumStudent",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "10"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "description": "price",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "10"
+          },
+          {
+            "name": "currency",
+            "in": "formData",
+            "description": "currency",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "USD"
+          },
+          {
+            "name": "inclusiveTax",
+            "in": "formData",
+            "description": "inclusiveTax",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          }
+
+          
+
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/update": {
+      "post": {
+        "tags": ["Training"],
+        "summary": "update trainning",
+        "description": "update trainning",
+        "operationId": "update-trainning",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "trainingId",
+            "in": "formData",
+            "description": "Enter training Id",
+            "required": true,
+            "type": "string",
+            "format": "string"           
+          },
+          {
+            "name": "sportId",
+            "in": "formData",
+            "description": "Enter sportId",
+            "required": true,
+            "type": "string",
+            "format": "string"           
+          },   
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "description": "select cover image",
+            "required": false,
+            "type": "array",
+            "items":{
+              "type":"file"
+            }                    
+          },        
+          {
+            "name": "trainingName",
+            "in": "formData",
+            "description": "Enter training name",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default":"Test"           
+          },
+          {
+            "name": "facilityId",
+            "in": "formData",
+            "description": "Enter  facilityId",
+            "required": true,
+            "type": "string",
+            "format": "string"                    
+          },
+          {
+            "name": "curriculum",
+            "in": "formData",
+            "description": "curriculum",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "test"
+          },
+          {
+            "name": "coachesId",
+            "in": "formData",
+            "description": "coachesId",
+            "required": true,
+            "type": "array"            
+          },
+          {
+            "name": "curriculum",
+            "in": "formData",
+            "description": "curriculum",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "test"
+          },
+          {
+            "name": "ageGroupFrom",
+            "in": "formData",
+            "description": "ageGroupFrom",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "5 year"
+          },
+          {
+            "name": "ageGroupTo",
+            "in": "formData",
+            "description": "ageGroupTo",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "20 year"
+          },
+          {
+            "name": "proficiencyLevel",
+            "in": "formData",
+            "description": "proficiencyLevel (Beginners,Intermediate,Advanced)",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "Beginners"
+          },
+          {
+            "name": "startDate",
+            "in": "formData",
+            "description": "startDate",
+            "required": true,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "localCountry",
+            "in": "formData",
+            "description": "Enter localCountry ( country name get from localcountry timezone like Asia/Yerevan)",
+            "required": true,
+            "type": "string"       
+          },
+          {
+            "name": "endDate",
+            "in": "formData",
+            "description": "endDate",
+            "required": true,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "days",
+            "in": "formData",
+            "description": "days [sunday,monday]",
+            "required": true,
+            "type": "array"            
+          },
+          {
+            "name": "sessionTimeDuration",
+            "in": "formData",
+            "description": "sessionTimeDuration",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "2 Hour"
+          },
+          {
+            "name": "sunday",
+            "in": "formData",
+            "description": "slots for sunday",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type" : "object"
+            }             
+          },
+          {
+            "name": "monday",
+            "in": "formData",
+            "description": "slots for monday (06:00 AM-08:00 AM,08:00 AM-10:00 AM)",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }              
+          },
+          {
+            "name": "tuesday",
+            "in": "formData",
+            "description": "slots for tuesday",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type" : "object"
+            }              
+          },
+          {
+            "name": "wednesday",
+            "in": "formData",
+            "description": "slots for wednesday",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type" : "object"
+            }              
+          },
+          {
+            "name": "thursday",
+            "in": "formData",
+            "description": "slots for thursday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }              
+          },
+          {
+            "name": "friday",
+            "in": "formData",
+            "description": "slots for friday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }             
+          },
+          {
+            "name": "saturday",
+            "in": "formData",
+            "description": "slots for saturday",
+            "required": false,
+            "type": "array" ,
+            "items": {
+              "type" : "object"
+            }             
+          },
+          {
+            "name": "minimumSession",
+            "in": "formData",
+            "description": "minimumSession",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "2"
+          },
+          {
+            "name": "maximumSession",
+            "in": "formData",
+            "description": "maximumSession",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "10"
+          },
+          {
+            "name": "minimumStudent",
+            "in": "formData",
+            "description": "minimumStudent",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "2"
+          },
+          {
+            "name": "maximumStudent",
+            "in": "formData",
+            "description": "maximumStudent",
+            "required": true,
+            "type": "integer",
+            "format": "integer",
+            "default": "10"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "description": "price",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "10"
+          },
+          {
+            "name": "currency",
+            "in": "formData",
+            "description": "currency",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "default": "USD"
+          },
+          {
+            "name" : "inclusiveTax",
+            "in" : "formData",
+            "description" : "Enter inclusiveTax",
+            "type" : "Boolean",
+            "format": "Boolean",
+            "required" : false
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-trainings": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get traingin list ",
+        "description": "Get traingin list",
+        "operationId": "get-trainings",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [         
+          {
+            "name": "type",
+            "enum": ["current","upcoming","previous"],
+            "in": "query",
+            "description": "Training types",
+            "default": "current",
+            "type": "string",
+            "format": "Enum"
+          },
+          {
+            "name": "search",            
+            "in": "query",
+            "description": "Search by Training name",
+            "default": "",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          },
+          {
+            "name": "facilityId",
+            "in": "query",
+            "description": "Filter by facility ",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "query",
+            "description": "Filter by sport ",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "coachId",
+            "in": "query",
+            "description": "Filter by coach ",
+            "type": "string",
+            "format": "string"
+          }
+
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/details": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get traingin details ",
+        "description": "Get traingin details",
+        "operationId": "get-trainings-details",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [       
+          
+          {
+            "name": "trainingId",
+            "in": "query",
+            "description": "Training id" ,
+            "type": "string",
+            "format": "string"
+          }
+
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/delete-training/{trainingId}": {
+      "delete": {
+        "tags": ["Training"],
+        "summary": "Delete Training",
+        "description": "Delete Training",
+        "operationId": "delete-training",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "TrainingId",
+            "in": "path",
+            "description": "Enter Id Of The Training",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/get-sports-list": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get training sports list ",
+        "description": "Get training sports list",
+        "operationId": "get-training-sports-list",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],  
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/bookedTraining/get-facility-list": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get booked training facility list ",
+        "description": "Get booked training facility list",
+        "operationId": "get-booked-training-facility-list",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],  
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-bookedTrainings/list": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get booked trainings list ",
+        "description": "Get booked trainings list ",
+        "operationId": "get-booked-trainings",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [         
+          {
+            "name": "search",            
+            "in": "query",
+            "description": "Search by Training name",
+            "default": "",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "date",            
+            "in": "query",
+            "description": "Filter by Training date",
+            "required": false,
+            "type": "date",
+            "format": "date",
+            "default": "2023-08-31T06:30:00.000Z"
+          },
+          {
+            "name": "currentDate",            
+            "in": "query",
+            "description": "Filter by currentDate( Use this param only in case of home page and don not use any other param ) in utc ",
+            "required": false,
+            "type": "date",
+            "format": "date",
+            "default": "2023-08-31T06:30:00.000Z"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          },
+          {
+            "name": "sportId",
+            "in": "query",
+            "description": "Enter Sport Id To Get Listing Accordingly",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "facilityId",
+            "in": "query",
+            "description": "Enter Facility Id To Get Listing Accordingly",
+            "type": "string",
+            "format": "string"
+          }
+
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-scheduled/bookedTrainings/list": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get scheduled booked trainings list ",
+        "description": "Get scheduled booked trainings list ",
+        "operationId": "get-scheduled-booked-trainings",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [ 
+          {
+            "name": "updatedAt",
+            "in": "query",
+            "description": "Enter Date and Time To Get Listing Accordingly",
+            "required" : false,
+            "type": "string",
+            "format": "string",
+            "default": "2023-05-31T10:38:38.546Z"
+          }
+
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-trainingBooking/details/{bookingId}": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get booked training details ",
+        "description": "Get booked training details ",
+        "operationId": "get-booked-training-details",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [     
+          {
+            "name": "bookingId",
+            "in": "path",
+            "description": "Booking id" ,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "search",            
+            "in": "query",
+            "description": "Search by Student name",
+            "default": "",
+            "type": "string",
+            "format": "string"
+          }
+
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get/banners/list": {
+      "get": {
+        "tags": ["Promotion"],
+        "summary": "Get Banners list ",
+        "description": "Get banners list",
+        "operationId": "get-banners",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/promotion/create": {
+      "post": {
+        "tags": ["Promotion"],
+        "summary": "create promotion",
+        "description": "create promotion",
+        "operationId": "create-promotion",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "promotionType",
+            "enum": ["training","facility"],
+              "in": "formData",
+              "description": "promotion type",
+              "default": "training",
+              "type": "string",
+              "format": "Enum"           
+          },          
+          {
+            "name": "facilityId",
+            "in": "formData",
+            "description": "Enter  facilityId",
+            "required": false,
+            "type": "string",
+            "format": "string"                    
+          },
+          {
+            "name": "trainingId",
+            "in": "formData",
+            "description": "Enter trainingId",
+            "required": false,
+            "type": "string",
+            "format": "string"                    
+          },
+          {
+            "name": "promotionName",
+            "in": "formData",
+            "description": "Enter promotionName",
+            "required": true,
+            "type": "string",
+            "format": "string"                    
+          },           
+          {
+            "name": "startDate",
+            "in": "formData",
+            "description": "startDate",
+            "required": true,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "endDate",
+            "in": "formData",
+            "description": "endDate",
+            "required": true,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "days",
+            "in": "formData",
+            "description": "days [sunday,monday]",
+            "required": false,
+            "type": "array"            
+          },          
+          {
+            "name": "sunday",
+            "in": "formData",
+            "description": "slots for sunday",
+            "required": false,
+            "type": "array"            
+          },
+          {
+            "name": "monday",
+            "in": "formData",
+            "description": "slots for monday (06:00 AM-08:00 AM,08:00 AM-10:00 AM)",
+            "required": false,
+            "type": "array"            
+          },
+          {
+            "name": "tuesday",
+            "in": "formData",
+            "description": "slots for tuesday",
+            "required": false,
+            "type": "array"            
+          },
+          {
+            "name": "wednesday",
+            "in": "formData",
+            "description": "slots for wednesday",
+            "required": false,
+            "type": "array"            
+          },
+          {
+            "name": "thursday",
+            "in": "formData",
+            "description": "slots for thursday",
+            "required": false,
+            "type": "array"            
+          },
+          {
+            "name": "friday",
+            "in": "formData",
+            "description": "slots for friday",
+            "required": false,
+            "type": "array"            
+          },
+          {
+            "name": "saturday",
+            "in": "formData",
+            "description": "slots for saturday",
+            "required": false,
+            "type": "array"            
+          },
+          {
+            "name": "promoCode",
+            "in": "formData",
+            "description": "Enter promo code",
+            "required": true,
+            "type": "string" ,
+            "default":"APR30"           
+          },
+          {
+            "name": "localCountry",
+            "in": "formData",
+            "description": "Enter localCountry ( country name get from localcountry timezone like Asia/Yerevan)",
+            "required": true,
+            "type": "string"       
+          },
+          {
+            "name": "discountType",
+            "enum": ["amount","percent"],
+              "in": "formData",
+              "description": "promotion type",
+              "default": "amount",
+              "type": "string",
+              "format": "Enum"           
+          },           
+          {
+            "name": "amount",
+            "in": "formData",
+            "description": "amount",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "10"
+          },
+          {
+            "name": "percent",
+            "in": "formData",
+            "description": "percent",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "10"
+          },
+          {
+            "name": "color",
+            "in": "formData",
+            "description": "color",
+            "required": false,
+            "type": "string",
+            "format": "string",
+            "default": "#fffffff"
+          },
+          {
+            "name": "termsAndCondition",
+            "in": "formData",
+            "description": "Enter termsAndCondition",
+            "required": false,
+            "type": "string",
+            "format": "string"                    
+          },  
+          {
+            "name": "minimumPurchaseValue",
+            "in": "formData",
+            "description": "Enter minimumPurchaseValue",
+            "required": false,
+            "type": "integer",
+            "format": "integer"                    
+          }    
+
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/promotion/list": {
+      "get": {
+        "tags": ["Promotion"],
+        "summary": "Get promotion list ",
+        "description": "Get promotion list",
+        "operationId": "get-promotion",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [        
+          
+          {
+            "name": "search",            
+            "in": "query",
+            "description": "Search by promo name/code",
+            "default": "",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }        
+
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/promotion/delete/{promotionId}": {
+      "delete": {
+        "tags": ["Promotion"],
+        "summary": "Delete promotion",
+        "description": "Delete promotion",
+        "operationId": "delete-promotion",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "promotionId",
+            "in": "path",
+            "description": "Enter Id Of The promotion",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/schedule/list": {
+      "get": {
+        "tags": ["Schedule"],
+        "summary": "Get schedule ",
+        "description": "Get schedule",
+        "operationId": "get-schedule",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [       
+          
+          {
+            "name": "currentDate",
+            "in": "query",
+            "description": "Selected date" ,
+            "type": "string",
+            "format": "string",
+            "default": "2023-05-29"
+          },
+          {
+            "name": "search",            
+            "in": "query",
+            "description": "Search by Training name",
+            "default": "",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          },
+          {
+            "name": "facilityId",
+            "in": "query",
+            "description": "Filter by facility ",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "query",
+            "description": "Filter by sport ",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "coachId",
+            "in": "query",
+            "description": "Filter by coach (only for facility admin)",
+            "type": "string",
+            "format": "string"
+          }
+
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/get-student/details": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get student details in booked training",
+        "description": "Get student details in booked training",
+        "operationId": "get-student-details",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [ 
+          {
+            "name": "trainingId",
+            "in": "query",
+            "description": "Enter training Id",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "trainingBookingId",
+            "in": "query",
+            "description": "Enter training Booking Id",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Enter user Id ( It is the user Id of main user who has booked the training either for himself or for his family member)",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "familyMemberId",
+            "in": "query",
+            "description": "Enter family member Id ( It is the id of family member) whose details you want to see",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "slot",
+            "in": "query",
+            "description": "Enter slot",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          }
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/trainingSlot/markAttendance": {
+      "put": {
+        "tags": ["Training"],
+        "summary": "Scan qr code and mark attendance of the student for particular booked session",
+        "description": "Scan qr code and mark attendance of the student for particular booked session",
+        "operationId": "mark-attendance",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [ 
+          {
+            "name": "bookingId",
+            "in": "query",
+            "description": "Enter booking Id",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "familyMemberId",
+            "in": "query",
+            "description": "Enter familyMember Id",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "trainingId",
+            "in": "query",
+            "description": "Enter training Id",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Enter user Id",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          }
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/get-student/attendence/history": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get attendance history of the particular student in training",
+        "description": "Get attendance history of the particular student in training",
+        "operationId": "attendance-history",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [ 
+          {
+            "name": "trainingId",
+            "in": "query",
+            "description": "Enter training Id",
+            "required" : true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Enter user Id",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "familyMemberId",
+            "in": "query",
+            "description": "Enter familyMember Id (If the training is for family member)",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          }
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/get-history": {
+      "get": {
+        "tags": ["Training"],
+        "summary": "Get all trainings history of the particular student in training",
+        "description": "Get all trainings history of the particular student in training",
+        "operationId": "training-history",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [ 
+          {
+            "name": "search",            
+            "in": "query",
+            "description": "Search by Training name",
+            "default": "",
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          },
+          {
+            "name": "type",
+            "enum": ["current","previous"],
+            "in": "query",
+            "description": "Training types",
+            "default": "current",
+            "type": "string",
+            "format": "Enum"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Enter user Id",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "familyMemberId",
+            "in": "query",
+            "description": "Enter familyMember Id (If the training is for family member)",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          }
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/training/mark/evaluation": {
+      "post": {
+        "tags": ["Evaluation"],
+        "summary": "Mark evaluation of a student for particular training",
+        "description": "Mark evaluation of a student for particular training",
+        "operationId": "mark-evaluation",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [ 
+          {
+            "name": "trainingId",            
+            "in": "formData",
+            "description": "Enter training Id",
+            "default": "",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "trainingBookingId",            
+            "in": "formData",
+            "description": "Enter training Booking Id",
+            "default": "",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "facilityId",            
+            "in": "formData",
+            "description": "Enter facility Id",
+            "default": "",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "sportId",            
+            "in": "formData",
+            "description": "Enter sport Id",
+            "default": "",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "userId",            
+            "in": "formData",
+            "description": "Enter user Id (If the student is user not a family member)",
+            "default": "",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "familyMember",            
+            "in": "formData",
+            "description": "Enter family Member Id (If the user is a family member not a user)",
+            "default": "",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "evaluation",
+            "in": "formData",
+            "description": "Enter evaluation ['Beginner', 'Advanced', 'Proficient', 'Expert']",
+            "type": "string",
+            "format": "string",
+            "required": true
+          },
+          {
+            "name": "comment",
+            "in": "formData",
+            "description": "Enter comment",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "recommendedStrokes",
+            "in": "formData",
+            "description": "Enter recommended strokes",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "commentImage",
+            "in": "formData",
+            "description": "select comment image",
+            "required": false,
+            "type": "array",
+            "items":{
+              "type":"file"
+            }                    
+          },
+          {
+            "name": "strokeImage",
+            "in": "formData",
+            "description": "select stroke image",
+            "required": false,
+            "type": "array",
+            "items":{
+              "type":"file"
+            }                    
+          }
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/get-evaluation/list": {
+      "get": {
+        "tags": ["Evaluation"],
+        "summary": "Get evaluation list of the particular student in training",
+        "description": "Get evaluation list of the particular student in training",
+        "operationId": "evaluation-list",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [ 
+          {
+            "name": "trainingId",
+            "in": "query",
+            "description": "Enter training Id (Don't use this param if yu are using sportId)",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "query",
+            "description": "Enter sport Id (Use this param if you are getting showPreviousEvaluation param true in student details api)",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Enter user Id (Use this param if the student is a user not family member)",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "familyMemberId",
+            "in": "query",
+            "description": "Enter familyMember Id (Use this param if the student is a family member not user)",
+            "required" : false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],     
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": {
+              "type": "apiKey",
+              "name": "authorization",
+              "in": "header"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/facility/coach/get-reviewList/{coachId}": {
+      "get" : {
+        "tags" : ["Rating-Review"],
+        "description" : "Get rating and review list for coach",
+        "operationId" : "coach_rating_list",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "coachId",
+            "in": "path",
+            "description": "Enter coach Id",
+            "type": "string",
+            "format": "string",
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/training/get-reviewList/{trainingId}": {
+      "get" : {
+        "tags" : ["Rating-Review"],
+        "description" : "Get rating and review list for particular training/ coach/ facility in training details review list",
+        "operationId" : "facility_rating_list",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "trainingId",
+            "in": "path",
+            "description": "Enter training Id",
+            "type": "string",
+            "format": "string",
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          },
+          {
+            "name": "coach",
+            "in": "query",
+            "description": "Enter coach param true if you want to get only coaches ratings list in that particular training",
+            "type": "Boolean",
+            "format": "Boolean",
+            "required": false
+          },
+          {
+            "name": "facility",
+            "in": "query",
+            "description": "Enter facility param true if you want to get only facility ratings list in that particular training",
+            "type": "Boolean",
+            "format": "Boolean",
+            "required": false
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-reviewList/{facilityId}": {
+      "get" : {
+        "tags" : ["Rating-Review"],
+        "description" : "Get rating and review list for particular facility",
+        "operationId" : "particular_facility_rating_list",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "facilityId",
+            "in": "path",
+            "description": "Enter facility Id",
+            "type": "string",
+            "format": "string",
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-dashboard/summary": {
+      "get" : {
+        "tags" : ["Dashboard"],
+        "description" : "Get dashboard summary",
+        "operationId" : "dashboard_summary",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-training-bookings/graph": {
+      "get" : {
+        "tags" : ["Dashboard"],
+        "description" : "Get Training Bookings Graph Data",
+        "operationId" : "bookings_graph",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Enter filter",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Enter month",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Enter year",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-revenue/graph": {
+      "get" : {
+        "tags" : ["Dashboard"],
+        "description" : "Get Training Revenue Graph Data",
+        "operationId" : "revenue_graph",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Enter filter",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Enter month",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Enter year",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-training/revenue/detail/{id}": {
+      "get" : {
+        "tags" : ["Dashboard"],
+        "description" : "Get Training Revenue Detail",
+        "operationId" : "training_revenue_detail",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Enter training id",
+            "type": "string",
+            "format": "string",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Enter filter",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Enter month",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Enter year",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-trainings/graph": {
+      "get" : {
+        "tags" : ["Dashboard"],
+        "description" : "Get Trainings Graph Data",
+        "operationId" : "trainings_graph",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Enter filter",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Enter month",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Enter year",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-students/graph": {
+      "get" : {
+        "tags" : ["Dashboard"],
+        "description" : "Get Students Graph Data",
+        "operationId" : "students_graph",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters" : [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Enter filter",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "startDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "endDate",
+            "required": false,
+            "type": "string",
+            "format": "date",
+            "default": "2023-04-29"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Enter month",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Enter year",
+            "type": "string",
+            "format": "string",
+            "required": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/get-notifications/list": {
+      "get" : {
+        "tags" : ["Notifications"],
+        "description" : "Get notifications list",
+        "operationId" : "notifications_list",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters": [ 
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Enter Page No To Get Listing Accordingly",
+            "type": "integer",
+            "format": "integer",
+            "default": 1
+          }
+        ],  
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    },
+    "/api/v1/facility/mark/notification/seen": {
+      "put" : {
+        "tags" : ["Notifications"],
+        "description" : "Mark notifications seen",
+        "operationId" : "mark_notifications_seen",
+        "consumes" : ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "parameters": [ 
+          {
+            "name": "notificationId",
+            "in": "formData",
+            "description": "Enter notificationId",
+            "type": "string",
+            "format": "string"
+          }
+        ],  
+        "responses" : {
+          "200" :{
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security" : [
+          {
+            "Authorization" : {
+              "type" : "apiKey",
+              "name" : "Authorization",
+              "in" : "header"
+            }
+          }
+        ]
+
+      }
+    }
+    },
+    "securityDefinitions": {
+      "Authorization": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "default":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2NlZGRmNWE4MDA3OTgwMjJkNGU0YiIsIm5hbWUiOiJUZXN0IGZhY2lsaXR5IiwiZW1haWwiOiJuaXRpc2gucmlwZW5hcHBzQGdtYWlsLmNvbSIsImRldmljZVRva2VuIjoiIiwibm90aWZpY2F0aW9uU3RhdHVzIjp0cnVlLCJ1c2VyVHlwZSI6ImZhY2lsaXR5X2FkbWluIiwiaWF0IjoxNjgyNjY1MjgxLCJleHAiOjE3MTQyMDEyODF9.XJZFBU5P_X-ifJFilsfqUQHkjtVQNU2hYld3GfwX9Jc",
+        "description": "  Enter the token like `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYmQxODM1NzQ0MGZmYjUzMWM5NDE0NCIsImZpcnN0TmFtZSI6Ik1vaGQiLCJtb2JpbGUiOiI5NjkwNzE2MzA5IiwiZGV2aWNlVG9rZW4iOiIxMjM0NTY3OCIsIm5vdGlmaWNhdGlvblN0YXR1cyI6dHJ1ZSwiaWF0IjoxNjczODkxNTk4LCJleHAiOjE3MDU0Mjc1OTh9.uN4d3gbKmDkeBv0fjE94i2Ffwcfwe7ty1ySEnuFrh28` "
+      }
+    },
+    "definitions": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
