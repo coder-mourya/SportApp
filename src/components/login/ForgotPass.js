@@ -75,7 +75,7 @@ const ForgotPassword = () => {
                     </div>
 
                 </div>
-                <div className="login-bootm-img">
+                <div className="login-bootm-img position-absolute bottom-0">
                     <img src={bootmImg} alt="group pick"  className='custom-spacing'/>
                 </div>
             </div>

@@ -24,6 +24,7 @@ import ChatBox from './components/AfterLogin/ChatBox';
 import Create from './components/AfterLogin/CreateTeam/Create';
 
 
+
 function App() {
 
 
@@ -59,6 +60,7 @@ function App() {
         <Route exact path='/LoggedInHome'  element={<LoggedInHome />} />
         <Route exact path='/CreateTeam' element={<CreateTeam />} />
         <Route exact path='/Create' element={<Create />} />
+       
 
         {/* temprary routes */}
         <Route exact path='/ComingSoon' element={<ComingSoon />} />

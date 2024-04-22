@@ -1,11 +1,9 @@
 .login-bootm-img img {
     width: 100%;
-
+    
 }
 
-.login-bootm-img {
-    padding-bottom: 0;
-}
+
 
 input {
     /* background-color: #f8f9fa !important; */
@@ -36,6 +34,7 @@ input {
 
 .blur-background {
     position: fixed;
+    overflow: hidden;
     top: 0;
     left: 0;
     width: 100%;
@@ -50,7 +49,8 @@ input {
 .container-right {
     position: fixed;
     overflow: auto;
-    height: 100%;
+    width: 30%;
+    height: 100vh;
     top: 50%;
     right: 0;
     transform: translateY(-50%);
@@ -67,10 +67,7 @@ input {
 }
 
 
-.cros{
-    padding-right: 2rem;
-    cursor: pointer;
-}
+
 
 /* sports items  */
 
@@ -99,18 +96,22 @@ input {
     background-color: #EDACAC;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (max-width: 1284px) {
 
     .container-right {
-        width: 30%;
+        width: 100%;
+        height: 100vh;
         position: fixed;
         overflow: auto;
       
     }
+   
 }
 
-@media screen and (max-width : 768px) {
-    .custom-spacing {
-        padding-top: 12rem;
+/* @media screen and (max-width : 768px) {
+    
+
+    .container-right{
+        height: 100vh;
     }
-}
+} */

@@ -92,7 +92,7 @@ const Footer = () => {
 
 
             <div className="footer-bottom container-fluid align-items-center d-flex justify-content-between g-0 row">
-                <div className="col-md-6 ">
+                <div className="col-md-6">
 
                     <p>
                         Copyright &copy; 2024. All rights reserved.

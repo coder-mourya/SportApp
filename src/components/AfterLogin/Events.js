@@ -42,13 +42,16 @@ const Events = () => {
                             <h4 className="mb-2">{event.title}</h4>
                             <div className="mb-2">
                                 <div className="d-flex ">
-                                    <img src={location} alt="location" className="me-2" />
-                                    <p className="mb-0">{event.location}</p>
+                                    <img src={location} alt="location" className="me-2 " />
+                                    <p className="mb-0">
+                                    {window.innerWidth <= 576 ? event.location.substring(0, 10) + "..." : event.location}
+
+                                    </p>
                                 </div>
                             </div>
                             <div className="mb-2">
                                 <div className="d-flex ">
-                                    <img src={schedule} alt="schedule" className="me-2" />
+                                    <img src={schedule} alt="schedule" className="me-2 " />
                                     <p className="mb-0">{event.date}</p>
                                 </div>
                             </div>

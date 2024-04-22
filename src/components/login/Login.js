@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
   const Navigate = useNavigate()
 
-  const handleCrose = () =>{
+  const handleCrose = () => {
     Navigate("/")
-}
+  }
 
-const handleLogin = () =>{
-  Navigate("/LoggedInHome")
-}
+  const handleLogin = () => {
+    Navigate("/LoggedInHome")
+  }
 
   return (
     <div className="Login container-fluid">
@@ -23,11 +23,11 @@ const handleLogin = () =>{
 
       <div className="container-right">
         <div className="container">
-          <div className="mt-5  d-flex justify-content-between">
+          <div className="mt-5">
 
             <h3 className="mb-4">Login</h3>
-            
-            
+
+
           </div>
 
 
@@ -78,8 +78,8 @@ const handleLogin = () =>{
             </form>
           </div>
         </div>
-        <div className="login-bootm-img mt-5">
-          <img src={bootmImg} alt="group pick" className="custom-spacing"/>
+        <div className="login-bootm-img  position-absolute bottom-0">
+          <img src={bootmImg} alt="group pick" className="custom-spacing" />
         </div>
       </div>
     </div>

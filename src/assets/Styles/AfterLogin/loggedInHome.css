@@ -22,7 +22,7 @@
 
 .event-icons img {
     width: 9%;
-
+    height: 9%;
     margin: 5px 1rem;
 }
 
@@ -54,14 +54,13 @@
 
 
 
-@media (min-width: 768px) {
+@media (max-width: 1284px) {
     .event-item {
-        max-width: 45%;
-        /* Adjust the value as needed */
+        margin: 1rem 0;
     }
 
     .options {
-        margin: 0;
+        margin: 1rem 0;
     }
 
 }

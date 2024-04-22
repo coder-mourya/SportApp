@@ -25,6 +25,125 @@
     
 }
 
+.cover-photo{
+    width: 100%;
+    height: 10rem;
+    background-color: #FBE9E9;
+    
+}
+.upload-overlay{
+    cursor: pointer;
+}
+
+.upload-overlay img{
+    width: 10%;
+}
+
+.upload-icon-container img{
+    width: 50%;
+}
+
+.upload-icon-container{
+    position: absolute;
+    bottom: -50%;
+    left: 5%;
+    transform: translateY(-75%);
+    cursor: pointer;
+}
+
+.upload-overlay p{
+    color: #D32E2F;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    padding-left: 40px; /* Adjust according to the width of the image */
+    width: 100%;
+    border-left: 1px solid #ccc;
+    
+}
+
+
+
+.input-icon {
+    width: 8%;
+    position: absolute;
+    left: 8px; /* Adjust the left position according to your design */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-with-icon  input, .team-details select{
+    background-color: #F4F5F9;
+}
+
+.color-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent; /* Default border color is transparent */
+    margin-right: 10px;
+}
+
+/* Define colors for each button */
+.red {
+    background-color: #FBF1F1;
+    border-color: #D77472;
+}
+
+.green {
+    background-color: #E7F3E5;
+    border-color: #80BE73;
+}
+
+.blue {
+    background-color: #E9F2FD;
+    border-color: #61B4DB;
+}
+
+.yellow {
+    background-color: #FFFCE5;
+    border-color: #FFE200;
+}
+
+.orange {
+    background-color: rgb(246, 234, 212);
+    border-color: orange;
+}
+
+
+
+/* About me  */
+
+.aboutMe .upload-icon img{
+width: 15%;
+cursor: pointer;
+}
+
+.aboutMe .upload-icon p{
+    color: blue;
+    cursor: pointer;
+}
+
+.aboutme-form textarea{
+    background-color: #F4F5F9;
+
+}
+
+.aboutme-form textarea::placeholder{
+    padding: 0.5rem;
+}
+
+.aboutme-form input{
+    padding-left: 8px;
+}
+
+.aboutme-buttons button{
+    width: 20%;
+}
 
 .background {
     position: fixed;
@@ -59,6 +178,8 @@
     color: #ccc;
 }
 
+
+
 .selected {
     background-color: #FBE9E9;
     border-color: #D32F2F;
@@ -67,10 +188,10 @@
 
 
 
-@media screen and (min-width: 1024px) {
+@media screen and (max-width: 1284px) {
 
     .half-container {
-        width: 50%;
+        width: 100%;
         position: fixed;
         overflow: auto;
       
