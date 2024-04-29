@@ -18,13 +18,13 @@ const Contact = () => {
         try {
 
             const accessTokenResponse = await axios.post(
-                "https://accounts.zoho.in/oauth/v2/token?refresh_token=1000.d984a5d63a969fd21407d878bc1890e3.ddd1d2c32ad7f3aa921f5bbb19df2076&client_id=1000.ROTPGF6ZNLC98LP7E545T1VM77VBGY&client_secret=eb8b9645a01786b653be2c340fe1a16933d0b16562&grant_type=refresh_token"
+                ""
             );
 
             const accessToken = accessTokenResponse.data.access_token;
 
             const response = await axios.post(
-                "https://www.zohoapis.in/crm/v2/Leads",
+                "",
                 {
                     data: [
                         {
