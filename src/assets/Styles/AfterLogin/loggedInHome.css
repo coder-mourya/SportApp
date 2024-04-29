@@ -20,9 +20,14 @@
     margin-left: 1rem;
 }
 
+
+.event-item{
+    width: 48%;
+}
+
 .event-icons img {
-    width: 9%;
-    height: 9%;
+    width: 8%;
+    height: 8%;
     margin: 5px 1rem;
 }
 
@@ -50,6 +55,9 @@
     margin-bottom: 1.5rem;
 }
 
+/* .videos-container{
+    position: fixed;
+} */
 
 
 
@@ -61,6 +69,11 @@
 
     .options {
         margin: 1rem 0;
+    }
+
+    
+    .event-item{
+        width: 100%;
     }
 
 }

@@ -31,7 +31,8 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   /* padding: 20px; */
-  max-width: 300px;
+  /* max-width: 300px ; */
+  width: 350px;
   margin-bottom: 80px;
   animation: slide-up 0.3s ease-in-out;
 }

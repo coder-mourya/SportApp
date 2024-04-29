@@ -22,14 +22,16 @@ import ComingSoon from "./components/ComingSoon";
 import CreateTeam from "./pages/AfterLogin/CreateTeam";
 import ChatBox from './components/AfterLogin/ChatBox';
 import Create from './components/AfterLogin/CreateTeam/Create';
+import AddMember from './components/AfterLogin/CreateTeam/AddMember';
+import TeamDashbord from './pages/AfterLogin/TeamDashBord';
+import MemberDashBord from './pages/AfterLogin/MemberDashBord';
 
 
 
 function App() {
 
-
   const location = useLocation();
-  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam';
+  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord";
 
   return (
     <>
@@ -60,6 +62,9 @@ function App() {
         <Route exact path='/LoggedInHome'  element={<LoggedInHome />} />
         <Route exact path='/CreateTeam' element={<CreateTeam />} />
         <Route exact path='/Create' element={<Create />} />
+        <Route exact path='/AddMember' element={<AddMember/>} />
+        <Route exact path='/TeamDashbord' element={<TeamDashbord />} />
+        <Route exact path='/MemberDashBord' element={<MemberDashBord />} />
        
 
         {/* temprary routes */}

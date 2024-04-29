@@ -1,3 +1,4 @@
+/* my team  */
 .Team-options button{
    margin-right: 1rem;
    width: 10rem;
@@ -16,6 +17,33 @@
 .myTeam img {
     width: 30%;
 }
+
+
+.teams-container{
+    background-color: #E7F3E5;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.teams-container .main-pick{
+    width: 20%;
+}
+
+.sportIcon{
+ background-color: #f3f9f2;
+ border-radius: 20%;
+ width: 100%;
+ height: 2rem;
+}
+
+.sportIcon p{
+    font-size: 16px;
+}
+
+.sportIcon img{
+    width: 80%;   
+}
+
 
 /* create team process */
 
@@ -66,6 +94,9 @@
     
 }
 
+.input-with-icon input::placeholder{
+    color: #9A9BA5;
+}
 
 
 .input-icon {
@@ -133,9 +164,9 @@ cursor: pointer;
 
 }
 
-.aboutme-form textarea::placeholder{
+/* .aboutme-form textarea::placeholder{
     padding: 0.5rem;
-}
+} */
 
 .aboutme-form input{
     padding-left: 8px;
@@ -186,6 +217,84 @@ cursor: pointer;
 }
 
 
+/* team dashbord */
+
+/* .team-dashbord{
+    width: 100%;
+} */
+
+.prev-button{
+    border-radius: 50%;
+    padding: 0 1rem;
+    background-color: #283593;
+}
+
+.team-banner{
+    width: 100%;
+    height: 14rem;
+    background: url("../../afterLogin picks/My team/banner.svg")
+}
+
+.teamlogo{
+    width: 65%;
+}
+
+
+/* member dashbord */
+
+.member-profile {
+    height: 40rem;
+}
+
+.member-dashbord .prev-button{
+    border-radius: 50%;
+    padding: 0.5rem 1rem;
+    background-color: #283593;
+}
+
+.member-profile, .card{
+    background-color: #283593;
+}
+
+.card {
+    border: none;
+}
+
+.card img{
+    width: 50%;
+    border-radius: 50%;
+}
+
+.member-sports {
+    background-color: white;
+    border-radius: 20px; /* Adjust the value as needed */
+    padding: 4px 10px  5px 10px;
+    width: 40%;
+    
+}
+
+.member-sports .sport-text {
+    margin-top: 0; /* Reset margin */
+    margin-bottom: 0; /* Reset margin */
+}
+
+
+.member-sports p{
+    font-size: 16px;
+    
+}
+
+
+.member-sports img {
+    width: 24px; /* Adjust the size of the image as needed */
+    height: 24px; /* Adjust the size of the image as needed */
+}
+
+
+
+.member-profile h5, .member-profile p{
+    color: white;
+}
 
 
 @media screen and (max-width: 1284px) {
@@ -196,4 +305,38 @@ cursor: pointer;
         overflow: auto;
       
     }
+
+    .Team-options button{
+        margin: 1rem;
+        width: 10rem;
+        border: 0.8px solid #ccc;
+        
+     }
+     
+     .Team-options{
+         margin: 0.4rem 0.4rem 0.4rem 0.5rem;
+         width: 95%;
+         border: 0.8px solid #ccc;
+     }
+
+     .create-options button{
+        margin:1rem  0.4rem;
+    }
+
+    .create-options{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .sportIcon img{
+        width: 1rem;   
+    }
+
+
+    /* .team-dashbord{
+        width: 100%;
+    } */
+    
+   
 }

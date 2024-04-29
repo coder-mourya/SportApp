@@ -1,0 +1,123 @@
+.Add-member .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.323);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+
+
+.Add-member .half-container {
+    position: fixed;
+    overflow: auto;
+    width: 30% !important;
+    height: 100%;
+    top: 50%;
+    right: 0;
+    width: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background-color: #ffffff;
+}
+
+.Add-member .upload-icon-div img {
+    width: 80%;
+}
+
+.Add-member .upload-icon-div {
+    cursor: pointer;
+}
+
+.Add-member select {
+    background-color: #F4F5F9;
+    color: #9A9BA5;
+}
+
+.Add-member .input-icon {
+    width: 8%;
+    position: absolute;
+    left: 8px;
+    /* Adjust the left position according to your design */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+.addMember-btn button{
+    background-color: #DB3525;
+    width: 95%;
+    
+}
+
+/* All members  */
+
+.members-pick img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+/* .sports-list-picks img{
+
+    width: 30% !important;
+
+}
+
+.sports-list-picks img:not(:first-child) {
+    margin-left: 1rem;
+} */
+
+/* styles.css */
+
+
+
+.sports-list-picks > div {
+    margin-right: 1rem; /* Add margin between images */
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* Make it circular */
+    background-color: white; /* Add white background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sports-list-picks > div:last-child {
+    margin-right: 0; /* Remove margin for the last image */
+}
+
+.sports-list-picks img {
+    width: 40%;
+    
+}
+
+
+
+
+
+@media screen and (max-width: 1284px) {
+    .Add-member .half-container {
+        width: 100% !important;
+        position: fixed;
+        overflow: auto;
+
+
+    }
+
+    .Add-member .input-icon {
+        width: 8%;
+
+    }
+
+    .sports-list-picks > div {
+        margin-right: 0.5rem; /* Add margin between images */
+       
+    }
+
+}
+

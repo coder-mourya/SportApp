@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TeamDetails from "./TeamDetails";
+import TeamForm from "./TeamForm";
 import AboutMe from "./AboutMe";
 import cros from "../../../assets/afterLogin picks/My team/Cross.svg";
 import { useNavigate } from "react-router-dom";
@@ -54,7 +54,7 @@ const Create = () => {
                     </div>
                 </div>
                 {/* Render the selected component */}
-                {selectedStep === 1 ? <TeamDetails onNext={handleNext} /> : <AboutMe />}
+                {selectedStep === 1 ? <TeamForm onNext={handleNext} /> : <AboutMe />}
             </div>
         </div>
     );

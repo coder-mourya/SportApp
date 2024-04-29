@@ -1,11 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.1978f068.css",
-    "main.js": "/static/js/main.9d81d1be.js",
+    "main.css": "/static/css/main.0471d916.css",
+    "main.js": "/static/js/main.b375f314.js",
     "static/js/453.7e4f4753.chunk.js": "/static/js/453.7e4f4753.chunk.js",
+    "static/media/kkr.svg": "/static/media/kkr.258ee715256316f461786003c753895d.svg",
     "static/media/video.mp4": "/static/media/video.fc73609449669d985f83.mp4",
     "static/media/director.png": "/static/media/director.af6886febf51e9e4b05c.png",
     "static/media/pick2.png": "/static/media/pick2.aaf01ff9b38e213bbd7a.png",
+    "static/media/Member.svg": "/static/media/Member.9085d6979e572a54f45927e45c61059f.svg",
     "static/media/feebackIcon.png": "/static/media/feebackIcon.da3dcc2336fb5d6d61bf.png",
     "static/media/size-pick1.png": "/static/media/size-pick1.6586dcd71c8079e5bb87.png",
     "static/media/img5.png": "/static/media/img5.359c7a75ccf8d3298c83.png",
@@ -20,6 +22,7 @@
     "static/media/img6.png": "/static/media/img6.648f6398d6df017d3817.png",
     "static/media/player 2.png": "/static/media/player 2.b8c664d08bac4df71b89.png",
     "static/media/player 1.png": "/static/media/player 1.5d3bd8e09419deff98c1.png",
+    "static/media/family.svg": "/static/media/family.f3ef0585c932c1930af35c59bf0836a9.svg",
     "static/media/player 4.png": "/static/media/player 4.b470c45c1ec154423047.png",
     "static/media/img8.png": "/static/media/img8.28f3397f5bc4621d1966.png",
     "static/media/player 3.png": "/static/media/player 3.fce9cd0f945b7b9842d2.png",
@@ -48,16 +51,20 @@
     "static/media/coaching.png": "/static/media/coaching.850d3b86050e8b2512c5.png",
     "static/media/chat5.png": "/static/media/chat5.b06afd0f58c54606aa6b.png",
     "static/media/creat event.png": "/static/media/creat event.28b5cc674f2416774e57.png",
+    "static/media/betball.svg": "/static/media/betball.37f528b401b3064373bb48998da0571a.svg",
+    "static/media/invite.svg": "/static/media/invite.a1c3af1390a26722d120e412e257966e.svg",
     "index.html": "/index.html",
+    "static/media/share.svg": "/static/media/share.9c7bf0557cc6d2ff0f302ff1c6e270a7.svg",
     "static/media/upload.svg": "/static/media/upload.9d8da284258821c588cfff474ea27a0c.svg",
     "static/media/search.svg": "/static/media/search.da679a1887f50158d133e69a8c615105.svg",
     "static/media/Cross.svg": "/static/media/Cross.11cf3757a860fa1a2efd2ca8545980d1.svg",
-    "main.1978f068.css.map": "/static/css/main.1978f068.css.map",
-    "main.9d81d1be.js.map": "/static/js/main.9d81d1be.js.map",
+    "static/media/phone.svg": "/static/media/phone.8ac37bbcd45452a5aec2798af8097333.svg",
+    "main.0471d916.css.map": "/static/css/main.0471d916.css.map",
+    "main.b375f314.js.map": "/static/js/main.b375f314.js.map",
     "453.7e4f4753.chunk.js.map": "/static/js/453.7e4f4753.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1978f068.css",
-    "static/js/main.9d81d1be.js"
+    "static/css/main.0471d916.css",
+    "static/js/main.b375f314.js"
   ]
 }

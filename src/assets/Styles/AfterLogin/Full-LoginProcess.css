@@ -3,6 +3,10 @@
     
 }
 
+.login-bootm-img{
+    display: flex !important;
+    justify-content: center !important;
+}
 
 
 input {

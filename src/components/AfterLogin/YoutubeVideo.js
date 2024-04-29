@@ -8,7 +8,7 @@ const YoutubeVideo = () => {
 
 
     return (
-        <div className="container-fluid mt-5 ">
+        <div className="container-fluid mt-5 videos-container">
             <div className='itemsColor p-4 rounded-4'>
                 {/* First line: Heading and filter icon */}
                 <div className="row align-items-center mb-3">

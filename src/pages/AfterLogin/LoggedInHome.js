@@ -28,6 +28,7 @@ const LoggedInHome = () => {
  
   return (
     <div className="LoggedInHome container-fluid bodyColor pb-5 ">
+      
       <div className="row">
 
         <div className="col">
