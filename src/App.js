@@ -25,13 +25,14 @@ import Create from './components/AfterLogin/CreateTeam/Create';
 import AddMember from './components/AfterLogin/CreateTeam/AddMember';
 import TeamDashbord from './pages/AfterLogin/TeamDashBord';
 import MemberDashBord from './pages/AfterLogin/MemberDashBord';
-
+import FamilyDashBord from './pages/AfterLogin/FamilyDashBord';
+import TrainingDashBord from './pages/AfterLogin/TrainingDashBord';
 
 
 function App() {
 
   const location = useLocation();
-  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord";
+  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord';
 
   return (
     <>
@@ -65,6 +66,10 @@ function App() {
         <Route exact path='/AddMember' element={<AddMember/>} />
         <Route exact path='/TeamDashbord' element={<TeamDashbord />} />
         <Route exact path='/MemberDashBord' element={<MemberDashBord />} />
+        <Route exact path='/FamilyDashBord' element={<FamilyDashBord />} />
+        <Route exact path='/TrainingDashBord' element={<TrainingDashBord />} />
+
+
        
 
         {/* temprary routes */}

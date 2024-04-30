@@ -260,7 +260,7 @@ cursor: pointer;
     border: none;
 }
 
-.card img{
+.card .card-pick{
     width: 50%;
     border-radius: 50%;
 }
@@ -295,6 +295,71 @@ cursor: pointer;
 .member-profile h5, .member-profile p{
     color: white;
 }
+
+.card-body p{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* family dashbord  */
+
+.bell-icon{
+    width: 5%;
+}
+
+
+/* training  */
+
+.trainings .event-item{
+    width: 100%;
+    
+}
+
+.trainings .event-icons img {
+    width: 3%;
+    height: 4%;
+    margin: 7px 0.6rem;
+}
+
+.rating{
+    background-color: #FBE9E9;
+    padding: 0 7px;
+    border-radius: 10px;
+}
+
+/* training dashbord */
+
+.training-dashbord .event-item{
+    width: 100%;    
+}
+
+.training-dashbord .event-icons img {
+    width: 10%;
+    height: 4%;
+    margin: 2px 0;
+}
+
+.training-dashbord .event-item p{
+    margin: 0;
+}
+
+
+.react-calendar__month-view__days__day {
+    border: none !important;
+  
+}
+
+.react-calendar__month-view__weekdays{
+    display: none !important;
+}
+
+
+.banner2 img{
+  width: 100%;
+}
+
 
 
 @media screen and (max-width: 1284px) {

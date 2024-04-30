@@ -80,6 +80,8 @@ const CreateTeam = () => {
           }
     }
 
+    // add member navigate 
+
     const handleAddMember = () =>{
             Navigate("/AddMember")
     }
