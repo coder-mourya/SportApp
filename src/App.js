@@ -27,19 +27,21 @@ import TeamDashbord from './pages/AfterLogin/TeamDashBord';
 import MemberDashBord from './pages/AfterLogin/MemberDashBord';
 import FamilyDashBord from './pages/AfterLogin/FamilyDashBord';
 import TrainingDashBord from './pages/AfterLogin/TrainingDashBord';
+import PracticeDashBord from './pages/AfterLogin/PracticeDashBord';
+import CreatePracticeForm from './components/AfterLogin/CreatePractice/CreatePracticeForm';
 
 
 function App() {
 
   const location = useLocation();
-  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord';
+  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord' || location.pathname === '/PracticeDashBord' || location.pathname === '/CreatePracticeForm';
 
   return (
     <>
       <Navbar />
 
       <Routes>
-        {/* page Routes */}
+        {/* pages Routes */}
         <Route exact path='/' element={<Home />} />
         <Route exact path='/About' element={<About />} />
         <Route exact path='/Features' element={<Features />} />
@@ -68,6 +70,10 @@ function App() {
         <Route exact path='/MemberDashBord' element={<MemberDashBord />} />
         <Route exact path='/FamilyDashBord' element={<FamilyDashBord />} />
         <Route exact path='/TrainingDashBord' element={<TrainingDashBord />} />
+        <Route exact path='/PracticeDashBord' element={<PracticeDashBord />} />
+        <Route exact path='/CreatePracticeForm' element={<CreatePracticeForm />} />
+
+
 
 
        

@@ -1,0 +1,66 @@
+.practice .event-icons img {
+    width: 5%;
+    margin: 7px 0 0 0;
+
+}
+
+.practice .event-item {
+    width: 100%;
+    height: inherit;
+    background-color: #F4F5F9;
+}
+
+.practice .eventpick {
+    width: 85%;
+}
+
+.practice .event-item h4 {
+    
+    margin-left: 0;
+}
+
+
+/* practice create form styles */
+.practice-form input, .practice-form select{
+    padding: 0.8rem 0.5rem;
+    background-color: #F4F5F9;
+    
+}
+
+
+
+.practice-form textarea {
+    background-color: #F4F5F9;
+    height: 8rem;
+}
+
+.practice-form input::placeholder, .practice-form select::placeholder{
+    color: #9A9BA5;
+}
+
+.practice-form textarea::placeholder{
+    color: #9A9BA5;
+}
+
+.practice-form .sport-select{
+    padding: 0.8rem 0.5rem !important;
+    color: #9A9BA5 !important;
+    
+}
+
+
+
+.Add-member-btn button{
+  padding: 8px 12px;
+  border: 2px solid #29388E;
+  border-color: #29388E;
+  color: #29388E;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.creat-practice-btn button{
+        width: 13%;
+        padding: 8px 0;
+        background-color: #D32F2F;
+}

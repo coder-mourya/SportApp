@@ -3,7 +3,7 @@ import Sidebar from "../../components/AfterLogin/Sidebar";
 import SidebarSmallDevice from "../../components/AfterLogin/SidebarSmallDevice";
 import { useState } from "react";
 import arrow from "../../assets/afterLogin picks/My team/arrow.svg";
-import teamLogo from "../../assets/afterLogin picks/My team/kkr.svg";
+import teamLogo from "../../assets/afterLogin picks/My team/kkr.png";
 import teamIcon from "../../assets/afterLogin picks/My team/teamicon.svg";
 import you from "../../assets/afterLogin picks/My team/you.svg";
 import seting from "../../assets/afterLogin picks/My team/Setting.svg";

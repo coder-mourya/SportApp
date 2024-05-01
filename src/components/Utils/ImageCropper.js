@@ -38,7 +38,7 @@ const ImageCropper = ({ imageSrc, onCropComplete }) => {
           image={imageSrc}
           crop={crop}
           zoom={zoom}
-          aspect={4 / 3} // You can adjust this aspect ratio as needed
+          aspect={10 / 3} // You can adjust this aspect ratio as needed
           onCropChange={onCropChange}
           onZoomChange={onZoomChange}
           onCropComplete={onCropCompleteHandler}

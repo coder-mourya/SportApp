@@ -1,4 +1,4 @@
-import team1 from "../../assets/afterLogin picks/My team/kkr.svg";
+import team1 from "../../assets/afterLogin picks/My team/kkr.png";
 import icon from "../../assets/afterLogin picks/My team/betball.svg";
 
 import sportpick1 from "../../assets/afterLogin picks/My team/sportPick1.svg";
