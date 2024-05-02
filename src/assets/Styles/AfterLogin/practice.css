@@ -15,16 +15,17 @@
 }
 
 .practice .event-item h4 {
-    
+
     margin-left: 0;
 }
 
 
 /* practice create form styles */
-.practice-form input, .practice-form select{
+.practice-form input,
+.practice-form select {
     padding: 0.8rem 0.5rem;
     background-color: #F4F5F9;
-    
+
 }
 
 
@@ -34,33 +35,146 @@
     height: 8rem;
 }
 
-.practice-form input::placeholder, .practice-form select::placeholder{
+.practice-form input::placeholder,
+.practice-form select::placeholder {
     color: #9A9BA5;
 }
 
-.practice-form textarea::placeholder{
+.practice-form textarea::placeholder {
     color: #9A9BA5;
 }
 
-.practice-form .sport-select{
+.practice-form .sport-select {
     padding: 0.8rem 0.5rem !important;
     color: #9A9BA5 !important;
+
+}
+
+.dateinput {
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+
+}
+
+.date-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    mix-blend-mode: color-burn;
+}
+
+.practice-form .input-group input {
+    border-left: 1px solid #ccc;
+}
+
+
+
+
+.Add-member-btn button {
+    padding: 8px 12px;
+    border: 2px solid #29388E;
+    border-color: #29388E;
+    color: #29388E;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.creat-practice-btn button {
+    width: 13%;
+    padding: 8px 0;
+    background-color: #D32F2F;
+}
+
+
+
+/* add members and team */
+
+.Add-member-and-team  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.323);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+
+
+.Add-member-and-team  .half-container {
+    position: fixed;
+    overflow: auto;
+    width: 30% !important;
+    height: 100%;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background-color: #ffffff;
+}
+
+.ModifiedAllMembers .col-md-4{
+    width: 100% !important;
+}
+
+.ModifiedMyTeam .col-md-6{
+    width: 100% !important;
+}
+
+.ModifiedMyTeam .p-md-5{
+    padding: 0 !important;
+}
+
+.team-and-member-btn button{
+    width: 40%;
+}
+.add-buttons{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.add-buttons button{
+    width: 100%;
+    background-color: #D32F2F;
+    color: white;
+}
+
+@media screen and (max-width: 1284px) {
+
+    .practice .event-icons img {
+        width: 15%;
+        margin: 3px 0 0 0;
+    }
     
-}
+    
+    
+
+    .practice .event-item p {
+    
+        margin-top: 3px;
+    }
 
 
 
-.Add-member-btn button{
-  padding: 8px 12px;
-  border: 2px solid #29388E;
-  border-color: #29388E;
-  color: #29388E;
-  border-radius: 8px;
-  background-color: #ffffff;
-}
+    .creat-practice-btn button {
+        width: 100%;
+        
+    }
 
-.creat-practice-btn button{
-        width: 13%;
-        padding: 8px 0;
-        background-color: #D32F2F;
+
+
+    .Add-member-and-team .half-container {
+        width: 100% !important;
+        position: fixed;
+        overflow: auto;
+    }
+
+   
+
 }

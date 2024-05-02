@@ -29,6 +29,7 @@ import FamilyDashBord from './pages/AfterLogin/FamilyDashBord';
 import TrainingDashBord from './pages/AfterLogin/TrainingDashBord';
 import PracticeDashBord from './pages/AfterLogin/PracticeDashBord';
 import CreatePracticeForm from './components/AfterLogin/CreatePractice/CreatePracticeForm';
+import AddMemberAndTeam from './components/AfterLogin/CreatePractice/AddMemberAndTeam';
 
 
 function App() {
@@ -72,6 +73,8 @@ function App() {
         <Route exact path='/TrainingDashBord' element={<TrainingDashBord />} />
         <Route exact path='/PracticeDashBord' element={<PracticeDashBord />} />
         <Route exact path='/CreatePracticeForm' element={<CreatePracticeForm />} />
+        <Route exact path='/AddMemberAndTeam' element={<AddMemberAndTeam />} />
+
 
 
 

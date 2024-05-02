@@ -47,11 +47,11 @@ const CurrentPractice = () => {
             {eventData.map(event => (
                 <div key={event.id} className="col-md-6  ">
                     <div className="p-3 event-item  my-2  rounded-4 d-flex">
-                        <div className="col-3 ">
+                        <div className="col-md-3 ">
                             <img src={eventPick} alt="event pick" className="img-fluid eventpick" />
                         </div>
-                        <div className="col-9 event-icons">
-                            <h4 className="mb-2">{event.title}</h4>
+                        <div className="col-md-9 event-icons">
+                            <h4 className="mb-2">{window.innerWidth < 576 ? event.title.substring(0, 10) + ".." : event.title}</h4>
                             <div className="mb-2">
                                 <div className="d-flex ">
                                     <img src={location} alt="location" className="me-2 " />

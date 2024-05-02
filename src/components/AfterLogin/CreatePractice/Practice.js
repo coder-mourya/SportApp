@@ -74,8 +74,8 @@ const Practice = () => {
                 </div>
             ) : (
 
-                <div className=" All-options my-2 d-flex justify-content-start  ">
-                    <div className=" Team-options itemsColor py-2  rounded ">
+                <div className=" All-options my-2 d-flex justify-content-md-start   ">
+                    <div className=" Team-options itemsColor py-2  rounded  d-flex justify-content-md-start   justify-content-center  ">
                         <button
                             className={`btn ${selectedOption === "CurrentPractice" ? "btn-primary" : ""}`}
                             onClick={() => handleOptionChange("CurrentPractice")}
