@@ -329,6 +329,8 @@ cursor: pointer;
     border-radius: 10px;
 }
 
+
+
 /* training dashbord */
 
 .training-dashbord .event-item{
@@ -360,6 +362,71 @@ cursor: pointer;
   width: 100%;
 }
 
+
+/* sessions */
+
+
+
+
+.sessions {
+    display: flex;
+    flex-direction: column;
+    height: 38rem; /* Set the height to 100% of the viewport height */
+  }
+  
+  .session-container {
+    flex: 0 0 auto; /* Don't grow or shrink, take up only the content's space */
+  }
+  
+  .sessions-months {
+    flex: 1 1 auto; /* Grow or shrink as needed, taking up remaining space */
+    overflow-y: auto; /* Add vertical scrollbar when content exceeds container height */
+    scrollbar-width: none;
+    -ms-overflow-style: none !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+ 
+  
+  .sessions-months ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 0.2rem;
+    padding: 0;
+  }
+  
+  .sessions-months ul li {
+    list-style-type: none;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 12px;
+  }
+
+
+
+  .session-btn button{
+    width: 100%;
+    background-color: #D32F2F;
+    color: white;
+  }
+
+  .session-btn button:hover{
+    background-color: #e54545;
+    color: white;
+  }
+  
+  .session-btn button img{
+    margin-right: 0.5rem;
+  }
 
 
 @media screen and (max-width: 1284px) {

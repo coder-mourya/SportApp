@@ -8,7 +8,8 @@ import banner2 from "../../assets/afterLogin picks/My team/banner2.png";
 import location from "../../assets/afterLogin picks/home/location.png";
 import schedule from "../../assets/afterLogin picks/home/schedule.png";
 import watch from "../../assets/afterLogin picks/home/watch.png";
-import { Calendar } from 'react-calendar';
+import Sessions from "../../components/AfterLogin/CreatePractice/Sessions";
+
 
 
 const TrainingDashBord = () => {
@@ -45,7 +46,7 @@ const TrainingDashBord = () => {
     ];
 
     return (
-        <div className="container-fluid bodyColor">
+        <div className="container-fluid bodyColor ">
             <div className="row">
                 <div className="col">
                     <Sidebar toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
@@ -53,13 +54,15 @@ const TrainingDashBord = () => {
                 </div>
                 <div className={`${mainContainerClass} main mt-5`}>
                     <div className="member-dashbord">
-                        <div className="">
+                        <div className="d-flex">
                             <button className="btn prev-button" onClick={handleClose}>
                                 <img src={arrow} alt="previous" />
                             </button>
+
+                            <h4 className="ms-3">Riya Training</h4>
                         </div>
 
-                        <div className="row mt-4">
+                        <div className="row my-4">
 
                             <div className="col-md-8">
 
@@ -126,18 +129,7 @@ const TrainingDashBord = () => {
 
                                 <div className="calender rounded-4  itemsColor p-4">
 
-                                    <div>
-                                        <h4>Your planned session</h4>
-                                        <p>To be attended before 21st April, 2023</p>
-                                    </div>
-
-
-                                    <hr style={{ borderTop: '2px solid #EAEBF5', margin: 0 }} />
-
-                                    <div className="mt-4">
-
-                                        <Calendar />
-                                    </div>
+                                   <Sessions />
 
                                 </div>
 

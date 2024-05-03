@@ -7,7 +7,9 @@ import "../../../assets/Styles/AfterLogin/createTeam.css";
 import "../../../assets/Styles/AfterLogin/practice.css";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import date from "../../../assets/afterLogin picks/Practice/date.svg"
+import date from "../../../assets/afterLogin picks/Practice/date.svg";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -17,30 +19,44 @@ const CreatePracticeForm = () => {
 
     const [mainContainerClass, setMainContainerClass] = useState('col-md-11');
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [startDate, setStartDate] = useState(null);
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+
     const datePickerRef = useRef(null);
     const startTimePickerRef = useRef(null);
     const endTimePickerRef = useRef(null);
 
+
+    const handleDateChange = (date) => {
+        setStartDate(date);
+    };
+
+    const handleStartTimeChange = (time) => {
+        setStartTime(time);
+    };
+
+    const handleEndTimeChange = (time) => {
+        setEndTime(time);
+    };
+
     const handleDateFocus = () => {
         if (datePickerRef.current) {
-            datePickerRef.current.showPicker();
+            datePickerRef.current.setOpen(true);
         }
     };
 
     const handleStartTimeFocus = () => {
         if (startTimePickerRef.current) {
-            startTimePickerRef.current.showPicker();
+            startTimePickerRef.current.setOpen(true);
         }
     };
 
     const handleEndTimeFocus = () => {
         if (endTimePickerRef.current) {
-            endTimePickerRef.current.showPicker();
+            endTimePickerRef.current.setOpen(true);
         }
     };
-
-
-
 
 
     const toggleSidebar = () => {
@@ -55,7 +71,7 @@ const CreatePracticeForm = () => {
         Navigate("/PracticeDashBord")
     }
 
-    const handleAddTeam = () =>{
+    const handleAddTeam = () => {
         Navigate("/AddMemberAndTeam")
     }
 
@@ -106,74 +122,63 @@ const CreatePracticeForm = () => {
                                 <div className="row">
                                     <div className="col-md-4 mt-2">
                                         <label htmlFor="date">Date</label>
-                                        <div className="input-group  date position-relative">
-                                            <input
-                                                type="text"
-                                                id="date"
-                                                name="date"
-                                                className="form-control dateinput"
-                                                placeholder="Select date"
+                                        <div className="input-group date position-relative">
+                                            <DatePicker
+                                                selected={startDate}
+                                                onChange={handleDateChange}
+                                                className=" dateinput"
+                                                placeholderText="Select date"
                                                 onFocus={handleDateFocus}
+                                                ref={datePickerRef}
                                             />
-                                            <span className=" input-with-icon date-icon">
+                                            <span className="input-with-icon date-icon">
                                                 <img src={date} alt="date" />
                                             </span>
                                         </div>
-                                        <input
-                                            type="date"
-                                            id="datePicker"
-                                            ref={datePickerRef}
-                                            className="d-none"
-                                        />
                                     </div>
                                     <div className="col-md-4 mt-2">
                                         <label htmlFor="startTime">Start time</label>
                                         <div className="input-group">
-                                            <input
-                                                type="text"
-                                                id="startTime"
-                                                name="startTime"
+                                            <DatePicker
+                                                selected={startTime}
+                                                onChange={handleStartTimeChange}
+                                                showTimeSelect
+                                                showTimeSelectOnly
+                                                timeIntervals={15}
+                                                dateFormat="h:mm aa"
                                                 className="form-control"
-                                                placeholder="Select start time"
+                                                placeholderText="Select start time"
                                                 onFocus={handleStartTimeFocus}
+                                                ref={startTimePickerRef}
                                             />
-
                                         </div>
-                                        <input
-                                            type="time"
-                                            id="startTimePicker"
-                                            ref={startTimePickerRef}
-                                            className="d-none"
-                                        />
                                     </div>
                                     <div className="col-md-4 mt-2">
                                         <label htmlFor="endTime">End time</label>
                                         <div className="input-group">
-                                            <input
-                                                type="text"
-                                                id="endTime"
-                                                name="endTime"
+                                            <DatePicker
+                                                selected={endTime}
+                                                onChange={handleEndTimeChange}
+                                                showTimeSelect
+                                                showTimeSelectOnly
+                                                timeIntervals={15}
+                                                dateFormat="h:mm aa"
                                                 className="form-control"
-                                                placeholder="Select end time"
+                                                placeholderText="Select end time"
                                                 onFocus={handleEndTimeFocus}
+                                                ref={endTimePickerRef}
                                             />
-
                                         </div>
-                                        <input
-                                            type="time"
-                                            id="endTimePicker"
-                                            ref={endTimePickerRef}
-                                            className="d-none"
-                                        />
                                     </div>
                                 </div>
+
 
 
 
                                 <div className="row">
                                     <div className="mt-2">
                                         <label htmlFor="Facility">Facility</label>
-                                        <input type="text"
+                                        <input type="search"
                                             placeholder="Search facility"
                                             className=" form-control"
                                         />
@@ -195,7 +200,7 @@ const CreatePracticeForm = () => {
                                 </div>
 
                                 <div className="mt-2 Add-member-btn">
-                                    <button  onClick={handleAddTeam}><i class="fa-solid fa-plus" ></i> Add Member/Team</button>
+                                    <button onClick={handleAddTeam}><i class="fa-solid fa-plus" ></i> Add Member/Team</button>
                                 </div>
 
                                 <div className="mt-5 creat-practice-btn">

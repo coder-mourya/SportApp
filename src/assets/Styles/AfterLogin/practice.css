@@ -69,6 +69,10 @@
     border-left: 1px solid #ccc;
 }
 
+.react-datepicker-wrapper {
+    width: 100% !important;
+}
+
 
 
 
@@ -137,6 +141,7 @@
     left: 0;
     width: 100%;
     padding: 10px;
+    
 }
 
 .add-buttons button{
