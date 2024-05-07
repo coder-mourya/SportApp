@@ -1,0 +1,121 @@
+.cancal-btn{
+     width: 9rem !important;
+     color: #D32F2F !important;
+     border: 1px solid #D32F2F !important;
+}
+
+.cancal-btn:hover{
+    background-color: #D32F2F !important;
+    color: white !important;
+}
+
+
+
+
+  .members {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .members li {
+    display: inline-block;
+    position: relative;
+    margin-left: -1rem;
+  }
+  
+  .members li img {
+    border-radius: 50%;
+  }
+  
+  .last-item img {
+    filter: blur(1px);
+     opacity: 0.8;
+  }
+  
+  .extra-count {
+    position: absolute;
+    bottom: 0;
+    right: 2.3rem;
+    background-color: rgba(58, 56, 56, 0.7); /* Semi-transparent white background */
+    padding: 1rem; /* Adjust as needed */
+    border-radius: 50%; /* Make it circular */
+    font-size: 12px; /* Adjust as needed */
+    color: white;
+  }
+  
+/* member status  */
+  /* .option-btn button{
+    width: 45%;
+  }
+
+  .status-btn  button{
+    width: 40%;
+    border: none;
+    border-radius: 0;
+    
+  }
+
+  .status-btn button:hover{
+      border-bottom: 1px solid #283593;
+  } */
+
+
+
+  .status-btn button {
+    width: 40%;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  .status-btn button::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent; /* Initial color of the line */
+    transition: background-color 0.3s ease;
+  }
+  
+  .status-btn button:hover::before,
+  .status-btn button.btn-Active::before { /* Apply the same style for hover and active state */
+    background-color: #283593; /* Change line color on hover and when button is active */
+  }
+  
+  .status-btn button:active { /* Apply style when button is clicked */
+    background-color: #28a745; /* Change background color on click */
+  }
+  
+  .button-text {
+    color: #283593; /* Set the text color */
+    position: relative;
+    z-index: 1; /* Ensure text is above the line */
+  }
+  
+
+
+
+  .member-container{
+    background-color: #F4F5F9;
+  }
+ 
+
+  .cownDown{
+    color: #D32F2F;
+  }
+
+
+.edit{
+    background-color: #ffffff;
+    width: 2.5rem;
+    height: 2rem;
+    border-radius: 5px;
+}
+
+.edit img{
+    width: 60%;
+}
