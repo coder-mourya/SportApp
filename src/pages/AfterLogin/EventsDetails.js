@@ -20,8 +20,6 @@ import pick4 from "../../assets/afterLogin picks/events/pic4.svg";
 
 
 
-
-
 const EventDetails = () => {
     const [mainContainerClass, setMainContainerClass] = useState("col-md-11");
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -138,7 +136,7 @@ const EventDetails = () => {
                                     <div className="mt-3">
                                         <h4>Event members</h4>
 
-                                        <ul className="members">
+                                        <ul className="team-members">
                                             {members.slice(0 , maxToShow).map((member , index ) =>(
                                                 <li key={index} className={index === maxToShow - 1 ? 'last-item' : ''}>
                                                     <img src={member} alt="members list" />

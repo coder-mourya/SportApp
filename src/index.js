@@ -5,7 +5,7 @@ import "./index.css"
 import { BrowserRouter as Router } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import ScrollToTop from "./components/ScrollToTop";
-
+import "./i18next";
 const root = document.getElementById('root');
 
 

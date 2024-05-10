@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import YesComponent from './YesComponent';
 import NoComponent from './NoComponent';
 import PendingComponent from './PendingComponent';

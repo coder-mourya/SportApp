@@ -77,11 +77,6 @@ function App() {
         <Route exact path='/AddMemberAndTeam' element={<AddMemberAndTeam />} />
         <Route exact path='/EventDetails' element={<EventDetails />} />
 
-
-
-
-
-
        
 
         {/* temprary routes */}

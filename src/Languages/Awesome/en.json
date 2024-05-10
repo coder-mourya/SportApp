@@ -1,0 +1,23 @@
+{
+    "awesome.heading" : "More awesome",
+    "awesome.strong" : "feature",
+    "awesome.peragrapgh" : "Immerse yourself in the SportsNerve ecosystem, where flawless event coordination and personalized training empower your journey. Discover unity, pursue excellence, and embrace triumph within the realm of sports.",
+    "Team" : "Team Building",
+    "pera1" : "Create and manage sports teams with customizable roles and administrators.",
+
+    "Player" : "Player Profiles",
+    "pera2" : "Detailed profiles showcasing player backgrounds, expertise, and expectations",
+
+    "Training" : "Training Listings",
+    "pera3" : "Discover tailored training sessions based on skill and location.",
+
+    "Attendance": "Attendance Tracking",
+    "pera4" : "Effortless attendance tracking with QR codes, fostering commitment.",
+
+    "Feedback" : "Feedback and Ratings",
+    "pera5" : "Coaches provide personalized feedback, users rate sessions.",
+
+
+    "Security" : "Security and Privacy",
+    "pera6" : "Robust data security through authentication and protection measures."
+}

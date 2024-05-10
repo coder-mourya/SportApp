@@ -18,16 +18,16 @@ import Awesome from "../components/Awesome";
 import Feedback from "../components/Feedback";
 import Contact from "../components/Contact";
 import Love from "../components/CMLove";
-import AppScreenShots from "../components/AppScreenShots"
-
+import AppScreenShots from "../components/AppScreenShots";
+import { useTranslation } from "react-i18next";
 
 
 
 
 const Home = () => {
 
-
-
+  
+const {t} = useTranslation('home')
 
 
     return (
@@ -39,7 +39,7 @@ const Home = () => {
             <section className="Player-picks  container-fluid  mb-5">
 
 
-                <h1 className="mt-5 Home-heading text-animation1 allFonts"><b>Empowering Athletes, Uniting</b> <strong>Champions</strong></h1>
+                <h1 className="mt-5 Home-heading text-animation1 allFonts"><b>{t('home.heading')}</b> <strong>{t('home.strong')} </strong></h1>
 
 
                 <div className="container-fluid d-flex justify-content-center row">
@@ -54,7 +54,7 @@ const Home = () => {
 
                     <div className="mt-3 col-md-8">
 
-                        <p className="mt-2  custm-pera text-center my-4 text-animation2 allFonts-p">Discover seamless sports management and communication tools for teams, optimized training scheduling, and tailored expense solutions—all in one platform, designed to elevate your sporting journey.</p>
+                        <p className="mt-2  custm-pera text-center my-4 text-animation2 allFonts-p">{t('home.peragrapgh')}</p>
 
                         <div className="applinkMargin d-flex justify-content-center ">
 

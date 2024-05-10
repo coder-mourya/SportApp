@@ -9,9 +9,13 @@ import Player from "../assets/img/player.png";
 import Training from "../assets/img/training.png";
 import Attendance from "../assets/img/attendance.png";
 import Feedback from "../assets/img/rating.png";
-import Security from "../assets/img/security.png"
+import Security from "../assets/img/security.png";
+
+import { useTranslation } from "react-i18next";
 
 const Awesome = () => {
+
+    const {t} = useTranslation('Awesome')
     return (
 
         <div className="Awesome-feature container-fluid ">
@@ -30,12 +34,12 @@ const Awesome = () => {
 
             <div className="contant  mt-5 ">
                 <div>
-                    <h1 className="allFonts"><b>More awesome</b> <strong>feature</strong></h1>
+                    <h1 className="allFonts"><b>{t('awesome.heading')}</b> <strong>{t('awesome.strong')}</strong></h1>
 
                 </div>
                 <div className=" d-flex justify-content-center">
 
-                    <p className="mt-4 allFonts-p">Immerse yourself in the SportsNerve ecosystem, where flawless event coordination and personalized training empower your journey. Discover unity, pursue excellence, and embrace triumph within the realm of sports.</p>
+                    <p className="mt-4 allFonts-p">{t('awesome.peragrapgh')}</p>
                 </div>
             </div>
 
@@ -56,10 +60,10 @@ const Awesome = () => {
 
                         <div className="col-md-9">
 
-                            <h5>Team Building</h5>
-                            <p>Create and manage sports teams
-                                with customizable roles and
-                                administrators.</p>
+                            <h5>{t('Team')}</h5>
+                            <p>
+                            {t('pera1')}
+                            </p>
                         </div>
                     </div>
 
@@ -71,11 +75,9 @@ const Awesome = () => {
                         </div>
                         <div className="col-md-9">
 
-                            <h5>Player Profiles</h5>
+                            <h5>{t('Player')}</h5>
                             <p>
-                                Detailed profiles showcasing player
-                                backgrounds, expertise, and
-                                expectations.
+                            {t('pera2')}
                             </p>
                         </div>
 
@@ -92,10 +94,9 @@ const Awesome = () => {
 
                         <div className="col-md-9">
 
-                            <h5>Training Listings</h5>
+                            <h5> {t('Training')}</h5>
                             <p>
-                                Discover tailored training sessions
-                                based on skill and location.
+                            {t('pera3')}
                             </p>
                         </div>
                     </div>
@@ -111,10 +112,9 @@ const Awesome = () => {
 
                         <div className="col-md-9">
 
-                            <h5>Attendance Tracking</h5>
+                            <h5>{t('Attendance')}</h5>
                             <p>
-                                Effortless attendance tracking with
-                                QR codes, fostering commitment.
+                            {t('pera4')}
                             </p>
                         </div>
                     </div>
@@ -127,10 +127,9 @@ const Awesome = () => {
 
                         <div className="col-md-9">
 
-                            <h5>Feedback and Ratings</h5>
+                            <h5>{t('Feedback')}</h5>
                             <p>
-                                Coaches provide personalized
-                                feedback, users rate sessions.
+                            {t('pera5')}
                             </p>
                         </div>
 
@@ -144,10 +143,8 @@ const Awesome = () => {
                         </div>
                         <div className="col-md-9">
 
-                            <h5>Security and Privacy</h5>
-                            <p>Robust data security through
-                                authentication and protection
-                                measures.</p>
+                            <h5>{t('Security')}</h5>
+                            <p>{t('pera6')}</p>
                         </div>
                     </div>
                 </div>

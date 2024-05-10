@@ -2,6 +2,7 @@ import React from "react";
 import Status from "./Status";
 import AllExpenses from "./AllExpenses";
 import { useState } from "react";
+import "../../../assets/Styles/AfterLogin/event.css"
 
 const MemberStatus = () => {
 

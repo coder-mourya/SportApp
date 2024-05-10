@@ -9,6 +9,7 @@ import 'swiper/css';
 import "swiper/css/effect-coverflow";
 
 import { Autoplay, EffectCoverflow, A11y } from 'swiper/modules';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -35,6 +36,8 @@ const AppScreenShots = () => {
   const images = [home, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11]
   const duplicates = [...images];
 
+  const {t} = useTranslation('screenshot')
+
 
   const breakpoints = {
     // when window width is >= 992px (large devices), show 3 images per view
@@ -59,10 +62,9 @@ const AppScreenShots = () => {
 
 
       <div className='screenShots-info text-white container my-5'>
-        <h1 className='allFonts'><b>Our App </b><strong>Screenshots</strong></h1>
+        <h1 className='allFonts'><b>{t('screenshot.heading')} </b><strong>{t('screenshot.strong')}</strong></h1>
 
-        <p className='allFonts-p mt-4'>Stay up-to-date with the latest matches, tournaments, and competitions across a multitude of sports. From international
-          championships to local leagues, our app ensures you never miss a moment of the action.</p>
+        <p className='allFonts-p mt-4'>{t('screenshot.peragrapgh')}</p>
       </div>
 
 

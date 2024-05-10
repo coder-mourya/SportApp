@@ -4,6 +4,7 @@ import logo from "../assets/img/logo.png";
 import "../assets/Styles/Navbar.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 const Navbar = () => {
@@ -12,6 +13,8 @@ const Navbar = () => {
   
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
+  const {t} = useTranslation('home');
 
 
 
@@ -48,22 +51,22 @@ const Navbar = () => {
               <Link to={'About'} className="nav-link">About us</Link>
             </li> */}
             <li className="nav-item mx-3">
-              <Link to={'Features'} className="nav-link">App Features</Link>
+              <Link to={'Features'} className="nav-link">{t('nav.link1')}</Link>
             </li>
             <li className="nav-item mx-3">
-              <Link to={'FAQPage'} className="nav-link">FAQ's</Link>
+              <Link to={'FAQPage'} className="nav-link">{t('nav.link2')}</Link>
             </li>
             <li className="nav-item mx-3">
-              <Link to={'Chart'} className="nav-link">Size chart</Link>
+              <Link to={'Chart'} className="nav-link">{t('nav.link3')}</Link>
             </li>
             <li className="nav-item mx-3">
-              <Link to={'ContactPage'} className="nav-link">Contact us</Link>
+              <Link to={'ContactPage'} className="nav-link">{t('nav.link4')}</Link>
             </li>
 
 
              
           <li className="nav-item mx-3 login-btn">
-            <button className="btn btn-danger login" onClick={handleLogin}>Login</button>
+            <button className="btn btn-danger login" onClick={handleLogin}>{t('nav.link5')}</button>
            
           </li>
        

@@ -12,19 +12,19 @@
 
 
 
-  .members {
+  .team-members {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  .members li {
+  .team-members li {
     display: inline-block;
     position: relative;
     margin-left: -1rem;
   }
   
-  .members li img {
+  .team-members li img {
     border-radius: 50%;
   }
   
@@ -44,22 +44,6 @@
     color: white;
   }
   
-/* member status  */
-  /* .option-btn button{
-    width: 45%;
-  }
-
-  .status-btn  button{
-    width: 40%;
-    border: none;
-    border-radius: 0;
-    
-  }
-
-  .status-btn button:hover{
-      border-bottom: 1px solid #283593;
-  } */
-
 
 
   .status-btn button {

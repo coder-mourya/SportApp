@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b69ecc5b.css",
-    "main.js": "/static/js/main.92ec3c2c.js",
+    "main.css": "/static/css/main.65e35565.css",
+    "main.js": "/static/js/main.539fba86.js",
     "static/js/453.7e4f4753.chunk.js": "/static/js/453.7e4f4753.chunk.js",
     "static/media/banner.svg": "/static/media/banner.649528b9f4a84ddd3c36.svg",
     "static/media/video.mp4": "/static/media/video.fc73609449669d985f83.mp4",
@@ -35,10 +35,15 @@
     "static/media/img2.png": "/static/media/img2.afce0bc76411a9b0a11d.png",
     "static/media/img11.png": "/static/media/img11.057f2b4ae94fcaf7e1e9.png",
     "static/media/img10.png": "/static/media/img10.4f295f3ceda4d24f34ce.png",
+    "static/media/pic4.svg": "/static/media/pic4.c78ac9107c8eb9230370a33487a2c88b.svg",
+    "static/media/practice.svg": "/static/media/practice.78707ccc9852d835c26a24eb760bd03e.svg",
     "static/media/right-side.png": "/static/media/right-side.81af59c818edac466a6f.png",
     "static/media/img3.png": "/static/media/img3.7f7e3f90cbf1da331b4e.png",
+    "static/media/pic2.svg": "/static/media/pic2.21b01f656c1425361783c7c855b8866d.svg",
     "static/media/training.png": "/static/media/training.9249cf4ef33baa7cd533.png",
+    "static/media/pic3.svg": "/static/media/pic3.41470836831c48dd8a4ff98031946965.svg",
     "static/media/kkr.png": "/static/media/kkr.783201e0589527a89e94.png",
+    "static/media/pic1.svg": "/static/media/pic1.a5723bde78471ba3cc668b3069a1c9fb.svg",
     "static/media/grup.png": "/static/media/grup.190ef5ea6a5e71cc7848.png",
     "static/media/forgot.png": "/static/media/forgot.ff5e70e69bc72c925d1e.png",
     "static/media/ball.png": "/static/media/ball.8ebf6517eb841cea283f.png",
@@ -58,6 +63,8 @@
     "static/media/creat event.png": "/static/media/creat event.28b5cc674f2416774e57.png",
     "static/media/teamicon.svg": "/static/media/teamicon.0eec0a20947fd217c56387c427d9ed17.svg",
     "static/media/sportPick1.svg": "/static/media/sportPick1.4d1c06728dc2ec0b7c0c7381c5c3c94d.svg",
+    "static/media/date.svg": "/static/media/date.6feba4f86af4484fcd53b0d1feae6407.svg",
+    "static/media/history.svg": "/static/media/history.7e5b651e8360353efde85eebaf1063d8.svg",
     "static/media/sportPick2.svg": "/static/media/sportPick2.877a72981ed63571fc1196fbb4f53615.svg",
     "static/media/betball.svg": "/static/media/betball.37f528b401b3064373bb48998da0571a.svg",
     "static/media/invite.svg": "/static/media/invite.a1c3af1390a26722d120e412e257966e.svg",
@@ -69,15 +76,16 @@
     "static/media/upload.svg": "/static/media/upload.9d8da284258821c588cfff474ea27a0c.svg",
     "static/media/search.svg": "/static/media/search.da679a1887f50158d133e69a8c615105.svg",
     "static/media/Cross.svg": "/static/media/Cross.11cf3757a860fa1a2efd2ca8545980d1.svg",
+    "static/media/edit.svg": "/static/media/edit.527aa2436e1f7681deb4f8482e4344da.svg",
     "static/media/phone.svg": "/static/media/phone.8ac37bbcd45452a5aec2798af8097333.svg",
     "static/media/delete.svg": "/static/media/delete.e2a012e0ac55e39eb6b8b7e6e5ff02cb.svg",
     "static/media/arrow.svg": "/static/media/arrow.bcad46099c45102d09306b95c8261b06.svg",
-    "main.b69ecc5b.css.map": "/static/css/main.b69ecc5b.css.map",
-    "main.92ec3c2c.js.map": "/static/js/main.92ec3c2c.js.map",
+    "main.65e35565.css.map": "/static/css/main.65e35565.css.map",
+    "main.539fba86.js.map": "/static/js/main.539fba86.js.map",
     "453.7e4f4753.chunk.js.map": "/static/js/453.7e4f4753.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b69ecc5b.css",
-    "static/js/main.92ec3c2c.js"
+    "static/css/main.65e35565.css",
+    "static/js/main.539fba86.js"
   ]
 }
