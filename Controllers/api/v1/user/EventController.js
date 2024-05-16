@@ -2499,7 +2499,7 @@ module.exports = {
             isSplitPayment: 1,
             isComplete: 1,
             // members: "$memberDetails",
-            // sport: "$sportDetails",
+            sport: "$sportDetails",
           },
         },
         {
