@@ -2419,6 +2419,20 @@ module.exports = {
       const acceptedEventList = await Event.aggregate([
         {
           $match: params,
+        },       
+        {
+          $lookup: {
+            from: "sports",
+            localField: "sportId",
+            foreignField: "_id",
+            as: "sportDetails",
+          },
+        },
+        {
+          $unwind: {
+            path: "$sportDetails",
+            preserveNullAndEmptyArrays: true,
+          },
         },
         // {
         //   $lookup: {
