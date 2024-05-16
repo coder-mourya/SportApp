@@ -2225,7 +2225,7 @@ module.exports = {
                     localCountry: 1,
                     isSelected: 1,
                     maximumStudent: 1,
-                    totalBooking: 1,
+                    totalBooking: 1,  
                     sports: "$sportDetails",
                     trainingDetails: "$trainingDetails",
                     facilityBranchDetails: "$facilityBranchDetails",
