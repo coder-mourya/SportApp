@@ -1,7 +1,4 @@
 
-
-
-
 body {
   padding-top: 5rem;
   margin-right: 0;
@@ -31,6 +28,12 @@ body {
       -ms-flex-align: center;
           align-items: center;
 }
+
+.links-container li img{
+  width: 30px ;
+  padding-top: 0;
+}
+
 
 .navbar-toggler {
   border: none;
@@ -67,6 +70,15 @@ body {
 .login {
   font-size: 1.30vw;
   width: 7.37rem;
+}
+
+
+/* after login profile */
+
+.user-profile-pic{
+  width: 30px !important;
+  border-radius: 50%;
+  margin-right: 5px;
 }
 
 

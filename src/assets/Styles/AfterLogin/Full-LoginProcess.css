@@ -16,25 +16,74 @@ input {
     border-right: 1px solid #ccc !important;
 }
 
-.login-botton {
+
+
+.login-botton  {
     width: 100%;
+    background-color: #D32F2F !important;
+    color: white;
+}
+
+.Register-button button{
+    width: 100%;
+    background-color: #D32F2F !important;
+    color: white;
 }
 
 
+
+
 .input-group-text img {
-    width: 40px;
+    width: 30px;
     /* Adjust the size of the image as needed */
     height: auto;
     /* Adjust the spacing between the image and input field */
 }
 .input-group span{
-    background-color: #ffffff;
+    background-color: #F4F5F9;
+    border-right: none;
+    
+}
+
+.input-group input  {
+    background-color: #F4F5F9;
+    
+}
+
+.input-group input::placeholder{
+    color: #9A9BA5;
+}
+
+.input-group select {
+    background-color: #F4F5F9;
+    color: #9A9BA5;
+}
+
+.input-group select option{
+    color: #9A9BA5 !important;
+    
 }
 
 .custom-color{
     color: #283593;
 }
 
+
+.contury-code{ 
+    padding: 0;
+    margin: 0;
+    border-left: none;
+}
+
+
+
+.contury-code{
+    width: 3.8rem !important;
+    padding-left: 0 !important;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+}
 
 .blur-background {
     position: fixed;
@@ -51,8 +100,8 @@ input {
 
 
 .container-right {
-    position: fixed;
-    overflow: auto;
+    position: absolute;
+    overflow: hidden;
     width: 30%;
     height: 100vh;
     top: 50%;
@@ -61,6 +110,22 @@ input {
     z-index: 1000;
     background-color: #ffffff;
 }
+
+.account_info {
+    flex: 0 0 auto; 
+  }
+
+.register-form{
+  flex: 1 1 auto;
+  height: 75vh;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+  overflow-y: auto;
+  /* padding-bottom: 1rem; */
+
+}
+
+
 .container-right h3{
     margin-left: 1.8rem !important;
 }
@@ -99,6 +164,11 @@ input {
 .sport-item:hover {
     background-color: #EDACAC;
 }
+
+
+
+
+
 
 @media screen and (max-width: 1284px) {
 

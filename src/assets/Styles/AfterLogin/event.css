@@ -10,6 +10,56 @@
 }
 
 
+.practice-btn button{
+    width: 20%;
+    background-color: #558ed5;
+    color: white;
+}
+
+.practice-btn button:hover{
+    background-color: #406a9d;
+    color: white;
+}
+
+.add-btn button{
+  width: 100%;
+  border: 1px solid #29388E;
+  color: #283593;
+}
+
+.add-btn button:hover{
+  background-color: #283593;
+  color: white;
+}
+
+.memerStatus{
+  display: flex;
+  flex-direction: column;
+  height: 41rem;
+ 
+}
+
+.AllExpences , .Yes-component, .pending-component{
+
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+
+
+.download-list button{
+  width: 100%;
+    background-color: #D32F2F;
+    color: white;
+    
+}
+
+.download-list button:hover{
+  background-color: #e54545;
+  color: white;
+}
+
+
 
 
   .team-members {
@@ -83,9 +133,7 @@
 
 
 
-  .member-container{
-    background-color: #F4F5F9;
-  }
+ 
  
 
   .cownDown{

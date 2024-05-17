@@ -36,6 +36,11 @@ const MemberStatus = () => {
            
 
             {activeButton === 'Member' ? <Status /> : <AllExpenses />}
+
+
+            <div className="download-list d-flex justify-content-center ">
+                <button className="btn">Download list</button>
+            </div>
            
         </div>
 

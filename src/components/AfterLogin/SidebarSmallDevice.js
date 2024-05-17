@@ -44,7 +44,7 @@ const SidebarSmall = () => {
                 </div>
 
                 <nav className={`sideBar-links ${sidebarOpen ? 'open' : 'closed'}`}>
-                    <Link to="/home" onClick={toggleSidebar}>
+                    <Link to="/LoggedInHome" onClick={toggleSidebar}>
                         <div className="innerLink">
                             <img src={home} alt="home" />
                             <span>Home</span>

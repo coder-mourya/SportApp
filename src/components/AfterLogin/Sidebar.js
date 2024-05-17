@@ -37,7 +37,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
       <Menu iconShape="square" className='custom-menu'>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/home" onClick={toggleSidebar}>
+            <Link to="/LoggedInHome" onClick={toggleSidebar}>
               <img src={home} alt="home" />
               <span>Home</span>
             </Link>

@@ -11,11 +11,16 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import { useState } from 'react';
+import Alerts from "../Alerts";
+import { connect } from 'react-redux';
+
+// import 'react-country-flag-select/dist/index.css'; 
+// import CountryFlagSelect from "react-country-flag";
 
 
-const Register = () => {
+const Register = ({ isLoggedIn }) => {
     const [formData, setFormData] = useState({
-        name: "",
+        fullName: "",
         nickname: "",
         email: "",
         mobile: "",
@@ -25,198 +30,326 @@ const Register = () => {
         country: "",
         state: "",
         city: "",
+        countryCode: "",
+        phoneCode: "",
+        phoneNumericCode: "",
         termsChecked: false,
     });
 
     const [countryList, setCountryList] = useState([]);
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
+
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('');
+
     const Navigate = useNavigate();
 
 
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: type === "checkbox" ? checked : value,
-        }));
-    };
 
-    
+
+
     // Register 
-    const handleRegister = async () => {
-        const Url = BaseUrl();
-        
-       
+    const handleRegister = async (e) => {
 
-        const registerUrl = `${Url}/api/v1/auth/register`;
-        const sendVerification = `${Url}/api/v1/auth/send/mail-verification/link`
+        e.preventDefault();
+        console.log("form submitting data", formData)
+        const register = BaseUrl()
+        // const sendVerification = BaseUrl()
 
         try {
-            const response = await axios.post(registerUrl, formData)
+            const response = await axios.post(`${register}/api/v1/auth/register`, formData);
 
-            console.log('Registration successful:', response.data);
+            if (response.data.success) {
+                setAlertMessage('Registration successful');
+                setAlertType('success');
+                console.log('Registration successful:', response.data);
 
-            await axios.post(sendVerification, {
-                email: formData.email
-            });
+                // await axios.post(`${sendVerification}/api/v1/auth/send/mail-verification/link`, {
+                //     email: formData.email
+                // });
+                Navigate("/VerifyMail");
+            } else {
+                const errorMessage = response.data.errors ? response.data.errors.msg : 'Error registering user';
+                setAlertMessage(errorMessage);
+                setAlertType('error');
 
-            Navigate("/VerifyMail");
+                console.error('Error registering user:', response.data);
+            }
 
         } catch (error) {
             console.error('Error registering user:', error);
+            setAlertMessage('Error registering user', error.msg);
+            setAlertType('error');
+        }
+
+
+    }
+
+
+
+    useEffect(() => {
+
+        getCountry();
+
+
+    }, [])
+
+    // get countory list
+    const getCountry = async () => {
+
+        const countoryUrl = BaseUrl()
+
+        try {
+            const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
+
+
+
+            setCountryList(response.data.data.country_list);
+
+            console.log(response.data);
+
+        } catch (error) {
+            console.log("Error fetching country list:", error);
         }
 
     }
 
-    useEffect(() => {
 
-        // get countory list
-        const getCountry = async () => {
+    // get state 
 
-            const countoryUrl = BaseUrl()
+    const getState = async (countryId) => {
+        const stateUrl = BaseUrl(); // Changed variable name to stateUrl
 
-            try {
-                const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
+        try {
+            const response = await axios.get(`${stateUrl}/api/v1/auth/state_list/${countryId}`);
 
-                
+            setStates(response.data.data.state_list);
+            console.log(response.data);
+        } catch (error) {
+            console.log("Error fetching state list:", error);
+        }
+    };
 
-                setCountryList(response.data.data.country_list);
 
-                console.log(response.data);
 
-            } catch (error) {
-                console.log("Error fetching country list:", error);
-            }
+    const getCity = async (stateId) => {
+        const citiUrl = BaseUrl();
 
+        try {
+            const response = await axios.get(`${citiUrl}/api/v1/auth/city_list/${stateId}`)
+            setCities(response.data.data.city_list);
+            console.log(response.data);
+        } catch (error) {
+            console.log("error detching cities :", error);
+        }
+
+    }
+
+
+
+
+    const handleInputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+
+
+        if (name === "country") {
+            const selectCountry = e.target.options[e.target.selectedIndex].getAttribute("data-country-id")
+            getState(selectCountry);
+        }
+
+        if (name === "state") {
+            const selectState = e.target.options[e.target.selectedIndex].getAttribute("data-state-id")
+            getCity(selectState)
         }
 
 
-        // get state 
+    };
 
-        
+    const handleCountryChange = (e) => {
+        const selectedCountryCode = e.target.value;
+        const selectedCountry = countryList.find(
+            (country) => country.countryCode === selectedCountryCode
+        );
 
-        getCountry();
-    }, [])
+        if (selectedCountry) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                countryCode: selectedCountry.countryCode,
+            }));
+        }
+    };
+
+
 
 
     const handleCrose = () => {
         Navigate("/")
     }
     return (
-        <div className="Create-account container-fluid ">
-            <div className="blur-background" onClick={handleCrose}></div>
-            <div className="container-right">
-                <div className='container account_info'>
-                    <div className='cotainer mt-3 d-flex justify-content-between'>
-                        <h3 className="mb-3">Create an account</h3>
+        <div>
+
+            <div className="Create-account container-fluid ">
+                <div className="blur-background" onClick={handleCrose}></div>
+                <div className="container-right">
+                    <div className='container account_info'>
+                        <div className='cotainer mt-3 d-flex justify-content-between'>
+                            <h3 className="mb-3">Create an account</h3>
 
 
-                    </div>
-                    <div className='p-md-4'>
-                        <form onSubmit={handleRegister}>
-                            {/* Input fields */}
-                            <div className="mb-3">
-                                <label htmlFor="name" className="form-label">Name</label>
-                                <div className="input-group my-1">
-                                    <span className="input-group-text">
-                                        <img src={name} alt="name" />
-                                    </span>
-                                    <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your name" />
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="nickname" className="form-label">Nickname</label>
-                                <div className="input-group my-1">
-                                    <span className="input-group-text">
-                                        <img src={nickname} alt="nickname" />
-                                    </span>
-                                    <input type="text" className="form-control" id="nickname" name="nickname" value={formData.nickname} onChange={handleInputChange} placeholder="Enter your nickname" />
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="email" className="form-label">Email Address</label>
-                                <div className="input-group my-1">
-                                    <span className="input-group-text">
-                                        <img src={mail} alt="email" />
-                                    </span>
-                                    <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address" />
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="mobile" className="form-label">Mobile Number</label>
-                                <div className="input-group my-1">
-                                    <span className="input-group-text">
-                                        <img src={mobile} alt="mobile" />
-                                    </span>
-                                    <input type="text" className="form-control" id="mobile" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="Enter your mobile number" />
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="dob" className="form-label">Date of Birth</label>
-                                <div className="input-group my-1">
-                                    <span className="input-group-text">
-                                        <img src={dob} alt="dob" />
-                                    </span>
-                                    <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} />
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="gender" className="form-label">Gender</label>
-                                <div className="input-group my-1">
-                                    <select className="form-select" id="gender" name="gender" value={formData.gender} onChange={handleInputChange}>
-                                        <option>Select gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="password" className="form-label">Password</label>
-                                <div className="input-group my-1">
-                                    <span className="input-group-text">
-                                        <img src={password} alt="password" />
-                                    </span>
-                                    <input type="password" className="form-control" id="password" name="password" value={formData.password} onChange={handleInputChange} placeholder="Enter your password" />
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="country" className="form-label">Country</label>
-                                <div className="input-group my-1">
-                                    <select className="form-select" id="country" name="country" value={formData.country} onChange={handleInputChange}>
-                                        <option>Select country</option>
+                        </div>
 
-                                        {countryList.map((country, index) => (
-                                            <option key={index} value={country.code}>{country.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="state" className="form-label">State</label>
-                                <div className="input-group my-1">
-                                    <select className="form-select" id="state" name="state" value={formData.state} onChange={handleInputChange}>
-                                        <option>Select state</option>
+                        <div className='p-md-4'>
 
-                                        {/* Add options for states */}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="city" className="form-label">City</label>
-                                <div className="input-group my-1">
-                                    <select className="form-select" id="city" name="city" value={formData.city} onChange={handleInputChange}>
-                                        <option>Select city</option>
+                            <form onSubmit={handleRegister}  >
+                                {/* Input fields */}
 
-                                        {/* Add options for cities */}
-                                    </select>
+                                <div className='register-form'>
+                                    <div className="mb-3">
+                                        <label htmlFor="name" className="form-label">Full Name</label>
+                                        <div className="input-group my-1">
+                                            <span className="input-group-text">
+                                                <img src={name} alt="name" />
+                                            </span>
+                                            <input type="text" className="form-control" id="fullName" name="fullName" value={formData.fullName} onChange={handleInputChange} placeholder="Enter your Full name" />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="nickname" className="form-label">Nickname</label>
+                                        <div className="input-group my-1">
+                                            <span className="input-group-text">
+                                                <img src={nickname} alt="nickname" />
+                                            </span>
+                                            <input type="text" className="form-control" id="nickname" name="nickname" value={formData.nickname} onChange={handleInputChange} placeholder="Enter your nickname" />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="email" className="form-label">Email Address</label>
+                                        <div className="input-group my-1">
+                                            <span className="input-group-text">
+                                                <img src={mail} alt="email" />
+                                            </span>
+                                            <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address" />
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label htmlFor="mobile" className="form-label">Mobile Number</label>
+                                        <div className="input-group my-1">
+                                            <span className="input-group-text">
+                                                <img src={mobile} alt="mobile" />
+                                            </span>
+
+                                            <select
+                                                className="contury-code"
+                                                value={formData.countryCode}
+                                                onChange={handleCountryChange}
+                                                name="countryCode"
+                                            >
+                                                {countryList.map((country) => (
+                                                    <option
+                                                        key={country.code}
+                                                        value={country.countryCode}
+                                                        title={country.name}
+                                                    >
+                                                        {`+${country.phoneCode} ${country.name}`}
+                                                    </option>
+                                                ))}
+                                            </select>
+
+
+
+                                            <input type="text" className="form-control mobile-number" id="mobile" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="Enter your mobile number" />
+                                        </div>
+                                    </div>
+
+
+                                    <div className="mb-3">
+                                        <label htmlFor="dob" className="form-label">Date of Birth</label>
+                                        <div className="input-group my-1">
+                                            <span className="input-group-text">
+                                                <img src={dob} alt="dob" />
+                                            </span>
+                                            <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="gender" className="form-label">Gender</label>
+                                        <div className="input-group my-1">
+                                            <select className="form-select" id="gender" name="gender" value={formData.gender} onChange={handleInputChange}>
+                                                <option>Select gender</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="password" className="form-label">Password</label>
+                                        <div className="input-group my-1">
+                                            <span className="input-group-text">
+                                                <img src={password} alt="password" />
+                                            </span>
+                                            <input type="password" className="form-control" id="password" name="password" value={formData.password} onChange={handleInputChange} placeholder="Enter your password" />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="country" className="form-label">Country</label>
+                                        <div className="input-group my-1">
+                                            <select className="form-select" id="country" name="country" value={formData.country} onChange={handleInputChange}>
+                                                <option>Select country</option>
+
+                                                {countryList.map((country, index) => (
+                                                    <option key={index} value={country.code} data-country-id={country.id}>{country.name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="state" className="form-label">State</label>
+                                        <div className="input-group my-1">
+                                            <select className="form-select" id="state" name="state" value={formData.state} onChange={handleInputChange}>
+                                                <option>Select state</option>
+
+                                                {states.map((state) => (
+                                                    <option key={state._id} value={state.id} data-state-id={state.id}>{state.name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="city" className="form-label">City</label>
+                                        <div className="input-group my-1">
+                                            <select className="form-select" id="city" name="city" value={formData.city} onChange={handleInputChange}>
+                                                <option>Select city</option>
+
+                                                {cities.map((city) => (
+                                                    <option key={city._id} value={city.id} data-state-id={city.id}>{city.name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 form-check">
+                                        <input type="checkbox" className="form-check-input" id="terms" name="termsChecked" checked={formData.termsChecked} onChange={handleInputChange} />
+                                        <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions</label>
+                                    </div>
+                                    {alertMessage && <Alerts message={alertMessage} type={alertType} />}
                                 </div>
-                            </div>
-                            <div className="mb-3 form-check">
-                                <input type="checkbox" className="form-check-input" id="terms" name="termsChecked" checked={formData.termsChecked} onChange={handleInputChange} />
-                                <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions</label>
-                            </div>
-                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Create an account</button>
-                        </form>
+
+                                <div className='Register-button'>
+                                    <button type="submit" className="btn  py-3  mt-4">Create an account</button>
+                                </div>
+
+
+                            </form>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -224,4 +357,14 @@ const Register = () => {
     );
 }
 
-export default Register;
+
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn, // Accessing auth reducer's isLoggedIn state
+        // Add more state properties as needed
+    };
+};
+
+
+
+export default connect(mapStateToProps)(Register);

@@ -1,10 +1,15 @@
-
 /* main container  */
 
 .options {
     padding-top: 1rem;
     border-radius: 10%;
     margin: 1rem 0;
+    cursor: pointer;
+    box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.1);
+}
+
+.options:hover {
+    box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.2);
 }
 
 .viewAll {
@@ -12,8 +17,8 @@
 }
 
 .main {
-    transition: width 0.3s ease-in-out; 
-  }
+    transition: width 0.3s ease-in-out;
+}
 
 .event-item h4 {
     font-size: 1.4 rem;
@@ -21,8 +26,17 @@
 }
 
 
-.event-item{
+.event-item {
     width: 48%;
+    box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  transition: width 0.2s ease-in-out;
+}
+
+.event-item:hover {
+    width: 47.5%;
+    box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.2);
+
 }
 
 .event-icons img {
@@ -42,6 +56,23 @@
 }
 
 
+/* view profile section */
+.edit-button button {
+    width: 95%;
+    background-color: #D32F2F;
+    color: white;
+}
+
+
+.changePassword .form-control {
+    margin: 0 !important;
+}
+
+.password-change button {
+    width: 25%;
+    background-color: #DB3525;
+}
+
 
 
 
@@ -60,6 +91,17 @@
 } */
 
 
+.profile {
+    height: 35rem;
+}
+
+
+.profile-details .row>div>p:first-child {
+    margin-bottom: 3px !important;
+    color: #D32F2F;
+    font-size: 16px !important;
+}
+
 
 
 @media (max-width: 1284px) {
@@ -71,10 +113,13 @@
         margin: 1rem 0;
     }
 
-    
-    .event-item{
+
+    .event-item {
         width: 100%;
+        box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.1);
+
     }
 
-}
 
+
+}

@@ -10,6 +10,7 @@ import YoutubeVideo from "../../components/AfterLogin/YoutubeVideo";
 import SidebarComponent from "../../components/AfterLogin/Sidebar";
 import SidebarSmall from "../../components/AfterLogin/SidebarSmallDevice";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -24,6 +25,12 @@ const LoggedInHome = () => {
     setSidebarOpen(!sidebarOpen);
     setMainContainerClass(sidebarOpen ? 'col-md-8 ' : 'col-md-7 ');
   };
+
+
+  const Navigate = useNavigate();
+  const handleTeamClick = () => {
+    Navigate("/CreateTeam");
+  }
 
  
   return (
@@ -51,7 +58,7 @@ const LoggedInHome = () => {
                   </div>
                 </div>
                 <div className="col-6">
-                  <div className="itemsColor options d-flex flex-column align-items-center justify-content-center">
+                  <div className="itemsColor options d-flex flex-column align-items-center justify-content-center" onClick={handleTeamClick}>
                     <img src={team} alt="team" />
                     <p>Create Team</p>
                   </div>
