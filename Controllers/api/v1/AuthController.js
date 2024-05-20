@@ -25,6 +25,7 @@ const City = require("../../../models/citie");
 const Member = require("../../../models/member");
 const {dump}=require("../../../services/dump");
 
+
 module.exports = {
 
   getVersion: async(req, res) => {
@@ -77,7 +78,7 @@ module.exports = {
         phoneCode: "required",
         phoneNumericCode: "required",
         dateOfBirth: "required",
-        deviceType: "required|in:ios,android",
+        deviceType: "required|in:ios,android,web",
         userType: "required|in:user,facility_admin,facility_manager,coach",
         country: "required",
         password: "required",

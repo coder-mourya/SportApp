@@ -344,7 +344,7 @@
             "name": "userType",
             "enum": ["user","facility_admin","facility_manager","coach"],
             "in": "formData",
-            "description": "Device Type",
+            "description": "User Type",
             "required": true,
             "default": "user",
             "type": "string",
@@ -352,7 +352,7 @@
           },
           {
             "name": "deviceType",
-            "enum": ["ios", "android"],
+            "enum": ["ios", "android", "web"],
             "in": "formData",
             "description": "Device Type",
             "required": true,
