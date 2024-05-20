@@ -73,17 +73,14 @@ input {
     padding: 0;
     margin: 0;
     border-left: none;
-}
-
-
-
-.contury-code{
     width: 3.8rem !important;
     padding-left: 0 !important;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-
+    border-top: none;
+    border-bottom: none;
+    font-size: 16px;
 }
+
+
 
 .blur-background {
     position: fixed;
@@ -144,12 +141,16 @@ input {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    overflow-y: auto;
+    height: 62vh;
+    scrollbar-width: none;
 }
 
 .sport-item {
     cursor: pointer;
 
     width: calc(33.33% - 20px);
+    height: 24%;
     margin-bottom: 15px;
 }
 
@@ -158,11 +159,11 @@ input {
 }
 
 .sport-item.selected {
-    background-color: #EDACAC;
+    background-color: #FBEBEB;
 }
 
 .sport-item:hover {
-    background-color: #EDACAC;
+    background-color: #FBEBEB;
 }
 
 

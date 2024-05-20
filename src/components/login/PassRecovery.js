@@ -50,6 +50,7 @@ const PassRecovery = () => {
     
     
                 Navigate('/PassRecovery', {state : {email}});
+                
             }else{
 
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error sending email';

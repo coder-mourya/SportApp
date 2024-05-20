@@ -7,24 +7,24 @@ import nickname from "../../assets/afterLogin picks/name.png";
 import mobile from "../../assets/afterLogin picks/mobile.png";
 import dob from "../../assets/afterLogin picks/dob.png";
 // import gender from "../../assets/afterLogin picks/name.png";
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import { useState } from 'react';
 import Alerts from "../Alerts";
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 // import 'react-country-flag-select/dist/index.css'; 
 // import CountryFlagSelect from "react-country-flag";
 
 
-const Register = ({ isLoggedIn }) => {
+const Register = () => {
     const [formData, setFormData] = useState({
         fullName: "",
         nickname: "",
         email: "",
         mobile: "",
-        dob: "",
+        dateOfBirth: "",
         gender: "",
         password: "",
         country: "",
@@ -34,6 +34,8 @@ const Register = ({ isLoggedIn }) => {
         phoneCode: "",
         phoneNumericCode: "",
         termsChecked: false,
+        userType: "user",  
+        deviceType: "android",
     });
 
     const [countryList, setCountryList] = useState([]);
@@ -42,6 +44,9 @@ const Register = ({ isLoggedIn }) => {
 
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
+
+    // const location = useLocation()
+    // const {email} = location.state;
 
     const Navigate = useNavigate();
 
@@ -55,20 +60,24 @@ const Register = ({ isLoggedIn }) => {
         e.preventDefault();
         console.log("form submitting data", formData)
         const register = BaseUrl()
-        // const sendVerification = BaseUrl()
+        const sendVerification = BaseUrl()
 
         try {
             const response = await axios.post(`${register}/api/v1/auth/register`, formData);
 
-            if (response.data.success) {
+            if (response.data.status === 200) {
                 setAlertMessage('Registration successful');
                 setAlertType('success');
                 console.log('Registration successful:', response.data);
 
-                // await axios.post(`${sendVerification}/api/v1/auth/send/mail-verification/link`, {
-                //     email: formData.email
-                // });
-                Navigate("/VerifyMail");
+                await axios.post(`${sendVerification}/api/v1/auth/send/mail-verification/link`, {
+                    email: formData.email
+                });
+
+                const navigateDelay = () => Navigate('/VerifyMail', { state: { email: formData.email } } );
+                setTimeout(navigateDelay, 2000);
+
+                
             } else {
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error registering user';
                 setAlertMessage(errorMessage);
@@ -78,8 +87,8 @@ const Register = ({ isLoggedIn }) => {
             }
 
         } catch (error) {
-            console.error('Error registering user:', error);
-            setAlertMessage('Error registering user', error.msg);
+            console.error('internal server error:', error);
+            setAlertMessage('internal server error', error.msg);
             setAlertType('error');
         }
 
@@ -107,7 +116,7 @@ const Register = ({ isLoggedIn }) => {
 
             setCountryList(response.data.data.country_list);
 
-            console.log(response.data);
+            // console.log(response.data);
 
         } catch (error) {
             console.log("Error fetching country list:", error);
@@ -171,19 +180,39 @@ const Register = ({ isLoggedIn }) => {
 
     };
 
-    const handleCountryChange = (e) => {
+    const handleCountryCods = (e) => {
         const selectedCountryCode = e.target.value;
+        // console.log("Selected Country Code:", selectedCountryCode);
+        // console.log("Country List:", countryList);
+
+        // Print each country for detailed inspection
+        // countryList.forEach(country => {
+        //     console.log(`Country: ${country.name}, Country Code: ${country.phoneCode}, Phone Code: ${country.phoneCode}, Phone Numeric Code: ${country.numeric_code}`);
+        // });
+
         const selectedCountry = countryList.find(
-            (country) => country.countryCode === selectedCountryCode
+            (country) => country.phoneCode === selectedCountryCode
         );
 
         if (selectedCountry) {
+            // console.log("Selected Country Details:", {
+            //     countryCode: selectedCountry.phoneCode,
+            //     phoneCode: selectedCountry.phoneCode,
+            //     phoneNumericCode: selectedCountry.numeric_code,
+            // });
+
             setFormData((prevFormData) => ({
                 ...prevFormData,
-                countryCode: selectedCountry.countryCode,
+                countryCode: selectedCountry.phoneCode,
+                phoneCode: selectedCountry.phoneCode,
+                phoneNumericCode: selectedCountry.numeric_code,
             }));
+        } else {
+            console.log("Selected Country is undefined");
         }
     };
+
+
 
 
 
@@ -203,6 +232,9 @@ const Register = ({ isLoggedIn }) => {
 
 
                         </div>
+
+                        {alertMessage && <Alerts message={alertMessage} type={alertType} />}
+
 
                         <div className='p-md-4'>
 
@@ -247,14 +279,14 @@ const Register = ({ isLoggedIn }) => {
 
                                             <select
                                                 className="contury-code"
-                                                value={formData.countryCode}
-                                                onChange={handleCountryChange}
+                                                value={formData.phoneCode}
+                                                onChange={handleCountryCods}
                                                 name="countryCode"
                                             >
                                                 {countryList.map((country) => (
                                                     <option
                                                         key={country.code}
-                                                        value={country.countryCode}
+                                                        value={country.phoneCode}
                                                         title={country.name}
                                                     >
                                                         {`+${country.phoneCode} ${country.name}`}
@@ -275,9 +307,10 @@ const Register = ({ isLoggedIn }) => {
                                             <span className="input-group-text">
                                                 <img src={dob} alt="dob" />
                                             </span>
-                                            <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} />
+                                            <input type="date" className="form-control" id="dateOfBirth" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleInputChange} />
                                         </div>
                                     </div>
+
                                     <div className="mb-3">
                                         <label htmlFor="gender" className="form-label">Gender</label>
                                         <div className="input-group my-1">
@@ -338,7 +371,7 @@ const Register = ({ isLoggedIn }) => {
                                         <input type="checkbox" className="form-check-input" id="terms" name="termsChecked" checked={formData.termsChecked} onChange={handleInputChange} />
                                         <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions</label>
                                     </div>
-                                    {alertMessage && <Alerts message={alertMessage} type={alertType} />}
+                                    {/* {alertMessage && <Alerts message={alertMessage} type={alertType} />} */}
                                 </div>
 
                                 <div className='Register-button'>
@@ -358,13 +391,14 @@ const Register = ({ isLoggedIn }) => {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        isLoggedIn: state.auth.isLoggedIn, // Accessing auth reducer's isLoggedIn state
-        // Add more state properties as needed
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         isLoggedIn: state.auth.isLoggedIn, // Accessing auth reducer's isLoggedIn state
+//         // Add more state properties as needed
+//     };
+// };
 
 
 
-export default connect(mapStateToProps)(Register);
+// export default connect(mapStateToProps)(Register);
+export default Register;

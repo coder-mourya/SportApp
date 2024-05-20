@@ -32,7 +32,9 @@ const LoginForm = () => {
         dispatch(loginSuccess(response.data));
         setAlertMessage('Login successful');
         setAlertType('success');
-        navigate("/LoggedInHome");
+
+        const navigateDelay = () => navigate('/loggedInHome');
+        setTimeout(navigateDelay, 2000);
       } else {
         const errorMessage = response.data.errors ? response.data.errors.msg : 'Error logging in user';
         setAlertMessage(errorMessage);
