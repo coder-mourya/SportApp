@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../assets/Styles/AfterLogin/loggedInHome.css";
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css";
+import defaultProfileImage from "../../assets/afterLogin picks/home/profile.jpg";
 
 import { useSelector } from 'react-redux';
 import Sidebar from "../../components/AfterLogin/Sidebar";
@@ -15,7 +16,6 @@ import axios from "axios";
 import { useEffect } from "react";
 
 
-
 import mail from "../../assets/afterLogin picks/mail.png";
 import name from "../../assets/afterLogin picks/name.png";
 import nickname from "../../assets/afterLogin picks/name.png";
@@ -25,6 +25,7 @@ import dob from "../../assets/afterLogin picks/dob.png";
 
 const ViewProfile = () => {
     const [formData, setFormData] = useState({
+        profileImage: null,
         fullName: "",
         nickName: "",
         email: "",
@@ -57,6 +58,9 @@ const ViewProfile = () => {
     const [alertType, setAlertType] = useState('');
     const [fileSetected, setFileSelected] = useState(false)
     const token = useSelector(state => state.auth.user.data.user.token);
+    
+
+    console.log("check what coming ", user.data.user);
 
 
 
@@ -105,6 +109,15 @@ const ViewProfile = () => {
     };
 
 
+    useEffect(() => {
+        if (user && user.data.user.profileImage) {
+            setProfileImage(user.data.user.profileImage);
+        }
+    }, [user]);
+
+
+
+
     const handleProfilePictureChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
@@ -118,73 +131,57 @@ const ViewProfile = () => {
         }
     };
 
+
+
     const handleUploadProfilePicture = async (e) => {
         e.preventDefault();
 
-        if (fileInuptRef?.current?.files[0]) {
-            let file = fileInuptRef.current.files[0];
-            //   console.log("message :" ,fileInuptRef.current.files);
-            //   console.log('Selected file:', file); 
 
-            let formData = new FormData();
+        let file = fileInuptRef.current.files[0];
 
-            formData.append('profileImage', file
-                //   {
-                //     name: file.name,
-                //     type: file.type,
-                //     // uri: file.uri,
-                //     size: file.size,
-                // }
-            );
+        let formData = new FormData();
+        formData.append('profileImage', file);
 
-            formData.append('fullName', user.data.user.fullName)
-            formData.append('mobile', user.data.user.mobile)
-            formData.append('dateOfBirth', user.data.user.dateOfBirth)
+        // Append each field separately to the FormData
 
+        formData.append('fullName', user.data.user.fullName);
+        formData.append('mobile', user.data.user.mobile);
+        formData.append('dateOfBirth', user.data.user.dateOfBirth);
 
-            // console.log('FormData contents:', ...formData);
+        const uploadProfilePicture = BaseUrl();
+        console.log("form data ", formData);
+        try {
+            const response = await axios.post(`${uploadProfilePicture}/api/v1/user/update/profile`,
 
-            const uploadProfilePicture = BaseUrl();
-
-
-            try {
-                
-                // console.log('what data sednibg to server:', JSON.stringify(formData));
-                // console.log('what data sednibg to server:', ...formData);
-
-                const response = await axios.post(`${uploadProfilePicture}/api/v1/user/update/profile`,formData,  {
-                   
+                formData
+                ,
+                {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${token}`
                     },
-
-                    // body : formData
-
-                });
-
-                console.log('FormData after appending file:', JSON.stringify(formData)); 
-
-                if (response.data.status === 200) {
-                    setAlertMessage('Profile picture uploaded successfully');
-                    setAlertType('success');
-                    console.log('Profile picture uploaded successfully:', response.data);
-
-                    const navigateDelay = () => Navigate('/ViewProfile');
-                    setTimeout(navigateDelay, 2000);
-                } else {
-                    console.error('Error uploading profile picture:', response.data);
-                    const errorMessage = response.data ? response.data.message : 'Error uploading profile picture';
-                    setAlertMessage(errorMessage);
-                    setAlertType('error');
                 }
-            } catch (error) {
-                console.error('Internal server error while uploading profile picture:', error);
+            );
+
+            if (response.data.status === 200) {
+                setAlertMessage('Profile picture uploaded successfully');
+                setAlertType('success');
+                console.log('Profile picture uploaded successfully:', response.data);
+
+                const navigateDelay = () => Navigate('/ViewProfile');
+                setTimeout(navigateDelay, 2000);
+            } else {
+                console.error('Error uploading profile picture:', response.data);
+                const errorMessage = response.data ? response.data.message : 'Error uploading profile picture';
+                setAlertMessage(errorMessage);
+                setAlertType('error');
             }
-        } else {
-            console.log('No file selected');
+        } catch (error) {
+            console.error('Internal server error while uploading profile picture:', error);
         }
+
     };
+
 
     const triggerFileInputClick = () => {
         fileInuptRef.current.click();
@@ -258,11 +255,13 @@ const ViewProfile = () => {
         if (name === "country") {
             const selectCountry = e.target.options[e.target.selectedIndex].getAttribute("data-country-id")
             getState(selectCountry);
+           
         }
 
         if (name === "state") {
             const selectState = e.target.options[e.target.selectedIndex].getAttribute("data-state-id")
             getCity(selectState)
+            
         }
 
 
@@ -285,31 +284,31 @@ const ViewProfile = () => {
 
     useEffect(() => {
 
+
+        // get countory list
+        const getCountry = async () => {
+
+            const countoryUrl = BaseUrl()
+
+            try {
+                const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
+
+
+
+                setCountryList(response.data.data.country_list);
+
+                // console.log(response.data);
+
+            } catch (error) {
+                console.log("Error fetching country list:", error);
+            }
+
+        }
+
         getCountry();
 
 
     }, [])
-
-    // get countory list
-    const getCountry = async () => {
-
-        const countoryUrl = BaseUrl()
-
-        try {
-            const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
-
-
-
-            setCountryList(response.data.data.country_list);
-
-            console.log(response.data);
-
-        } catch (error) {
-            console.log("Error fetching country list:", error);
-        }
-
-    }
-
 
     // get state 
 
@@ -369,13 +368,12 @@ const ViewProfile = () => {
 
                             <form onSubmit={handleUploadProfilePicture}>
                                 <div className="profile-picture p-4 d-flex justify-content-start align-items-center">
-                                    {profileImage ? (
-                                        <img src={profileImage} alt="Profile" className="profile-img rounded-circle" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
-                                    ) : (
-                                        <div className="profile-placeholder bg-secondary text-white d-flex align-items-center justify-content-center" style={{ width: '100px', height: '100px', borderRadius: '50%' }}>
-                                            Profile Picture
-                                        </div>
-                                    )}
+                                    <img
+                                        src={profileImage || defaultProfileImage} 
+                                        alt="Profile"
+                                        className="profile-img rounded-circle"
+                                        style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                    />
                                     <input
                                         type="file"
                                         accept="image/*"
@@ -572,7 +570,7 @@ const ViewProfile = () => {
                                                         <option>Select state</option>
 
                                                         {states.map((state) => (
-                                                            <option key={state._id} value={state.id} data-state-id={state.id}>{state.name}</option>
+                                                            <option key={state.name} value={state.name} data-state-id={state.id}>{state.name}</option>
                                                         ))}
                                                     </select>
                                                 </div>
@@ -584,7 +582,7 @@ const ViewProfile = () => {
                                                         <option>Select city</option>
 
                                                         {cities.map((city) => (
-                                                            <option key={city._id} value={city.id} data-state-id={city.id}>{city.name}</option>
+                                                            <option key={city.name} value={city.name} data-state-id={city.id}>{city.name}</option>
                                                         ))}
                                                     </select>
                                                 </div>

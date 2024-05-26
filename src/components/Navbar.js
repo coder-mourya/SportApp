@@ -10,7 +10,7 @@ import time from "../assets/img/time.svg";
 import notification from "../assets/img/notification.svg";
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from "../reducers/authSlice";
-import profile from "../assets/afterLogin picks/home/profile.jpg"
+import profile from "../assets/afterLogin picks/home/profile.jpg";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -35,18 +35,18 @@ const Navbar = () => {
     Navigate("/");
   };
 
-  const changePassword = () =>{
+  const changePassword = () => {
     Navigate("/ChangePass")
   }
 
   useEffect(() => {
     if (isLoggedIn) {
-      console.log("user data coming", JSON.stringify(user?.data.user.profileImage));
+      console.log("user data coming", user.data.user);
     }
   }, [isLoggedIn, user]);
 
 
-  useEffect(() =>{
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
@@ -54,7 +54,7 @@ const Navbar = () => {
     return () => clearInterval(interval);
   }, [])
 
-  
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top d-lg-block">
       <div className="container">
@@ -107,7 +107,11 @@ const Navbar = () => {
                 <li className="nav-item mx-3 user-dropdown">
                   <div className="dropdown">
                     <button className="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <img src={profile ? profile : user.data.user.profileImage} alt="user" className="user-profile-pic" />
+                      {user.data.user.profileImage ? (
+                        <img src={user.data.user.profileImage} alt="user" className="user-profile-pic" />
+                      ) : (
+                        <img src={profile} alt="default user" className="user-profile-pic" /> // Provide the URL of your default image
+                      )}
                       {user && user.data.user.fullName}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="userDropdown">

@@ -81,6 +81,9 @@ input {
 }
 
 
+/* Disable scrolling on body when modal is open */
+
+
 
 .blur-background {
     position: fixed;
@@ -92,8 +95,8 @@ input {
     background-color: rgba(0, 0, 0, 0.323);
     backdrop-filter: blur(2px);
     z-index: 1;
-}
 
+}
 
 
 .container-right {
@@ -106,6 +109,8 @@ input {
     transform: translateY(-50%);
     z-index: 1000;
     background-color: #ffffff;
+   
+    transition: opacity 0.3s ease-in-out;
 }
 
 .account_info {
@@ -176,7 +181,7 @@ input {
     .container-right {
         width: 100%;
         height: 100%;
-        /* position: fixed; */
+        position: fixed;
         overflow: auto;
         padding-bottom: 1rem;
       

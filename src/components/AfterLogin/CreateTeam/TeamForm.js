@@ -3,29 +3,56 @@ import upload from "../../../assets/afterLogin picks/My team/upload.svg";
 import uploadIcon from "../../../assets/afterLogin picks/My team/upload-icon.svg";
 import user from "../../../assets/afterLogin picks/name.png";
 import ImageCropper from "../../Utils/ImageCropper";
+import { BaseUrl } from "../../../reducers/Api/bassUrl";
+import axios from "axios";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const TeamDetails = ({ onNext }) => {
+
+const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
     const fileInputRef = useRef(null);
     const logoInputRef = useRef(null);
     const [coverPhoto, setCoverPhoto] = useState(null);
+    const [logo, setLogo] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
+
+
+    const [countryList, setCountryList] = useState([]);
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
+    const [colors, setColors] = useState([])
+
+
+    const chosenSports = useSelector(state => state.auth.user.data.user.chosenSports);
+    // console.log("chosen sports", chosenSports);
+
 
     const handleFileSelect = () => {
         fileInputRef.current.click();
     };
 
+
+    // handle cover photo upload
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         setCoverPhoto(URL.createObjectURL(file));
+        onFormDataChange({ coverPhoto: file });
     };
 
+    // handle logo upload
     const handleLogoSelect = () => {
         logoInputRef.current.click();
     }
 
     const handleLogo = (e) => {
         const file2 = e.target.files[0];
-        console.log("logo selected", file2)
+        // handleFileChange(e)
+        // console.log("logo selected", file2)
+        setLogo(URL.createObjectURL(file2))
+
+
+        onFormDataChange({ logo: file2 });
     }
 
     const handleNext = () => {
@@ -34,14 +61,133 @@ const TeamDetails = ({ onNext }) => {
 
     const handleCropComplete = (croppedImage) => {
         setCroppedImage(croppedImage);
+
+        // onFormDataChange({ croppedCoverPhoto: croppedImage });
     };
+
+
+
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+
+        onFormDataChange({ [name]: value });
+
+
+        if (name === "country") {
+            const selectCountry = e.target.options[e.target.selectedIndex].getAttribute("data-country-id");
+            getState(selectCountry);
+        } else if (name === "state") {
+            const selectState = e.target.options[e.target.selectedIndex].getAttribute("data-state-id");
+            getCity(selectState);
+        } else if (name === "sport") {
+            const selectedSport = chosenSports.find(sport => sport._id === value);
+            // console.log("selected sport: ", selectedSport);
+            if (selectedSport) {
+                const sportId = selectedSport._id;
+                onFormDataChange({ sports_id: sportId });
+            }
+        } else {
+            onFormDataChange({ [name]: value });
+        }
+    };
+
+
+
+    useEffect(() => {
+
+        getCountry();
+        getColors()
+
+    }, [])
+
+    const getCountry = async () => {
+
+        const countoryUrl = BaseUrl()
+
+        try {
+            const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
+
+
+
+            setCountryList(response.data.data.country_list);
+
+            // console.log(response.data);
+
+        } catch (error) {
+            console.log("Error fetching country list:", error);
+        }
+
+    }
+
+
+    // get state 
+
+    const getState = async (countryId) => {
+        const stateUrl = BaseUrl(); // Changed variable name to stateUrl
+
+        try {
+            const response = await axios.get(`${stateUrl}/api/v1/auth/state_list/${countryId}`);
+
+            setStates(response.data.data.state_list);
+            // console.log(response.data);
+        } catch (error) {
+            console.log("Error fetching state list:", error);
+        }
+    };
+
+
+
+    const getCity = async (stateId) => {
+        const citiUrl = BaseUrl();
+
+        try {
+            const response = await axios.get(`${citiUrl}/api/v1/auth/city_list/${stateId}`)
+            setCities(response.data.data.city_list);
+            // console.log(response.data);
+        } catch (error) {
+            console.log("error detching cities :", error);
+        }
+
+    }
+
+
+
+
+    // get colors
+    const getColors = async () => {
+        const colorUrl = BaseUrl();
+        try {
+            const response = await axios.get(`${colorUrl}/api/v1/user/teams/colours/list`);
+            setColors(response.data.data.colours_list);
+            console.log(response.data);
+        } catch (error) {
+            console.log("Error fetching colors:", error);
+        }
+    }
+
+
+    const handleColorChange = (colorId) => {
+        onFormDataChange({ teamColour_id: colorId });
+        setSelectedColor(colorId);
+    };
+
+
+
+
 
     return (
         <div className="container-fluid">
             <div className="cover-photo rounded position-relative">
+
                 {/* Render the selected image if available, otherwise render the default upload image */}
                 {croppedImage ? (
-                    <img src={URL.createObjectURL(croppedImage)} alt="cropped cover" className="img-fluid" />
+                    <img src={URL.createObjectURL(croppedImage)} alt="cropped cover" className="img-fluid" style={{
+                        objectFit: "cover",
+                        borderRadius: "10px",
+                        width: "100%",
+                        height: "10rem"
+                    }} />
                 ) : (
                     <>
                         {coverPhoto && <img src={coverPhoto} alt="cover" className="img-fluid" />}
@@ -62,9 +208,16 @@ const TeamDetails = ({ onNext }) => {
                         </div>
                     </>
                 )}
-                
+
                 <div className="upload-icon-container" onClick={handleLogoSelect}>
-                    <img src={uploadIcon} alt="upload icon" />
+
+                    <div className="logo-icon">
+                        {logo ? (
+                            <img src={logo} alt="logo" className="img-fluid border-4" />
+                        ) : (
+                            <img src={uploadIcon} alt="upload icon" />
+                        )}
+                    </div>
 
                     <input
                         type="file"
@@ -76,6 +229,8 @@ const TeamDetails = ({ onNext }) => {
                 </div>
             </div>
 
+
+
             <div className="team-details mt-5">
                 <form>
                     <div className="row">
@@ -86,6 +241,10 @@ const TeamDetails = ({ onNext }) => {
                                     type="text"
                                     placeholder="Enter here"
                                     className="py-2 rounded"
+                                    id="teamName"
+                                    name="teamName"
+                                    value={formData.teamName}
+                                    onChange={handleInputChange}
                                 />
                                 <img src={user} alt="team name" className="input-icon" />
                             </div>
@@ -97,6 +256,8 @@ const TeamDetails = ({ onNext }) => {
                                     type="text"
                                     placeholder="Enter your tagline"
                                     className="py-2 rounded"
+                                    onChange={handleInputChange}
+
                                 />
                                 <img src={user} alt="tagline" className="input-icon" />
                             </div>
@@ -106,21 +267,40 @@ const TeamDetails = ({ onNext }) => {
                     <div className="row">
                         <div className="col-md-6 ">
                             <div className=" mt-4">
-                                <select id="option1" className="form-select py-2 rounded">
+                                <select id="sport" name="sport" className="form-select py-2 rounded"
+                                    onChange={handleInputChange}
+                                    value={formData.sports_id}
+
+                                >
                                     <option value="">--Select sport type--</option>
-                                    <option value="option1_value1">Option 1 Value 1</option>
-                                    <option value="option1_value2">Option 1 Value 2</option>
-                                    {/* Add more options as needed */}
+                                    {chosenSports.map((sport, index) => (
+                                        <option key={index} value={sport._id} >
+                                            {sport.sports_name}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-6 ">
                             <div className=" mt-4">
-                                <select id="option1" className="form-select py-2 rounded">
+                                <select
+                                    id="country"
+                                    name="country"
+                                    className="form-select py-2 rounded"
+                                    onChange={handleInputChange}
+                                    value={formData.country}
+
+                                >
                                     <option value="">--Select Country--</option>
-                                    <option value="option1_value1">Option 1 Value 1</option>
-                                    <option value="option1_value2">Option 1 Value 2</option>
-                                    {/* Add more options as needed */}
+                                    {countryList.map((country, index) => (
+                                        <option key={index} value={country.code}
+                                            data-country-id={country.id}
+
+                                        >
+                                            {country.name}
+
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
@@ -129,21 +309,21 @@ const TeamDetails = ({ onNext }) => {
                     <div className="row">
                         <div className="col-md-6 ">
                             <div className=" mt-3">
-                                <select id="option1" className="form-select py-2 rounded">
+                                <select id="state" name="state" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.state}>
                                     <option value="">--Select State--</option>
-                                    <option value="option1_value1">Option 1 Value 1</option>
-                                    <option value="option1_value2">Option 1 Value 2</option>
-                                    {/* Add more options as needed */}
+                                    {states.map((state) => (
+                                        <option key={state._id} value={state.id} data-state-id={state.id}>{state.name}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-6 ">
                             <div className=" mt-3">
-                                <select id="option1" className="form-select py-2 rounded">
+                                <select id="city" name="city" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.city}>
                                     <option value="">--Select city--</option>
-                                    <option value="option1_value1">Option 1 Value 1</option>
-                                    <option value="option1_value2">Option 1 Value 2</option>
-                                    {/* Add more options as needed */}
+                                    {cities.map((city, index) => (
+                                        <option key={index} value={city.id} data-country-id={city.state_id}>{city.name}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
@@ -152,11 +332,48 @@ const TeamDetails = ({ onNext }) => {
 
                 <div className="mt-2">
                     <p>Choose team color</p>
-                    <button className="color-button red"></button>
-                    <button className="color-button green"></button>
-                    <button className="color-button blue"></button>
-                    <button className="color-button yellow"></button>
-                    <button className="color-button orange"></button>
+
+                    <div className="color-picker-container">
+                        {colors.map((color, index) => (
+                            <button
+                                key={index}
+                                className="color-button"
+                                value={color._id}
+                                style={{
+                                    backgroundColor: color.colour,
+                                    borderColor: color.border_colour,
+                                    position: 'relative',
+                                }}
+                                onClick={() => handleColorChange(color._id)}
+                            >
+
+                                {selectedColor === color._id && (
+                                    <span
+                                        style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            color: color.border_colour,
+                                            fontWeight: 'bold',
+                                            zIndex: 1,
+                                        }}
+                                    >
+                                        ✓
+                                    </span>
+                                )}
+
+                            </button>
+                        ))}
+
+                        {/* Render ImageCropper if cover photo is selected */}
+                        {coverPhoto && !croppedImage && (
+                            <ImageCropper
+                                imageSrc={coverPhoto}
+                                onCropComplete={handleCropComplete}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -164,13 +381,7 @@ const TeamDetails = ({ onNext }) => {
                 <button className="btn btn-danger" onClick={handleNext}>Next</button>
             </div>
 
-            {/* Render ImageCropper if cover photo is selected */}
-            {coverPhoto && !croppedImage && (
-                <ImageCropper
-                    imageSrc={coverPhoto}
-                    onCropComplete={handleCropComplete}
-                />
-            )}
+
         </div>
     );
 };

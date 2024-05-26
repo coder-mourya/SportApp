@@ -4,10 +4,20 @@ import search from "../../assets/afterLogin picks/Sports category icons/Search.p
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
+import Alerts from '../Alerts';
+import { useSelector } from 'react-redux';
 
 const Category = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sports, setSports] = useState([]);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState('');
+    const token = useSelector(state => state.auth.user.data.user.token);
+    const chosenSports = useSelector(state => state.auth.user.data.user.chosenSports);
+
+console.log("chosenSports",chosenSports);
+
+
 
     useEffect(() => {
         const SportList = BaseUrl();
@@ -16,8 +26,20 @@ const Category = () => {
         const fetchSports = async () => {
             try {
                 const response = await axios.get(`${SportList}/api/v1/user/sports/list`);
-                setSports(response.data.data.sports_list); // Update state with fetched sports data
-                console.log(response.data.data);
+                const sportsList = response.data.data.sports_list;
+
+                if (Array.isArray(chosenSports)) {
+                    const chosenSportIds = chosenSports.map(sport => sport._id);
+                    const updatedSports = sportsList.map(sport => ({
+                        ...sport,
+                        selected: chosenSportIds.includes(sport._id)
+                    }));
+
+                    setSports(updatedSports);
+                } else {
+                    setSports(sportsList);
+                }
+
             } catch (error) {
                 console.error('Error fetching sports data:', error);
             }
@@ -25,7 +47,7 @@ const Category = () => {
 
         // Fetch sports data when component mounts
         fetchSports();
-    }, []); // Empty dependency array to run only once
+    }, [chosenSports]); // Empty dependency array to run only once
 
     const navigate = useNavigate();
     const handleClose = () => {
@@ -52,6 +74,45 @@ const Category = () => {
         sport.sports_name.toLowerCase().includes(searchQuery.toLowerCase())
     ) : [];
 
+
+
+    // update selected sports
+
+    const updateSelectedSports = async (e) => {
+        e.preventDefault();
+
+        const selectedSports = sports.filter(sport => sport.selected).map(sport => sport._id);
+        const updateURL = BaseUrl();
+
+        try {
+            const response = await axios.put(`${updateURL}/api/v1/user/update/sports`, {
+                chosenSports: selectedSports
+            },
+            
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+
+            if (response.data.status === 200) {
+                console.log("ports updated ", response.data);
+                setAlertMessage('Sports updated successfully');
+                setAlertType('success');
+                const navigateDelay = () => navigate('/loggedInHome');
+                setTimeout(navigateDelay, 1000);
+            } else {
+                const errorMessage = response.data.errors ? response.data.errors.msg : 'Error updating selected sports';
+                setAlertMessage(errorMessage);
+                setAlertType('error');
+                console.log("Error updating selected sports", response.data);
+            }
+        } catch (error) {
+            console.error('Error updating selected sports:', error);
+        }
+    }
+
     return (
         <div className="ForgotPassword container-fluid ">
             <div className="blur-background" onClick={handleClose}></div>
@@ -60,6 +121,8 @@ const Category = () => {
                     <div className='text-center mt-4'>
                         <h3 className="mb-2">Select Your Favorite Sports</h3>
                     </div>
+
+                    {alertMessage && <Alerts message={alertMessage} type={alertType} />}
                     <div className='p-md-4'>
                         {/* Search bar */}
                         <form>
@@ -79,13 +142,13 @@ const Category = () => {
                             <div className="sports-list row mt-4 ">
                                 {filteredSports.map((sport, index) => (
                                     <div key={index} className={`sport-item col-4 text-center pt-2 rounded-4 border ${sport.selected ? "selected" : ""}`} onClick={() => handleSportSelect(sport._id)}>
-                                         <img src={sport.selected ? sport.selected_image : sport.image} alt={sport.sports_name} className={sport.selected ? "selected" : ""} />
-                                        
+                                        <img src={sport.selected ? sport.selected_image : sport.image} alt={sport.sports_name} className={sport.selected ? "selected" : ""} />
+
                                         <p>{sport.sports_name}</p>
                                     </div>
                                 ))}
                             </div>
-                            <button type="submit" className="btn btn-danger py-2 login-botton mt-4">Done</button>
+                            <button type="submit" className="btn btn-danger py-2 login-botton mt-4" onClick={updateSelectedSports}>Done</button>
                         </form>
                     </div>
                 </div>

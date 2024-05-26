@@ -1,16 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
+
 /* main container  */
 
-.options {
-    padding-top: 1rem;
+.option {
+    padding: 1rem;
     border-radius: 10%;
     margin: 1rem 0;
     cursor: pointer;
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.1);
 }
 
-.options:hover {
+.option:hover {
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.2);
 }
+
+.sportCount {
+    padding: 0;
+    margin: 0;
+    font-size: 2.5rem;
+    color: #283593;
+    font-family: "Tourney", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.option img{
+    width: 29px;
+}
+
+.option p {
+ padding: 0 ;
+ margin: 0;
+}
+
+.custum-style{
+    padding: 1.5rem 1rem;
+}
+
+
 
 .viewAll {
     color: #D32F2F;
@@ -30,7 +57,7 @@
     width: 48%;
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-  transition: width 0.2s ease-in-out;
+    transition: width 0.2s ease-in-out;
 }
 
 .event-item:hover {
@@ -109,7 +136,7 @@
         margin: 1rem 0;
     }
 
-    .options {
+    .option {
         margin: 1rem 0;
     }
 

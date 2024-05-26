@@ -1,5 +1,4 @@
-import React from "react";
-import sport from "../../assets/afterLogin picks/home/2.png";
+import React, { useEffect } from "react";
 import team from "../../assets/afterLogin picks/home/team.png";
 import event from "../../assets/afterLogin picks/home/event.png";
 import coaching from "../../assets/afterLogin picks/home/coach.png";
@@ -11,6 +10,9 @@ import SidebarComponent from "../../components/AfterLogin/Sidebar";
 import SidebarSmall from "../../components/AfterLogin/SidebarSmallDevice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { BaseUrl } from "../../reducers/Api/bassUrl";
+import axios from "axios";
 
 
 
@@ -20,6 +22,8 @@ const LoggedInHome = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mainContainerClass, setMainContainerClass] = useState('col-md-8');
+  const [count, setCount] = useState(0);
+  const token = useSelector((state) => state.auth.user.data.user.token);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -32,14 +36,42 @@ const LoggedInHome = () => {
     Navigate("/CreateTeam");
   }
 
- 
+  const handleMySports = () => {
+    Navigate("/Category");
+  }
+
+
+
+
+  useEffect(() => {
+    const getSportCount = async () => {
+      const sportCountUrl = BaseUrl();
+
+      try {
+        const response = await axios.get(`${sportCountUrl}/api/v1/user/sports/count`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+
+        setCount(response.data.data.sports_count);        
+        console.log("sports count:" , response.data.data.sports_count); 
+      } catch (error) {
+        console.error('Error fetching sports data:', error);
+      }
+    }
+
+    getSportCount()
+  }, [token])
+
+
   return (
     <div className="LoggedInHome container-fluid bodyColor pb-5 ">
-      
+
       <div className="row">
 
         <div className="col">
-          
+
 
           <SidebarSmall />
           <SidebarComponent toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
@@ -50,15 +82,15 @@ const LoggedInHome = () => {
 
           <div className="row">
             <div className="col-md-6">
-              <div className="row">
+              <div className="row option-container">
                 <div className="col-6">
-                  <div className="itemsColor  options d-flex flex-column align-items-center justify-content-center">
-                    <img src={sport} alt="sport" />
+                  <div className="itemsColor  option d-flex flex-column align-items-center justify-content-center" onClick={handleMySports}>
+                    <h1 className="sportCount">{count}</h1>
                     <p>My Sports</p>
                   </div>
                 </div>
                 <div className="col-6">
-                  <div className="itemsColor options d-flex flex-column align-items-center justify-content-center" onClick={handleTeamClick}>
+                  <div className="itemsColor option custum-style d-flex flex-column align-items-center justify-content-center" onClick={handleTeamClick}>
                     <img src={team} alt="team" />
                     <p>Create Team</p>
                   </div>
@@ -69,13 +101,13 @@ const LoggedInHome = () => {
             <div className="col-md-6">
               <div className="row">
                 <div className="col-6">
-                  <div className="itemsColor options d-flex flex-column align-items-center justify-content-center">
+                  <div className="itemsColor option custum-style d-flex flex-column align-items-center justify-content-center">
                     <img src={event} alt="create event" />
                     <p>Create event</p>
                   </div>
                 </div>
                 <div className="col-6">
-                  <div className="itemsColor options d-flex flex-column align-items-center justify-content-center">
+                  <div className="itemsColor option custum-style d-flex flex-column align-items-center justify-content-center">
                     <img src={coaching} alt="coaching" />
                     <p>Coaching & Training</p>
                   </div>

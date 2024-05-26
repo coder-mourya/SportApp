@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Cropper from "react-easy-crop";
-import { getCroppedImg } from "./cropUtils"; // You need to implement cropUtils.js
+import { getCroppedImg } from "./cropUtils";
+import "../../assets/Styles/AfterLogin/createTeam.css"
 
 
 const ImageCropper = ({ imageSrc, onCropComplete }) => {
@@ -46,7 +47,7 @@ const ImageCropper = ({ imageSrc, onCropComplete }) => {
         />
       </div>
 
-      <div className="controls">
+      <div className="controls d-flex ">
         <button onClick={handleCropImage} className="btn btn-secondary">Done</button>
       </div>
     </div>

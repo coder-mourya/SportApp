@@ -17,6 +17,7 @@ const loadUserFromLocalStorage = () => {
 const initialState = {
   user: loadUserFromLocalStorage(),
   isLoggedIn: !!loadUserFromLocalStorage(),
+
 };
 
 const authSlice = createSlice({
@@ -32,7 +33,7 @@ const authSlice = createSlice({
       state.user = null;
       state.isLoggedIn = false;
       localStorage.removeItem('user');
-    }
+    },
   }
 });
 

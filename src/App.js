@@ -13,7 +13,7 @@ import ForgotPassword from "./components/login/ForgotPass";
 import PassRecovery from "./components/login/PassRecovery";
 import Register from "./components/login/Register";
 import VerifyMail from "./components/login/VerifyMail";
-import Pending from "./components/login/PendingMail";
+import PendingMail from "./components/login/PendingMail";
 import Category from "./components/login/Category";
 import LoggedInHome from "./pages/AfterLogin/LoggedInHome";
 import FAQPage from "./pages/FAQPage";
@@ -36,6 +36,7 @@ import {ProtectedRoute2} from './components/ProtectedRoute';
 import ViewProfile from './components/AfterLogin/ViewProfile';
 import ChangePass from './components/AfterLogin/ChangePass';
 
+
 function App() {
 
   const location = useLocation();
@@ -50,9 +51,10 @@ function App() {
 
       <Navbar />
 
+
       <Routes>
-        {/* pages Routes */}
         <Route exact path='/' element={<ProtectedRoute2 element={Home} />} />
+        {/* pages Routes */}
         <Route exact path='/About' element={<About />} />
         <Route exact path='/Features' element={<Features />} />
         <Route exact path='/FAQ' element={<FAQ />} />
@@ -67,7 +69,7 @@ function App() {
         <Route exact path='/PassRecovery' element={<PassRecovery />} />
         <Route exact path='/Register' element={<Register />} />
         <Route exact path='/VerifyMail' element={<VerifyMail />} />
-        <Route exact path='/Pending' element={<Pending />} />
+        <Route exact path='/PendingMail' element={<PendingMail />} />
         <Route exact path="/Category" element={<Category />} />
 
         {/* LoggedIn Routes */}
@@ -95,7 +97,6 @@ function App() {
       </Routes>
       {isRoute && <ChatBox />}
 
-      {/* {!isLoginRoute && <Footer />} */}
 
       {!isRoute && <Footer />}
 

@@ -7,11 +7,12 @@ import nickname from "../../assets/afterLogin picks/name.png";
 import mobile from "../../assets/afterLogin picks/mobile.png";
 import dob from "../../assets/afterLogin picks/dob.png";
 // import gender from "../../assets/afterLogin picks/name.png";
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import { useState } from 'react';
 import Alerts from "../Alerts";
+import { useDispatch } from 'react-redux';
 // import { connect } from 'react-redux';
 
 // import 'react-country-flag-select/dist/index.css'; 
@@ -34,14 +35,14 @@ const Register = () => {
         phoneCode: "",
         phoneNumericCode: "",
         termsChecked: false,
-        userType: "user",  
+        userType: "user",
         deviceType: "android",
     });
 
     const [countryList, setCountryList] = useState([]);
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
-
+    const dispatch = useDispatch();
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
 
@@ -74,10 +75,10 @@ const Register = () => {
                     email: formData.email
                 });
 
-                const navigateDelay = () => Navigate('/VerifyMail', { state: { email: formData.email } } );
+                const navigateDelay = () => Navigate('/VerifyMail', { state: { email: formData.email } });
                 setTimeout(navigateDelay, 2000);
 
-                
+
             } else {
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error registering user';
                 setAlertMessage(errorMessage);
@@ -99,31 +100,31 @@ const Register = () => {
 
     useEffect(() => {
 
-        getCountry();
-
-
-    }, [])
-
-    // get countory list
-    const getCountry = async () => {
-
-        const countoryUrl = BaseUrl()
+        
+        
+        
+        // get countory list
+        const getCountry = async () => {
+            
+            const countoryUrl = BaseUrl()
 
         try {
             const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
-
-
-
-            setCountryList(response.data.data.country_list);
-
+            
+            
+            
+            dispatch(setCountryList(response.data.data.country_list));
+            
             // console.log(response.data);
 
         } catch (error) {
             console.log("Error fetching country list:", error);
         }
-
+        
     }
-
+    
+    getCountry();
+}, [dispatch])
 
     // get state 
 
@@ -133,7 +134,7 @@ const Register = () => {
         try {
             const response = await axios.get(`${stateUrl}/api/v1/auth/state_list/${countryId}`);
 
-            setStates(response.data.data.state_list);
+           setStates(response.data.data.state_list);
             console.log(response.data);
         } catch (error) {
             console.log("Error fetching state list:", error);
@@ -182,24 +183,12 @@ const Register = () => {
 
     const handleCountryCods = (e) => {
         const selectedCountryCode = e.target.value;
-        // console.log("Selected Country Code:", selectedCountryCode);
-        // console.log("Country List:", countryList);
-
-        // Print each country for detailed inspection
-        // countryList.forEach(country => {
-        //     console.log(`Country: ${country.name}, Country Code: ${country.phoneCode}, Phone Code: ${country.phoneCode}, Phone Numeric Code: ${country.numeric_code}`);
-        // });
 
         const selectedCountry = countryList.find(
             (country) => country.phoneCode === selectedCountryCode
         );
 
         if (selectedCountry) {
-            // console.log("Selected Country Details:", {
-            //     countryCode: selectedCountry.phoneCode,
-            //     phoneCode: selectedCountry.phoneCode,
-            //     phoneNumericCode: selectedCountry.numeric_code,
-            // });
 
             setFormData((prevFormData) => ({
                 ...prevFormData,
@@ -334,7 +323,8 @@ const Register = () => {
                                     <div className="mb-3">
                                         <label htmlFor="country" className="form-label">Country</label>
                                         <div className="input-group my-1">
-                                            <select className="form-select" id="country" name="country" value={formData.country} onChange={handleInputChange}>
+                                            <select className="form-select" id="country" name="country" value={formData.country} 
+                                            onChange={handleInputChange}>
                                                 <option>Select country</option>
 
                                                 {countryList.map((country, index) => (
@@ -350,7 +340,7 @@ const Register = () => {
                                                 <option>Select state</option>
 
                                                 {states.map((state) => (
-                                                    <option key={state._id} value={state.id} data-state-id={state.id}>{state.name}</option>
+                                                    <option key={state.name} value={state.name} data-state-id={state.id}>{state.name}</option>
                                                 ))}
                                             </select>
                                         </div>
@@ -362,7 +352,7 @@ const Register = () => {
                                                 <option>Select city</option>
 
                                                 {cities.map((city) => (
-                                                    <option key={city._id} value={city.id} data-state-id={city.id}>{city.name}</option>
+                                                    <option key={city.name} value={city.name} data-state-id={city.id}>{city.name}</option>
                                                 ))}
                                             </select>
                                         </div>

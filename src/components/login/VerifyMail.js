@@ -27,7 +27,8 @@ const VerifyMail = () => {
     const Navigate = useNavigate();
 
     const reSendLink = BaseUrl();
-    const handleResendVerification = async () => {
+    const handleResendVerification = async (e) => {
+        e.preventDefault();
         try {
             const response = await axios.post(`${reSendLink}/api/v1/auth/resend/mail-verification/link`, {
                 email: email

@@ -27,14 +27,35 @@ const LoginForm = () => {
     try {
       const response = await axios.post(`${loginUrl}/api/v1/auth/login`, { email, password });
 
+
       if (response.data.status === 200) {
+        const checkVerify = response.data.data;
+
+        if (checkVerify.isEmailVerify === false) {
+          setAlertMessage('Email not verified. Please check your inbox.');
+          setAlertType('error');
+          navigate("/pendingMail", { state: { email: email } });
+          return;
+        }else{
+          
         console.log(response.data);
         dispatch(loginSuccess(response.data));
         setAlertMessage('Login successful');
         setAlertType('success');
 
-        const navigateDelay = () => navigate('/loggedInHome');
-        setTimeout(navigateDelay, 2000);
+        // check sports selection 
+        const userData = response.data.data.user;
+        if (userData.sportsSelection === true) {
+          const navigateDelay = () => navigate('/loggedInHome');
+          setTimeout(navigateDelay, 1000);
+        } else {
+          const navigateDelay = () => navigate('/Category');
+          setTimeout(navigateDelay, 1000);
+        }
+        }
+
+
+
       } else {
         const errorMessage = response.data.errors ? response.data.errors.msg : 'Error logging in user';
         setAlertMessage(errorMessage);
