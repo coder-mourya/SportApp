@@ -6,7 +6,6 @@ import bootmImg from "../../assets/afterLogin picks/grup.png";
 // import mail from "../../assets/afterLogin picks/mail.png";
 import { Link, useLocation } from 'react-router-dom';
 import pen from "../../assets/afterLogin picks/pen.png";
-import { useNavigate } from 'react-router-dom';
 import Alerts from '../Alerts';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import { useState } from 'react';
@@ -25,10 +24,8 @@ const PendingMail = () => {
     const location = useLocation();
     const email = location.state?.email;
 
-    const Navigate = useNavigate();
-    const handleClose = () => {
-        Navigate("/")
-    }
+    
+  
 
 
     const handleResendVerification = async (e) => {
@@ -66,9 +63,9 @@ const PendingMail = () => {
 
 
     return (
-        <div className="ForgotPassword container-fluid ">
-            <div className="blur-background" onClick={handleClose}></div>
-            <div className="container-right">
+        <div className="ForgotPassword ">
+            
+            <div className="">
 
                 <div className='container'>
 
@@ -116,7 +113,7 @@ const PendingMail = () => {
                     {alertMessage && <Alerts alertMessage={alertMessage} alertType={alertType} />}
 
 
-                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4" onClick={handleResendVerification}>Resend</button>
+                            <button type="submit" className="btn btn-danger py-2 login-botton mt-4" onClick={handleResendVerification}>Resend</button>
                             <div className=' d-flex justify-content-center mt-4'>
 
                                 <Link to={"/login"}>Back to login</Link>

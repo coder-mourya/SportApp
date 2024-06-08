@@ -1,9 +1,9 @@
 // ForgotPassword.js
 import React from 'react';
-import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS file
+import "../../assets/Styles/AfterLogin/Full-LoginProcess.css";
 import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
-import { Link, useLocation } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
@@ -12,18 +12,23 @@ import { useState } from 'react';
 
 
 
-const PassRecovery = () => {
-    const location = useLocation();
-    const { email } = location.state;
+const PassRecovery = ({ email, closeOffcanvas, goToLogin }) => {
+
 
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
 
-
+    // console.log(email);
     const Navigate = useNavigate();
-    const handleClose = () => {
-        Navigate("/")
-    }
+
+
+    const handleGoToLogin = () => {
+        if (typeof goToLogin === 'function') {
+            goToLogin();
+        } else {
+            console.error('goToLogin is not a function');
+        }
+    };
 
 
     const handleResend = async () => {
@@ -37,27 +42,21 @@ const PassRecovery = () => {
             });
 
 
-            if(response.data.status === 200){
-
-                
-             
-                console.log(response.data);
-    
+            if (response.data.status === 200) {
+                // console.log(response.data);
                 const successMessage = response.data.errors ? response.data.errors.msg : 'Email sent successfully';
-    
+
                 setAlertMessage(successMessage);
                 setAlertType('success');
-    
-    
-                Navigate('/PassRecovery', {state : {email}});
-                
-            }else{
+                Navigate('/PassRecovery', { state: { email } });
+
+            } else {
 
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error sending email';
                 setAlertMessage(errorMessage);
                 setAlertType('error');
             }
-            
+
         } catch (error) {
             // Handle errors
             console.error('Error resending email:', error);
@@ -66,9 +65,9 @@ const PassRecovery = () => {
 
 
     return (
-        <div className="ForgotPassword container-fluid ">
-            <div className="blur-background" onClick={handleClose}></div>
-            <div className="container-right">
+        <div className="ForgotPassword  ">
+
+            <div className="">
 
                 <div className='container'>
 
@@ -101,15 +100,14 @@ const PassRecovery = () => {
 
                     <div className='p-md-4'>
 
-                        
 
+                        <button type="submit" className="btn btn-danger py-2 login-botton mt-4" onClick={handleResend}>Resend</button>
+                        <div className=' d-flex justify-content-center mt-4'>
 
-                            <button type="submit" className="btn btn-danger py-2 login-botton mt-4" onClick={handleResend}>Resend</button>
-                            <div className=' d-flex justify-content-center mt-4'>
+                            
+                            <button onClick={handleGoToLogin} className='text-decoration-none custom-color btn'>Go to Login</button>
+                        </div>
 
-                                <Link to={"/login"} className='text-decoration-none custom-color'>Back to login</Link>
-                            </div>
-                        
                     </div>
 
                 </div>

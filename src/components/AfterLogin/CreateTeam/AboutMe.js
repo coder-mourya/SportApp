@@ -1,13 +1,12 @@
 import React from "react";
 import addPhotoIcon from "../../../assets/afterLogin picks/My team/upload-icon.svg";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const AboutMe = ({ formData, onFormDataChange, onSubmit }) => {
+const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
     const fileInputRef = useRef(null);
 
-     const [creatorImage, setCreatorImage] = useState("");
+    const [creatorImage, setCreatorImage] = useState([]);
 
     const jerseySizes = [
         "YMD-10",
@@ -60,8 +59,8 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit }) => {
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
-        setCreatorImage(URL.createObjectURL(file) );
-        onFormDataChange({ creatorImageFile: file });
+        setCreatorImage(URL.createObjectURL(file));
+        onFormDataChange({ creatorImage: file });
     };
 
     const handleInputChange = (event) => {
@@ -70,10 +69,10 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit }) => {
     };
 
 
-    const Navigate =useNavigate()
-    const handlePrev = () => {
-        Navigate("/TeamForm");
-    }
+    // const Navigate = useNavigate()
+    // const handlePrev = () => {
+    //     setSelect
+    // }
 
 
     return (
@@ -81,31 +80,31 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit }) => {
 
             <div className="upload-icon d-flex justify-content-start align-items-center mt-3">
 
-            {creatorImage ? (
-    <div className="d-flex flex-row align-items-center">
-        <img src={creatorImage} alt="Profile" className="profile-img" style={{ width: "117px", height: "117px" }} />
-        <p className="ms-4" onClick={handleFileSelect} style={{ cursor: 'pointer' }}>Change Profile</p>
-        <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileUpload}
-        />
-    </div>
-) : (
-    <div className="add-photo d-flex justify-content-center align-items-center" onClick={handleFileSelect}>
-        <img src={addPhotoIcon} alt="Add Profile" />
-        <p className="ms-4">Add Profile</p>
-        <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleFileUpload}
-        />
-    </div>
-)}
+                {creatorImage && creatorImage.length > 0 ? (
+                    <div className="d-flex flex-row align-items-center">
+                        <img src={creatorImage} alt="Profile" className="profile-img" style={{ width: "117px", height: "117px" }} />
+                        <p className="ms-4" onClick={handleFileSelect} style={{ cursor: 'pointer' }}>Change Profile</p>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            onChange={handleFileUpload}
+                        />
+                    </div>
+                ) : (
+                    <div className="add-photo d-flex justify-content-center align-items-center" onClick={handleFileSelect}>
+                        <img src={addPhotoIcon} alt="Add Profile" />
+                        <p className="ms-4">Add Profile</p>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                            onChange={handleFileUpload}
+                        />
+                    </div>
+                )}
 
 
             </div>
@@ -227,14 +226,14 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit }) => {
                         className="form-control text-aria2"
                         placeholder="Write what do you expect from the team!"
                         style={{ resize: "none", height: "100px" }}
-                        onChange={(event) => handleInputChange(event)} 
+                        onChange={(event) => handleInputChange(event)}
                     ></textarea>
 
 
                 </div>
 
                 <div className="aboutme-buttons mt-3">
-                    <button className="btn btn-secondary me-2" onClick={handlePrev} >Previus</button>
+                    <button className="btn btn-secondary me-2" onClick={onPrev} >Previus</button>
                     <button className="btn btn-danger ms-2" type="submit">Submit</button>
 
                 </div>

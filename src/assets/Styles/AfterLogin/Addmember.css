@@ -36,6 +36,11 @@
     color: #9A9BA5;
 }
 
+.dashbords-container-hieght{
+    height: 30rem;
+    margin-bottom: 1rem;
+}
+
 .Add-member .input-icon {
     width: 8%;
     position: absolute;
@@ -50,13 +55,16 @@
 .addMember-btn button{
     background-color: #DB3525;
     width: 95%;
-    
+    position: absolute;
+    bottom: 5px;
+    left: 0.8rem;
 }
 
 /* All members  */
 
 .members-pick img{
-    width: 100%;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 }
 

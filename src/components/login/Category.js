@@ -6,6 +6,8 @@ import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import Alerts from '../Alerts';
 import { useSelector } from 'react-redux';
+import { updateProfile } from '../../reducers/authSlice';
+import { useDispatch } from 'react-redux';
 
 const Category = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -14,8 +16,9 @@ const Category = () => {
     const [alertType, setAlertType] = useState('');
     const token = useSelector(state => state.auth.user.data.user.token);
     const chosenSports = useSelector(state => state.auth.user.data.user.chosenSports);
+    const dispatch = useDispatch();
 
-console.log("chosenSports",chosenSports);
+    // console.log("chosenSports", chosenSports);
 
 
 
@@ -50,9 +53,7 @@ console.log("chosenSports",chosenSports);
     }, [chosenSports]); // Empty dependency array to run only once
 
     const navigate = useNavigate();
-    const handleClose = () => {
-        navigate("/");
-    };
+
 
     // Function to handle sport selection
     const handleSportSelect = (sportId) => {
@@ -70,9 +71,15 @@ console.log("chosenSports",chosenSports);
     };
 
     // Function to filter sports based on search query
-    const filteredSports = Array.isArray(sports) ? sports.filter(sport =>
-        sport.sports_name.toLowerCase().includes(searchQuery.toLowerCase())
-    ) : [];
+    // const filteredSports = Array.isArray(sports) ? sports.filter(sport =>
+    //     sport.sports_name.toLowerCase().includes(searchQuery.toLowerCase())
+    // ) : [];
+
+    // Function to filter and sort sports based on search query and selection state
+    const filteredSports = Array.isArray(sports) ? sports
+        .filter(sport => sport.sports_name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .sort((a, b) => b.selected - a.selected) : [];
+
 
 
 
@@ -88,20 +95,21 @@ console.log("chosenSports",chosenSports);
             const response = await axios.put(`${updateURL}/api/v1/user/update/sports`, {
                 chosenSports: selectedSports
             },
-            
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
 
 
             if (response.data.status === 200) {
+                dispatch(updateProfile(response.data));
                 console.log("ports updated ", response.data);
                 setAlertMessage('Sports updated successfully');
                 setAlertType('success');
-                const navigateDelay = () => navigate('/loggedInHome');
-                setTimeout(navigateDelay, 1000);
+                navigate('/loggedInHome');
+
             } else {
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error updating selected sports';
                 setAlertMessage(errorMessage);
@@ -114,16 +122,16 @@ console.log("chosenSports",chosenSports);
     }
 
     return (
-        <div className="ForgotPassword container-fluid ">
-            <div className="blur-background" onClick={handleClose}></div>
-            <div className="container-right">
+        <div className="ForgotPassword ">
+
+            <div className="">
                 <div className='container'>
-                    <div className='text-center mt-4'>
-                        <h3 className="mb-2">Select Your Favorite Sports</h3>
+                    <div className='text-center '>
+                        <h3 className="mb-3">Select Your Favorite Sports</h3>
                     </div>
 
                     {alertMessage && <Alerts message={alertMessage} type={alertType} />}
-                    <div className='p-md-4'>
+                    <div className=''>
                         {/* Search bar */}
                         <form>
                             <div className='input-group my-1'>

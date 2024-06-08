@@ -29,6 +29,18 @@ const authSlice = createSlice({
       state.isLoggedIn =  true;
       localStorage.setItem('user', JSON.stringify(action.payload));
     },
+    updateProfile: (state, action) => {
+      if (state.user && state.user.data && state.user.data.user) {
+        state.user.data.user = { 
+          ...state.user.data.user, 
+          ...action.payload 
+        };
+      } else {
+        state.user = { data: { user: action.payload } };
+      }
+      localStorage.setItem('user', JSON.stringify(state.user));
+    },
+    
     logout: (state) => {
       state.user = null;
       state.isLoggedIn = false;
@@ -37,6 +49,6 @@ const authSlice = createSlice({
   }
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { loginSuccess, logout, updateProfile } = authSlice.actions;
 
 export default authSlice.reducer;

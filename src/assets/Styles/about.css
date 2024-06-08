@@ -27,3 +27,37 @@
     width: 78%;
     height: auto;
 }
+
+
+.polygon img{
+    margin-right: 1rem;
+   
+    
+}
+
+.polygon p{
+    padding-top: 1rem;
+}
+
+.polygon2 img{
+    margin-right: 1rem;
+}
+
+.polygon2 p{
+    
+  padding-top: 1rem;
+ 
+}
+.polygon2{
+    padding-left: 2rem;
+}
+
+.TNC h2{
+ margin-top: 1rem;
+ margin-bottom: 1rem;
+}
+
+.policy h2 , .cookies h2{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

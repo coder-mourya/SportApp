@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import TeamForm from "./TeamForm";
 import AboutMe from "./AboutMe";
-import cros from "../../../assets/afterLogin picks/My team/Cross.svg";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BaseUrl } from "../../../reducers/Api/bassUrl";
+import { ToastContainer, toast } from "react-toastify";
 
-const Create = () => {
+const Create = ({handleCloseCreateTeam}) => {
     const [selectedStep, setSelectedStep] = useState(1); // State to track the selected step
     const [formData, setFormData] = useState({
         teamDetails: {
@@ -19,7 +18,8 @@ const Create = () => {
             city: "",
             teamColour_id: "",
             coverPhoto: null,
-            logo: null
+            logo: null,
+           
         },
 
         aboutMe: {
@@ -30,7 +30,7 @@ const Create = () => {
             pantSize: "",
             numberOnJersey: "",
             expectations: "",
-            creatorIsAdmin : false,
+            creatorIsAdmin : true,
         }
 
     });
@@ -38,8 +38,6 @@ const Create = () => {
     
     const token = useSelector(state => state.auth.user.data.user.token);
 
-
-    const Navigate = useNavigate();
 
     // Function to handle step selection
     const handleStepSelect = (step) => {
@@ -51,10 +49,11 @@ const Create = () => {
         setSelectedStep(2); // Navigate to step 2 (AboutMe component)
     };
 
-    // Function to navigate back to the main page
-    const handleCros = () => {
-        Navigate("/CreateTeam");
-    };
+    const handlePrev = () =>{
+        setSelectedStep(1);
+    }
+
+ 
 
     // function to handle form data
     const handleFormDataChange = (section, data) => {
@@ -78,6 +77,8 @@ const Create = () => {
 
         console.log("form submiton function called ", combinedFormData);
 
+        // return;
+
         const submitUrl = BaseUrl();
     
         try {
@@ -90,8 +91,11 @@ const Create = () => {
     
             if (response.status === 200) {
                 console.log(response.data);
+                toast.success(response.data.message);
+                handleCloseCreateTeam();
             } else {
                 console.log("error in creating team", response.data);
+                toast.error(response.data.message);
             }
     
         } catch (error) {
@@ -101,13 +105,11 @@ const Create = () => {
     
     return (
         <div className="container-fluid create">
-            <div className="background"></div>
-            <div className="half-container p-4">
-                <div className="d-flex justify-content-between align-items-center">
-                    <h2>Create Team</h2>
-                    <img src={cros} alt="cross button" className="cross-button" onClick={handleCros} />
-                </div>
-                <div className="d-flex justify-content-between mt-4 details-options">
+           
+            <div className="">
+                <ToastContainer/>
+               
+                <div className="d-flex justify-content-between mt-2 details-options">
                     <div className="text-center">
                         <button
                             className={`btn  ${selectedStep === 1 ? "selected" : ""}`}
@@ -141,6 +143,7 @@ const Create = () => {
                         formData={formData.aboutMe}
                         onFormDataChange={(data) => handleFormDataChange('aboutMe', data)}
                         onSubmit={handleSubmit}
+                        onPrev={handlePrev}
                     />
                 )}
             </div>

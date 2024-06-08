@@ -5,5 +5,9 @@ export const BaseUrl = () => {
 };
 
 // export const BaseUrl = () => {
+//     return "http://localhost:6756"
+// }
+
+// export const BaseUrl = () => {
 //     return process.env.REACT_APP_BASE_URL_PROD;
 // };

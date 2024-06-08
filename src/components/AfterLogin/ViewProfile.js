@@ -14,13 +14,17 @@ import Alerts from "../Alerts";
 import { BaseUrl } from "../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useEffect } from "react";
+import { updateProfile } from "../../reducers/authSlice";
+import { useDispatch } from "react-redux";
 
 
 import mail from "../../assets/afterLogin picks/mail.png";
 import name from "../../assets/afterLogin picks/name.png";
 import nickname from "../../assets/afterLogin picks/name.png";
 import mobile from "../../assets/afterLogin picks/mobile.png";
-import dob from "../../assets/afterLogin picks/dob.png";
+// import dob from "../../assets/afterLogin picks/dob.png";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 const ViewProfile = () => {
@@ -32,16 +36,16 @@ const ViewProfile = () => {
         mobile: "",
         dob: "",
         gender: "",
-        country: "",
-        state: "",
-        city: "",
+        // country: "",
+        // state: "",
+        // city: "",
         countryCode: "",
         phoneCode: "",
         phoneNumericCode: "",
         termsChecked: false,
     });
     const user = useSelector(state => state.auth.user);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [profileImage, setProfileImage] = useState("");
     const fileInuptRef = useRef(null);
     const [mainContainerClass, setMainContainerClass] = useState("col-md-11");
@@ -52,15 +56,15 @@ const ViewProfile = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [countryList, setCountryList] = useState([]);
-    const [states, setStates] = useState([]);
-    const [cities, setCities] = useState([]);
+    // const [states, setStates] = useState([]);
+    // const [cities, setCities] = useState([]);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
     const [fileSetected, setFileSelected] = useState(false)
     const token = useSelector(state => state.auth.user.data.user.token);
-    
 
-    console.log("check what coming ", user.data.user);
+
+    // console.log("check what coming ", user.data.user);
 
 
 
@@ -164,12 +168,38 @@ const ViewProfile = () => {
             );
 
             if (response.data.status === 200) {
+
                 setAlertMessage('Profile picture uploaded successfully');
                 setAlertType('success');
                 console.log('Profile picture uploaded successfully:', response.data);
 
                 const navigateDelay = () => Navigate('/ViewProfile');
                 setTimeout(navigateDelay, 2000);
+
+
+                // extract updated profile data from user profile
+                const updatedProfileResponse = await axios.get(
+                    `${uploadProfilePicture}/api/v1/user/get-profile`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    }
+                );
+
+
+                if (updatedProfileResponse.status === 200) {
+                    const updatedUserData = updatedProfileResponse.data.data.userDetails;
+                    console.log('Updated profile data:', updatedUserData);
+                    // Dispatch updateProfile action to update profile in Redux store
+                    dispatch(updateProfile(updatedUserData));
+
+                } else {
+                    console.error('Error fetching updated profile:', updatedProfileResponse.data);
+                    setAlertMessage('Error fetching updated profile');
+                    setAlertType('error');
+                }
+
             } else {
                 console.error('Error uploading profile picture:', response.data);
                 const errorMessage = response.data ? response.data.message : 'Error uploading profile picture';
@@ -178,9 +208,12 @@ const ViewProfile = () => {
             }
         } catch (error) {
             console.error('Internal server error while uploading profile picture:', error);
+            setAlertMessage('Internal server error while uploading profile picture');
+            setAlertType('error');
         }
 
     };
+
 
 
     const triggerFileInputClick = () => {
@@ -190,57 +223,57 @@ const ViewProfile = () => {
 
 
 
-
-
-
-
-
     // save changes
     const handleSaveChanges = async (e) => {
-
         e.preventDefault();
-        console.log("form submitting data", formData)
-        const updateProfile = BaseUrl()
+        const updateProfileUrl = BaseUrl();
 
-        const token = user.data.user.token;
+        const token = user?.data?.user?.token;
 
         try {
-            const response = await axios.post(`${updateProfile}/api/v1/user/update/profile`, formData
-                , {
+            const response = await axios.post(
+                `${updateProfileUrl}/api/v1/user/update/profile`,
+                formData,
+                {
                     headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
             if (response.data.status === 200) {
-                setAlertMessage('Profile updated successfully');
-                setAlertType('success');
-                console.log('Profile updated successfully:', response.data);
-                const naviGateDelay = () => {
-                    Navigate("/ViewProfile");
-                }
+                // Dispatch updateProfile action to update profile in Redux store
+                const updatedUserData = {
+                    ...user.data.user,
+                    ...formData,
+                };
+                dispatch(updateProfile(updatedUserData));
 
-                setTimeout(naviGateDelay, 2000);
-
-
+                setAlertMessage("Profile updated successfully");
+                setAlertType("success");
+                console.log("Profile updated successfully:", response.data);
+                Navigate("/ViewProfile");
             } else {
-                const errorMessage = response.data ? response.data.message : 'Error registering user';
+                const errorMessage = response.data ? response.data.message : "Error updating profile";
                 setAlertMessage(errorMessage);
-                setAlertType('error');
-
-                console.error('Error registering user:', response.data);
+                setAlertType("error");
+                console.error("Error updating profile:", response.data);
             }
-
         } catch (error) {
-            console.error('internal server error:', error);
-            setAlertMessage('internal server error', error.msg);
-            setAlertType('error');
+            console.error("Internal server error:", error);
+            setAlertMessage("Internal server error");
+            setAlertType("error");
         }
+    };
 
 
-
-    }
+    const handleDateChange = (date) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            dateOfBirth: date,
+        }));
+    };
+    
 
 
     const handleInputChange = (e) => {
@@ -251,18 +284,6 @@ const ViewProfile = () => {
             [name]: type === "checkbox" ? checked : value,
         }));
 
-
-        if (name === "country") {
-            const selectCountry = e.target.options[e.target.selectedIndex].getAttribute("data-country-id")
-            getState(selectCountry);
-           
-        }
-
-        if (name === "state") {
-            const selectState = e.target.options[e.target.selectedIndex].getAttribute("data-state-id")
-            getCity(selectState)
-            
-        }
 
 
     };
@@ -312,33 +333,6 @@ const ViewProfile = () => {
 
     // get state 
 
-    const getState = async (countryId) => {
-        const stateUrl = BaseUrl(); // Changed variable name to stateUrl
-
-        try {
-            const response = await axios.get(`${stateUrl}/api/v1/auth/state_list/${countryId}`);
-
-            setStates(response.data.data.state_list);
-            console.log(response.data);
-        } catch (error) {
-            console.log("Error fetching state list:", error);
-        }
-    };
-
-
-
-    const getCity = async (stateId) => {
-        const citiUrl = BaseUrl();
-
-        try {
-            const response = await axios.get(`${citiUrl}/api/v1/auth/city_list/${stateId}`)
-            setCities(response.data.data.city_list);
-            console.log(response.data);
-        } catch (error) {
-            console.log("error detching cities :", error);
-        }
-
-    }
 
 
     return (
@@ -369,7 +363,7 @@ const ViewProfile = () => {
                             <form onSubmit={handleUploadProfilePicture}>
                                 <div className="profile-picture p-4 d-flex justify-content-start align-items-center">
                                     <img
-                                        src={profileImage || defaultProfileImage} 
+                                        src={profileImage || defaultProfileImage}
                                         alt="Profile"
                                         className="profile-img rounded-circle"
                                         style={{ width: '100px', height: '100px', objectFit: 'cover' }}
@@ -431,25 +425,10 @@ const ViewProfile = () => {
                                         <p>{formatDateOfBirth(user.data.user.dateOfBirth)}</p>
                                     </div>
 
-                                    <div className="col-md-3 mb-2">
-                                        <p>Country</p>
-                                        <p>{user.data.user.country}</p>
-                                    </div>
-
-                                    <div className="col-md-3 mb-2">
-                                        <p>State</p>
-                                        <p>{user.data.user.state}</p>
-                                    </div>
 
 
                                 </div>
 
-                                <div className="row">
-                                    <div className="col-md-3 mb-2">
-                                        <p>City</p>
-                                        <p>{user.data.user.city}</p>
-                                    </div>
-                                </div>
                             </div>
 
 
@@ -495,7 +474,9 @@ const ViewProfile = () => {
                                                     <span className="input-group-text">
                                                         <img src={mail} alt="email" />
                                                     </span>
-                                                    <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address" />
+                                                    <input type="email" className="form-control text-muted" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address"
+                                                        readOnly
+                                                    />
                                                 </div>
                                             </div>
 
@@ -532,13 +513,26 @@ const ViewProfile = () => {
 
                                             <div className="mb-3">
                                                 <label htmlFor="dob" className="form-label">Date of Birth</label>
-                                                <div className="input-group my-1">
-                                                    <span className="input-group-text">
-                                                        <img src={dob} alt="dob" />
-                                                    </span>
-                                                    <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} />
+
+                                                <div className="input-group my-1 " onClick={() => document.getElementById('dateOfBirth').click()}>
+                                                    {/* <span className="input-group-text">
+                                                <img src={dob} alt="password" />
+                                            </span> */}
+                                                    <DatePicker
+                                                        selected={formData.dateOfBirth}
+                                                        onChange={handleDateChange}
+                                                        dateFormat="MM/dd/yyyy"
+                                                        className="form-control "
+                                                        id="dateOfBirth"
+                                                        showMonthDropdown
+                                                        showYearDropdown
+                                                        dropdownMode="select"
+                                                        placeholderText="Select your date of birth"
+                                                        
+                                                    />
                                                 </div>
                                             </div>
+
                                             <div className="mb-3">
                                                 <label htmlFor="gender" className="form-label">Gender</label>
                                                 <div className="input-group my-1">
@@ -551,42 +545,6 @@ const ViewProfile = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="mb-3">
-                                                <label htmlFor="country" className="form-label">Country</label>
-                                                <div className="input-group my-1">
-                                                    <select className="form-select" id="country" name="country" value={formData.country} onChange={handleInputChange}>
-                                                        <option>Select country</option>
-
-                                                        {countryList.map((country, index) => (
-                                                            <option key={index} value={country.code} data-country-id={country.id}>{country.name}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="mb-3">
-                                                <label htmlFor="state" className="form-label">State</label>
-                                                <div className="input-group my-1">
-                                                    <select className="form-select" id="state" name="state" value={formData.state} onChange={handleInputChange}>
-                                                        <option>Select state</option>
-
-                                                        {states.map((state) => (
-                                                            <option key={state.name} value={state.name} data-state-id={state.id}>{state.name}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div className="mb-3">
-                                                <label htmlFor="city" className="form-label">City</label>
-                                                <div className="input-group my-1">
-                                                    <select className="form-select" id="city" name="city" value={formData.city} onChange={handleInputChange}>
-                                                        <option>Select city</option>
-
-                                                        {cities.map((city) => (
-                                                            <option key={city.name} value={city.name} data-state-id={city.id}>{city.name}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div className="mb-3 form-check">
                                                 <input type="checkbox" className="form-check-input" id="terms" name="termsChecked" checked={formData.termsChecked} onChange={handleInputChange} />
                                                 <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions</label>

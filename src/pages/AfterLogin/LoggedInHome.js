@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BaseUrl } from "../../reducers/Api/bassUrl";
 import axios from "axios";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Category from "../../components/login/Category";
 
 
 
@@ -25,6 +27,10 @@ const LoggedInHome = () => {
   const [count, setCount] = useState(0);
   const token = useSelector((state) => state.auth.user.data.user.token);
 
+  const [showSports, setShowSports] = useState(false);
+  const handleCloseSports = () => setShowSports(false);
+  const handleShowSports = () => setShowSports(true);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
     setMainContainerClass(sidebarOpen ? 'col-md-8 ' : 'col-md-7 ');
@@ -36,9 +42,6 @@ const LoggedInHome = () => {
     Navigate("/CreateTeam");
   }
 
-  const handleMySports = () => {
-    Navigate("/Category");
-  }
 
 
 
@@ -54,8 +57,8 @@ const LoggedInHome = () => {
           }
         });
 
-        setCount(response.data.data.sports_count);        
-        console.log("sports count:" , response.data.data.sports_count); 
+        setCount(response.data.data.sports_count);
+        // console.log("sports count:" , response.data.data.sports_count); 
       } catch (error) {
         console.error('Error fetching sports data:', error);
       }
@@ -78,13 +81,13 @@ const LoggedInHome = () => {
 
         </div>
 
-        <div className={`${mainContainerClass} main mt-5`}>
+        <div className={`${mainContainerClass} main mt-md-2 mt-5`}>
 
           <div className="row">
             <div className="col-md-6">
               <div className="row option-container">
                 <div className="col-6">
-                  <div className="itemsColor  option d-flex flex-column align-items-center justify-content-center" onClick={handleMySports}>
+                  <div className="itemsColor  option d-flex flex-column align-items-center justify-content-center" onClick={handleShowSports}>
                     <h1 className="sportCount">{count}</h1>
                     <p>My Sports</p>
                   </div>
@@ -142,6 +145,13 @@ const LoggedInHome = () => {
 
         </div>
       </div>
+
+      <Offcanvas show={showSports} onHide={handleCloseSports} placement="end">
+        <Offcanvas.Body>
+          <Category />
+        </Offcanvas.Body>
+
+      </Offcanvas>
     </div>
   );
 };

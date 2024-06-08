@@ -177,7 +177,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
 
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid creat-teamForm-container">
             <div className="cover-photo rounded position-relative">
 
                 {/* Render the selected image if available, otherwise render the default upload image */}
@@ -245,6 +245,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                     name="teamName"
                                     value={formData.teamName}
                                     onChange={handleInputChange}
+                                    required
                                 />
                                 <img src={user} alt="team name" className="input-icon" />
                             </div>
@@ -270,6 +271,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                 <select id="sport" name="sport" className="form-select py-2 rounded"
                                     onChange={handleInputChange}
                                     value={formData.sports_id}
+                                    required
 
                                 >
                                     <option value="">--Select sport type--</option>
@@ -289,6 +291,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                     className="form-select py-2 rounded"
                                     onChange={handleInputChange}
                                     value={formData.country}
+                                    required
 
                                 >
                                     <option value="">--Select Country--</option>
@@ -312,7 +315,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                 <select id="state" name="state" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.state}>
                                     <option value="">--Select State--</option>
                                     {states.map((state) => (
-                                        <option key={state._id} value={state.id} data-state-id={state.id}>{state.name}</option>
+                                        <option key={state.name} value={state.name} data-state-id={state.id}>{state.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -322,7 +325,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                 <select id="city" name="city" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.city}>
                                     <option value="">--Select city--</option>
                                     {cities.map((city, index) => (
-                                        <option key={index} value={city.id} data-country-id={city.state_id}>{city.name}</option>
+                                        <option key={index} value={city.name} data-country-id={city.name}>{city.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -365,7 +368,6 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
 
                             </button>
                         ))}
-
                         {/* Render ImageCropper if cover photo is selected */}
                         {coverPhoto && !croppedImage && (
                             <ImageCropper
@@ -373,6 +375,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                 onCropComplete={handleCropComplete}
                             />
                         )}
+
                     </div>
                 </div>
             </div>

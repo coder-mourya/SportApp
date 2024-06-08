@@ -4,7 +4,7 @@
 
 .option {
     padding: 1rem;
-    border-radius: 10%;
+    border-radius: 24px;
     margin: 1rem 0;
     cursor: pointer;
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.1);
@@ -61,7 +61,7 @@
 }
 
 .event-item:hover {
-    width: 47.5%;
+    /* width: 47.5%; */
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.2);
 
 }
@@ -135,6 +135,7 @@
     .event-item {
         margin: 1rem 0;
     }
+
 
     .option {
         margin: 1rem 0;

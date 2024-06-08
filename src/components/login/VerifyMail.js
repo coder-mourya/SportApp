@@ -4,9 +4,8 @@ import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS
 import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 // import mail from "../../assets/afterLogin picks/mail.png";
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import pen from "../../assets/afterLogin picks/pen.png";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import Alerts from '../Alerts';
@@ -16,7 +15,7 @@ import { useState } from 'react';
 
 
 
-const VerifyMail = () => {
+const VerifyMail = ({ closeOffcanvas, handleCloseVerificationMail, goToLogin }) => {
 
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
@@ -24,7 +23,18 @@ const VerifyMail = () => {
     const location = useLocation();
     const email = location.state?.email;
 
-    const Navigate = useNavigate();
+    
+
+    const handleGoToLogin = () => {
+        if (typeof goToLogin === 'function') {
+            goToLogin();
+            handleCloseVerificationMail();
+        } else {
+            console.error('goToLogin is not a function');
+        }
+    };
+
+
 
     const reSendLink = BaseUrl();
     const handleResendVerification = async (e) => {
@@ -57,15 +67,12 @@ const VerifyMail = () => {
     }
 
 
-    const handleClose = () => {
-        Navigate("/")
-    }
 
 
     return (
-        <div className="ForgotPassword container-fluid ">
-            <div className="blur-background" onClick={handleClose}></div>
-            <div className="container-right">
+        <div className="ForgotPassword  ">
+           
+            <div className="">
 
                 <div className='container'>
 
@@ -114,8 +121,9 @@ const VerifyMail = () => {
                             <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Resend</button>
                             <div className=' d-flex justify-content-center mt-4'>
 
-                                <Link to={"/login"}>Back to login</Link>
-                            </div>
+                            
+                            <button onClick={handleGoToLogin} className='text-decoration-none custom-color btn'>Go to Login</button>
+                        </div>
                         </form>
                     </div>
 

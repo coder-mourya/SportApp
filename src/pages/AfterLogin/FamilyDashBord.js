@@ -2,19 +2,29 @@ import React, { useState } from "react";
 import Sidebar from "../../components/AfterLogin/Sidebar";
 import SidebarSmallDevice from "../../components/AfterLogin/SidebarSmallDevice";
 import arrow from "../../assets/afterLogin picks/My team/arrow.svg";
-import you from "../../assets/afterLogin picks/My team/you.svg";
 import "../../assets/Styles/AfterLogin/createTeam.css";
 import { teams } from "../../assets/DummyData/TeamData";
 import bell from "../../assets/afterLogin picks/My team/bell.svg";
 import CurrentTraining from "../../components/AfterLogin/CreateTeam/CurrentTraining";
 import PreviousTraining from "../../components/AfterLogin/CreateTeam/PreviousTraining";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+// import { BaseUrl } from "../../reducers/Api/bassUrl";
+// import { useSelector } from "react-redux";
+// import axios from "axios";
 
 const FamilyDashBord = () => {
     const [selectedOption, setSelectedOption] = useState("currentTraining");
 
     const [mainContainerClass, setMainContainerClass] = useState("col-md-11");
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const location = useLocation();
+    const { member } = location.state || {};
+
+    console.log("reciving member data", member);
+    // const token = useSelector(state => state.auth.user.data.user.token);
+    // const CuurntUser = useSelector(state => state.auth.user.data.user);
+
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -45,6 +55,16 @@ const FamilyDashBord = () => {
         Naviaget("/CreateTeam")
     }
 
+    const dateOfBirth = member.dob;
+    const dob = new Date(dateOfBirth);
+
+    const day = dob.getDate();
+    const month = dob.getMonth() + 1;
+    const year = dob.getFullYear();
+
+   const   fomatedDob = `${day}/${month}/${year}`;
+    console.log("fomatedDob", fomatedDob);
+
     return (
         <div className="container-fluid bodyColor">
             <div className="row">
@@ -52,7 +72,7 @@ const FamilyDashBord = () => {
                     <Sidebar toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
                     <SidebarSmallDevice />
                 </div>
-                <div className={`${mainContainerClass} main mt-5`}>
+                <div className={`${mainContainerClass} main mt-md-3 mt-5`}>
                     <div className="member-dashbord">
                         <div className="">
                             <button className="btn prev-button" onClick={handleClose}>
@@ -63,14 +83,16 @@ const FamilyDashBord = () => {
                             <div className="col-md-4">
                                 <div className="member-profile rounded-4 p-4 my-4">
                                     <div className="card text-center">
-                                        <img src={you} alt="member profile" className="mx-auto card-pick" />
+                                        <img src={member.image} alt="member profile" className="mx-auto card-pick"
+                                        style={{ height: "150px", width: "150px", borderRadius: "50%" }}
+                                        />
                                         <div className="card-body text-center">
-                                            <h5>Sourabh Singh</h5>
+                                            <h5>{member.fullName}</h5>
                                             <div className="d-flex justify-content-center align-items-center">
                                                 <img src={bell} alt="bell" className="bell-icon" />
-                                                <p className="ms-2 pt-2">21 Jan, 2016</p>
+                                                <p className="ms-2 pt-2">{fomatedDob}</p>
                                             </div>
-                                            <p>Son</p>
+                                            <p>{member.relationWithCreator}</p>
                                         </div>
                                     </div>
                                     <hr style={{ borderTop: "2px solid #6972B4", margin: 0 }} />

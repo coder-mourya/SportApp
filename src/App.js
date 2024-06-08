@@ -31,18 +31,48 @@ import PracticeDashBord from './pages/AfterLogin/PracticeDashBord';
 import CreatePracticeForm from './components/AfterLogin/CreatePractice/CreatePracticeForm';
 import AddMemberAndTeam from './components/AfterLogin/CreatePractice/AddMemberAndTeam';
 import EventDetails from './pages/AfterLogin/EventsDetails';
-import {ProtectedRoute} from './components/ProtectedRoute';
-import {ProtectedRoute2} from './components/ProtectedRoute';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { ProtectedRoute2 } from './components/ProtectedRoute';
 import ViewProfile from './components/AfterLogin/ViewProfile';
 import ChangePass from './components/AfterLogin/ChangePass';
+import AddFamilyMember from './components/AfterLogin/CreateTeam/AddFamilyMember';
+import TearmsAndConditions from './components/Tearms-conditions';
+import Policy from './components/Policy';
+import Cookies from './components/Cookies';
+// import { useEffect } from 'react';
+// import { useSelector } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+// import axios from 'axios';
+// import { logout } from './reducers/authSlice';
 
 
 function App() {
+  // const dispetch = useDispatch();
+  // const {isLoggedIn, sessionId , user } = useSelector(state => state.auth);
 
   const location = useLocation();
   const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord' || location.pathname === '/PracticeDashBord' || location.pathname === '/CreatePracticeForm' || location.pathname === '/EventDetails' || location.pathname === '/ViewProfile' || location.pathname === '/ChangePass';
 
 
+  // useEffect(()  =>{
+  //   const checkSession = async () => {
+  //     if(isLoggedIn){
+  //        try {
+  //         const response = await axios.get('/protected', {
+  //           headers: {
+  //             userId: user.id,
+  //             sessionId: sessionId,
+  //           },
+  //         });
+  //         console.log(response.data);
+  //        } catch (error) {
+  //         dispetch(logout());
+  //        }
+  //     }
+  //   }
+
+  //   checkSession();
+  // },[isLoggedIn, dispetch, user, sessionId]);
 
 
   return (
@@ -57,11 +87,15 @@ function App() {
         {/* pages Routes */}
         <Route exact path='/About' element={<About />} />
         <Route exact path='/Features' element={<Features />} />
-        <Route exact path='/FAQ' element={<FAQ />} />
-        <Route exact path='/Chart' element={<Chart />} />
+        <Route exact path='/faq/' element={<FAQ />} />
+        <Route exact path='/size-chart/' element={<Chart />} />
         <Route exact path='/Contact-us' element={<Contact />} />
         <Route exact path='/FAQPage' element={<FAQPage />} />
         <Route exact path='/ContactPage' element={<ContactPage />} />
+        <Route exact path='/terms-and-conditions/' element={<TearmsAndConditions />} />
+        <Route exact path="/privacy-policy/" element={<Policy />} />
+        <Route exact path="/cookies-policy/" element={<Cookies />} />
+ 
 
         {/* Login routes */}
         <Route exact path='/login' element={<LoginForm />} />
@@ -77,6 +111,7 @@ function App() {
         <Route exact path='/CreateTeam' element={<ProtectedRoute element={CreateTeam} />} />
         <Route exact path='/Create' element={<ProtectedRoute element={Create} />} />
         <Route exact path='/AddMember' element={<ProtectedRoute element={AddMember} />} />
+        <Route exact path='/AddFamilyMember' element={<ProtectedRoute element={AddFamilyMember} />} />
         <Route exact path='/TeamDashbord' element={<ProtectedRoute element={TeamDashbord} />} />
         <Route exact path='/MemberDashBord' element={<ProtectedRoute element={MemberDashBord} />} />
         <Route exact path='/FamilyDashBord' element={<ProtectedRoute element={FamilyDashBord} />} />
