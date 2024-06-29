@@ -14,7 +14,8 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import Alerts from "../../Alerts";
 import { ToastContainer, toast } from "react-toastify";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchTeamDetails } from "../../../reducers/teamSlice";
 
 
 
@@ -37,6 +38,7 @@ const AddTeamMember = ({team, handleCloseAddMember}) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
+    const dispatch = useDispatch();
 
 
     const handleAdminToggle = () => {
@@ -46,7 +48,6 @@ const AddTeamMember = ({team, handleCloseAddMember}) => {
             isAdmin: !isAdminSelected
         }))
     }
-
 
 
 
@@ -74,7 +75,7 @@ const AddTeamMember = ({team, handleCloseAddMember}) => {
         e.preventDefault();
     
         // Validation: Check if all required fields are filled
-        if (!formData.image || !formData.fullName || !formData.mobile || !formData.email) {
+        if ( !formData.fullName || !formData.mobile || !formData.email) {
             setAlertMessage('All fields are required.');
             setAlertType('error');
             return;
@@ -101,7 +102,7 @@ const AddTeamMember = ({team, handleCloseAddMember}) => {
                
                 console.log(response.data);
                 toast(successMessage)
-
+                dispatch(fetchTeamDetails({ teamId: team._id, token}))
                 handleCloseAddMember();
             } else {
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error adding member';
@@ -227,9 +228,9 @@ const AddTeamMember = ({team, handleCloseAddMember}) => {
                     <button
                         type="submit"
                         className="btn btn-danger"
-                        disabled={!formData.image || !formData.fullName || !formData.mobile || !formData.email}
+                        disabled={ !formData.fullName || !formData.mobile || !formData.email}
                     >
-                        Save
+                        Send Invite
                     </button>
                 </div>
 

@@ -2,50 +2,36 @@ import React, { useEffect } from "react";
 import Member from "../../../assets/afterLogin picks/My team/Member.svg";
 // import { members } from "../../../assets/DummyData/TeamData";
 import "../../../assets/Styles/AfterLogin/Addmember.css";
-import { BaseUrl } from "../../../reducers/Api/bassUrl";
+// import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import { useSelector } from "react-redux";
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchMembers } from "../../../reducers/memberSlice";
 
 
 const AllMembers = () => {
     const token = useSelector(state => state.auth.user.data.user.token);
-    const [members, setMembers] = useState([]);
+    // const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const Navigate = useNavigate();
+    const dispatch = useDispatch()
+    const members = useSelector(state => state.members.members)
+
+    // console.log("all members list ", members);
 
 
     useEffect(() => {
+        dispatch(fetchMembers(token))
+    }, [token, dispatch])
 
-
-        // Fetch members data
-        const GetMembers = async () => {
-            const MemberUrl = BaseUrl();
-
-            try {
-                const response = await axios.get(`${MemberUrl}/api/v1/user/get-all-members`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-
-                console.log("members list", response.data.data.membersData.memberList);
-                const membersData = response.data.data.membersData.memberList;
-                setMembers(membersData);
-            } catch (error) {
-                console.error("internal server error", error)
-
-            } finally {
-                setLoading(false)
-            }
+    useEffect(() =>{
+        if(members.length > 0){
+            setLoading(false)
         }
-
-        GetMembers();
-
-    }, [token])
-
+    }, [members])
 
     const handleMemberDetails  = (member) =>{
         Navigate("/MemberDashBord", {state: {member}})
@@ -57,7 +43,6 @@ const AllMembers = () => {
             {loading ? (
                 <div className="text-center loader">
                     <ThreeDots
-
                         height={80}
                         width={80}
                         color="green"

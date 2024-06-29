@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import { ToastContainer, toast } from "react-toastify";
+import {  fetchTeams } from "../../../reducers/teamSlice";
+import { useDispatch } from "react-redux";
 
 const Create = ({handleCloseCreateTeam}) => {
     const [selectedStep, setSelectedStep] = useState(1); // State to track the selected step
@@ -37,6 +39,7 @@ const Create = ({handleCloseCreateTeam}) => {
 
     
     const token = useSelector(state => state.auth.user.data.user.token);
+    const dispatch = useDispatch();
 
 
     // Function to handle step selection
@@ -46,7 +49,7 @@ const Create = ({handleCloseCreateTeam}) => {
 
     // Function to navigate to the next step
     const handleNext = () => {
-        setSelectedStep(2); // Navigate to step 2 (AboutMe component)
+        setSelectedStep(2); 
     };
 
     const handlePrev = () =>{
@@ -75,7 +78,7 @@ const Create = ({handleCloseCreateTeam}) => {
             ...formData.aboutMe
         };
 
-        console.log("form submiton function called ", combinedFormData);
+        // console.log("form submiton function called ", combinedFormData);
 
         // return;
 
@@ -90,9 +93,11 @@ const Create = ({handleCloseCreateTeam}) => {
             });
     
             if (response.status === 200) {
-                console.log(response.data);
+                console.log("team created details ", response.data);
                 toast.success(response.data.message);
+                dispatch(fetchTeams(token))
                 handleCloseCreateTeam();
+                
             } else {
                 console.log("error in creating team", response.data);
                 toast.error(response.data.message);

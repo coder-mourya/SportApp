@@ -44,9 +44,12 @@ const Footer = () => {
                                 <li><h5>Important Links</h5></li>
                                 <li><Link to={"/About"}>About us</Link></li>
                                 <li><Link to={"/Features"}> Features</Link></li>
-                                <li><Link to={"/FAQ"}>FAQ's</Link></li>
+                                <li><Link to={"/faq"}>FAQ's</Link></li>
                                 <li><Link to={"/Testimonials"}>Testimonials</Link></li>
                                 <li><Link to={"/Contact-us"}>Contact-us</Link></li>
+                                <li><Link to={"/privacy-policy/"}>Privacy Policy</Link></li>
+                                <li><Link to={"/terms-and-conditions/"}>Terms & Conditions</Link></li>
+                                <li><Link to={"/cookies-policy/"}>Cookies policy</Link></li>
                             </ul>
                         </div>
                     </div>

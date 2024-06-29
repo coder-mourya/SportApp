@@ -1,5 +1,6 @@
 import React from 'react';
-import Youtube from "../../assets/afterLogin picks/My team/youtube.svg"
+import video from "../../assets/afterLogin picks/home/video.png";
+import "../../assets/Styles/AfterLogin/loggedInHome.css";
 
 const YoutubeVideo = () => {
 
@@ -18,47 +19,58 @@ const YoutubeVideo = () => {
                         </h5>
                     </div>
                     <div className="col-auto">
-                        <button className='btn btn-danger'>Subscribe</button>
+                        <a href="https://www.youtube.com/channel/UCBVVZt2pw9W2MsCdHHTIbOg" rel='noreferrer' target='_blank'><button className='btn btn-danger'>Subscribe</button></a>
                     </div>
                 </div>
                 {/* Second line: Search input */}
 
                 {/* Third line: Users */}
-                <div className="row">
-                    <div className="col">
 
-                        <div className="mb-3 d-flex flex-column align-items-center videos">
-                            <img
-                                src={Youtube}
-                                className="mr-4 "
-                                alt="YoutubeVideo"
-                            />
+                <a href="https://www.youtube.com/watch?v=4KYZ5iPIN4c" target='_blank' rel='noreferrer' style={{textDecoration:"none"}}>
 
-                            <img
-                                src={Youtube}
-                                className="mr-4  "
-                                alt="YoutubeVideo"
-                            /> 
-                            <img
-                                src={Youtube}
-                                className="mr-4  "
-                                alt="YoutubeVideo"
-                            /> 
-                            <img
-                                src={Youtube}
-                                className="mr-4  "
-                                alt="YoutubeVideo"
-                            /> 
-                            <img
-                                src={Youtube}
-                                className="mr-4  "
-                                alt="YoutubeVideo"
-                            />
+                    <div className='row mb-3'>
+                        <div className='col-md-4 d-flex justify-content-center align-items-center'>
+                            <div
+                                className='icon-container'
 
+                            >
+                                <img
+                                    src={video}
+                                    alt="video"
+
+                                />
+                            </div>
                         </div>
-
+                        <div className='col-md-8 d-flex align-items-center text-start p-0'>
+                            <h4 className='title'>Team Expenses...</h4>
+                        </div>
                     </div>
-                </div>
+                </a>
+
+                <hr />
+
+                <a href="https://www.youtube.com/watch?v=dXj-whZe4Tc" target='_blank' rel='noreferrer' style={{textDecoration:"none"}}>
+
+                    <div className='row mb-3'>
+                        <div className='col-md-4 d-flex justify-content-center align-items-center'>
+                            <div
+                                className='icon-container'
+
+                            >
+                                <img
+                                    src={video}
+                                    alt="video"
+
+                                />
+                            </div>
+                        </div>
+                        <div className='col-md-8 d-flex align-items-center text-start p-0'>
+                            <h4 className='title'>Create Your Team...</h4>
+                        </div>
+                    </div>
+                </a>
+
+                <hr />
 
             </div>
         </div>

@@ -3,7 +3,7 @@ import Sidebar from "../../components/AfterLogin/Sidebar";
 import SidebarSmallDevice from "../../components/AfterLogin/SidebarSmallDevice";
 import arrow from "../../assets/afterLogin picks/My team/arrow.svg";
 import "../../assets/Styles/AfterLogin/createTeam.css";
-import { teams } from "../../assets/DummyData/TeamData";
+// import { teams } from "../../assets/DummyData/TeamData";
 import bell from "../../assets/afterLogin picks/My team/bell.svg";
 import CurrentTraining from "../../components/AfterLogin/CreateTeam/CurrentTraining";
 import PreviousTraining from "../../components/AfterLogin/CreateTeam/PreviousTraining";
@@ -21,7 +21,7 @@ const FamilyDashBord = () => {
     const location = useLocation();
     const { member } = location.state || {};
 
-    console.log("reciving member data", member);
+    console.log("reciving family member data", member);
     // const token = useSelector(state => state.auth.user.data.user.token);
     // const CuurntUser = useSelector(state => state.auth.user.data.user);
 
@@ -100,14 +100,14 @@ const FamilyDashBord = () => {
                                         <h4 className="text-white">My Sports</h4>
 
                                         <div className="row ">
-                                            {teams.map((team, index) => (
+                                            {/* {teams.map((team, index) => (
                                                 <div key={index} className="d-flex ms-2 my-1 mt-3 align-items-center member-sports col-md-6">
                                                     <div className="d-flex align-items-center justify-content-center">
                                                         <img src={team.sportIcon} alt="sport icon" />
                                                         <p className="sport-text text-dark ms-3">{team.sportType}</p>
                                                     </div>
                                                 </div>
-                                            ))}
+                                            ))} */}
                                         </div>
                                     </div>
                                 </div>

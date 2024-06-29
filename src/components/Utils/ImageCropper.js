@@ -39,16 +39,17 @@ const ImageCropper = ({ imageSrc, onCropComplete }) => {
           image={imageSrc}
           crop={crop}
           zoom={zoom}
-          aspect={10 / 3} // You can adjust this aspect ratio as needed
+          aspect={10 / 3} 
           onCropChange={onCropChange}
           onZoomChange={onZoomChange}
           onCropComplete={onCropCompleteHandler}
           ref={cropperRef}
+          showGrid={true}
         />
       </div>
 
       <div className="controls d-flex ">
-        <button onClick={handleCropImage} className="btn btn-secondary">Done</button>
+        <button onClick={handleCropImage} className="btn btn-secondary">Crop</button>
       </div>
     </div>
   );

@@ -10,17 +10,17 @@ import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Alerts from "../../Alerts";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchMembers } from "../../../reducers/memberSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 
 
 
-
-const AddMember = () => {
+const AddMember = ({handleCloseAddMember}) => {
     const logoInputRef = useRef(null);
     const token = useSelector(state => state.auth.user.data.user.token);
-    
+
     const [formData, setFormData] = useState({
         image: "",
         fullName: '',
@@ -32,9 +32,9 @@ const AddMember = () => {
     const chosenSports = useSelector(state => state.auth.user.data.user.chosenSports);
 
     const [selectedImage, setSelectedImage] = useState(null);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
 
+
+    const dispatch = useDispatch()
 
 
 
@@ -75,20 +75,18 @@ const AddMember = () => {
             )
 
             if (response.data.status === 200) {
-                setAlertMessage('Member added successfully');
-                setAlertType('success');
-
-                console.log(response.data)
+                dispatch(fetchMembers(token))
+                const message = response.data.message
+                toast.success(message)
+                handleCloseAddMember()
+                // console.log(response.data)
             } else {
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'error adding member';
-                setAlertMessage(errorMessage);
-                setAlertType('error');
-                console.log(response.data)
+                toast.error(errorMessage)
             }
         } catch (error) {
-            console.error("Error adding member:", error);
-            setAlertMessage('internal server error');
-            setAlertType('error');
+            // console.error("Error adding member:", error);
+            toast.error("internal server error");
         }
     }
 
@@ -106,7 +104,7 @@ const AddMember = () => {
         <div className="container-fluid Add-member">
 
             <div className=" ">
-
+                <ToastContainer />
                 <div className="d-flex  justify-content-center mt-2 ">
 
                     <div className="upload-icon-div" onClick={handleLogoSelect}>
@@ -145,19 +143,19 @@ const AddMember = () => {
 
                     <div className=" mt-3">
                         <label htmlFor="formSelect">Sport type</label>
-                        <select id="option1" 
-                        name="sportId"
-                        className="form-select py-2 rounded form-select"
-                        onChange={handleInputChange}
-                        value={formData.sportId}
-                        
+                        <select id="option1"
+                            name="sportId"
+                            className="form-select py-2 rounded form-select"
+                            onChange={handleInputChange}
+                            value={formData.sportId}
+
                         >
                             <option >--Select sport type--</option>
                             {chosenSports.map((sport, index) => (
-                                        <option key={index} value={sport._id} >
-                                            {sport.sports_name}
-                                        </option>
-                                    ))}
+                                <option key={index} value={sport._id} >
+                                    {sport.sports_name}
+                                </option>
+                            ))}
                         </select>
 
 
@@ -193,7 +191,6 @@ const AddMember = () => {
                         </div>
                     </div>
 
-                    {alertMessage && <Alerts type={alertType} message={alertMessage} />}
 
                     <div className="addMember-btn  d-flex justify-content-center  mb-xxl-3 mb-3">
                         <button type="submit" className="btn btn-danger ">Save</button>

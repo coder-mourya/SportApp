@@ -19,7 +19,7 @@ const SidebarSmall = () => {
     };
   
     useEffect(() => {
-      console.log('Sidebar state:', sidebarOpen); // Log the state to check if it's updating correctly
+    //   console.log('Sidebar state:', sidebarOpen); 
     }, [sidebarOpen]);
 
 

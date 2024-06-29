@@ -4,6 +4,8 @@ import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { fetchTeamDetails } from "../../../reducers/teamSlice";
+import { useDispatch } from "react-redux";
 
 
 const AddAboutMe = ({teamId, handleCloseAboutMe}) => {
@@ -15,6 +17,7 @@ const AddAboutMe = ({teamId, handleCloseAboutMe}) => {
     });
     const [profileImage, setprofileImage] = useState("");
     const token = useSelector(state => state.auth.user.data.user.token);
+    const dispatch = useDispatch();
    
     console.log("team data in about me ", teamId );
 
@@ -84,6 +87,7 @@ const AddAboutMe = ({teamId, handleCloseAboutMe}) => {
                 console.log(response.data);
                 const message = response.data.message;
                 toast.success(message);
+                dispatch(fetchTeamDetails({ teamId, token }));
                 handleCloseAboutMe()
             } else {
                 const errorMessage = response.data.errors ? response.data.msg : "Error updating profile";

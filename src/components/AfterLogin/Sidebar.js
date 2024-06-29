@@ -45,7 +45,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/schedule" onClick={toggleSidebar}>
+            <Link to="/ComingSoon" onClick={toggleSidebar}>
               <img src={event2} alt="schedule" />
               <span>Schedule</span>
             </Link>
@@ -53,7 +53,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/EventDetails" onClick={toggleSidebar}>
+            <Link to="/ComingSoon" onClick={toggleSidebar}>
               <img src={team2} alt="event" />
               <span>Event</span>
             </Link>
@@ -61,7 +61,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/training" onClick={toggleSidebar}>
+            <Link to="/ComingSoon" onClick={toggleSidebar}>
               <img src={training} alt="training" />
               <span>Training</span>
             </Link>
@@ -69,7 +69,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/fav" onClick={toggleSidebar}>
+            <Link to="/ComingSoon" onClick={toggleSidebar}>
               <img src={fav} alt="fav" />
               <span>Favourite</span>
             </Link>
@@ -77,7 +77,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/help" onClick={toggleSidebar}>
+            <Link to="/ComingSoon" onClick={toggleSidebar}>
               <img src={help} alt="help" />
               <span>Help</span>
             </Link>
@@ -85,7 +85,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/payment" onClick={toggleSidebar}>
+            <Link to="/ComingSoon" onClick={toggleSidebar}>
               <img src={payment} alt="payment" />
               <span>Payment</span>
             </Link>

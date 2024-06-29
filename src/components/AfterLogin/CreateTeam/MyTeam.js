@@ -2,28 +2,34 @@ import React, { useEffect } from "react";
 import team from "../../../assets/afterLogin picks/My team/team.svg";
 import "../../../assets/Styles/colors.css";
 import share from "../../../assets/afterLogin picks/My team/share.svg";
-// import { teams } from "../../../assets/DummyData/TeamData";
 import Modal from 'react-bootstrap/Modal';
-
 import { useNavigate } from "react-router-dom";
-import { BaseUrl } from "../../../reducers/Api/bassUrl"
-import axios from "axios";
-import { useSelector } from "react-redux";
+// import { BaseUrl } from "../../../reducers/Api/bassUrl"
+// import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
+import { fetchTeams } from "../../../reducers/teamSlice";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, EmailShareButton, WhatsappShareButton, } from 'react-share';
-import { FacebookIcon, TwitterIcon, LinkedinIcon, EmailIcon, WhatsappIcon } from 'react-share';
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, EmailShareButton, WhatsappShareButton,  InstapaperShareButton, TelegramShareButton } from 'react-share';
+import { FacebookIcon, TwitterIcon, LinkedinIcon, EmailIcon, WhatsappIcon, InstapaperIcon, TelegramIcon } from 'react-share';
+import { ToastContainer, toast } from "react-toastify";
 
 const MyTeam = () => {
     const token = useSelector(state => state.auth.user.data.user.token);
     const currentUser = useSelector(state => state.auth.user.data.user);
-    const [myteams, setMyTeams] = useState([]);
+    // const [myteams, setMyTeams] = useState([]);
     const Navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [currentTeam, setCurrentTeam] = useState(null);
     const [shareUrl, setShareUrl] = useState('');
+    const [title, setTitle] = useState('');
+    const dispatch = useDispatch();
+    const teams = useSelector(state => state.teams.teams);
 
-    const title = 'Sports Nerve';
+    // console.log("teams", teams);
+
+    
     const [show, setShow] = useState(false)
 
     // console.log("current user", currentUser);
@@ -32,56 +38,42 @@ const MyTeam = () => {
         setShow(false);
     };
 
-    const handleShow = (team) => {
-        console.log("current team", team);
+    const handleShow = (shareUrl) => {
         setShow(true);
-        setCurrentTeam(team);
+        setShareUrl(shareUrl);
+    };
 
-        const deepLinkUrl = `https://sportsnerve.com/team/${team._id}`;
-        setShareUrl(deepLinkUrl);
-    }
+  
 
-    useEffect(() => {
 
-        // get teams
-        const teamUrl = BaseUrl()
-        const getTeam = async () => {
-            try {
-                const response = await axios.get(`${teamUrl}/api/v1/user/myteams/list`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
+    useEffect(() =>{
+        dispatch(fetchTeams(token))
 
-                if (response.status === 200) {
-                    const teamData = response.data.data.teamData.teamList;
-                    setMyTeams(teamData)
-                    // console.log("gettng teams", teamData);
-                } else {
-                    console.log("unable to get teams");
-                }
-            } catch (error) {
-                console.error(error)
-            } finally {
-                setLoading(false)
-            }
+    }, [token, dispatch])
+
+    useEffect(() =>{
+        if(teams.length > 0){
+            setLoading(false)
         }
-        getTeam()
-    }, [token])
+    }, [teams])
 
 
     // navigate to team dashbord
     const handleTeamDashbord = (team) => {
-
         Navigate("/TeamDashbord", { state: { team } })
     }
 
 
     const handleShareButtonClick = (e, team) => {
         e.stopPropagation();
+        const teamShareUrl = `${window.location.origin}/join-team/${team._id}`;
+        const title = `Hey, we are using a new app, Sports Nerve, for our team event & activity planning. Click the link, download the app & join ${team.teamName} now!`;
         setCurrentTeam(team);
-        handleShow(team);
+        setTitle(title);
+        handleShow(teamShareUrl);
     };
+    
+    
 
 
 
@@ -89,30 +81,23 @@ const MyTeam = () => {
     const handleCopy = (e) => {
         e.stopPropagation()
 
-        // Create a temporary input element
         const tempInput = document.createElement('input');
         tempInput.value = shareUrl; // Use the share URL
-
-        // Append the input to the body
         document.body.appendChild(tempInput);
-
-        // Select the input
         tempInput.select();
         tempInput.setSelectionRange(0, 99999); // For mobile devices
 
-        // Copy the URL to the clipboard
         document.execCommand('copy');
 
         // Remove the temporary input
         document.body.removeChild(tempInput);
-
-        // Optionally, show a toast or notification to indicate that the link has been copied
-        // You can use libraries like react-toastify for this
+        toast.success('Link copied to clipboard!');
     };
 
 
     return (
         <div className="container-fluid itemsColor myTeam rounded dashbords-container-hieght ">
+            <ToastContainer />
             {loading ? (
                 <div className="text-center loader">
                     <ThreeDots
@@ -127,7 +112,7 @@ const MyTeam = () => {
                     />
                 </div>
             ) : (
-                myteams.length === 0 ? (
+                teams.length === 0 ? (
                     <div className="row justify-content-center align-items-center p-5">
                         <div className="col-12 text-center">
                             <img src={team} alt="team pick" className="img-fluid mb-3" />
@@ -135,8 +120,8 @@ const MyTeam = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="row justify-content-start align-items-center p-md-5">
-                        {myteams.map((team, index) => (
+                    <div className="row justify-content-start align-items-center p-md-2">
+                        {teams.map((team, index) => (
 
                             <div key={index} className="col-12 col-md-6 mb-3 mt-2  ">
 
@@ -146,7 +131,9 @@ const MyTeam = () => {
                                     style={{
                                         backgroundColor: team.colour.colour,
                                         borderColor: team.colour.border_colour,
-                                    }}>
+                                    }}
+                                    
+                                    >
                                     {/* Step 1: Image (unchanged) */}
                                     <img src={team.logo} className="card-img-top main-pick" alt="Team" />
 
@@ -195,7 +182,9 @@ const MyTeam = () => {
 
                                     </div>
 
-                                    <Modal show={show} onHide={handleCloseModal} backdrop={true} >
+                                    <Modal show={show} onHide={handleCloseModal}    
+                                    backdrop="static"
+                                    >
                                         <Modal.Header closeButton onClick={(e) => e.stopPropagation()}>
                                             <Modal.Title>
                                                 {currentTeam && <img src={currentTeam.logo} alt="team logo"
@@ -233,6 +222,14 @@ const MyTeam = () => {
                                                 <WhatsappShareButton url={shareUrl} title={title} onClick={(e) => e.stopPropagation()}>
                                                     <WhatsappIcon size={50} round />
                                                 </WhatsappShareButton>
+
+                                                <InstapaperShareButton url={shareUrl} title={title} onClick={(e) => e.stopPropagation()}>
+                                                    <InstapaperIcon size={50} round />
+                                                </InstapaperShareButton>
+
+                                                <TelegramShareButton url={shareUrl} title={title} onClick={(e) => e.stopPropagation()}>
+                                                    <TelegramIcon size={50} round />
+                                                </TelegramShareButton>
                                             </div>
 
                                             <div className="d-flex align-items-center justify-content-between">

@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS file
 import search from "../../assets/afterLogin picks/Sports category icons/Search.png";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
-import Alerts from '../Alerts';
 import { useSelector } from 'react-redux';
 import { updateProfile } from '../../reducers/authSlice';
 import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+// import { useAlert } from 'react-alert';
 
-const Category = () => {
+
+const Category = ({handleCloseSports}) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sports, setSports] = useState([]);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
     const token = useSelector(state => state.auth.user.data.user.token);
+    const user = useSelector(state => state.auth.user);
     const chosenSports = useSelector(state => state.auth.user.data.user.chosenSports);
     const dispatch = useDispatch();
+    // const alert = useAlert();
 
     // console.log("chosenSports", chosenSports);
-
+// console.log("user data " , user);
 
 
     useEffect(() => {
@@ -52,28 +53,33 @@ const Category = () => {
         fetchSports();
     }, [chosenSports]); // Empty dependency array to run only once
 
-    const navigate = useNavigate();
+ 
 
 
     // Function to handle sport selection
     const handleSportSelect = (sportId) => {
+        const chosenSportIds = chosenSports.map(sport => sport._id);
         // Update selected state of the sport
         const updatedSports = sports.map(sport => {
             if (sport._id === sportId) { // Use `_id` as provided in your data structure
-                return {
+               
+                if(chosenSportIds.includes(sport._id)){
+                    // alert.show('This sport is already selected!');
+                    toast.error('This sport is already selected!');
+                    return sport;
+                }
+
+                return{
                     ...sport,
-                    selected: !sport.selected // Toggle selected state
-                };
+                    selected: !sport.selected
+                }
             }
             return sport;
         });
         setSports(updatedSports); // Update sports state
     };
 
-    // Function to filter sports based on search query
-    // const filteredSports = Array.isArray(sports) ? sports.filter(sport =>
-    //     sport.sports_name.toLowerCase().includes(searchQuery.toLowerCase())
-    // ) : [];
+  
 
     // Function to filter and sort sports based on search query and selection state
     const filteredSports = Array.isArray(sports) ? sports
@@ -87,39 +93,47 @@ const Category = () => {
 
     const updateSelectedSports = async (e) => {
         e.preventDefault();
-
+    
         const selectedSports = sports.filter(sport => sport.selected).map(sport => sport._id);
         const updateURL = BaseUrl();
-
+    
         try {
-            const response = await axios.put(`${updateURL}/api/v1/user/update/sports`, {
-                chosenSports: selectedSports
-            },
-
+            const response = await axios.put(
+                `${updateURL}/api/v1/user/update/sports`,
+                { chosenSports: selectedSports },
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
-                });
-
-
+                }
+            );
+    
             if (response.data.status === 200) {
-                dispatch(updateProfile(response.data));
-                console.log("ports updated ", response.data);
-                setAlertMessage('Sports updated successfully');
-                setAlertType('success');
-                navigate('/loggedInHome');
-
+                const updatedData = response.data.data.user.chosenSports;
+    
+                // Update user data with chosen sports
+                const updatedUserData = {
+                    ...user.data.user,
+                    chosenSports: updatedData  // Assuming updatedData is an array of chosen sports
+                };
+                
+                // Dispatch updateProfile action to update profile in Redux store
+                dispatch(updateProfile(updatedUserData));
+    
+                toast.success('Sports updated successfully');
+                handleCloseSports();
+                window.location.reload();
             } else {
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error updating selected sports';
-                setAlertMessage(errorMessage);
-                setAlertType('error');
+                toast.error(errorMessage);
                 console.log("Error updating selected sports", response.data);
             }
         } catch (error) {
             console.error('Error updating selected sports:', error);
+            toast.error('Internal server error while updating sports');
         }
-    }
+    };
+    
 
     return (
         <div className="ForgotPassword ">
@@ -130,7 +144,7 @@ const Category = () => {
                         <h3 className="mb-3">Select Your Favorite Sports</h3>
                     </div>
 
-                    {alertMessage && <Alerts message={alertMessage} type={alertType} />}
+                    <ToastContainer />
                     <div className=''>
                         {/* Search bar */}
                         <form>

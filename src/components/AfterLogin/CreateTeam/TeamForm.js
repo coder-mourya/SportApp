@@ -160,7 +160,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
         try {
             const response = await axios.get(`${colorUrl}/api/v1/user/teams/colours/list`);
             setColors(response.data.data.colours_list);
-            console.log(response.data);
+            // console.log(response.data);
         } catch (error) {
             console.log("Error fetching colors:", error);
         }
@@ -190,7 +190,11 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                     }} />
                 ) : (
                     <>
-                        {coverPhoto && <img src={coverPhoto} alt="cover" className="img-fluid" />}
+                        {coverPhoto && <img src={coverPhoto} alt="cover" className="img-fluid" 
+                          style={{
+                            display: "none"
+                          }}
+                        />}
                         <div
                             className="upload-overlay position-absolute bottom-0 end-0 p-3 d-flex align-items-center"
                             onClick={handleFileSelect}

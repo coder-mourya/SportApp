@@ -4,6 +4,8 @@ import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { fetchTeamDetails } from "../../../reducers/teamSlice";
+import { useDispatch } from "react-redux";
 
 
 const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
@@ -17,29 +19,30 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
         nameOnJersey: "",
         numberOnJersey: "",
     });
-    const [profileImage, setProfileImage] = useState("");
+    const [profileImage, setProfileImage] = useState([]);
     const token = useSelector(state => state.auth.user.data.user.token);
     const currentUser = useSelector(state => state.auth.user.data.user);
+    const dispatch = useDispatch();
 
     const jerseySizes = ["YMD-10", "YLG 14 - 16", "YXL 18-20", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"];
     const trouserSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL", "4XL", "5XL", "28", "30", "32", "34", "36", "38", "40", "42", "44", "YMD-10", "YLG 14 - 16", "YXL 18-20"];
 
-    console.log("selected member data in edit creator", creatorDetails, team);
+    // console.log("selected member data in edit creator", creatorDetails, team);
     useEffect(() => {
         if (creatorDetails) {
             setFormData(prevFormData => ({
                 ...prevFormData,
                 description: creatorDetails.aboutCreator || "",
                 expectations: creatorDetails.expectations || "",
-                jerseySize: creatorDetails.jerseySize|| "",
+                jerseySize: creatorDetails.jerseySize || "",
                 pantSize: creatorDetails.pantSize || "",
-                nameOnJersey: creatorDetails.nameOnJersey|| "",
+                nameOnJersey: creatorDetails.nameOnJersey || "",
                 numberOnJersey: creatorDetails.numberOnJersey || "",
             }));
-            setProfileImage(creatorDetails.creatorImage || "");
+            setProfileImage(creatorDetails.creatorImage || null);
         }
     }, [creatorDetails]);
-    
+
 
     const handleFileSelect = () => {
         fileInputRef.current.click();
@@ -56,7 +59,7 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
         setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
-    
+
 
     const isDisabled = (currentUser._id !== team.user_id);
 
@@ -64,57 +67,58 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-       
-    
+
+
         // Check if currentUser matches the memberId of creatorDetails
-       
-            const formDataToSend = new FormData();
-            formDataToSend.append('profileImage', formData.profileImage);
-            formDataToSend.append('creatorName', formData.creatorName);
-            formDataToSend.append('description', formData.description);
-            formDataToSend.append('jerseySize', formData.jerseySize);
-            formDataToSend.append('pantSize', formData.pantSize);
-            formDataToSend.append('nameOnJersey', formData.nameOnJersey);
-            formDataToSend.append('numberOnJersey', formData.numberOnJersey);
-            formDataToSend.append('expectations', formData.expectations);
-            formDataToSend.append('teamId', team._id);
-    
-            const jerseyDetails = {
-                shirt_size: formData.jerseySize,
-                pant_size: formData.pantSize,
-                name: formData.nameOnJersey,
-                number: formData.numberOnJersey
-            };
-    
-            formDataToSend.append('jerseyDetails', JSON.stringify(jerseyDetails));
-    
-            const updateAboutMeUrl = BaseUrl();
-    
-            try {
-                const response = await axios.put(`${updateAboutMeUrl}/api/v1/user/update/aboutMe`, formDataToSend, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-    
-                if (response.status === 200) {
-                    const message = response.data.message;
-                    console.log("Profile updated successfully", response.data);
-                    toast.success(message);
-                    closeCreatorDetails();
-                } else {
-                    const errorMessage = response.data.errors ? response.data.msg : "Error updating profile";
-                    toast.error(errorMessage);
-                    console.log("Error updating profile", response.data);
+
+        const formDataToSend = new FormData();
+        formDataToSend.append('profileImage', formData.profileImage);
+        formDataToSend.append('creatorName', formData.creatorName);
+        formDataToSend.append('description', formData.description);
+        formDataToSend.append('jerseySize', formData.jerseySize);
+        formDataToSend.append('pantSize', formData.pantSize);
+        formDataToSend.append('nameOnJersey', formData.nameOnJersey);
+        formDataToSend.append('numberOnJersey', formData.numberOnJersey);
+        formDataToSend.append('expectations', formData.expectations);
+        formDataToSend.append('teamId', team._id);
+
+        const jerseyDetails = {
+            shirt_size: formData.jerseySize,
+            pant_size: formData.pantSize,
+            name: formData.nameOnJersey,
+            number: formData.numberOnJersey
+        };
+
+        formDataToSend.append('jerseyDetails', JSON.stringify(jerseyDetails));
+
+        const updateAboutMeUrl = BaseUrl();
+
+        try {
+            const response = await axios.put(`${updateAboutMeUrl}/api/v1/user/update/aboutMe`, formDataToSend, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
                 }
-            } catch (error) {
-                console.error("Internal server error", error);
-                toast.error("Internal server error");
+            });
+
+            if (response.data.status === 200) {
+                const message = response.data.message;
+                // console.log("Profile updated successfully", response.data);
+                toast.success(message);
+                dispatch(fetchTeamDetails({ teamId: team._id, token: token }));
+                closeCreatorDetails();
+            } else {
+                const errorMessage = response.data.errors ? response.data.errors.msg : "Error updating profile";
+                toast.error(errorMessage);
+                console.log("Error updating profile", response.data);
             }
-       
+        } catch (error) {
+            console.error("Internal server error", error);
+            toast.error("Internal server error");
+        }
+
     };
-    
+
 
     return (
         <div className="aboutMe">
@@ -122,14 +126,16 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                 {profileImage ? (
                     <div className="d-flex flex-row align-items-center">
                         <img src={profileImage} alt="Profile" className="profile-img" style={{ width: "117px", height: "117px" }} />
-                        <p className="ms-4" onClick={handleFileSelect} style={{ cursor: 'pointer' }}>Change Profile</p>
+                       {!isDisabled && (
+                         <p className="ms-4" onClick={handleFileSelect} style={{ cursor: 'pointer' }}>Change Profile</p>
+                       )}
                         <input
                             type="file"
                             accept="image/*"
                             ref={fileInputRef}
                             style={{ display: "none" }}
                             onChange={handleFileUpload}
-                            
+
                             disabled={isDisabled}
                         />
                     </div>
@@ -144,7 +150,7 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                             style={{ display: "none" }}
                             onChange={handleFileUpload}
                             disabled={isDisabled}
-                            
+
 
 
                         />
@@ -165,9 +171,9 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                         onChange={handleInputChange}
                         value={formData.description}
                         disabled={isDisabled}
-                       
 
-                        
+
+
                         placeholder="Write about your interests, hobbies, Proficiency…..
                     Hi, I am Gaurav, right handed batsman. I Played cricket for different clubs in Pune."
                     />
@@ -183,7 +189,7 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                                 onChange={handleInputChange}
                                 value={formData.jerseySize}
                                 disabled={isDisabled}
-                        
+
 
                             >
                                 <option>--Select Jersey Size--</option>
@@ -204,7 +210,7 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                                 onChange={handleInputChange}
                                 value={formData.pantSize}
                                 disabled={isDisabled}
-                          
+
 
                             >
                                 <option>--Select Trouser Size--</option>
@@ -231,7 +237,7 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                                 value={formData.nameOnJersey}
                                 onChange={handleInputChange}
                                 disabled={isDisabled}
-                          
+
 
                             />
                         </div>
@@ -248,7 +254,7 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                                 value={formData.numberOnJersey}
                                 onChange={handleInputChange}
                                 disabled={isDisabled}
-                           
+
 
                             />
                         </div>
@@ -268,22 +274,24 @@ const CreatorDetails = ({ team, creatorDetails, closeCreatorDetails }) => {
                         style={{ resize: "none", height: "100px" }}
                         onChange={handleInputChange}
                         disabled={isDisabled}
-                       
+
 
                     />
                 </div>
 
                 <div className="aboutme-buttons mt-3">
-                    <button 
-                        className="btn  ms-2" 
-                        type="submit"
-                        style={{ width:"100%", backgroundColor: "#DB3525", color: "white" }}
-                        disabled={isDisabled}
-                       
+                    {!isDisabled && (
+                        <button
+                            className="btn  ms-2"
+                            type="submit"
+                            style={{ width: "100%", backgroundColor: "#DB3525", color: "white" }}
 
-                    >
-                        Save
-                    </button>
+
+
+                        >
+                            Save changes
+                        </button>
+                    )}
                 </div>
             </form>
         </div>

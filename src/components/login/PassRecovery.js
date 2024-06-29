@@ -4,7 +4,6 @@ import "../../assets/Styles/AfterLogin/Full-LoginProcess.css";
 import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 // import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import Alerts from '../Alerts';
@@ -12,19 +11,21 @@ import { useState } from 'react';
 
 
 
-const PassRecovery = ({ email, closeOffcanvas, goToLogin }) => {
+const PassRecovery = ({ email, handleClosePassRecovery,  goToLogin }) => {
 
 
     const [alertMessage, setAlertMessage] = useState('');
     const [alertType, setAlertType] = useState('');
 
-    // console.log(email);
-    const Navigate = useNavigate();
+
 
 
     const handleGoToLogin = () => {
+        // console.log("goToLogin clicked");
         if (typeof goToLogin === 'function') {
             goToLogin();
+            handleClosePassRecovery()
+            
         } else {
             console.error('goToLogin is not a function');
         }
@@ -32,7 +33,7 @@ const PassRecovery = ({ email, closeOffcanvas, goToLogin }) => {
 
 
     const handleResend = async () => {
-        console.log("resend clicked");
+        // console.log("resend clicked");
         const resendLink = BaseUrl();
 
         try {
@@ -48,7 +49,7 @@ const PassRecovery = ({ email, closeOffcanvas, goToLogin }) => {
 
                 setAlertMessage(successMessage);
                 setAlertType('success');
-                Navigate('/PassRecovery', { state: { email } });
+               
 
             } else {
 

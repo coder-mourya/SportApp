@@ -107,15 +107,28 @@
 /* you tube video styles  */
 
 
-.videos img {
-    width: 100%;
-    margin-right: 1rem;
-    margin-bottom: 1.5rem;
+.icon-container{
+    width: 72px;
+    height: 72px;
+    background-color:#FBEBEB;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* .videos-container{
-    position: fixed;
-} */
+.icon-container img{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+}
+
+.title{
+    color: black;
+    text-decoration: none !important;
+}
+
+
 
 
 .profile {

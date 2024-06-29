@@ -10,7 +10,6 @@ import SidebarSmallDevice from "../../components/AfterLogin/SidebarSmallDevice";
 import arrow from "../../assets/afterLogin picks/My team/arrow.svg";
 import { Link } from "react-router-dom";
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import Alerts from "../Alerts";
 import { BaseUrl } from "../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useEffect } from "react";
@@ -22,9 +21,10 @@ import mail from "../../assets/afterLogin picks/mail.png";
 import name from "../../assets/afterLogin picks/name.png";
 import nickname from "../../assets/afterLogin picks/name.png";
 import mobile from "../../assets/afterLogin picks/mobile.png";
-// import dob from "../../assets/afterLogin picks/dob.png";
+import dob from "../../assets/afterLogin picks/dob.png";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { ToastContainer, toast } from "react-toastify";
 
 
 const ViewProfile = () => {
@@ -58,8 +58,6 @@ const ViewProfile = () => {
     const [countryList, setCountryList] = useState([]);
     // const [states, setStates] = useState([]);
     // const [cities, setCities] = useState([]);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
     const [fileSetected, setFileSelected] = useState(false)
     const token = useSelector(state => state.auth.user.data.user.token);
 
@@ -120,6 +118,7 @@ const ViewProfile = () => {
     }, [user]);
 
 
+    // console.log("user data" , user.data.user);
 
 
     const handleProfilePictureChange = (e) => {
@@ -153,7 +152,7 @@ const ViewProfile = () => {
         formData.append('dateOfBirth', user.data.user.dateOfBirth);
 
         const uploadProfilePicture = BaseUrl();
-        console.log("form data ", formData);
+        // console.log("form data ", formData);
         try {
             const response = await axios.post(`${uploadProfilePicture}/api/v1/user/update/profile`,
 
@@ -169,47 +168,26 @@ const ViewProfile = () => {
 
             if (response.data.status === 200) {
 
-                setAlertMessage('Profile picture uploaded successfully');
-                setAlertType('success');
+               
                 console.log('Profile picture uploaded successfully:', response.data);
+                toast.success('Profile picture uploaded successfully');
+                
 
-                const navigateDelay = () => Navigate('/ViewProfile');
-                setTimeout(navigateDelay, 2000);
+                const updatedUserData = {
+                    ...user.data.user,
+                   ...formData};
+                // console.log("updated user data ", updatedUserData);
+                dispatch(updateProfile(updatedUserData));
 
-
-                // extract updated profile data from user profile
-                const updatedProfileResponse = await axios.get(
-                    `${uploadProfilePicture}/api/v1/user/get-profile`,
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    }
-                );
-
-
-                if (updatedProfileResponse.status === 200) {
-                    const updatedUserData = updatedProfileResponse.data.data.userDetails;
-                    console.log('Updated profile data:', updatedUserData);
-                    // Dispatch updateProfile action to update profile in Redux store
-                    dispatch(updateProfile(updatedUserData));
-
-                } else {
-                    console.error('Error fetching updated profile:', updatedProfileResponse.data);
-                    setAlertMessage('Error fetching updated profile');
-                    setAlertType('error');
-                }
 
             } else {
                 console.error('Error uploading profile picture:', response.data);
                 const errorMessage = response.data ? response.data.message : 'Error uploading profile picture';
-                setAlertMessage(errorMessage);
-                setAlertType('error');
+                toast.error(errorMessage);
             }
         } catch (error) {
             console.error('Internal server error while uploading profile picture:', error);
-            setAlertMessage('Internal server error while uploading profile picture');
-            setAlertType('error');
+            toast.error('Internal server error while uploading profile picture');
         }
 
     };
@@ -249,20 +227,17 @@ const ViewProfile = () => {
                 };
                 dispatch(updateProfile(updatedUserData));
 
-                setAlertMessage("Profile updated successfully");
-                setAlertType("success");
-                console.log("Profile updated successfully:", response.data);
-                Navigate("/ViewProfile");
+                toast.success('Profile updated successfully');
+                // console.log("Profile updated successfully:", response.data);
+                handleClose();
             } else {
                 const errorMessage = response.data ? response.data.message : "Error updating profile";
-                setAlertMessage(errorMessage);
-                setAlertType("error");
-                console.error("Error updating profile:", response.data);
+                toast.error(errorMessage);
+                // console.error("Error updating profile:", response.data);
             }
         } catch (error) {
-            console.error("Internal server error:", error);
-            setAlertMessage("Internal server error");
-            setAlertType("error");
+            // console.error("Internal server error:", error);
+            toast.error('Internal server error while updating profile');
         }
     };
 
@@ -273,7 +248,7 @@ const ViewProfile = () => {
             dateOfBirth: date,
         }));
     };
-    
+
 
 
     const handleInputChange = (e) => {
@@ -387,7 +362,7 @@ const ViewProfile = () => {
                             </form>
 
 
-                            {alertMessage && <Alerts message={alertMessage} type={alertType} />}
+                          <ToastContainer />
 
 
                             <div className="profile-details p-4">
@@ -514,23 +489,31 @@ const ViewProfile = () => {
                                             <div className="mb-3">
                                                 <label htmlFor="dob" className="form-label">Date of Birth</label>
 
-                                                <div className="input-group my-1 " onClick={() => document.getElementById('dateOfBirth').click()}>
-                                                    {/* <span className="input-group-text">
+                                                <div className="input-group my-1  "
+                                        //  onClick={() => document.getElementById('dateOfBirth').click()}
+                                        >
+                                            <span className="input-group-text "
+                                                style={{ height: "57px" }}
+                                            >
                                                 <img src={dob} alt="password" />
-                                            </span> */}
-                                                    <DatePicker
-                                                        selected={formData.dateOfBirth}
-                                                        onChange={handleDateChange}
-                                                        dateFormat="MM/dd/yyyy"
-                                                        className="form-control "
-                                                        id="dateOfBirth"
-                                                        showMonthDropdown
-                                                        showYearDropdown
-                                                        dropdownMode="select"
-                                                        placeholderText="Select your date of birth"
-                                                        
-                                                    />
-                                                </div>
+                                            </span>
+                                            <DatePicker
+                                                type="date"
+                                                selected={formData.dateOfBirth}
+                                                onChange={handleDateChange}
+                                                dateFormat="MM/dd/yyyy"
+                                                className=" "
+                                                id="dateOfBirth"
+                                                showMonthDropdown
+                                                showYearDropdown
+                                                dropdownMode="select"
+                                                placeholderText="Select your date of birth"
+
+
+                                            />
+                                        </div>
+
+
                                             </div>
 
                                             <div className="mb-3">
@@ -549,7 +532,7 @@ const ViewProfile = () => {
                                                 <input type="checkbox" className="form-check-input" id="terms" name="termsChecked" checked={formData.termsChecked} onChange={handleInputChange} />
                                                 <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions</label>
                                             </div>
-                                            {alertMessage && <Alerts message={alertMessage} type={alertType} />}
+                                           
 
                                         </div>
 

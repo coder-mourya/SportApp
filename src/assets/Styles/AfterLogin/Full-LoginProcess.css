@@ -18,16 +18,22 @@ input {
     border-right: 1px solid #ccc !important;
 }
 
-
-/* Add this CSS to hide the default calendar icon */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
+.react-tel-input .flag-dropdown {
+    border: none !important;
+    
 }
+
+
+
 
 
 .react-datepicker-wrapper,
 .react-datepicker__input-container {
-  width: 100% !important;
+  width: 85% !important;
+  position: absolute !important;
+  right: 0 !important;
+  height: 57px !important;
+  border-radius: 8px !important;
 }
 
 
@@ -58,8 +64,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     
 }
 
+
+
 .input-group input  {
-    background-color: #F4F5F9;
+    background-color: #F4F5F9 !important;
+    border-radius:0 8px  8px 0 !important;
     
 }
 
@@ -67,31 +76,77 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #9A9BA5;
 }
 
-.input-group select {
-    background-color: #F4F5F9;
+.input-group select{
+    background-color: #F4F5F9 !important;
     color: #9A9BA5;
-}
-
-.input-group select option{
-    color: #9A9BA5 !important;
+    border: 1px solid #ccc; /* Remove the default red border */
+    outline: none; /* Remove the default outline */
+    padding: 10px; /* Add padding for better appearance */
+    border-radius: 8px; /* Add border radius for better appearance */
     
 }
+
+.input-group select:focus {
+    border: 1px solid #ccc; /* Maintain consistent border on focus */
+    box-shadow: none; /* Remove default focus shadow */
+  }
+
+
+
+.input-group select option{
+    color: #9A9BA5 ;
+    
+}
+
+.input-group select.placeholder {
+    color: #8c8c8f !important;
+}
+
+.input-group select.selected {
+    
+    color: black !important;
+}
+
+
 
 .custom-color{
     color: #283593;
 }
 
-
-.contury-code{ 
-    padding: 0;
-    margin: 0;
-    border-left: none;
-    width: 3.8rem !important;
+.mobile-number{
     padding-left: 0 !important;
-    border-top: none;
-    border-bottom: none;
-    font-size: 16px;
+    
 }
+
+.react-tel-input .form-control{
+    width: 100% !important;
+    height: 50px !important;
+    border: none !important;
+    padding-right: 0 !important;
+    
+    
+}
+
+
+
+.react-tel-input .selected-flag{
+    border: none !important;
+}
+
+.react-datepicker__month-select, .react-datepicker__year-select{
+    padding: 10px !important;
+    border-radius: 8px !important;
+    margin: 1rem 0 !important;
+}
+
+
+
+
+
+
+
+
+
 
 
 /* Disable scrolling on body when modal is open */
@@ -184,10 +239,57 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 
+.login-line {
+    flex-grow: 1;
+    height: 0.5px;
+    background-color: #F2F2F4;
+}
+.p-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.mx-2 {
+    margin: 0 1rem; /* Adjust the margin to your preference */
+}
+
+/* google login  */
+
+
+.nsm7Bb-HzV7m-LgbsSe {
+    width: 40px !important;
+    background-color: #FDEBE9 !important;
+    border-radius: 50% !important;
+}
+
+
+
+.kep-login-facebook{
+    background-color:  #E7F1FB !important;
+    border:  none !important;
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+}
+
+.facebook-icon{
+    font-size: 38px;
+    color: #1976D2;    
+}
+
+#appleid-signin{
+    width: 40px !important;
+    height: 40px !important;
+}
 
 
 
 @media screen and (max-width: 1284px) {
+
+    .login-offcanvas{
+        width: 100% !important;
+    }
 
     .container-right {
         width: 100%;

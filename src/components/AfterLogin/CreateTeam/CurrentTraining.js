@@ -1,5 +1,5 @@
 import React from "react";
-import training from "../../../assets/afterLogin picks/My team/training.png"
+// import training from "../../../assets/afterLogin picks/My team/training.png"
 import location from "../../../assets/afterLogin picks/home/location.png";
 import schedule from "../../../assets/afterLogin picks/home/schedule.png";
 import watch from "../../../assets/afterLogin picks/home/watch.png";

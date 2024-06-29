@@ -39,102 +39,86 @@ import AddFamilyMember from './components/AfterLogin/CreateTeam/AddFamilyMember'
 import TearmsAndConditions from './components/Tearms-conditions';
 import Policy from './components/Policy';
 import Cookies from './components/Cookies';
-// import { useEffect } from 'react';
-// import { useSelector } from 'react-redux';
-// import { useDispatch } from 'react-redux';
-// import axios from 'axios';
-// import { logout } from './reducers/authSlice';
+import JoinTeam from './components/AfterLogin/CreateTeam/JoinTeam';
+import { useState } from 'react';
+// import { ToastContainer } from 'react-toastify';
 
 
 function App() {
-  // const dispetch = useDispatch();
-  // const {isLoggedIn, sessionId , user } = useSelector(state => state.auth);
+
 
   const location = useLocation();
   const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord' || location.pathname === '/PracticeDashBord' || location.pathname === '/CreatePracticeForm' || location.pathname === '/EventDetails' || location.pathname === '/ViewProfile' || location.pathname === '/ChangePass';
 
+  const [showLogin, setShowLogin] = useState(false);
 
-  // useEffect(()  =>{
-  //   const checkSession = async () => {
-  //     if(isLoggedIn){
-  //        try {
-  //         const response = await axios.get('/protected', {
-  //           headers: {
-  //             userId: user.id,
-  //             sessionId: sessionId,
-  //           },
-  //         });
-  //         console.log(response.data);
-  //        } catch (error) {
-  //         dispetch(logout());
-  //        }
-  //     }
-  //   }
-
-  //   checkSession();
-  // },[isLoggedIn, dispetch, user, sessionId]);
 
 
   return (
 
     <>
 
-      <Navbar />
+      
+
+        
+        <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
 
 
-      <Routes>
-        <Route exact path='/' element={<ProtectedRoute2 element={Home} />} />
-        {/* pages Routes */}
-        <Route exact path='/About' element={<About />} />
-        <Route exact path='/Features' element={<Features />} />
-        <Route exact path='/faq/' element={<FAQ />} />
-        <Route exact path='/size-chart/' element={<Chart />} />
-        <Route exact path='/Contact-us' element={<Contact />} />
-        <Route exact path='/FAQPage' element={<FAQPage />} />
-        <Route exact path='/ContactPage' element={<ContactPage />} />
-        <Route exact path='/terms-and-conditions/' element={<TearmsAndConditions />} />
-        <Route exact path="/privacy-policy/" element={<Policy />} />
-        <Route exact path="/cookies-policy/" element={<Cookies />} />
- 
-
-        {/* Login routes */}
-        <Route exact path='/login' element={<LoginForm />} />
-        <Route exact path='/ForgotPassword' element={<ForgotPassword />} />
-        <Route exact path='/PassRecovery' element={<PassRecovery />} />
-        <Route exact path='/Register' element={<Register />} />
-        <Route exact path='/VerifyMail' element={<VerifyMail />} />
-        <Route exact path='/PendingMail' element={<PendingMail />} />
-        <Route exact path="/Category" element={<Category />} />
-
-        {/* LoggedIn Routes */}
-        <Route exact path='/LoggedInHome' element={<ProtectedRoute element={LoggedInHome} />} />
-        <Route exact path='/CreateTeam' element={<ProtectedRoute element={CreateTeam} />} />
-        <Route exact path='/Create' element={<ProtectedRoute element={Create} />} />
-        <Route exact path='/AddMember' element={<ProtectedRoute element={AddMember} />} />
-        <Route exact path='/AddFamilyMember' element={<ProtectedRoute element={AddFamilyMember} />} />
-        <Route exact path='/TeamDashbord' element={<ProtectedRoute element={TeamDashbord} />} />
-        <Route exact path='/MemberDashBord' element={<ProtectedRoute element={MemberDashBord} />} />
-        <Route exact path='/FamilyDashBord' element={<ProtectedRoute element={FamilyDashBord} />} />
-        <Route exact path='/TrainingDashBord' element={<ProtectedRoute element={TrainingDashBord} />} />
-        <Route exact path='/PracticeDashBord' element={<ProtectedRoute element={PracticeDashBord} />} />
-        <Route exact path='/CreatePracticeForm' element={<ProtectedRoute element={CreatePracticeForm} />} />
-        <Route exact path='/AddMemberAndTeam' element={<ProtectedRoute element={AddMemberAndTeam} />} />
-        <Route exact path='/EventDetails' element={<ProtectedRoute element={EventDetails} />} />
-        <Route exact path='/ViewProfile' element={<ProtectedRoute element={ViewProfile} />} />
-        <Route exact path='/ChangePass' element={<ProtectedRoute element={ChangePass} />} />
+        <Routes>
+          <Route exact path='/' element={<ProtectedRoute2 element={Home} />} />
+          {/* pages Routes */}
+          <Route exact path='/About' element={<About />} />
+          <Route exact path='/Features' element={<Features />} />
+          <Route exact path='/faq/' element={<FAQ />} />
+          <Route exact path='/size-chart/' element={<Chart />} />
+          <Route exact path='/Contact-us' element={<Contact />} />
+          <Route exact path='/FAQPage' element={<FAQPage />} />
+          <Route exact path='/ContactPage' element={<ContactPage />} />
+          <Route exact path='/terms-and-conditions/' element={<TearmsAndConditions />} />
+          <Route exact path="/privacy-policy/" element={<Policy />} />
+          <Route exact path="/cookies-policy/" element={<Cookies />} />
+          <Route exact path="/join-team/:teamId" element={<JoinTeam showLogin={showLogin} setShowLogin={setShowLogin} />} />
 
 
 
+          {/* Login routes */}
+          <Route exact path='/login' element={<LoginForm />} />
+          <Route exact path='/ForgotPassword' element={<ForgotPassword />} />
+          <Route exact path='/PassRecovery' element={<PassRecovery />} />
+          <Route exact path='/Register' element={<Register />} />
+          <Route exact path='/VerifyMail' element={<VerifyMail />} />
+          <Route exact path='/PendingMail' element={<PendingMail />} />
+          <Route exact path="/Category" element={<Category />} />
 
-        {/* temprary routes */}
-        <Route exact path='/ComingSoon' element={<ComingSoon />} />
+          {/* LoggedIn Routes */}
+          <Route exact path='/LoggedInHome' element={<ProtectedRoute element={LoggedInHome} />} />
+          <Route exact path='/CreateTeam' element={<ProtectedRoute element={CreateTeam} />} />
+          <Route exact path='/Create' element={<ProtectedRoute element={Create} />} />
+          <Route exact path='/AddMember' element={<ProtectedRoute element={AddMember} />} />
+          <Route exact path='/AddFamilyMember' element={<ProtectedRoute element={AddFamilyMember} />} />
+          <Route exact path='/TeamDashbord' element={<ProtectedRoute element={TeamDashbord} />} />
+          <Route exact path='/MemberDashBord' element={<ProtectedRoute element={MemberDashBord} />} />
+          <Route exact path='/FamilyDashBord' element={<ProtectedRoute element={FamilyDashBord} />} />
+          <Route exact path='/TrainingDashBord' element={<ProtectedRoute element={TrainingDashBord} />} />
+          <Route exact path='/PracticeDashBord' element={<ProtectedRoute element={PracticeDashBord} />} />
+          <Route exact path='/CreatePracticeForm' element={<ProtectedRoute element={CreatePracticeForm} />} />
+          <Route exact path='/AddMemberAndTeam' element={<ProtectedRoute element={AddMemberAndTeam} />} />
+          <Route exact path='/EventDetails' element={<ProtectedRoute element={EventDetails} />} />
+          <Route exact path='/ViewProfile' element={<ProtectedRoute element={ViewProfile} />} />
+          <Route exact path='/ChangePass' element={<ProtectedRoute element={ChangePass} />} />
 
-      </Routes>
-      {isRoute && <ChatBox />}
 
 
-      {!isRoute && <Footer />}
 
+          {/* temprary routes */}
+          <Route exact path='/ComingSoon' element={<ComingSoon />} />
+
+        </Routes>
+        {isRoute && <ChatBox />}
+
+
+        {!isRoute && <Footer />}
+     
 
     </>
 

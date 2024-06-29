@@ -107,21 +107,28 @@ const MemberDashBord = () => {
     const handleInvite = async () => {
         const url = BaseUrl();
 
-        let formData = new FormData();
-        formData.append('teamId', selectedTeamId);
-        formData.append('memberId', member.memberId);
-        formData.append('isAdmin', 'false');
-        formData.append('fullName', member.fullName);
-        formData.append('email', member.email);
-        formData.append('image', member.image);
-        formData.append('mobile', member.mobile)
+        // let formData = new FormData();
+        // formData.append('teamId', selectedTeamId);
+        // formData.append('memberId', member.memberId);
+        // formData.append('isAdmin', 'false');
+        // formData.append('fullName', member.fullName);
+        // formData.append('email', member.email);
+        // formData.append('image', member.image);
+        // formData.append('mobile', member.mobile)
 
 
-        // console.log("invite data", ...formData);
+        let data = {
+            'memberId': member.member_id,
+            'teamId': selectedTeamId
+          }
+
+
+        console.log("invite data", data);
+        // return;
         
 
         try {
-            const response = await axios.post(`${url}/api/v1/user/team/add-member`, formData,  {
+            const response = await axios.post(`${url}/api/v1/user/team/add-member`, data,  {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
@@ -129,8 +136,9 @@ const MemberDashBord = () => {
             })
 
             if (response.data.status === 200) {
-                console.log("invite sent successfully", response.data);
-                toast.success("Invite sent successfully");
+                // console.log("invite sent successfully", response.data);
+                const messages = response.data.message;
+                toast.success(messages);
                 handleCloseAddMember();
             } else {
                 
@@ -209,7 +217,7 @@ const MemberDashBord = () => {
 
 
                             <div className="col-md-8">
-
+                            <ToastContainer />
                                 <div className="dashbord-container itemsColor rounded-4 p-3 mt-4">
                                     <div className=" d-flex justify-content-between" >
                                         <h4>{member.fullName}'s Team</h4>
@@ -326,10 +334,10 @@ const MemberDashBord = () => {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="row justify-content-center align-items-center flex-grow-1 overflow-auto">
-                                            <ToastContainer />
+                                        <div className="row justify-content-center  flex-grow-5 overflow-auto">
+                                           
                                             {allTeams.map((team, index) => (
-                                                <div key={index} className="col-12 mt-2 mb-3 rounded-4 teamList">
+                                                <div key={index} className=" mt-2 mb-3 rounded-4   teamList">
                                                     <label
                                                         className="d-flex align-items-center teams-container px-3 py-2"
                                                         style={{
@@ -373,7 +381,7 @@ const MemberDashBord = () => {
                                                                         />
                                                                     </div>
                                                                     <div>
-                                                                        <p className="sport-text">{team.sport.sports_name.slice(0, 12) + ".."}</p>
+                                                                        <p className="sport-text">{team.sport.sports_name.slice(0, 10) + ".."}</p>
                                                                     </div>
                                                                 </div>
                                                             )}

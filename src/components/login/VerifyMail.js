@@ -1,29 +1,24 @@
 // ForgotPassword.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS file
 import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 // import mail from "../../assets/afterLogin picks/mail.png";
-import { useLocation } from 'react-router-dom';
-import pen from "../../assets/afterLogin picks/pen.png";
+// import { useLocation } from 'react-router-dom';
+// import pen from "../../assets/afterLogin picks/pen.png";
 import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
-import Alerts from '../Alerts';
 import { useState } from 'react';
+import {  ToastContainer, toast } from 'react-toastify';
 
 
 
 
 
-const VerifyMail = ({ closeOffcanvas, handleCloseVerificationMail, goToLogin }) => {
+const VerifyMail = ({  handleCloseVerificationMail, goToLogin, email }) => {
 
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
+    const [userData, setUserData] = useState("")
 
-    const location = useLocation();
-    const email = location.state?.email;
-
-    
 
     const handleGoToLogin = () => {
         if (typeof goToLogin === 'function') {
@@ -35,33 +30,48 @@ const VerifyMail = ({ closeOffcanvas, handleCloseVerificationMail, goToLogin }) 
     };
 
 
+    useEffect(() => {
+        const getUserData = async () => {
+            const userData = JSON.parse(localStorage.getItem('userData'))
+            // console.log(userData.user)
+            setUserData(userData.user)
+        };
+
+        getUserData()
+    }, []);
+
+
 
     const reSendLink = BaseUrl();
     const handleResendVerification = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post(`${reSendLink}/api/v1/auth/resend/mail-verification/link`, {
-                email: email
 
-            })
+
+        let data = {
+            "email": email,
+            "id": userData?._id
+
+        }
+        // console.log("resend clicked", data);
+
+        try {
+            const response = await axios.post(`${reSendLink}/api/v1/auth/resend/mail-verification/link`, data)
 
             if (response.data.status === 200) {
-                console.log(response.data);
-
-                const successMessage = response.data.errors ? response.data.errors.msg : 'Email sent successfully';
-                setAlertMessage(successMessage);
-                setAlertType('success');
+                console.log(response.data.data.message);
+                const message = response.data.data.message;
+                handleGoToLogin();
+                toast.success(message);
             } else {
                 console.log(response.data);
 
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error sending email';
-                setAlertMessage(errorMessage);
-                setAlertType('error');
+
+                toast.error(errorMessage);
             }
         } catch (error) {
-            console.error(error);
-            setAlertMessage('internal server error');
-            setAlertType('error');
+            // console.error(error);
+            toast.error('internal server error');
         }
 
     }
@@ -71,11 +81,11 @@ const VerifyMail = ({ closeOffcanvas, handleCloseVerificationMail, goToLogin }) 
 
     return (
         <div className="ForgotPassword  ">
-           
+
             <div className="">
-
+               
                 <div className='container'>
-
+                <ToastContainer />
                     <div className='text-center'>
                         <div className="forgot-password-img">
 
@@ -93,9 +103,11 @@ const VerifyMail = ({ closeOffcanvas, handleCloseVerificationMail, goToLogin }) 
                             </p>
                         </div>
                         <p>  {email ? <p> {email}</p> : <p>Email not found.</p>}
-                            <img src={pen} alt="pen" /> </p>
+                            {/* <img src={pen} alt="pen" /> */}
+                            
+                             </p>
                     </div>
-                    {alertMessage && <Alerts message={alertMessage} type={alertType} />}
+                 
 
                     <div className='p-md-4'>
 
@@ -118,12 +130,12 @@ const VerifyMail = ({ closeOffcanvas, handleCloseVerificationMail, goToLogin }) 
                                 </div>
                             </div> */}
 
-                            <button type="submit" className="btn btn-danger py-3 login-botton mt-4">Resend</button>
+                            <button type="submit" className="btn btn-danger py-2 login-botton mt-4">Resend</button>
                             <div className=' d-flex justify-content-center mt-4'>
 
-                            
-                            <button onClick={handleGoToLogin} className='text-decoration-none custom-color btn'>Go to Login</button>
-                        </div>
+
+                                <button onClick={handleGoToLogin} className='text-decoration-none custom-color btn'>Go to Login</button>
+                            </div>
                         </form>
                     </div>
 

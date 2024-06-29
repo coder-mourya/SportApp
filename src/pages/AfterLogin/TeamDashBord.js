@@ -13,8 +13,8 @@ import download from "../../assets/afterLogin picks/My team/download.svg";
 import share from "../../assets/afterLogin picks/My team/share.svg";
 import pen from "../../assets/afterLogin picks/pen.png";
 import Modal from 'react-bootstrap/Modal';
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, EmailShareButton } from 'react-share';
-import { FacebookIcon, TwitterIcon, LinkedinIcon, EmailIcon } from 'react-share';
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, EmailShareButton, WhatsappShareButton, } from 'react-share';
+import { FacebookIcon, TwitterIcon, LinkedinIcon, EmailIcon, WhatsappIcon } from 'react-share';
 import axios from "axios";
 import { BaseUrl } from "../../reducers/Api/bassUrl";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -28,6 +28,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditMember from "../../components/AfterLogin/CreateTeam/EditMember";
 import CreatorDetails from "../../components/AfterLogin/CreateTeam/CreatorDetails";
 import admin from "../../assets/afterLogin picks/My team/admin.svg";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { fetchTeamDetails } from "../../reducers/teamSlice";
+import { useDispatch } from "react-redux";
+// import { useAlert } from 'react-alert';
+
 
 
 
@@ -41,22 +47,61 @@ const TeamDashbord = () => {
     const { team } = location.state;
     const [show, setShow] = useState(false);
     const [currentTeam, setCurrentTeam] = useState(null);
-    const [teamDetails, setTeamDetails] = useState(null);
+    // const [teamDetails, setTeamDetails] = useState(null);
     const token = useSelector(state => state.auth.user.data.user.token);
     const currentUser = useSelector(state => state.auth.user.data.user);
+    const teamDetails = useSelector(state => state.teams.teamDetails);
+    const dispatch = useDispatch();
+    const teamIDFromLink = location.state?.teamID;
+    const teamIdFromStore = team?._id;
+    // console.log("team details in team dashbord", teamDetails);
 
-    // console.log("current user", currentUser);
-
-    const shareUrl = 'https://sportsnerve.com/';
-    const title = 'Sports Nerve';
+    const [shareUrl, setShareUrl] = useState('');
+    const [title, setTitle] = useState('');
     // console.log(`reciving team data`, team);
+    // const alert = useAlert();
+
 
 
     const handleCloseModal = () => {
         setShow(false);
     };
 
-    const handleShow = () => setShow(true);
+    const handleShow = (shareUrl) => {
+        setShow(true);
+        setShareUrl(shareUrl);
+    };
+
+    const handleShareButtonClick = (e, team) => {
+        e.stopPropagation();
+        const teamShareUrl = `${window.location.origin}/join-team/${team._id}`;
+        const title = `Hey, we are using a new app, Sports Nerve, for our team event & activity planning. Click the link, download the app & join ${team.teamName} now!`;
+        setTitle(title);
+        setCurrentTeam(team);
+        handleShow(teamShareUrl);
+    };
+
+
+    const handleCopy = () => {
+        // Create a temporary input element
+        const tempInput = document.createElement('input');
+        tempInput.value = shareUrl; // Use the share URL
+
+        document.body.appendChild(tempInput);
+
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+        document.execCommand('copy');
+
+
+        document.body.removeChild(tempInput);
+
+
+    };
+
+
+
 
     // for add member
     const [showAddMember, setShowAddMember] = useState(false);
@@ -77,31 +122,44 @@ const TeamDashbord = () => {
     const handleShowInvite = (member) => {
         setShowInvite(true);
         setInvitedMember(member)
-        console.log(member);
+        // console.log(member);
     }
-    const handleCloseInvite = () => setShowInvite(false);
+    const handleCloseInvite = () => {
+        setShowInvite(false);
+
+    };
 
     useEffect(() => {
+        const inviteAccepted = localStorage.getItem('inviteAccepted');
         if (teamDetails && teamDetails.members) {
-            const pendingMember = teamDetails.members.find(member => member.requestStatus === 1 && member.memberId === currentUser._id);
-            if (pendingMember) {
+            const pendingMember = teamDetails.members.find(
+                member => member.requestStatus === 1 && member.memberId === currentUser._id
+            );
+            if (!inviteAccepted && teamIDFromLink) {
+                handleShowInvite(pendingMember);
+            } else if (!inviteAccepted && teamIDFromLink && pendingMember) {
+                handleShowInvite(pendingMember);
+            } else if (pendingMember) {
                 handleShowInvite(pendingMember);
             }
         }
-    }, [teamDetails, currentUser._id]);
+    }, [teamDetails, currentUser._id, teamIDFromLink]);
 
 
     // for fill about me 
     const [showAboutMe, setShowAboutMe] = useState(false);
-    const handleShowAboutMe = () => {
-        setShowAboutMe(true)
-    }
+    const handleShowAboutMe = () => setShowAboutMe(true)
     const handleCloseAboutMe = () => setShowAboutMe(false);
 
     useEffect(() => {
         if (teamDetails && teamDetails.members) {
 
-            const memberWithoutJerseyDetails = teamDetails.members.find(member => member.jerseyDetails === null && currentUser._id === member.memberId && member.requestStatus === 2 && teamDetails.user_id !== currentUser._id);
+            const memberWithoutJerseyDetails = teamDetails.members.find(
+                member => member.jerseyDetails === null &&
+                    currentUser._id === member.memberId &&
+                    member.requestStatus === 2 &&
+                    teamDetails.user_id !== currentUser._id
+            );
             if (memberWithoutJerseyDetails) {
                 handleShowAboutMe();
             }
@@ -125,9 +183,9 @@ const TeamDashbord = () => {
     const handleMemberNavigation = (member) => {
         // console.log("member", member);
         if (member.requestStatus === 1) {
-            alert("The user didn't Accepted your Invite")
+            toast.error("The user didn't Accepted your Invite")
         } else if (member.jerseyDetails === null) {
-            alert("The user didn't introduce yet.");
+            toast.error("The user didn't introduce yet.");
         } else {
             handleShowEditMember(member);
         }
@@ -147,27 +205,6 @@ const TeamDashbord = () => {
 
 
 
-    const handleCopy = () => {
-        // Create a temporary input element
-        const tempInput = document.createElement('input');
-        tempInput.value = shareUrl; // Use the share URL
-
-        // Append the input to the body
-        document.body.appendChild(tempInput);
-
-        // Select the input
-        tempInput.select();
-        tempInput.setSelectionRange(0, 99999); // For mobile devices
-
-        // Copy the URL to the clipboard
-        document.execCommand('copy');
-
-        // Remove the temporary input
-        document.body.removeChild(tempInput);
-
-        // Optionally, show a toast or notification to indicate that the link has been copied
-        // You can use libraries like react-toastify for this
-    };
 
 
     const toggleSidebar = () => {
@@ -205,24 +242,22 @@ const TeamDashbord = () => {
 
 
 
+
+
     useEffect(() => {
-        // get team details
-        const getTeamDetails = async () => {
-            const teamDetailsUrl = BaseUrl();
-            try {
-                const response = await axios.get(`${teamDetailsUrl}/api/v1/user/team/details/${team._id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    }
-                });
-                setTeamDetails(response.data.data.teamDetails);
-                console.log(`team details`, response.data.data.teamDetails);
-            } catch (error) {
-                console.error("Error fetching team details:", error);
+
+
+        if (token) {
+            if (teamIDFromLink) {
+
+                dispatch(fetchTeamDetails({ teamId: teamIDFromLink, token }));
+
+            } else if (teamIdFromStore) {
+
+                dispatch(fetchTeamDetails({ teamId: teamIdFromStore, token }));
             }
-        };
-        getTeamDetails();
-    }, [token, team._id]);
+        }
+    }, [token, dispatch, teamIDFromLink, teamIdFromStore]);
 
 
 
@@ -237,7 +272,6 @@ const TeamDashbord = () => {
             teamId: teamId,
             status: status,
 
-
         }
 
         if (invitedMember?._id) {
@@ -245,8 +279,8 @@ const TeamDashbord = () => {
         }
 
 
-        console.log("checck data", data);
-        // return;
+        // console.log("checck data", data);
+
 
         try {
             const response = await axios.post(`${inviteUrl}/api/v1/user/team/request/accept-reject`, data,
@@ -256,29 +290,21 @@ const TeamDashbord = () => {
                     },
                 });
 
-            console.log("checck response ", response);
+
 
 
             if (response.data.status === 200) {
-                const updatedMemberId = response.data;
-                console.log("updatedMemberId", updatedMemberId);
-
-                setTeamDetails(prevState => {
-                    const updatedMembers = prevState.members.map(member => {
-                        if (member.memberId === updatedMemberId) {
-                            return { ...member, requestStatus: status };
-                        }
-                        return member;
-                    });
-                    return { ...prevState, members: updatedMembers };
-                });
-
-                toast.success(response.data.message);
                 handleCloseInvite();
-                window.location.reload()
-                // handleShowAboutMe();
+                toast.success(response.data.message);
+                dispatch(fetchTeamDetails({ teamId, token }));
+
+                localStorage.setItem('inviteAccepted', 'true');
+                window.location.reload();
             } else {
-                toast.error(response.data.message); // Handle error messages
+                console.log("check error", response.data);
+                const message = response.data.errors.msg;
+                toast.error(message);
+
             }
 
 
@@ -295,8 +321,6 @@ const TeamDashbord = () => {
     // delete member
     const handleDeleteMember = async (member, teamId) => {
 
-        // let isGoBack = false;
-
         let data = {
             teamId: teamId,
         };
@@ -304,12 +328,10 @@ const TeamDashbord = () => {
         if (member.memberId == null) {
             data["member_id"] = member._id;
             if (member._id === currentUser?._id) {
-                //   isGoBack = true;
             }
         } else {
             data["memberId"] = member.memberId;
             if (member.memberId === currentUser?._id) {
-                //   isGoBack = true;
             }
         }
 
@@ -324,14 +346,8 @@ const TeamDashbord = () => {
             if (response.data.status === 200) {
                 console.log("response", response.data);
 
-
-                setTeamDetails(prevState => {
-                    // Filter out the deleted member from the previous state
-                    const updatedMembers = prevState.members.filter(m => m._id !== member._id);
-                    return { ...prevState, members: updatedMembers };
-                });
-
                 const message = response.data.message;
+                dispatch(fetchTeamDetails({ teamId, token }))
                 toast.success(message)
 
             }
@@ -344,17 +360,12 @@ const TeamDashbord = () => {
 
     // Alert for when user click on admin of creator 
     const handleAlert = () => {
-        alert("Can't change Admin status of creator")
+        toast.error("Can't change Admin status of creator")
     }
 
 
     // handle admin status
     const handleAdminStatusChange = async (member) => {
-        // console.log(member);
-        if (!teamDetails.admins.includes(currentUser._id)) {
-            alert("You are not an admin of this team, you can't change the admin status");
-            return;
-        }
 
 
         let isAdmin = member.isAdmin;
@@ -375,7 +386,7 @@ const TeamDashbord = () => {
         }
 
         // console.log("check what data sending ", data);
-        
+
 
 
         const url = BaseUrl();
@@ -389,19 +400,12 @@ const TeamDashbord = () => {
             if (response.data.status === 200) {
                 console.log(response.data);
                 toast.success(response.data.message)
-
-                setTeamDetails(prevState => {
-                    // Update the admin status of the member
-                    const updatedMembers = prevState.members.map(m =>
-                        m.memberId === member.memberId ? { ...m, isAdmin: status } : m
-                    );
-                    return { ...prevState, members: updatedMembers };
-                });
-
+                dispatch(fetchTeamDetails({ teamId: team._id, token }));
 
             } else {
-                console.log(response.data);
-                toast.error(response.data.message)
+                const errorMessage = response.data.errors ? response.data.errors.msg : "Error updating profile";
+                toast.error(errorMessage);
+                console.log("Error updating profile", response.data);
             }
 
         } catch (error) {
@@ -411,6 +415,119 @@ const TeamDashbord = () => {
     }
 
 
+    const handleDeleteTeam = async () => {
+        const url = BaseUrl();
+        let teamId = team._id;
+        try {
+            const response = await axios.delete(`${url}/api/v1/user/team/delete/${teamId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+
+            if (response.data.status === 200) {
+                toast.success(response.data.message)
+                Navigate("/CreateTeam")
+            } else {
+                const errorMessage = response.data.errors ? response.data.errors.msg : "Error updating profile";
+                toast.error(errorMessage);
+                console.log("Error updating profile", response.data);
+            }
+        } catch (error) {
+
+        }
+    }
+
+
+
+    const showConfirmation = (member, teamId) => {
+        confirmAlert({
+            title: 'Confirmation',
+            message: 'Are you sure you want to delete this user ?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    className: 'yes-button',
+                    onClick: () => {
+                        handleDeleteMember(member, teamId);
+                    }
+                },
+                {
+                    label: 'No',
+                    className: 'no-button',
+                    onClick: () => {
+                        // Logic to execute when "No" is clicked
+                        // console.log('You clicked No!');
+                        return;
+                    }
+                }
+            ]
+        });
+    };
+
+
+
+    const showAddConfirmation = (member) => {
+        if (!teamDetails.admins.includes(currentUser._id)) {
+            toast.error("You are not an admin of this team, you can't change the admin status");
+            return;
+        }
+
+        confirmAlert({
+            title: 'Confirmation',
+            message: 'Are you sure want make admin for this user ?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    className: 'yes-button',
+                    onClick: () => {
+                        handleAdminStatusChange(member);
+                    }
+                },
+                {
+                    label: 'No',
+                    className: 'no-button',
+                    onClick: () => {
+                        // Logic to execute when "No" is clicked
+                        // console.log('You clicked No!');
+                        return;
+                    }
+                }
+            ]
+        });
+    };
+
+
+    const showConfirmationTeamDelete = (teamId) => {
+        if (!teamDetails.admins.includes(currentUser._id)) {
+            // toast.error("You are not an admin of this team, you can't delete the team");
+            toast.error("You are not an admin of this team, you can't delete the team");
+            return;
+        }
+
+        confirmAlert({
+            title: 'Confirmation',
+            message: 'Are you sure you want to delete this  Team ?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    className: 'yes-button',
+                    onClick: () => {
+                        handleDeleteTeam(teamId);
+                    }
+                },
+                {
+                    label: 'No',
+                    className: 'no-button',
+                    onClick: () => {
+                        // Logic to execute when "No" is clicked
+                        // console.log('You clicked No!');
+                        return;
+                    }
+                }
+            ]
+        });
+    };
 
 
 
@@ -429,19 +546,34 @@ const TeamDashbord = () => {
 
                     <ToastContainer />
 
-
                     <div className=" team-dashbord">
 
-                        <div className="d-flex">
+                        <div className="d-flex  ">
+
+
                             <button className="btn  prev-button me-3" onClick={handleCrose} style={{
                                 height: "40px",
 
                             }}><img src={arrow} alt="prevus" /></button>
-                            <h3>{team.teamName}</h3>
+                            <h3>{teamDetails && teamDetails.teamName}</h3>
+
+                            <div className="d-flex ms-auto ">
+
+                                <button className="btn  delete-button"
+                                    style={{
+                                        width: "195px",
+                                        color: "#D32F2F",
+                                        borderColor: "#D32F2F",
+                                    }}
+
+                                    onClick={() => showConfirmationTeamDelete(team._id)}
+                                >Delete Team</button>
+                            </div>
+
                         </div>
 
                         <div className="dashbord-container itemsColor rounded p-3 mt-4">
-                            <Modal show={show} onHide={handleCloseModal} >
+                            <Modal show={show} onHide={handleCloseModal}  >
                                 <Modal.Header closeButton>
                                     <Modal.Title>
                                         {currentTeam && <img src={currentTeam.logo} alt="team logo"
@@ -451,7 +583,7 @@ const TeamDashbord = () => {
                                                 borderRadius: "50%"
                                             }} />}
                                     </Modal.Title>
-                                    <p className="ms-3 pt-2">Join team KKR on Sports Nerve!</p>
+                                    <p className="ms-3 pt-2">Join team {currentTeam && currentTeam.teamName} on Sports Nerve!</p>
                                 </Modal.Header>
                                 <Modal.Body>
 
@@ -475,6 +607,10 @@ const TeamDashbord = () => {
                                         <EmailShareButton url={shareUrl} subject={title}>
                                             <EmailIcon size={50} round />
                                         </EmailShareButton>
+
+                                        <WhatsappShareButton url={shareUrl} title={title}>
+                                            <WhatsappIcon size={50} round />
+                                        </WhatsappShareButton>
                                     </div>
 
                                     <div className="d-flex align-items-center justify-content-between">
@@ -509,10 +645,9 @@ const TeamDashbord = () => {
                             <div className="team-banner rounded d-flex justify-content-center align-items-center">
                                 <div className="text-center">
                                     <div className="edit-penAndshare">
-                                        <button className="btn share d-flex justfify-content-center me-2" onClick={(e) => {
-                                            setCurrentTeam(team);
-                                            handleShow();
-                                        }}>
+                                        <button className="btn share d-flex justfify-content-center me-2"
+                                            onClick={(e) => handleShareButtonClick(e, team)}
+                                        >
                                             <img src={share} alt="" />
                                             <p className="ms-2">Share</p>
                                         </button>
@@ -524,22 +659,22 @@ const TeamDashbord = () => {
                                         )}
 
                                     </div>
-                                    <img src={team.coverPhoto} alt="cover-pick" className="cover-pick" />
-                                    <img src={team.logo} alt="teamlogo" className="teamlogo" />
-                                    <p className=" team-Name">{team.teamName}</p>
+                                    <img src={teamDetails && teamDetails.coverPhoto} alt="cover-pick" className="cover-pick" />
+                                    <img src={teamDetails && teamDetails.logo} alt="teamlogo" className="teamlogo" />
+                                    <p className=" team-Name">{teamDetails && teamDetails.teamName}</p>
 
 
                                     <div className="d-flex justify-content-center  sports-icons  px-2 ">
                                         <div className="mx-1 d-flex  align-items-center">
-                                            <img src={team.sport.selected_image} alt="sporticon" style={{ width: "25px", height: "25px" }} />
+                                            <img src={teamDetails && teamDetails.sport.selected_image} alt="sporticon" style={{ width: "25px", height: "25px" }} />
                                         </div>
                                         <div className="mx-1">
                                             <p className="sport-text" style={{ fontSize: "14px", paddingTop: "4px" }}>
                                                 {/* slice text in small screens */}
                                                 {window.innerWidth <= 1284 ? (
-                                                    team.sport.sports_name.slice(0, 7) + ".."
+                                                    teamDetails && teamDetails.sport.sports_name.slice(0, 7) + ".."
                                                 ) : (
-                                                    team.sport.sports_name
+                                                    teamDetails && teamDetails.sport.sports_name
                                                 )}</p>
                                         </div>
                                     </div>
@@ -591,6 +726,7 @@ const TeamDashbord = () => {
                                                             <img src={seting} alt="settings"
                                                                 style={{ cursor: "pointer" }}
                                                                 onClick={handleAlert}
+                                                            // onClick={}
                                                             />
                                                         </div>
                                                     </div>
@@ -616,7 +752,8 @@ const TeamDashbord = () => {
                                                             <img
                                                                 src={Delete}
                                                                 alt="delete"
-                                                                onClick={() => handleDeleteMember(member, team._id)}
+                                                                // onClick={() => handleDeleteMember(member, team._id)}
+                                                                onClick={() => showConfirmation(member, team._id)}
                                                                 style={{ zIndex: 100, cursor: "pointer" }}
                                                             />
                                                         </div>
@@ -627,38 +764,31 @@ const TeamDashbord = () => {
                                             content = (
                                                 <div className="d-flex align-items-center">
                                                     <p className="mt-2 mb-1 ms-2">{member.fullName}</p>
+
+
+
                                                     <div className="d-flex align-items-center ms-auto">
+                                                        {teamDetails && teamDetails.members.some(member => member.memberId === currentUser._id && member.isAdmin) && (
+                                                            <img
+                                                                src={Delete}
+                                                                alt="delete"
+                                                                // onClick={() => handleDeleteMember(member, team._id)}
+                                                                onClick={() => showConfirmation(member, team._id)}
+
+                                                                style={{ zIndex: 100, cursor: "pointer" }}
+                                                            />
+                                                        )}
+
                                                         <p style={{
                                                             color: 'red',
                                                             paddingRight: '10px',
-                                                            cursor: "pointer",
-                                                            position: 'relative',
-                                                        }}
-                                                            className="pending"
+                                                            paddingTop: '14px',
 
-                                                        // onClick={() => handleDeleteMember(member, team._id)}
-                                                        >
+                                                        }}>
 
-                                                            Pending</p>
+                                                            Pending...</p>
 
-                                                        <button
-                                                            style={{
-                                                                position: 'absolute',
-                                                                top: 0,
-                                                                right: 0,
-                                                                display: 'none',
-                                                                cursor: "pointer",
-                                                                padding: '5px 10px',
-                                                                backgroundColor: '#f8d7da',
-                                                                border: '1px solid #f5c6cb',
-                                                                borderRadius: '5px',
-                                                                zIndex: 10
-                                                            }}
-                                                            className="remove-button"
-                                                            onClick={() => handleDeleteMember(member, team._id)}
-                                                        >
-                                                            Remove
-                                                        </button>
+
                                                     </div>
                                                 </div>
                                             );
@@ -712,7 +842,8 @@ const TeamDashbord = () => {
                                                                     height: "48px",
                                                                 }}
 
-                                                                onClick={() => handleAdminStatusChange(member)}
+                                                                // onClick={() => handleAdminStatusChange(member)}
+                                                                onClick={() => showAddConfirmation(member)}
                                                             />
                                                         </div>
                                                     )}
@@ -740,7 +871,7 @@ const TeamDashbord = () => {
                             <Offcanvas.Title>Add Member</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <AddTeamMember team={team} handleCloseAddMember={handleCloseAddMember} />
+                            <AddTeamMember team={teamDetails} handleCloseAddMember={handleCloseAddMember} />
                         </Offcanvas.Body>
                     </Offcanvas>
 
@@ -750,7 +881,7 @@ const TeamDashbord = () => {
                             <Offcanvas.Title>Edit Team</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <EditTeam team={team} handleCloseEditTeam={handleCloseEditTeam} />
+                            <EditTeam team={teamDetails} handleCloseEditTeam={handleCloseEditTeam} />
                         </Offcanvas.Body>
                     </Offcanvas>
 
@@ -776,14 +907,14 @@ const TeamDashbord = () => {
                                             color: "red",
                                             border: "1px solid red",
                                         }}
-                                        onClick={() => handleInvite(team._id, 'reject')}
+                                        onClick={() => handleInvite(teamDetails && teamDetails._id, 'reject')}
                                     >
                                         Decline
                                     </button>
 
                                     <button className="btn btn-danger accept ms-1"
                                         style={{ width: "100%" }}
-                                        onClick={() => handleInvite(team._id, 'accept')}
+                                        onClick={() => handleInvite(teamDetails && teamDetails._id, 'accept')}
                                     >
                                         Accept
                                     </button>
@@ -792,12 +923,12 @@ const TeamDashbord = () => {
                         </Offcanvas.Body>
                     </Offcanvas>
 
-                    <Offcanvas show={showAboutMe} onHide={handleCloseAboutMe} placement="end"  >
+                    <Offcanvas show={showAboutMe} placement="end"   >
                         <Offcanvas.Header >
                             <Offcanvas.Title>About me</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <AddAboutMe teamId={team._id} handleCloseAboutMe={handleCloseAboutMe} />
+                            <AddAboutMe teamId={teamDetails && teamDetails._id} handleCloseAboutMe={handleCloseAboutMe} />
                         </Offcanvas.Body>
                     </Offcanvas>
 
@@ -807,7 +938,7 @@ const TeamDashbord = () => {
                             <Offcanvas.Title>About me</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <EditMember teamId={team._id} selectedMember={selectedMember} handleCloseEditMember={handleCloseEditMember} />
+                            <EditMember teamId={teamDetails && teamDetails._id} selectedMember={selectedMember} handleCloseEditMember={handleCloseEditMember} />
                         </Offcanvas.Body>
                     </Offcanvas>
 
@@ -817,7 +948,7 @@ const TeamDashbord = () => {
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             <CreatorDetails
-                                team={team}
+                                team={teamDetails}
                                 closeCreatorDetails={closeCreatorDetails}
                                 creatorDetails={creatorDetails}
                             />

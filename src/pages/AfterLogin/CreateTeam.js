@@ -152,7 +152,7 @@ const CreateTeam = () => {
               <Offcanvas.Title>Add Member</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <AddMember />
+              <AddMember  handleCloseAddMember={handleCloseAddMember}/>
             </Offcanvas.Body>
           </Offcanvas>
           {/* offcanvas for family */}

@@ -4,57 +4,51 @@ import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS
 import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
 // import mail from "../../assets/afterLogin picks/mail.png";
-import { Link, useLocation } from 'react-router-dom';
-import pen from "../../assets/afterLogin picks/pen.png";
-import Alerts from '../Alerts';
+// import pen from "../../assets/afterLogin picks/pen.png";
 import { BaseUrl } from '../../reducers/Api/bassUrl';
-import { useState } from 'react';
+// import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+// import { useLocation } from 'react-router-dom';
 
 
-
-
-
-const PendingMail = () => {
-
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
-    const reSendLink = BaseUrl();
-
-    const location = useLocation();
-    const email = location.state?.email;
-
+const PendingMail = ({ handleClosePendingMail, email  }) => {
     
-  
+ 
+    const reSendLink = BaseUrl();
 
 
     const handleResendVerification = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post(`${reSendLink}/api/v1/auth/resend/mail-verification/link`, {
-                email: email
 
-            })
+
+        try {
+            const response = await axios.post(`${reSendLink}/api/v1/auth/send/mail-verification/link`, {
+                email: email
+            }
+
+
+            )
 
             if (response.data.status === 200) {
-                console.log(response.data);
+                // console.log(response.data);
 
                 const successMessage = response.data.errors ? response.data.errors.msg : 'Email sent successfully';
-                setAlertMessage(successMessage);
-                setAlertType('success');
+                toast.success(successMessage);
+                handleClosePendingMail();
 
             } else {
                 console.log(response.data);
 
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error sending email';
-                setAlertMessage(errorMessage);
-                setAlertType('error');
+                toast.error(errorMessage);
+
 
             }
         } catch (error) {
-            console.error(error);
-            setAlertMessage('internal server error');
-            setAlertType('error');
+            // console.error(error);
+
+            toast.error('internal server error');
 
         }
 
@@ -62,9 +56,11 @@ const PendingMail = () => {
 
 
 
+
+
     return (
         <div className="ForgotPassword ">
-            
+
             <div className="">
 
                 <div className='container'>
@@ -85,7 +81,9 @@ const PendingMail = () => {
                                 and complete your registration
                             </p>
                         </div>
-                        <p className='text-dark'> {email} <img src={pen} alt="pen" /></p>
+                        <p>  {email ? <p> {email}</p> : <p>Email not found.</p>}
+                            {/* <img src={pen} alt="pen" /> */}
+                             </p>
                     </div>
 
 
@@ -110,13 +108,16 @@ const PendingMail = () => {
                                 </div>
                             </div> */}
 
-                    {alertMessage && <Alerts alertMessage={alertMessage} alertType={alertType} />}
+                            <ToastContainer />
 
 
                             <button type="submit" className="btn btn-danger py-2 login-botton mt-4" onClick={handleResendVerification}>Resend</button>
                             <div className=' d-flex justify-content-center mt-4'>
 
-                                <Link to={"/login"}>Back to login</Link>
+                                <button onClick={(e) => { e.preventDefault(); handleClosePendingMail(); }} className='text-decoration-none custom-color btn'>
+                                    Go to Login
+                                </button>
+
                             </div>
                         </form>
                     </div>

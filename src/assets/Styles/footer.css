@@ -44,7 +44,7 @@
 }
 
 .importantLinks ul li {
-  margin: 1rem 0;
+  margin: 0.7rem 0;
 }
 
 .importantLinks ul li a {
@@ -86,14 +86,14 @@
 }
 
 .input-group input {
-  padding: 18px 100px 14px 7px;
+  padding: 15px 100px 14px 7px;
   width: 100%;
   border: none;
 }
 
 
 
-.input-group button {
+.footer .input-group button {
   position: absolute;
   top: 50%;
   right: 2%;

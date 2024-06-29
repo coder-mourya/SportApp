@@ -20,7 +20,8 @@ import VerifyMail from "./login/VerifyMail";
 
 
 
-const Navbar = () => {
+
+const Navbar = ({showLogin , setShowLogin}) => {
   const [show, setShow] = useState(false);
   const [showPassRecovery, setShowPassRecovery] = useState(false);
   const [showVerificationMail, setShowVerificationMail] = useState(false);
@@ -34,10 +35,11 @@ const Navbar = () => {
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
 
+  
   const Navigate = useNavigate();
 
 
-  const [showLogin, setShowLogin] = useState(false);
+  // const [showLogin, setShowLogin] = useState(false);
   const [currentComponent, setCurrentComponent] = useState("login");
   const handleShowLogin = () => {
     setCurrentComponent("login");
@@ -71,6 +73,7 @@ const Navbar = () => {
 
 
   const handleShowVerificationMail = (email) => {
+    console.log(email);
     setVerficationEmail(email)
     setShowVerificationMail(true);
   };
@@ -97,11 +100,11 @@ const Navbar = () => {
       case "register":
         return <Register changeComponent={handleComponentChange} closeOffcanvas={closeOffcanvas} showVerificationMail={handleShowVerificationMail} />;
       case "login":
-        return <Login changeComponent={handleComponentChange} closeOffcanvas={closeOffcanvas} />;
+        return <Login changeComponent={handleComponentChange} showLogin={handleShowLogin} closeOffcanvas={closeOffcanvas} />;
       case "passRecovery":
-        return <PassRecovery changeComponent={handleComponentChange} closeOffcanvas={closeOffcanvas} goToLogin={goToLogin} />;
+        return <PassRecovery changeComponent={handleComponentChange} closeOffcanvas={closeOffcanvas} handleClosePassRecovery={handleClosePassRecovery} goToLogin={goToLogin} />;
       default:
-        return <Login changeComponent={handleComponentChange} closeOffcanvas={closeOffcanvas} />;
+        return <Login changeComponent={handleComponentChange}  closeOffcanvas={closeOffcanvas} />;
     }
   };
 
@@ -129,6 +132,7 @@ const Navbar = () => {
 
 
   const handleLogout = () => {
+    localStorage.removeItem('inviteAccepted');
     dispatch(logout());
     Navigate("/");
   };
@@ -137,11 +141,11 @@ const Navbar = () => {
     Navigate("/ChangePass")
   }
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      console.log("user data coming", user.data.user);
-    }
-  }, [isLoggedIn, user]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     // console.log("user data coming", user.data.user);
+  //   }
+  // }, [isLoggedIn, user]);
 
 
   useEffect(() => {
@@ -152,6 +156,11 @@ const Navbar = () => {
     return () => clearInterval(interval);
   }, [])
 
+
+    
+    
+
+   
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top d-lg-block">
@@ -167,12 +176,12 @@ const Navbar = () => {
           </button>
         ) : (
           <div className="large-screen ">
-            <div>
+            {/* <div>
 
               <li className="nav-item " style={{ listStyleType: "none" }}>
                 <button className="btn"><img src={notification} alt="notification"  /></button>
               </li>
-            </div>
+            </div> */}
 
             <div>
 
@@ -212,7 +221,7 @@ const Navbar = () => {
                   <Link to={'FAQPage'} className="nav-link">{t('nav.link2')}</Link>
                 </li>
                 <li className="nav-item mx-3">
-                  <Link to={'Chart'} className="nav-link">{t('nav.link3')}</Link>
+                  <Link to={'size-chart/'} className="nav-link">{t('nav.link3')}</Link>
                 </li>
                 <li className="nav-item mx-3">
                   <Link to={'ContactPage'} className="nav-link">{t('nav.link4')}</Link>
@@ -288,7 +297,7 @@ const Navbar = () => {
                 <Link to={'FAQPage'} className="nav-link">{t('nav.link2')}</Link>
               </li>
               <li className="nav-item mx-3">
-                <Link to={'Chart'} className="nav-link">{t('nav.link3')}</Link>
+                <Link to={'size-chart/'} className="nav-link">{t('nav.link3')}</Link>
               </li>
               <li className="nav-item mx-3">
                 <Link to={'ContactPage'} className="nav-link">{t('nav.link4')}</Link>
@@ -334,7 +343,7 @@ const Navbar = () => {
 
 
       {/* offcanvas for login */}
-      <Offcanvas show={showLogin} onHide={handleCloseLogin} placement="end">
+      <Offcanvas show={showLogin} onHide={handleCloseLogin} placement="end" className="login-offcanvas">
         <Offcanvas.Header >
           <Offcanvas.Title>{getOffcanvasTitle()} </Offcanvas.Title>
         </Offcanvas.Header>
@@ -345,16 +354,16 @@ const Navbar = () => {
       </Offcanvas>
 
 
-      <Offcanvas show={showPassRecovery} onHide={handleClosePassRecovery} placement="end">
+      <Offcanvas show={showPassRecovery} onHide={handleClosePassRecovery} placement="end" className="login-offcanvas">
         <Offcanvas.Body>
-          <PassRecovery email={recoveryEmail} closeOffcanvas={closeOffcanvas} goToLogin={goToLogin} />
+          <PassRecovery email={recoveryEmail} closeOffcanvas={closeOffcanvas} handleClosePassRecovery={handleClosePassRecovery} goToLogin={goToLogin} />
 
         </Offcanvas.Body>
       </Offcanvas>
 
 
 
-      <Offcanvas show={showVerificationMail} onHide={handleCloseVerificationMail} placement="end">
+      <Offcanvas show={showVerificationMail} onHide={handleCloseVerificationMail} placement="end" className="login-offcanvas">
         <Offcanvas.Body>
           <VerifyMail email={vericationEmail} handleCloseVerificationMail={handleCloseVerificationMail} goToLogin={goToLogin} />
 

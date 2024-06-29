@@ -2,6 +2,7 @@ import React from "react";
 import addPhotoIcon from "../../../assets/afterLogin picks/My team/upload-icon.svg";
 import { useRef } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
     const fileInputRef = useRef(null);
@@ -9,47 +10,13 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
     const [creatorImage, setCreatorImage] = useState([]);
 
     const jerseySizes = [
-        "YMD-10",
-        "YLG 14 - 16",
-        "YXL 18-20",
-        "XS",   // Extra Small
-        "S",    // Small
-        "M",    // Medium
-        "L",    // Large
-        "XL",   // Extra Large
-        "XXL",  // Double Extra Large
-        "XXXL", // Triple Extra Large
-        "4XL",  // Quadruple Extra Large
-        "5XL",  // Quintuple Extra Large
-        "6XL",  // Sextuple Extra Large
-        "7XL",  // Septuple Extra Large
-        "8XL",  // Octuple Extra Large
-        "9XL",  // Nonuple Extra Large
-        "10XL"  // Decuple Extra Large
+       'YXS 7', 'YSM 8', 'YMD 10 - 12', 'YLG 14 - 16', 'YXL 18 - 20', 'XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '1X', '2X', '3X'
+
     ];
 
     const trouserSizes = [
-        "XS",         // Extra Small
-        "S",          // Small
-        "M",          // Medium
-        "L",          // Large
-        "XL",         // Extra Large
-        "XXL",        // Double Extra Large
-        "XXXL",       // Triple Extra Large
-        "4XL",        // Quadruple Extra Large
-        "5XL",        // Quintuple Extra Large
-        "28",         // Numeric size 28
-        "30",         // Numeric size 30
-        "32",         // Numeric size 32
-        "34",         // Numeric size 34
-        "36",         // Numeric size 36
-        "38",         // Numeric size 38
-        "40",         // Numeric size 40
-        "42",         // Numeric size 42
-        "44",         // Numeric size 44
-        "YMD-10",     // Youth Medium 10
-        "YLG 14 - 16",// Youth Large 14 - 16
-        "YXL 18-20"   // Youth Extra Large 18 - 20
+       'YXS 7', 'YSM 8', 'YMD 10 - 12', 'YLG 14 - 16', 'YXL 18 - 20', 'XXS', 'XS', 'SM', 'MD', 'LG', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '1X', '2X', '3X'
+
     ];
 
 
@@ -176,6 +143,14 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
 
                         </div>
                     </div>
+                </div>
+
+                <div className="py-1">
+                    <Link to={"/size-chart"} 
+                    style={{fontSize: "15px",
+                        textDecoration: "none"
+                    }}
+                    >Size Chart</Link>
                 </div>
 
                 <div className="row ">
