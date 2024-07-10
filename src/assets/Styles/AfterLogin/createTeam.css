@@ -122,7 +122,6 @@
     width: 100%;
     height: 10rem;
     background-color: #FBE9E9;
-
 }
 
 
@@ -133,12 +132,12 @@
 
 .upload-overlay img {
     width: 10%;
+    /* z-index: 100; */
 }
 
 .upload-icon-container .logo-icon img {
     width: 80px;
     height: 80px;
-
     border-radius: 10px;
 }
 
@@ -152,6 +151,7 @@
 
 .upload-overlay p {
     color: #D32E2F;
+    /* z-index: 100; */
 }
 
 .input-with-icon {
@@ -184,6 +184,40 @@
 .team-details select {
     background-color: #F4F5F9;
 }
+
+.team-details select:required:invalid {
+    color: #9A9BA5;
+}
+
+
+.team-details option[value = ""][disabled] {
+    display: none;
+}
+
+.team-details option{
+    color: black;
+}
+
+#state:required:invalid {
+    color: #9A9BA5;
+}
+
+.aboutMe select{
+    background-color: #F4F5F9;
+}
+
+.aboutMe select:required:invalid {
+    color: #9A9BA5;
+}
+
+.aboutMe option[value = ""][disabled] {
+    display: none;
+}
+
+.aboutMe option{
+    color: black;
+}
+
 
 .color-picker-container {
     display: flex;

@@ -3,20 +3,17 @@ import React from 'react';
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS file
 import recover from "../../assets/afterLogin picks/Recover.png";
 import bootmImg from "../../assets/afterLogin picks/grup.png";
-// import mail from "../../assets/afterLogin picks/mail.png";
-// import pen from "../../assets/afterLogin picks/pen.png";
 import { BaseUrl } from '../../reducers/Api/bassUrl';
-// import { useState } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-// import { useLocation } from 'react-router-dom';
+import {  ToastContainer, toast } from 'react-toastify';
+import Alerts from '../Alerts';
+import { useState } from 'react';
 
 
-const PendingMail = ({ handleClosePendingMail, email  }) => {
-    
- 
+const PendingMail = ({ handleClosePendingMail, email }) => {
     const reSendLink = BaseUrl();
-
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('');
 
     const handleResendVerification = async (e) => {
         e.preventDefault();
@@ -30,26 +27,23 @@ const PendingMail = ({ handleClosePendingMail, email  }) => {
 
             )
 
-            if (response.data.status === 200) {
-                // console.log(response.data);
-
-                const successMessage = response.data.errors ? response.data.errors.msg : 'Email sent successfully';
-                toast.success(successMessage);
-                handleClosePendingMail();
-
-            } else {
-                console.log(response.data);
-
-                const errorMessage = response.data.errors ? response.data.errors.msg : 'Error sending email';
-                toast.error(errorMessage);
-
-
-            }
+            
+                if (response.data.status === 200) {
+                    // console.log(response.data);
+                    const successMessage = response.data.errors ? response.data.errors.msg : 'Email sent successfully';
+                    toast.success(successMessage);
+                    handleClosePendingMail();
+                } else {
+                    console.log(response.data);
+                    const errorMessage = response.data.errors ? response.data.errors.msg : 'Error sending email';
+                   setAlertMessage(errorMessage);
+                   setAlertType('error');
+                }
+            
         } catch (error) {
             // console.error(error);
-
-            toast.error('internal server error');
-
+            setAlertMessage('internal server error');
+            setAlertType('error');
         }
 
     }
@@ -64,6 +58,8 @@ const PendingMail = ({ handleClosePendingMail, email  }) => {
             <div className="">
 
                 <div className='container'>
+
+                {alertMessage && <Alerts message={alertMessage} type={alertType} />}
 
                     <div className='text-center'>
                         <div className="forgot-password-img">
@@ -83,33 +79,15 @@ const PendingMail = ({ handleClosePendingMail, email  }) => {
                         </div>
                         <p>  {email ? <p> {email}</p> : <p>Email not found.</p>}
                             {/* <img src={pen} alt="pen" /> */}
-                             </p>
+                        </p>
                     </div>
 
 
                     <div className='p-md-4'>
 
                         <form>
-                            {/* <div className="mb-3">
-                                <label htmlFor="exampleInputEmail1" className="form-label">
-                                    Email address
-                                </label>
-                                <div className="input-group my-1">
-                                    <span className="input-group-text">
-                                        <img src={mail} alt="mail" />
-                                    </span>
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        id="email"
-                                        aria-describedby="emailHelp"
-                                        placeholder="Email address"
-                                    />
-                                </div>
-                            </div> */}
 
                             <ToastContainer />
-
 
                             <button type="submit" className="btn btn-danger py-2 login-botton mt-4" onClick={handleResendVerification}>Resend</button>
                             <div className=' d-flex justify-content-center mt-4'>

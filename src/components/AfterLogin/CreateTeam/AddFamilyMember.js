@@ -8,16 +8,16 @@ import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import Alerts from "../../Alerts";
 import dob from "../../../assets/afterLogin picks/dob.png";
-
+import DatePicker from "react-datepicker";
+import { toast, ToastContainer } from "react-toastify";
 // import { useDispatch } from "react-redux";
 
 
 
 
 
-const AddFamilyMember = () => {
+const AddFamilyMember = ({handleCloseAddFamilyMember}) => {
     const logoInputRef = useRef(null);
     const token = useSelector(state => state.auth.user.data.user.token);
 
@@ -31,8 +31,6 @@ const AddFamilyMember = () => {
     });
 
     const [selectedImage, setSelectedImage] = useState(null);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertType, setAlertType] = useState('');
 
 
 
@@ -56,15 +54,33 @@ const AddFamilyMember = () => {
     }
 
 
+
+
     // add Member 
     const addMember = async (e) => {
         e.preventDefault();
         const addMemberUrl = BaseUrl();
 
+        const formatedDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+
+        }
+
+        const formatedData = {
+            ...formData,
+            dob: formatedDate(formData.dob),
+            gender: formData.gender.toLowerCase()
+        }
+        // console.log("form data ", formatedData);
+
+
         try {
             const response = await axios.post(
                 `${addMemberUrl}/api/v1/user/add-family-member`,
-                formData,
+                formatedData,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -74,20 +90,18 @@ const AddFamilyMember = () => {
             )
 
             if (response.data.status === 200) {
-                setAlertMessage('Member added successfully');
-                setAlertType('success');
-
-                console.log(response.data)
+                toast.success('Member added successfully');
+                handleCloseAddFamilyMember();
+                window.location.reload();
+                // console.log(response.data)
             } else {
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'error adding member';
-                setAlertMessage(errorMessage);
-                setAlertType('error');
-                console.log(response.data)
+                toast.error(errorMessage);
+                // console.log(response.data)
             }
         } catch (error) {
             console.error("Error adding member:", error);
-            setAlertMessage('internal server error');
-            setAlertType('error');
+            toast.error("internal server error");
         }
     }
 
@@ -97,7 +111,14 @@ const AddFamilyMember = () => {
         const { name, value } = event.target;
         setFormData((prevFormData) => ({
             ...prevFormData,
-            [name]: name === "gender" ? value.toLowerCase() : value,
+            [name]: value
+        }));
+    };
+
+    const handleDateChange = (date) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            dob: date,
         }));
     };
 
@@ -129,7 +150,7 @@ const AddFamilyMember = () => {
                 <form className="form " onSubmit={addMember}>
                     <div className="position-relative">
                         <label htmlFor="teamName">Full Name</label>
-                        <div className="input-with-icon mt-3">
+                        <div className="input-with-icon mt-2">
                             <input
                                 type="text"
                                 placeholder="Enter your Name "
@@ -137,15 +158,22 @@ const AddFamilyMember = () => {
                                 name="fullName"
                                 value={formData.fullName}
                                 onChange={handleInputChange}
+                                required
                             />
                             <img src={user} alt="team name" className="input-icon " />
                         </div>
                     </div>
 
-                    <div className=" mt-3">
+                    <div className="my-3">
                         <label htmlFor="formSelect">Gender</label>
-                        <select className="form-select py-2 rounded" id="gender" name="gender" value={formData.gender} onChange={handleInputChange}>
-                            <option>Select gender</option>
+                        <select className="form-select py-2 mt-2 rounded"
+                            id="gender"
+                            name="gender"
+                            value={formData.gender}
+                            onChange={handleInputChange}
+                            required
+                            >
+                            <option value="">Select gender</option>
                             <option>Male</option>
                             <option>Female</option>
                             <option>Other</option>
@@ -154,45 +182,58 @@ const AddFamilyMember = () => {
 
                     </div>
 
-                    <div className="position-relative">
-                        <label htmlFor="teamName">Date of Birth</label>
-                        <div className="input-with-icon mt-3">
-                            <input
-                                type="text"
-                                placeholder="Enter date of birth "
-                                className="py-2 rounded form-control"
-                                name="dob"
-                                value={formData.dob}
-                                onChange={handleInputChange}
+                    <div className="mb-3">
+                        <label htmlFor="dob" className="form-label">Date of Birth</label>
+
+                        <div className="input-group mt-1"
+                        >
+                            <span className="input-group-text "
+                                style={{ height: "42px" }}
+                            >
+                                <img src={dob} alt="password" />
+                            </span>
+                            <DatePicker
+                                type="date"
+                                selected={formData.dob}
+                                onChange={handleDateChange}
+                                dateFormat="yyyy-MM-dd"
+                                className={`form-control py-2 mt-0`}
+                                id="dateOfBirth"
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
+                                placeholderText="Select your date of birth"
+                                required
                             />
-                            <img src={dob} alt="team name" className="input-icon " />
+
+
                         </div>
                     </div>
 
+
                     <div className="position-relative">
                         <label htmlFor="relationWithCreator">Relation</label>
-                        <div className="input-with-icon mt-3">
+                        <div className="input-with-icon mt-2">
                             <select
                                 className="py-2 rounded form-control"
                                 name="relationWithCreator"
                                 value={formData.relationWithCreator}
                                 onChange={handleInputChange}
+                                required
                             >
-                                <option value="">Select Relation</option>
-                                <option value="Brother">Brother</option>
-                                <option value="Sister">Sister</option>
-                                <option value="Daughter">Daughter</option>
-                                <option value="Father">Father</option>
-                                <option value="Mother">Mother</option>
-                                <option value="Son">Son</option>
-                                <option value="Wife">Wife</option>
+                                <option value="" disabled selected>Select Relation</option>
+                                <option >Brother</option>
+                                <option >Sister</option>
+                                <option >Daughter</option>
+                                <option >Father</option>
+                                <option >Mother</option>
+                                <option >Son</option>
+                                <option >Wife</option>
 
                             </select>
                         </div>
                     </div>
-
-
-                    {alertMessage && <Alerts type={alertType} message={alertMessage} />}
+                    <ToastContainer />
 
                     <div className="addMember-btn  d-flex justify-content-center  mb-xxl-3 mb-3">
                         <button type="submit" className="btn btn-danger ">Save</button>

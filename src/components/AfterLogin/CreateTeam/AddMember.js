@@ -128,7 +128,7 @@ const AddMember = ({handleCloseAddMember}) => {
                 <form className="form " onSubmit={addMember}>
                     <div className="position-relative">
                         <label htmlFor="teamName">Full Name</label>
-                        <div className="input-with-icon mt-3">
+                        <div className="input-with-icon ">
                             <input
                                 type="text"
                                 placeholder="Enter your Name "
@@ -141,16 +141,16 @@ const AddMember = ({handleCloseAddMember}) => {
                         </div>
                     </div>
 
-                    <div className=" mt-3">
+                    <div className="mt-3">
                         <label htmlFor="formSelect">Sport type</label>
                         <select id="option1"
                             name="sportId"
-                            className="form-select py-2 rounded form-select"
+                            className="form-select py-2 mt-2 rounded form-select"
                             onChange={handleInputChange}
                             value={formData.sportId}
-
+                            required
                         >
-                            <option >--Select sport type--</option>
+                            <option value="">--Select sport type--</option>
                             {chosenSports.map((sport, index) => (
                                 <option key={index} value={sport._id} >
                                     {sport.sports_name}
@@ -161,9 +161,9 @@ const AddMember = ({handleCloseAddMember}) => {
 
                     </div>
 
-                    <div className="position-relative">
+                    <div className="position-relative mt-3">
                         <label htmlFor="teamName">Email address</label>
-                        <div className="input-with-icon mt-3">
+                        <div className="input-with-icon mt-2">
                             <input
                                 type="text"
                                 placeholder="Enter email address "
@@ -176,9 +176,9 @@ const AddMember = ({handleCloseAddMember}) => {
                         </div>
                     </div>
 
-                    <div className="position-relative">
+                    <div className="position-relative mt-3">
                         <label htmlFor="teamName">Mobile number</label>
-                        <div className="input-with-icon mt-3">
+                        <div className="input-with-icon mt-2">
                             <input
                                 type="text"
                                 placeholder="Enter  mobile number "

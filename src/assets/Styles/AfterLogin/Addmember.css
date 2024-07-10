@@ -31,9 +31,20 @@
     cursor: pointer;
 }
 
-.Add-member select {
+.Add-member select{
     background-color: #F4F5F9;
+}
+
+.Add-member select:required:invalid {
     color: #9A9BA5;
+}
+
+.Add-member option[value=""][disabled] {
+    display: none;
+}
+
+.Add-member option{
+    color: black;
 }
 
 .dashbords-container-hieght{

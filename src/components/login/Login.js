@@ -16,8 +16,10 @@ import PendingMail from "./PendingMail";
 import { ToastContainer, toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
-import AppleLogin from 'react-apple-login';
-// import { jwtDecode } from "jwt-decode";
+// import AppleLogin from 'react-apple-login';
+import { jwtDecode } from "jwt-decode";
+import UpdateEmail from "./UpdateEmail";
+import AppleSignin from "react-apple-signin-auth";
 
 
 
@@ -25,7 +27,10 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
+  const [provider_id, setProvider_id] = useState("");
+  const [fullName, setFullName] = useState("");
   const navigate = useNavigate();
+  // const [aapleUserInfo, setAppleUserInfo] = useState({});
 
   const dispatch = useDispatch();
   const loginUrl = BaseUrl();
@@ -44,7 +49,17 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
     setShowPendingMail(true);
   };
 
+  const [emailUpdate, setEmailUpdate] = useState(false);
 
+  const handleShowUpdateEmail = ({ provider_id, fullName }) => {
+    setFullName(fullName);
+    setProvider_id(provider_id);
+    setEmailUpdate(true);
+  };
+
+  const handleCloseUpdateEmail = () => {
+    setEmailUpdate(false);
+  };
 
 
 
@@ -123,11 +138,8 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
 
       if (res.data.status === 200) {
-        const checkVerify = res.data.data;
-        if (!checkVerify.isEmailVerify) {
-          handleShowPendingMail({ email });
-          return;
-        } else {
+        // console.log("response google " , res.data);
+        {
           dispatch(loginSuccess(res.data));
           toast.success('Login Successful');
           const teamId = localStorage.getItem('teamId');
@@ -175,11 +187,13 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
 
   const handleFacebookLogin = async (response) => {
-    console.log(response);
+    // console.log(response);
+
     if (response.accessToken) {
       const email = response.email;
       let provider_id = response.userID;
-      // console.log("email", email,"provider_id", provider_id, );
+      const fullName = response.name;
+      // console.log("email", email,"provider_id", provider_id, "name ", fullName);
 
       try {
         const res = await axios.post(`${loginUrl}/api/v1/auth/login`, {
@@ -190,22 +204,29 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
         });
 
         if (res.data.status === 200) {
-          const checkVerify = res.data.data;
-          if (!checkVerify.isEmailVerify) {
-            handleShowPendingMail({ email });
+          const checkVerify = res.data.data.user;
+          console.log("check verify ", checkVerify);
+          if (!checkVerify.email ) {
+            handleShowUpdateEmail({ provider_id, fullName });
             return;
+          }else if(checkVerify.isEmailVerify === false){ 
+            handleShowPendingMail({ email });
+          }else{                      
+
+          dispatch(loginSuccess(res.data));
+          toast.success('Login Successful');
+          console.log("response facebook ", res.data.data);
+
+          const teamId = localStorage.getItem('teamId');
+          if (teamId) {
+            localStorage.removeItem('teamId');
+            navigate("/TeamDashbord", { state: { teamID: teamId } });
           } else {
-            dispatch(loginSuccess(res.data));
-            toast.success('Login Successful');
-            const teamId = localStorage.getItem('teamId');
-            if (teamId) {
-              localStorage.removeItem('teamId');
-              navigate("/TeamDashbord", { state: { teamID: teamId } });
-            } else {
-              navigate("/LoggedInHome");
-            }
+            navigate("/LoggedInHome");
           }
+
           closeOffcanvas();
+        }
         } else {
           const errorMessage = res.data.errors ? res.data.errors.msg : 'Error logging in user';
           toast.error(errorMessage);
@@ -219,19 +240,40 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
 
   const handleAppleLogin = async (response) => {
+    console.log("aaple response ", response);
+
     if (response.authorization) {
+      const idToken = response.authorization.id_token;
+      const decodedToken = jwtDecode(idToken);
+      console.log("decoded token", decodedToken);
+      const provider_id = decodedToken.sub;
+      const email = decodedToken.email;
+      // const name = decodedToken.name;
+      console.log("provider_id", provider_id);
+
+      const loginData = {
+        provider: 'apple',
+        provider_id: provider_id,
+        password: '12345',
+      }
+
+      if (email) {
+        loginData.email = email;
+      }
+
       try {
-        const res = await axios.post(`${loginUrl}/api/v1/auth/login`, {
-          provider: 'apple',
-          provider_id: response.authorization.id_token,
-        });
+        const res = await axios.post(`${loginUrl}/api/v1/auth/login`, loginData);
 
         if (res.data.status === 200) {
-          const checkVerify = res.data.data;
-          if (!checkVerify.isEmailVerify) {
-            handleShowPendingMail({ state: { email } });
+
+          const checkVerify = res.data.data.user;
+          console.log("check verify ", checkVerify);
+          if (!checkVerify.email ) {
+            handleShowUpdateEmail({ provider_id, fullName });
             return;
-          } else {
+          }else if(checkVerify.isEmailVerify === false){ 
+            handleShowPendingMail({ email });
+          }else{   
             dispatch(loginSuccess(res.data));
             toast.success('Login Successful');
             const teamId = localStorage.getItem('teamId');
@@ -241,8 +283,9 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
             } else {
               navigate("/LoggedInHome");
             }
-          }
+          
           closeOffcanvas();
+          }
         } else {
           const errorMessage = res.data.errors ? res.data.errors.msg : 'Error logging in user';
           toast.error(errorMessage);
@@ -323,6 +366,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
                   autoLoad={false}
                   fields="name,email,picture"
                   callback={handleFacebookLogin}
+                  usePopup={true}
                   icon={<img src={facebook} alt="facebook"
                     style={{
                       paddingTop: "10px",
@@ -352,14 +396,20 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
 
 
-                <AppleLogin
+                <AppleSignin
 
-                  clientId="YOUR_APPLE_CLIENT_ID"
-                  redirectURI="YOUR_REDIRECT_URI"
-                  responseType="code"
-                  responseMode="query"
-                  usePopup={true}
-                  callback={handleAppleLogin}
+                  authOptions={{
+                    clientId: "com.sportsnerve.web.sid",
+                    redirectURI: "https://dainty-gelato-b56a78.netlify.app/",
+                    responseType: "code",
+                    scope: "email name",
+                    responseMode: "query",
+                    nonce: 'nonce',
+                    state: 'state',
+                    usePopup: true,
+                  }}
+                  onSuccess={handleAppleLogin}
+                  // onSuccess={(response) => console.log(response)}
                   onError={(error) => {
                     console.error("Apple Login Failed:", error);
                     toast.error("Apple Login Failed");
@@ -404,6 +454,14 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
         <Offcanvas.Body>
           <PendingMail email={email} userId={userId} handleClosePendingMail={handleClosePendingMail} />
+        </Offcanvas.Body>
+
+      </Offcanvas>
+
+      <Offcanvas show={emailUpdate} onHide={handleCloseUpdateEmail} placement="end">
+
+        <Offcanvas.Body>
+          <UpdateEmail provider_id={provider_id} fullName={fullName} handleCloseUpdateEmail={handleCloseUpdateEmail} />
         </Offcanvas.Body>
 
       </Offcanvas>

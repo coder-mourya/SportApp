@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import { ToastContainer, toast } from "react-toastify";
-import {  fetchTeams } from "../../../reducers/teamSlice";
+import { fetchTeams } from "../../../reducers/teamSlice";
 import { useDispatch } from "react-redux";
 
-const Create = ({handleCloseCreateTeam}) => {
+const Create = ({ handleCloseCreateTeam , ValidationForm}) => {
     const [selectedStep, setSelectedStep] = useState(1); // State to track the selected step
     const [formData, setFormData] = useState({
         teamDetails: {
@@ -21,7 +21,7 @@ const Create = ({handleCloseCreateTeam}) => {
             teamColour_id: "",
             coverPhoto: null,
             logo: null,
-           
+
         },
 
         aboutMe: {
@@ -32,12 +32,11 @@ const Create = ({handleCloseCreateTeam}) => {
             pantSize: "",
             numberOnJersey: "",
             expectations: "",
-            creatorIsAdmin : true,
+            creatorIsAdmin: true,
         }
 
     });
 
-    
     const token = useSelector(state => state.auth.user.data.user.token);
     const dispatch = useDispatch();
 
@@ -47,16 +46,18 @@ const Create = ({handleCloseCreateTeam}) => {
         setSelectedStep(step);
     };
 
+
+   
     // Function to navigate to the next step
     const handleNext = () => {
-        setSelectedStep(2); 
+            setSelectedStep(2);
     };
 
-    const handlePrev = () =>{
+    const handlePrev = () => {
         setSelectedStep(1);
     }
 
- 
+
 
     // function to handle form data
     const handleFormDataChange = (section, data) => {
@@ -83,7 +84,7 @@ const Create = ({handleCloseCreateTeam}) => {
         // return;
 
         const submitUrl = BaseUrl();
-    
+
         try {
             const response = await axios.post(`${submitUrl}/api/v1/user/create/team`, combinedFormData, {
                 headers: {
@@ -91,29 +92,29 @@ const Create = ({handleCloseCreateTeam}) => {
                     'Authorization': `Bearer ${token}`
                 }
             });
-    
+
             if (response.status === 200) {
                 console.log("team created details ", response.data);
                 toast.success(response.data.message);
                 dispatch(fetchTeams(token))
                 handleCloseCreateTeam();
-                
+
             } else {
                 console.log("error in creating team", response.data);
                 toast.error(response.data.message);
             }
-    
+
         } catch (error) {
             console.error(error);
         }
     }
-    
+
     return (
         <div className="container-fluid create">
-           
+
             <div className="">
-                <ToastContainer/>
-               
+                <ToastContainer />
+
                 <div className="d-flex justify-content-between mt-2 details-options">
                     <div className="text-center">
                         <button
@@ -142,6 +143,8 @@ const Create = ({handleCloseCreateTeam}) => {
                         formData={formData.teamDetails}
                         onFormDataChange={(data) => handleFormDataChange('teamDetails', data)}
                         onNext={handleNext}
+                        
+                        
                     />
                 ) : (
                     <AboutMe

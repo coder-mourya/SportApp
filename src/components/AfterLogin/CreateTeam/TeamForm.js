@@ -7,6 +7,7 @@ import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 
 const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
@@ -16,16 +17,17 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
     const [logo, setLogo] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
-
+    const [hasImage, setHasImage] = useState(false);
 
     const [countryList, setCountryList] = useState([]);
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
     const [colors, setColors] = useState([])
-
-
+    const [error, setError] = useState({});
     const chosenSports = useSelector(state => state.auth.user.data.user.chosenSports);
     // console.log("chosen sports", chosenSports);
+
+   
 
 
     const handleFileSelect = () => {
@@ -36,8 +38,12 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
     // handle cover photo upload
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
+       if(file){
         setCoverPhoto(URL.createObjectURL(file));
         onFormDataChange({ coverPhoto: file });
+        setHasImage(true);
+        setCroppedImage(null);
+       }
     };
 
     // handle logo upload
@@ -47,22 +53,40 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
 
     const handleLogo = (e) => {
         const file2 = e.target.files[0];
-        // handleFileChange(e)
-        // console.log("logo selected", file2)
-        setLogo(URL.createObjectURL(file2))
-
-
+    
+        if(file2){
+            setLogo(URL.createObjectURL(file2))
         onFormDataChange({ logo: file2 });
+        }
+    }
+
+    const ValidationForm = () => {
+        let tempError = {};
+        if (!formData.teamName) tempError.teamName = "Team Name is required";
+        if (!formData.country) tempError.country = "Country is required";
+        if (!formData.teamColour_id) tempError.teamColour_id = "Team Color is required";
+        if (!formData.logo) tempError.logo = " Logo is required";
+        if (!formData.coverPhoto) tempError.coverPhoto = "Cover Photo is required";
+        if(!formData.sports_id) tempError.sports_id = "Sports is required";
+        setError(tempError)
+
+        console.log(" validation  error", tempError);
+        console.log("form data ", formData);
+        return Object.keys(tempError).length === 0;
     }
 
     const handleNext = () => {
-        onNext();
-    }
+        if(ValidationForm()){
+            onNext();
+        }else{
+            toast.error(`Please fill all the required fields`);
+        }        
+    };
 
     const handleCropComplete = (croppedImage) => {
         setCroppedImage(croppedImage);
-
-        // onFormDataChange({ croppedCoverPhoto: croppedImage });
+        setHasImage(true)
+        // onFormDataChange({ coverPhoto: croppedImageBlob });
     };
 
 
@@ -182,36 +206,58 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
 
                 {/* Render the selected image if available, otherwise render the default upload image */}
                 {croppedImage ? (
-                    <img src={URL.createObjectURL(croppedImage)} alt="cropped cover" className="img-fluid" style={{
-                        objectFit: "cover",
-                        borderRadius: "10px",
-                        width: "100%",
-                        height: "10rem"
-                    }} />
-                ) : (
-                    <>
-                        {coverPhoto && <img src={coverPhoto} alt="cover" className="img-fluid" 
-                          style={{
+                    <img
+                        src={URL.createObjectURL(croppedImage)}
+                        alt="cropped cover"
+                        className="img-fluid"
+                        style={{
+                            objectFit: "cover",
+                            borderRadius: "10px",
+                            width: "100%",
+                            height: "10rem",
+                            zIndex: "1"
+                        }}
+                    />
+                ) : coverPhoto ? (
+                    <img
+                        src={coverPhoto}
+                        alt="cover"
+                        className="img-fluid"
+                        style={{
                             display: "none"
-                          }}
-                        />}
-                        <div
-                            className="upload-overlay position-absolute bottom-0 end-0 p-3 d-flex align-items-center"
-                            onClick={handleFileSelect}
-                        >
-                            <img src={upload} alt="upload" />
-                            <p className="mb-0 ms-2">{coverPhoto ? "Change cover photo" : "Add cover photo"}</p>
-                            {/* Hidden file input */}
-                            <input
-                                type="file"
-                                accept="image/*"
-                                ref={fileInputRef}
-                                style={{ display: "none" }}
-                                onChange={handleFileUpload}
-                            />
-                        </div>
-                    </>
+                        }}
+                    />
+                ) : (
+                    <div style={{
+                        width: "100%",
+                        height: "10rem",
+                        backgroundColor: "#FBE9E9",
+                        borderRadius: "10px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                        
+                        {error.coverPhoto && <p className="text-danger">{error.coverPhoto}</p>}
+                    </div>
                 )}
+
+
+                <div
+                    className="upload-overlay position-absolute bottom-0 end-0 p-3 d-flex align-items-center"
+                    onClick={handleFileSelect}
+                >
+                    <img src={upload} alt="upload" />
+                    <p className="mb-0 ms-2">{hasImage ? "Change cover photo" : "Add cover photo"}</p>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        style={{ display: "none" }}
+                        onChange={handleFileUpload}
+                        required
+                    />
+                </div>
 
                 <div className="upload-icon-container" onClick={handleLogoSelect}>
 
@@ -231,6 +277,10 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                         onChange={handleLogo}
                     />
                 </div>
+
+
+                {error.teamLogo && <p className="text-danger text-center">{error.teamLogo}</p>}
+
             </div>
 
 
@@ -253,6 +303,8 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                 />
                                 <img src={user} alt="team name" className="input-icon" />
                             </div>
+                            {error.teamName && <p className="text-danger">{error.teamName}</p>}
+
                         </div>
                         <div className="col-md-6 position-relative">
                             <label htmlFor="teamName">Tagline (optional)</label>
@@ -271,7 +323,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
 
                     <div className="row">
                         <div className="col-md-6 ">
-                            <div className=" mt-4">
+                            <div className=" mt-3">
                                 <select id="sport" name="sport" className="form-select py-2 rounded"
                                     onChange={handleInputChange}
                                     value={formData.sports_id}
@@ -285,10 +337,11 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                         </option>
                                     ))}
                                 </select>
+                                {error.sports_id && <p className="text-danger">{error.sports_id}</p>}
                             </div>
                         </div>
                         <div className="col-md-6 ">
-                            <div className=" mt-4">
+                            <div className="mt-3">
                                 <select
                                     id="country"
                                     name="country"
@@ -309,6 +362,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                                         </option>
                                     ))}
                                 </select>
+                                {error.country && <p className="text-danger">{error.country}</p>}
                             </div>
                         </div>
                     </div>
@@ -316,7 +370,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                     <div className="row">
                         <div className="col-md-6 ">
                             <div className=" mt-3">
-                                <select id="state" name="state" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.state}>
+                                <select id="state" name="state" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.state} required>
                                     <option value="">--Select State--</option>
                                     {states.map((state) => (
                                         <option key={state.name} value={state.name} data-state-id={state.id}>{state.name}</option>
@@ -326,7 +380,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                         </div>
                         <div className="col-md-6 ">
                             <div className=" mt-3">
-                                <select id="city" name="city" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.city}>
+                                <select id="city" name="city" className="form-select py-2 rounded" onChange={handleInputChange} value={formData.city} required>
                                     <option value="">--Select city--</option>
                                     {cities.map((city, index) => (
                                         <option key={index} value={city.name} data-country-id={city.name}>{city.name}</option>
@@ -340,6 +394,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                 <div className="mt-2">
                     <p>Choose team color</p>
 
+                        {error.teamColour_id && <p className="text-danger">{error.teamColour_id}</p>}
                     <div className="color-picker-container">
                         {colors.map((color, index) => (
                             <button
@@ -381,6 +436,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
                         )}
 
                     </div>
+
                 </div>
             </div>
 

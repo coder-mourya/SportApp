@@ -157,6 +157,7 @@ const AddAboutMe = ({teamId, handleCloseAboutMe}) => {
                                 className="form-select py-2 rounded"
                                 onChange={handleInputChange}
                                 value={formData.jerseySize}
+                                
                             >
                                 <option>--Select Jersey Size--</option>
                                 {jerseySizes.map((size) => (

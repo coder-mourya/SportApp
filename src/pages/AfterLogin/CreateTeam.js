@@ -155,13 +155,14 @@ const CreateTeam = () => {
               <AddMember  handleCloseAddMember={handleCloseAddMember}/>
             </Offcanvas.Body>
           </Offcanvas>
+
           {/* offcanvas for family */}
           <Offcanvas show={showAddFamilyMember} onHide={handleCloseAddFamilyMember} placement="end" >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>Add Family Member</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <AddFamilyMember />
+              <AddFamilyMember  handleCloseAddFamilyMember={handleCloseAddFamilyMember}/>
             </Offcanvas.Body>
           </Offcanvas>
 

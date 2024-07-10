@@ -42,7 +42,7 @@ import Cookies from './components/Cookies';
 import JoinTeam from './components/AfterLogin/CreateTeam/JoinTeam';
 import { useState } from 'react';
 // import { ToastContainer } from 'react-toastify';
-
+// import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -63,7 +63,7 @@ function App() {
         
         <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
 
-
+{/* <ToastContainer /> */}
         <Routes>
           <Route exact path='/' element={<ProtectedRoute2 element={Home} />} />
           {/* pages Routes */}

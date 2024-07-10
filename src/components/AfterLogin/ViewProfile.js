@@ -25,6 +25,9 @@ import dob from "../../assets/afterLogin picks/dob.png";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ToastContainer, toast } from "react-toastify";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css';
+
 
 
 const ViewProfile = () => {
@@ -55,9 +58,6 @@ const ViewProfile = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [countryList, setCountryList] = useState([]);
-    // const [states, setStates] = useState([]);
-    // const [cities, setCities] = useState([]);
     const [fileSetected, setFileSelected] = useState(false)
     const token = useSelector(state => state.auth.user.data.user.token);
 
@@ -168,14 +168,15 @@ const ViewProfile = () => {
 
             if (response.data.status === 200) {
 
-               
+
                 console.log('Profile picture uploaded successfully:', response.data);
                 toast.success('Profile picture uploaded successfully');
-                
+
 
                 const updatedUserData = {
                     ...user.data.user,
-                   ...formData};
+                    ...formData
+                };
                 // console.log("updated user data ", updatedUserData);
                 dispatch(updateProfile(updatedUserData));
 
@@ -263,51 +264,24 @@ const ViewProfile = () => {
 
     };
 
-    const handleCountryChange = (e) => {
-        const selectedCountryCode = e.target.value;
-        const selectedCountry = countryList.find(
-            (country) => country.countryCode === selectedCountryCode
-        );
 
-        if (selectedCountry) {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                countryCode: selectedCountry.countryCode,
-            }));
-        }
+
+
+
+
+
+
+
+    const handlePhoneChange = (value, country) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            mobile: value,
+            phoneCode: country.dialCode,
+            phoneNumericCode: country.dialCode,
+            countryCode: country.dialCode,
+
+        }));
     };
-
-
-    useEffect(() => {
-
-
-        // get countory list
-        const getCountry = async () => {
-
-            const countoryUrl = BaseUrl()
-
-            try {
-                const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
-
-
-
-                setCountryList(response.data.data.country_list);
-
-                // console.log(response.data);
-
-            } catch (error) {
-                console.log("Error fetching country list:", error);
-            }
-
-        }
-
-        getCountry();
-
-
-    }, [])
-
-    // get state 
-
 
 
     return (
@@ -362,7 +336,7 @@ const ViewProfile = () => {
                             </form>
 
 
-                          <ToastContainer />
+                            <ToastContainer />
 
 
                             <div className="profile-details p-4">
@@ -424,7 +398,7 @@ const ViewProfile = () => {
                                                         <img src={name} alt="name" />
                                                     </span>
                                                     <input type="text"
-                                                        className="form-control"
+                                                        className="form-control pe-2"
                                                         id="fullName"
                                                         name="fullName"
                                                         value={formData.fullName}
@@ -440,7 +414,7 @@ const ViewProfile = () => {
                                                     <span className="input-group-text">
                                                         <img src={nickname} alt="nickname" />
                                                     </span>
-                                                    <input type="text" className="form-control" id="nickName" name="nickName" value={formData.nickName} onChange={handleInputChange} placeholder="Enter your nickname" />
+                                                    <input type="text" className="form-control pe-2" id="nickName" name="nickName" value={formData.nickName} onChange={handleInputChange} placeholder="Enter your nickname" />
                                                 </div>
                                             </div>
                                             <div className="mb-3">
@@ -449,7 +423,9 @@ const ViewProfile = () => {
                                                     <span className="input-group-text">
                                                         <img src={mail} alt="email" />
                                                     </span>
-                                                    <input type="email" className="form-control text-muted" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address"
+                                                    <input 
+                                                    style={{cursor:"not-allowed"}}
+                                                    type="email" className="form-control text-muted pe-2" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email address"
                                                         readOnly
                                                     />
                                                 </div>
@@ -462,26 +438,22 @@ const ViewProfile = () => {
                                                         <img src={mobile} alt="mobile" />
                                                     </span>
 
-                                                    <select
-                                                        className="contury-code"
-                                                        value={formData.countryCode}
-                                                        onChange={handleCountryChange}
-                                                        name="countryCode"
-                                                    >
-                                                        {countryList.map((country) => (
-                                                            <option
-                                                                key={country.code}
-                                                                value={country.countryCode}
-                                                                title={country.name}
-                                                            >
-                                                                {`+${country.phoneCode} ${country.name}`}
-                                                            </option>
-                                                        ))}
-                                                    </select>
+                                                    <PhoneInput
+                                                        style={{ padding: "0px" }}
+                                                        country={"in"}
+                                                        className={`form-control mobile-number `}
+                                                        id="mobile"
+                                                        name="mobile"
+                                                        value={formData.mobile}
+                                                        onChange={handlePhoneChange}
+                                                        placeholder="Enter your mobile number"
+                                                        enableSearch={true}
+                                                        scrollableCountry={true}
+                                                        searchPlaceholder="Search Country"
+
+                                                    />
 
 
-
-                                                    <input type="text" className="form-control mobile-number" id="mobile" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="Enter your mobile number" />
                                                 </div>
                                             </div>
 
@@ -490,28 +462,27 @@ const ViewProfile = () => {
                                                 <label htmlFor="dob" className="form-label">Date of Birth</label>
 
                                                 <div className="input-group my-1  "
-                                        //  onClick={() => document.getElementById('dateOfBirth').click()}
-                                        >
-                                            <span className="input-group-text "
-                                                style={{ height: "57px" }}
-                                            >
-                                                <img src={dob} alt="password" />
-                                            </span>
-                                            <DatePicker
-                                                type="date"
-                                                selected={formData.dateOfBirth}
-                                                onChange={handleDateChange}
-                                                dateFormat="MM/dd/yyyy"
-                                                className=" "
-                                                id="dateOfBirth"
-                                                showMonthDropdown
-                                                showYearDropdown
-                                                dropdownMode="select"
-                                                placeholderText="Select your date of birth"
+                                                //  onClick={() => document.getElementById('dateOfBirth').click()}
+                                                >
+                                                    <span className="input-group-text "
+                                                        style={{ height: "55px" }}
+                                                    >
+                                                        <img src={dob} alt="password" />
+                                                    </span>
+                                                    <DatePicker
+                                                        type="date"
+                                                        selected={formData.dateOfBirth}
+                                                        onChange={handleDateChange}
+                                                        dateFormat="MM/dd/yyyy"
+                                                        className=" "
+                                                        id="dateOfBirth"
+                                                        showMonthDropdown
+                                                        showYearDropdown
+                                                        dropdownMode="select"
+                                                        placeholderText="Select your date of birth"
 
-
-                                            />
-                                        </div>
+                                                    />
+                                                </div>
 
 
                                             </div>
@@ -532,7 +503,7 @@ const ViewProfile = () => {
                                                 <input type="checkbox" className="form-check-input" id="terms" name="termsChecked" checked={formData.termsChecked} onChange={handleInputChange} />
                                                 <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions</label>
                                             </div>
-                                           
+
 
                                         </div>
 

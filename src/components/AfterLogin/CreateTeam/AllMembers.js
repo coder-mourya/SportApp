@@ -10,6 +10,8 @@ import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchMembers } from "../../../reducers/memberSlice";
+import logo from "../../../assets/img/logo.png";
+
 
 
 const AllMembers = () => {
@@ -25,16 +27,13 @@ const AllMembers = () => {
 
     useEffect(() => {
         dispatch(fetchMembers(token))
+            .then(() => setLoading(false))
     }, [token, dispatch])
 
-    useEffect(() =>{
-        if(members.length > 0){
-            setLoading(false)
-        }
-    }, [members])
 
-    const handleMemberDetails  = (member) =>{
-        Navigate("/MemberDashBord", {state: {member}})
+
+    const handleMemberDetails = (member) => {
+        Navigate("/MemberDashBord", { state: { member } })
     }
 
 
@@ -67,16 +66,23 @@ const AllMembers = () => {
                         {members.map((member, index) => (
                             <div key={index} className="col-md-4 p-4 row">
                                 <div className="bodyColor d-flex align-items-center p-4 rounded-4 All-members-container"
-                                 onClick={() => handleMemberDetails(member)}
-                                  style={{
-                                    cursor: "pointer",}}
-                                 >
+                                    onClick={() => handleMemberDetails(member)}
+                                    style={{
+                                        cursor: "pointer",
+                                    }}
+                                >
                                     <div className="members-pick col-md-3">
-                                        <img src={member.image} alt="Member" style={{width: "88px", height: "88px", objectFit: "cover"}}/>
+                                        {member.image ? (
+
+                                            <img src={member.image} alt="Member" style={{ width: "88px", height: "88px", objectFit: "cover" }} />
+                                        ) : (
+
+                                            <img src={logo} alt="Member" style={{ width: "88px", height: "88px", objectFit: "cover" }} />
+                                        )}
                                     </div>
                                     <div className="col-md-9">
                                         <div className="ms-3">
-                                            <p style={{fontSize: "20px",fontWeight: "500"}}>{member.fullName}</p>
+                                            <p style={{ fontSize: "20px", fontWeight: "500" }}>{member.fullName}</p>
                                             <div className="d-flex flex-wrap sports-list-picks">
                                                 {member.teamSport.map((sport, sportIndex) => (
                                                     <div key={sportIndex} className="mb-2 d-flex align-items-center justify-content-center" style={{

@@ -7,13 +7,15 @@ import { useNavigate } from "react-router-dom";
 // import { BaseUrl } from "../../../reducers/Api/bassUrl"
 // import axios from "axios";
 import { useDispatch } from "react-redux";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchTeams } from "../../../reducers/teamSlice";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, EmailShareButton, WhatsappShareButton,  InstapaperShareButton, TelegramShareButton } from 'react-share';
+import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, EmailShareButton, WhatsappShareButton, InstapaperShareButton, TelegramShareButton } from 'react-share';
 import { FacebookIcon, TwitterIcon, LinkedinIcon, EmailIcon, WhatsappIcon, InstapaperIcon, TelegramIcon } from 'react-share';
 import { ToastContainer, toast } from "react-toastify";
+import logo from "../../../assets/img/logo.png";
+
 
 const MyTeam = () => {
     const token = useSelector(state => state.auth.user.data.user.token);
@@ -27,9 +29,9 @@ const MyTeam = () => {
     const dispatch = useDispatch();
     const teams = useSelector(state => state.teams.teams);
 
-    // console.log("teams", teams);
+    console.log("teams", teams);
 
-    
+
     const [show, setShow] = useState(false)
 
     // console.log("current user", currentUser);
@@ -43,19 +45,18 @@ const MyTeam = () => {
         setShareUrl(shareUrl);
     };
 
-  
 
 
-    useEffect(() =>{
+
+    useEffect(() => {
         dispatch(fetchTeams(token))
-
+            .then(() => setLoading(false))
     }, [token, dispatch])
 
-    useEffect(() =>{
-        if(teams.length > 0){
-            setLoading(false)
-        }
-    }, [teams])
+
+    // useEffect(() =>{
+    //     setLoading(false)
+    // }, [teams])
 
 
     // navigate to team dashbord
@@ -72,8 +73,8 @@ const MyTeam = () => {
         setTitle(title);
         handleShow(teamShareUrl);
     };
-    
-    
+
+
 
 
 
@@ -96,6 +97,7 @@ const MyTeam = () => {
 
 
     return (
+
         <div className="container-fluid itemsColor myTeam rounded dashbords-container-hieght ">
             <ToastContainer />
             {loading ? (
@@ -132,10 +134,16 @@ const MyTeam = () => {
                                         backgroundColor: team.colour.colour,
                                         borderColor: team.colour.border_colour,
                                     }}
-                                    
-                                    >
+
+                                >
                                     {/* Step 1: Image (unchanged) */}
-                                    <img src={team.logo} className="card-img-top main-pick" alt="Team" />
+                                    {team.logo ? (
+
+                                        <img src={team.logo} className="card-img-top main-pick" alt="Team" />
+                                    ) : (
+
+                                        <img src={logo} className="card-img-top main-pick" alt="Team" />
+                                    )}
 
                                     {/* Step 2: Team Name and Sport Icon */}
                                     <div className="ms-3 ">
@@ -182,8 +190,8 @@ const MyTeam = () => {
 
                                     </div>
 
-                                    <Modal show={show} onHide={handleCloseModal}    
-                                    backdrop="static"
+                                    <Modal show={show} onHide={handleCloseModal}
+                                        backdrop="static"
                                     >
                                         <Modal.Header closeButton onClick={(e) => e.stopPropagation()}>
                                             <Modal.Title>

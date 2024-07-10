@@ -4,18 +4,18 @@ import { useRef } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
+const AboutMe = ({ formData, onFormDataChange, onSubmit, onPrev }) => {
     const fileInputRef = useRef(null);
 
     const [creatorImage, setCreatorImage] = useState([]);
 
     const jerseySizes = [
-       'YXS 7', 'YSM 8', 'YMD 10 - 12', 'YLG 14 - 16', 'YXL 18 - 20', 'XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '1X', '2X', '3X'
+        'YXS 7', 'YSM 8', 'YMD 10 - 12', 'YLG 14 - 16', 'YXL 18 - 20', 'XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '1X', '2X', '3X'
 
     ];
 
     const trouserSizes = [
-       'YXS 7', 'YSM 8', 'YMD 10 - 12', 'YLG 14 - 16', 'YXL 18 - 20', 'XXS', 'XS', 'SM', 'MD', 'LG', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '1X', '2X', '3X'
+        'YXS 7', 'YSM 8', 'YMD 10 - 12', 'YLG 14 - 16', 'YXL 18 - 20', 'XXS', 'XS', 'SM', 'MD', 'LG', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '1X', '2X', '3X'
 
     ];
 
@@ -91,6 +91,7 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
                         placeholder="Write about your interests, hobbies, Proficiency…..
                     Hi, I am Gaurav, right handed batsman. I Played cricket for different clubs in Pune.
                     "
+                        required
                     >
 
                     </textarea>
@@ -107,11 +108,12 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
                                 className="form-select py-2 rounded"
                                 onChange={handleInputChange}
                                 value={formData.jerseySize}
+                                required
                             >
 
-                                <option >--Select Jersey Size--</option>
+                                <option value="" >--Select Jersey Size--</option>
                                 {jerseySizes.map((size) => (
-                                    <option key={size} value={size}>
+                                    <option  key={size} value={size}>
                                         {size}
                                     </option>
                                 ))}
@@ -129,10 +131,10 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
                                 name="pantSize"
                                 value={formData.pantSize}
                                 onChange={handleInputChange}
-
+                                required
                                 className="form-select py-2 rounded"
                             >
-                                <option >--Select Trouser Size--</option>
+                                <option  value="">--Select Trouser Size--</option>
                                 {trouserSizes.map((size) => (
                                     <option key={size} value={size}>
                                         {size}
@@ -146,10 +148,12 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
                 </div>
 
                 <div className="py-1">
-                    <Link to={"/size-chart"} 
-                    style={{fontSize: "15px",
-                        textDecoration: "none"
-                    }}
+                    <Link to={"/size-chart"}
+                        style={{
+                            fontSize: "15px",
+                            textDecoration: "none"
+                        }}
+                        target="_blank"
                     >Size Chart</Link>
                 </div>
 
@@ -165,6 +169,7 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
                                 name="nameOnJersey"
                                 value={formData.nameOnJersey}
                                 onChange={handleInputChange}
+                                required
                             />
 
                         </div>
@@ -180,6 +185,7 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
                                 name="numberOnJersey"
                                 value={formData.numberOnJersey}
                                 onChange={handleInputChange}
+                                required
                             />
 
                         </div>
@@ -202,6 +208,7 @@ const AboutMe = ({ formData, onFormDataChange, onSubmit , onPrev}) => {
                         placeholder="Write what do you expect from the team!"
                         style={{ resize: "none", height: "100px" }}
                         onChange={(event) => handleInputChange(event)}
+                        required
                     ></textarea>
 
 
