@@ -65,7 +65,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("run normal login");
+    // console.log("run normal login");
 
     const provider = '';
     const provider_id = "";
@@ -73,7 +73,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
 
     try {
-      const response = await axios.post(`${loginUrl}/api/v1/auth/login`,
+      const response = await axios.post(`${loginUrl}/auth/login`,
 
 
         { email, password, provider, provider_id });
@@ -129,7 +129,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
       let provider_id = userInfo.sub;
       const email = userInfo.email;
-      const res = await axios.post(`${loginUrl}/api/v1/auth/login`, {
+      const res = await axios.post(`${loginUrl}/auth/login`, {
         provider: 'google',
         provider_id: provider_id,
         email: email,
@@ -154,6 +154,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
       } else {
         const errorMessage = res.data.errors ? res.data.errors.msg : 'Error logging in user';
         toast.error(errorMessage);
+        console.log("error", res.data);
       }
     } catch (error) {
       console.error("internal server error :", error);
@@ -164,7 +165,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
   const singIn = useGoogleLogin({
     onSuccess: async tokenResponse => {
-      console.log(tokenResponse);
+      // console.log(tokenResponse);
 
       try {
         const userInfo = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`, {
@@ -173,7 +174,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
           }
         })
 
-        // console.log(userInfo.data);
+        console.log(userInfo.data);
         handleGoogleLoginSuccess(userInfo.data);
       } catch (error) {
         console.error(error);
@@ -196,7 +197,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
       // console.log("email", email,"provider_id", provider_id, "name ", fullName);
 
       try {
-        const res = await axios.post(`${loginUrl}/api/v1/auth/login`, {
+        const res = await axios.post(`${loginUrl}/auth/login`, {
           provider: 'facebook',
           provider_id: provider_id,
           password: '12345',
@@ -205,7 +206,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
         if (res.data.status === 200) {
           const checkVerify = res.data.data.user;
-          console.log("check verify ", checkVerify);
+          // console.log("check verify ", checkVerify);
           if (!checkVerify.email ) {
             handleShowUpdateEmail({ provider_id, fullName });
             return;
@@ -215,7 +216,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
           dispatch(loginSuccess(res.data));
           toast.success('Login Successful');
-          console.log("response facebook ", res.data.data);
+          // console.log("response facebook ", res.data.data);
 
           const teamId = localStorage.getItem('teamId');
           if (teamId) {
@@ -240,7 +241,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
 
   const handleAppleLogin = async (response) => {
-    console.log("aaple response ", response);
+    // console.log("aaple response ", response);
 
     if (response.authorization) {
       const idToken = response.authorization.id_token;
@@ -249,7 +250,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
       const provider_id = decodedToken.sub;
       const email = decodedToken.email;
       // const name = decodedToken.name;
-      console.log("provider_id", provider_id);
+      // console.log("provider_id", provider_id);
 
       const loginData = {
         provider: 'apple',
@@ -262,7 +263,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
       }
 
       try {
-        const res = await axios.post(`${loginUrl}/api/v1/auth/login`, loginData);
+        const res = await axios.post(`${loginUrl}/auth/login`, loginData);
 
         if (res.data.status === 200) {
 
@@ -300,7 +301,7 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
 
   return (
-    <div className="Login ">
+    <div className="Login register-prosess">
 
       <div className="mt-0">
         <div className="container">

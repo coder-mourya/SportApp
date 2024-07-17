@@ -20,7 +20,7 @@ const PendingMail = ({ handleClosePendingMail, email }) => {
 
 
         try {
-            const response = await axios.post(`${reSendLink}/api/v1/auth/send/mail-verification/link`, {
+            const response = await axios.post(`${reSendLink}/auth/send/mail-verification/link`, {
                 email: email
             }
 
@@ -53,7 +53,7 @@ const PendingMail = ({ handleClosePendingMail, email }) => {
 
 
     return (
-        <div className="ForgotPassword ">
+        <div className="ForgotPassword register-prosess ">
 
             <div className="">
 

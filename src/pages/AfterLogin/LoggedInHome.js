@@ -44,7 +44,7 @@ const LoggedInHome = () => {
   }
 
   const handleEventClick = () => {
-    Navigate("/ComingSoon");
+    Navigate("/EventDashBord");
   }
 
   const handleTrainingClick = () => {
@@ -69,7 +69,7 @@ const LoggedInHome = () => {
       const sportCountUrl = BaseUrl();
 
       try {
-        const response = await axios.get(`${sportCountUrl}/api/v1/user/sports/count`, {
+        const response = await axios.get(`${sportCountUrl}/user/sports/count`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }

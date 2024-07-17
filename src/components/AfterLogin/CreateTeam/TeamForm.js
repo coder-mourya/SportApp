@@ -130,7 +130,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
         const countoryUrl = BaseUrl()
 
         try {
-            const response = await axios.get(`${countoryUrl}/api/v1/auth/country_list`)
+            const response = await axios.get(`${countoryUrl}/auth/country_list`)
 
 
 
@@ -151,7 +151,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
         const stateUrl = BaseUrl(); // Changed variable name to stateUrl
 
         try {
-            const response = await axios.get(`${stateUrl}/api/v1/auth/state_list/${countryId}`);
+            const response = await axios.get(`${stateUrl}/auth/state_list/${countryId}`);
 
             setStates(response.data.data.state_list);
             // console.log(response.data);
@@ -166,7 +166,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
         const citiUrl = BaseUrl();
 
         try {
-            const response = await axios.get(`${citiUrl}/api/v1/auth/city_list/${stateId}`)
+            const response = await axios.get(`${citiUrl}/auth/city_list/${stateId}`)
             setCities(response.data.data.city_list);
             // console.log(response.data);
         } catch (error) {
@@ -182,7 +182,7 @@ const TeamDetails = ({ onFormDataChange, formData, onNext }) => {
     const getColors = async () => {
         const colorUrl = BaseUrl();
         try {
-            const response = await axios.get(`${colorUrl}/api/v1/user/teams/colours/list`);
+            const response = await axios.get(`${colorUrl}/user/teams/colours/list`);
             setColors(response.data.data.colours_list);
             // console.log(response.data);
         } catch (error) {

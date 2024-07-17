@@ -29,7 +29,7 @@ const MyTeam = () => {
     const dispatch = useDispatch();
     const teams = useSelector(state => state.teams.teams);
 
-    console.log("teams", teams);
+    // console.log("teams", teams);
 
 
     const [show, setShow] = useState(false)

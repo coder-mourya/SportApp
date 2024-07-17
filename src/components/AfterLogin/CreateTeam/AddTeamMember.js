@@ -87,7 +87,7 @@ const AddTeamMember = ({team, handleCloseAddMember}) => {
     
         try {
             const response = await axios.post(
-                `${addMemberUrl}/api/v1/user/team/add-member`,
+                `${addMemberUrl}/user/team/add-member`,
                 formDataToSend,
                 {
                     headers: {

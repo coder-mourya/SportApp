@@ -41,6 +41,7 @@ const MemberDashBord = () => {
     //     memberId: member.memberId,
     // })
 
+    console.log("user datetila", user);
 
 
 
@@ -73,7 +74,7 @@ const MemberDashBord = () => {
 
         const getTeam = async () => {
             try {
-                const response = await axios.get(`${teamUrl}/api/v1/user/myteams/list`, {
+                const response = await axios.get(`${teamUrl}/user/myteams/list`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -128,7 +129,7 @@ const MemberDashBord = () => {
         
 
         try {
-            const response = await axios.post(`${url}/api/v1/user/team/add-member`, data,  {
+            const response = await axios.post(`${url}/user/team/add-member`, data,  {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",

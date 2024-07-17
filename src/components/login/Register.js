@@ -98,7 +98,7 @@ const Register = ({ changeComponent, closeOffcanvas, showVerificationMail }) => 
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
-            
+
         } else {
             setErrors({});
         }
@@ -113,7 +113,7 @@ const Register = ({ changeComponent, closeOffcanvas, showVerificationMail }) => 
 
 
         try {
-            const response = await axios.post(`${register}/api/v1/auth/register`, formData);
+            const response = await axios.post(`${register}/auth/register`, formData);
 
             if (response.data.status === 200) {
                 // console.log('Registration successful:', response.data);
@@ -155,10 +155,10 @@ const Register = ({ changeComponent, closeOffcanvas, showVerificationMail }) => 
             [name]: type === "checkbox" ? checked : value,
         }));
 
-      
+
         setErrors((prevErrors) => ({
             ...prevErrors,
-            [name] : undefined,
+            [name]: undefined,
         }))
 
         if (name === "password") {
@@ -204,7 +204,7 @@ const Register = ({ changeComponent, closeOffcanvas, showVerificationMail }) => 
 
         <div>
 
-            <div className="Create-account">
+            <div className="Create-account register-prosess">
 
                 <div className="">
                     <div className='container account_info'>
@@ -281,7 +281,7 @@ const Register = ({ changeComponent, closeOffcanvas, showVerificationMail }) => 
                                     <div className="mb-3">
                                         <label htmlFor="dob" className="form-label">Date of Birth</label>
 
-                                        <div className="input-group my-1  "
+                                        <div className="input-group my-1"
                                         //  onClick={() => document.getElementById('dateOfBirth').click()}
                                         >
                                             <span className="input-group-text "
@@ -300,7 +300,6 @@ const Register = ({ changeComponent, closeOffcanvas, showVerificationMail }) => 
                                                 showYearDropdown
                                                 dropdownMode="select"
                                                 placeholderText="Select your date of birth"
-
 
                                             />
 

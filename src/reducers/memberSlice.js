@@ -7,7 +7,7 @@ export const fetchMembers =  createAsyncThunk(`members/fetchMembers`, async (tok
     // console.log("token" , token);
     const url = BaseUrl();
 
-    const response = await axios.get(`${url}/api/v1/user/get-all-members`, {
+    const response = await axios.get(`${url}/user/get-all-members`, {
         headers: {
             Authorization : `Bearer ${token}`
         }

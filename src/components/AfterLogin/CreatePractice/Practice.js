@@ -1,49 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import practice from "../../../assets/afterLogin picks/Practice/practice.svg";
 import CurrentPractice from "./CurrentPractice";
 import PrevPractice from "./PrevPractice";
 import "../../../assets/Styles/colors.css";
 import "../../../assets/Styles/AfterLogin/practice.css";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchEvents } from "../../../reducers/eventSlice";
 
 
 
 const Practice = () => {
     const [selectedOption, setSelectedOption] = useState("CurrentPractice");
+    const eventData = useSelector((state) => state.events.events);
+    const token = useSelector((state) => state.auth.user.data.user.token);
 
+    const dispetch = useDispatch();
 
-    const eventData = [
-        {
-            id: 1,
-            title: 'CUP-Semi final',
-            location: 'Somerville, New Jersey',
-            date: '21 Jan, 2023',
-            time: '8AM - 10AM'
-        },
-        {
-            id: 2,
-            title: 'CUP-Final',
-            location: 'New York City, New York',
-            date: '28 Jan, 2023',
-            time: '10AM - 12PM'
-        },
+    console.log("events", eventData);
 
-        {
-            id: 3,
-            title: 'CUP-Semi final',
-            location: 'Somerville, New Jersey',
-            date: '21 Jan, 2023',
-            time: '8AM - 10AM'
-        },
-        {
-            id: 4,
-            title: 'CUP-Final',
-            location: 'New York City, New York',
-            date: '28 Jan, 2023',
-            time: '10AM - 12PM'
-        },
-        // Add more events as needed
-    ];
+    useEffect(() =>{
+        dispetch(fetchEvents(token))
+    }, [token, dispetch])
+
 
     // handle options slections
     const handleOptionChange = (option) => {

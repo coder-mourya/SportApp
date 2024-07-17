@@ -5,7 +5,7 @@ import { BaseUrl } from './Api/bassUrl';
 export const fetchTeams = createAsyncThunk(`teams/fetchTeams`, async (token) => {
     const teamUrl = BaseUrl();
 
-    const response = await axios.get(`${teamUrl}/api/v1/user/myteams/list`, {
+    const response = await axios.get(`${teamUrl}/user/myteams/list`, {
         headers : {
             Authorization : `Bearer ${token}`
         }
@@ -19,7 +19,7 @@ export const fetchTeamDetails = createAsyncThunk(
     async ({ teamId, token }) => {
         // console.log("data is fechted" , teamId, token);
         const teamDetailsUrl = BaseUrl();
-        const response = await axios.get(`${teamDetailsUrl}/api/v1/user/team/details/${teamId}`, {
+        const response = await axios.get(`${teamDetailsUrl}/user/team/details/${teamId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

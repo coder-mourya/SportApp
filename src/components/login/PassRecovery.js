@@ -38,7 +38,7 @@ const PassRecovery = ({ email, handleClosePassRecovery,  goToLogin }) => {
 
         try {
             // Make a POST request to resend the email
-            const response = await axios.post(`${resendLink}/api/v1/auth/sendLink`, {
+            const response = await axios.post(`${resendLink}/auth/sendLink`, {
                 email: email
             });
 
@@ -66,7 +66,7 @@ const PassRecovery = ({ email, handleClosePassRecovery,  goToLogin }) => {
 
 
     return (
-        <div className="ForgotPassword  ">
+        <div className="ForgotPassword register-prosess ">
 
             <div className="">
 

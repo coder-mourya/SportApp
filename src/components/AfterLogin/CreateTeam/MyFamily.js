@@ -25,7 +25,7 @@ const MyFamily = () => {
             const MemberUrl = BaseUrl();
 
             try {
-                const response = await axios.get(`${MemberUrl}/api/v1/user/get-family-members`, {
+                const response = await axios.get(`${MemberUrl}/user/get-family-members`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

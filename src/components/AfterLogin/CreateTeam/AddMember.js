@@ -64,7 +64,7 @@ const AddMember = ({handleCloseAddMember}) => {
 
         try {
             const response = await axios.post(
-                `${addMemberUrl}/api/v1/user/add-member`,
+                `${addMemberUrl}/user/add-member`,
                 formData,
                 {
                     headers: {

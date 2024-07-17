@@ -44,7 +44,7 @@ const UpdateEmail = ({ handleCloseUpdateEmail, goToLogin, provider_id, fullName 
 
         console.log("update email ", formData);
         try {
-            const response = await axios.post(`${updateEmail}/api/v1/auth/updateProfileEmail`, {
+            const response = await axios.post(`${updateEmail}/auth/updateProfileEmail`, {
                 email: formData.email,
                 fullName: formData.fullName,
                 provider_id: formData.provider_id
@@ -78,7 +78,7 @@ const UpdateEmail = ({ handleCloseUpdateEmail, goToLogin, provider_id, fullName 
 
 
     return (
-        <div className="ForgotPassword  ">
+        <div className="ForgotPassword  register-prosess">
 
             <div className="">
             {alertMessage && <Alerts message={alertMessage} type={alertType} />}

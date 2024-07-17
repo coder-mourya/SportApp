@@ -68,7 +68,7 @@ const ChangePass = () => {
         const changePasswordUrl = BaseUrl();
 
         try {
-            const response = await axios.post(`${changePasswordUrl}/api/v1/user/change/password`,
+            const response = await axios.post(`${changePasswordUrl}/user/change/password`,
                 {
                     oldPassword : formData.oldPassword,
                     newPassword : formData.newPassword,

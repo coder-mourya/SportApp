@@ -86,7 +86,7 @@ const Create = ({ handleCloseCreateTeam , ValidationForm}) => {
         const submitUrl = BaseUrl();
 
         try {
-            const response = await axios.post(`${submitUrl}/api/v1/user/create/team`, combinedFormData, {
+            const response = await axios.post(`${submitUrl}/user/create/team`, combinedFormData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`

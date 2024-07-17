@@ -29,7 +29,7 @@ const Category = ({handleCloseSports}) => {
         // Function to fetch sports data from API
         const fetchSports = async () => {
             try {
-                const response = await axios.get(`${SportList}/api/v1/user/sports/list`);
+                const response = await axios.get(`${SportList}/user/sports/list`);
                 const sportsList = response.data.data.sports_list;
 
                 if (Array.isArray(chosenSports)) {
@@ -99,7 +99,7 @@ const Category = ({handleCloseSports}) => {
     
         try {
             const response = await axios.put(
-                `${updateURL}/api/v1/user/update/sports`,
+                `${updateURL}/user/update/sports`,
                 { chosenSports: selectedSports },
                 {
                     headers: {

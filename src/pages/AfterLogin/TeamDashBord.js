@@ -221,7 +221,7 @@ const TeamDashbord = () => {
     const handleDownload = async () => {
         const downloadUrl = BaseUrl();
         try {
-            const response = await axios.get(`${downloadUrl}/api/v1/user/team/membersList/download/${team._id}`, {
+            const response = await axios.get(`${downloadUrl}/user/team/membersList/download/${team._id}`, {
                 responseType: 'blob', // important
             });
 
@@ -283,7 +283,7 @@ const TeamDashbord = () => {
 
 
         try {
-            const response = await axios.post(`${inviteUrl}/api/v1/user/team/request/accept-reject`, data,
+            const response = await axios.post(`${inviteUrl}/user/team/request/accept-reject`, data,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -337,7 +337,7 @@ const TeamDashbord = () => {
 
         const deleteUrl = BaseUrl();
         try {
-            const response = await axios.put(`${deleteUrl}/api/v1/user/team/member/delete`, data, {
+            const response = await axios.put(`${deleteUrl}/user/team/member/delete`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -391,7 +391,7 @@ const TeamDashbord = () => {
 
         const url = BaseUrl();
         try {
-            const response = await axios.put(`${url}/api/v1/user/team/change/adminStatus/member`, data, {
+            const response = await axios.put(`${url}/user/team/change/adminStatus/member`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -419,7 +419,7 @@ const TeamDashbord = () => {
         const url = BaseUrl();
         let teamId = team._id;
         try {
-            const response = await axios.delete(`${url}/api/v1/user/team/delete/${teamId}`, {
+            const response = await axios.delete(`${url}/user/team/delete/${teamId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }

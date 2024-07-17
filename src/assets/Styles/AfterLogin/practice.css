@@ -62,15 +62,17 @@
     right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
-    mix-blend-mode: color-burn;
 }
 
 .practice-form .input-group input {
     border-left: 1px solid #ccc;
 }
 
-.react-datepicker-wrapper {
+
+
+.practice-form .react-datepicker-wrapper {
     width: 100% !important;
+    
 }
 
 
@@ -133,16 +135,9 @@
 }
 
 .team-and-member-btn button{
-    width: 40%;
+    width: 47%;
 }
-.add-buttons{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    
-}
+
 
 .add-buttons button{
     width: 100%;

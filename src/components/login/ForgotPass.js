@@ -26,7 +26,7 @@ const ForgotPassword = ({ closeOffcanvas, showPassRecovery , goToLogin }) => {
      
 
         try {
-            const response = await axios.post(`${reSetLink}/api/v1/auth/sendLink`, formData);
+            const response = await axios.post(`${reSetLink}/auth/sendLink`, formData);
 
             if (response.data.status === 200) {
                 console.log(response.data);
@@ -49,7 +49,7 @@ const ForgotPassword = ({ closeOffcanvas, showPassRecovery , goToLogin }) => {
     };
 
     return (
-        <div className="ForgotPassword">
+        <div className="ForgotPassword register-prosess">
             {/* Forgot password UI */}
             <div className="">
                 <div className='container'>

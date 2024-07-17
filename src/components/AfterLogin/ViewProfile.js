@@ -139,7 +139,6 @@ const ViewProfile = () => {
     const handleUploadProfilePicture = async (e) => {
         e.preventDefault();
 
-
         let file = fileInuptRef.current.files[0];
 
         let formData = new FormData();
@@ -154,7 +153,7 @@ const ViewProfile = () => {
         const uploadProfilePicture = BaseUrl();
         // console.log("form data ", formData);
         try {
-            const response = await axios.post(`${uploadProfilePicture}/api/v1/user/update/profile`,
+            const response = await axios.post(`${uploadProfilePicture}/user/update/profile`,
 
                 formData
                 ,
@@ -206,12 +205,11 @@ const ViewProfile = () => {
     const handleSaveChanges = async (e) => {
         e.preventDefault();
         const updateProfileUrl = BaseUrl();
-
         const token = user?.data?.user?.token;
 
         try {
             const response = await axios.post(
-                `${updateProfileUrl}/api/v1/user/update/profile`,
+                `${updateProfileUrl}/user/update/profile`,
                 formData,
                 {
                     headers: {
@@ -232,9 +230,9 @@ const ViewProfile = () => {
                 // console.log("Profile updated successfully:", response.data);
                 handleClose();
             } else {
-                const errorMessage = response.data ? response.data.message : "Error updating profile";
+                const errorMessage = response.data.errors ? response.data.errors.msg : "Error updating profile";
                 toast.error(errorMessage);
-                // console.error("Error updating profile:", response.data);
+                console.error("Error updating profile:", response.data);
             }
         } catch (error) {
             // console.error("Internal server error:", error);
@@ -389,7 +387,7 @@ const ViewProfile = () => {
 
                                 <Offcanvas.Body>
                                     <form onSubmit={handleSaveChanges}>
-                                        <div className="edit-profile">
+                                        <div className="edit-profile register-prosess">
                                             {/* Input fields */}
                                             <div className="mb-3">
                                                 <label htmlFor="name" className="form-label">Full Name</label>
@@ -450,7 +448,6 @@ const ViewProfile = () => {
                                                         enableSearch={true}
                                                         scrollableCountry={true}
                                                         searchPlaceholder="Search Country"
-
                                                     />
 
 

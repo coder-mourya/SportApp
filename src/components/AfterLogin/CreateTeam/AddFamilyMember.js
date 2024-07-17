@@ -79,7 +79,7 @@ const AddFamilyMember = ({handleCloseAddFamilyMember}) => {
 
         try {
             const response = await axios.post(
-                `${addMemberUrl}/api/v1/user/add-family-member`,
+                `${addMemberUrl}/user/add-family-member`,
                 formatedData,
                 {
                     headers: {
@@ -123,7 +123,7 @@ const AddFamilyMember = ({handleCloseAddFamilyMember}) => {
     };
 
     return (
-        <div className="container-fluid Add-member">
+        <div className="container-fluid Add-member register-prosess">
 
             <div className=" ">
 
@@ -182,7 +182,7 @@ const AddFamilyMember = ({handleCloseAddFamilyMember}) => {
 
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-3 ">
                         <label htmlFor="dob" className="form-label">Date of Birth</label>
 
                         <div className="input-group mt-1"

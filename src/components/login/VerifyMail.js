@@ -55,7 +55,7 @@ const VerifyMail = ({  handleCloseVerificationMail, goToLogin, email }) => {
         // console.log("resend clicked", data);
 
         try {
-            const response = await axios.post(`${reSendLink}/api/v1/auth/resend/mail-verification/link`, data)
+            const response = await axios.post(`${reSendLink}/auth/resend/mail-verification/link`, data)
 
             if (response.data.status === 200) {
                 console.log(response.data.data.message);
@@ -80,7 +80,7 @@ const VerifyMail = ({  handleCloseVerificationMail, goToLogin, email }) => {
 
 
     return (
-        <div className="ForgotPassword  ">
+        <div className="ForgotPassword register-prosess ">
 
             <div className="">
                
