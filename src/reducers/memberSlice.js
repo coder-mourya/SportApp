@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BaseUrl } from "./Api/bassUrl";
+import { logout } from "./authSlice";
 
 
-export const fetchMembers =  createAsyncThunk(`members/fetchMembers`, async (token) =>{
+export const fetchMembers =  createAsyncThunk(`members/fetchMembers`, async (token, {dispatch}) =>{
     // console.log("token" , token);
     const url = BaseUrl();
 
@@ -12,6 +13,11 @@ export const fetchMembers =  createAsyncThunk(`members/fetchMembers`, async (tok
             Authorization : `Bearer ${token}`
         }
     });
+
+    if (response.data.status === 401) {
+        dispatch(logout());
+        return Promise.reject(new Error('Unauthorized'));
+    }
 
     return response.data.data.membersData.memberList;
 })

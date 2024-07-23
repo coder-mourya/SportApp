@@ -3,10 +3,6 @@ import user2 from "../img/user2.png";
 import user3 from "../img/user3.png";
 
 
-// sports category icons 
-import ball from "../afterLogin picks/Sports category icons/bolyball.png";
-import bat from "../afterLogin picks/Sports category icons/bat.png";
-import badminton from "../afterLogin picks/Sports category icons/badminton.png";
 
 // dummy users "message" 
 import chat1 from "../afterLogin picks/home/chat1.png";
@@ -41,79 +37,6 @@ export const Reviews = [
 ]
 
 
-export const category = [
-    {
-        "id": 1,
-        "sport": "cricket",
-        "image": bat
-    },
-
-    {
-        "id": 2,
-        "sport": "badminton",
-        "image": badminton
-    },
-
-    {
-        "id": 3,
-        "sport": "bollyball",
-        "image": ball
-    },
-
-    {
-        "id": 4,
-        "sport": "cricket",
-        "image": bat
-    },
-
-    {
-        "id": 5,
-        "sport": "badminton",
-        "image": badminton
-    },
-
-    {
-        "id": 6,
-        "sport": "bollyball",
-        "image": ball
-    },
-
-    {
-        "id": 7,
-        "sport": "cricket",
-        "image": bat
-    },
-
-    {
-        "id": 8,
-        "sport": "badminton",
-        "image": badminton
-    },
-
-    {
-        "id": 9,
-        "sport": "bollyball",
-        "image": ball
-    },
-
-    {
-        "id": 10,
-        "sport": "cricket",
-        "image": bat
-    },
-
-    {
-        "id": 11,
-        "sport": "badminton",
-        "image": badminton
-    },
-
-    {
-        "id": 12,
-        "sport": "bollyball",
-        "image": ball
-    },
-]
 
 
 

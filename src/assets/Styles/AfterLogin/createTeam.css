@@ -12,6 +12,17 @@
 .Team-options {
     margin-left: 1.5rem;
     width: 44%;
+    border: 0.8px solid #E6E7E9;
+    border-radius: 16px !important; 
+}
+
+.custom-option-btn {
+    width: 528px;
+
+}
+
+.custom-option-btn button {
+    width: 225px !important;
 }
 
 

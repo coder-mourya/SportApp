@@ -18,7 +18,7 @@ const Practice = () => {
 
     const dispetch = useDispatch();
 
-    console.log("events", eventData);
+    // console.log("events", eventData);
 
     useEffect(() =>{
         dispetch(fetchEvents(token))
@@ -55,7 +55,9 @@ const Practice = () => {
             ) : (
 
                 <div className=" All-options my-2 d-flex justify-content-md-start   ">
-                    <div className=" Team-options itemsColor py-2  rounded  d-flex justify-content-md-start   justify-content-center  ">
+                    <div className=" Team-options custom-option-btn itemsColor py-md-2  rounded  d-flex justify-content-md-center   justify-content-center "
+                    
+                    >
                         <button
                             className={`btn ${selectedOption === "CurrentPractice" ? "btn-primary" : ""}`}
                             onClick={() => handleOptionChange("CurrentPractice")}

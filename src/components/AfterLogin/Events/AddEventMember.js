@@ -13,50 +13,92 @@ import { toast } from "react-toastify";
 import { fetchMembers } from "../../../reducers/memberSlice";
 import logo from "../../../assets/img/logo.png";
 import Member from "../../../assets/afterLogin picks/My team/Member.svg";
+import axios from "axios";
+import { BaseUrl } from "../../../reducers/Api/bassUrl";
 
 
 
 
 // Modified version of MyTeam component
-const ModifiedMyTeam = ({onSelectionChange}) => {
+const ModifiedMyTeam = ({ EventDetails }) => {
     const [loading, setLoading] = useState(true);
     const [selectedTeamId, setSelectedTeamId] = useState([]);
     const [teamMembers, setTeamMembers] = useState([]);
     const dispatch = useDispatch();
     const token = useSelector(state => state.auth.user.data.user.token);
     const allTeams = useSelector(state => state.teams.teams);
-
-//    console.log("allTeams", allTeams);
+    // console.log("event details in add member ", EventDetails);
+    const eventId = EventDetails._id;
+    const createrId = EventDetails.creatorId;
+    console.log("creator id ", createrId);
+    //    console.log("allTeams", allTeams);
 
     useEffect(() => {
         dispatch(fetchTeams(token))
             .then(() => setLoading(false))
     }, [token, dispatch])
 
-    const handleTeamSelecte = (team) => {
-        // console.log("team", team);
+
+    const handleTeamSelecte = (team, createrId) => {
+        // console.log("Selected team:", team);
         const teamId = team._id;
-        setSelectedTeamId(prevSelectedTeamId => 
+        setSelectedTeamId(prevSelectedTeamId =>
             prevSelectedTeamId.includes(teamId)
-             ? prevSelectedTeamId.filter(id => id !== teamId)
-            : [...prevSelectedTeamId, teamId]
-        )
-       
-        
-        if (team.members && team.members.length > 0) {
+                ? prevSelectedTeamId.filter(id => id !== teamId)
+                : [...prevSelectedTeamId, teamId]
+        );
+
+        // console.log("Team members:", team.members);
+
+        if (team.members && Array.isArray(team.members) && team.members.length > 0) {
+            const memberIds = team.members.map(member => member._id || member);
+
+            // Always include the creator
+            const membersWithCreator = new Set([...memberIds, createrId]);
+
             setTeamMembers(prevTeamMembers => ({
                 ...prevTeamMembers,
-                [teamId]: team.members // Store only member IDs
+                [teamId]: [...membersWithCreator]
+            }));
+        } else {
+            // If the team has no members, remove it from teamMembers
+            setTeamMembers(prevTeamMembers => ({
+                ...prevTeamMembers,
+                [teamId]: [createrId]
             }));
         }
-
-       
     }
 
+    // Add members from team to event
+    const handleAddMemberTeam = async () => {
+      try {
+        const url = BaseUrl();
+        const allMemberIds = selectedTeamId.flatMap(teamId => teamMembers[teamId] || []);
+        // remove duplicates  
+        const uniqueMemberIds = [...new Set(allMemberIds)];
+        let data = {
+            "eventId": eventId,
+            "memberId": uniqueMemberIds
+        }
+        console.log("check data", data);
+        
+        const response = await axios.post(`${url}/user/event/add/member`, data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
 
-    const handleAddTeam = () => {
-        onSelectionChange(selectedTeamId, teamMembers);
-        toast.success("Team added successfully");
+        if (response.data.status === 200) {
+            toast.success("Member added successfully");
+            console.log("response", response);
+        }else{
+            toast.error("error in adding member");
+        }
+      } catch (error) {
+        console.error('Error adding member:', error);
+        toast.error("internal server error");
+      }
+
     }
 
 
@@ -102,7 +144,7 @@ const ModifiedMyTeam = ({onSelectionChange}) => {
                                         name="teamSelect"
                                         id={`team-${index}`}
                                         value={team._id}
-                                        onChange={() => handleTeamSelecte(team)}
+                                        onChange={() => handleTeamSelecte(team, createrId)}
                                     />
                                     <img
                                         src={team.logo}
@@ -137,19 +179,19 @@ const ModifiedMyTeam = ({onSelectionChange}) => {
                                     </div>
 
                                     <div className="rounded col-md-2"
-                                            style={{
-                                                width: "22px",
-                                                height: "22px",
-                                                border: "1px solid #ccc",
-                                                backgroundColor: selectedTeamId.includes(team._id) ? "green" : "white",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
+                                        style={{
+                                            width: "22px",
+                                            height: "22px",
+                                            border: "1px solid #ccc",
+                                            backgroundColor: selectedTeamId.includes(team._id) ? "green" : "white",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
 
-                                            }}>
+                                        }}>
 
-                                            {selectedTeamId.includes(team._id) && <span style={{ color: "white", fontWeight: "400" }}>&#x2713;</span>}
-                                        </div>
+                                        {selectedTeamId.includes(team._id) && <span style={{ color: "white", fontWeight: "400" }}>&#x2713;</span>}
+                                    </div>
                                 </label>
                             </div>
                         ))}
@@ -159,11 +201,12 @@ const ModifiedMyTeam = ({onSelectionChange}) => {
                 <div className="d-flex justify-content-end fixed-bottom">
                     <button
                         className="btn"
-                        onClick={handleAddTeam}
-                        style={{ width: "25%", backgroundColor: "#D32F2F", color: "white", border: "none",
+                        onClick={handleAddMemberTeam}
+                        style={{
+                            width: "25%", backgroundColor: "#D32F2F", color: "white", border: "none",
                             marginBottom: "2px",
                             // marginRight: "5px",
-                         }}
+                        }}
                     >Add team</button>
                 </div>
             </div>
@@ -175,14 +218,14 @@ const ModifiedMyTeam = ({onSelectionChange}) => {
 
 
 // Modified version of AllMembers component
-const ModifiedAllMembers = () => {
+const ModifiedAllMembers = ({EventDetails}) => {
 
     const token = useSelector(state => state.auth.user.data.user.token);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const members = useSelector(state => state.members.members)
     const [selectedMemberId, setSelectedMemberId] = useState([]);
-
+    const eventId = EventDetails._id;
     // console.log("all selected members list ", selectedMemberId);
 
     // console.log("members", members);
@@ -202,14 +245,32 @@ const ModifiedAllMembers = () => {
         )
     }
 
-    const handleAddMember = () => {
-        if (selectedMemberId) {
-            localStorage.setItem('memberId', JSON.stringify(selectedMemberId));
-            toast.success("Members  added successfully");
-
-        } else {
-            toast.error("Please select a team");
-        }
+    const handleAddMember = async () => {
+        try {
+            const url = BaseUrl();
+           
+            let data = {
+                "eventId": eventId,
+                "memberId": selectedMemberId
+            }
+            console.log("check data", data);
+            
+            const response = await axios.post(`${url}/user/event/add/member`, data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+    
+            if (response.data.status === 200) {
+                toast.success("Member added successfully");
+                // console.log("response", response);
+            }else{
+                toast.error("error in adding member");
+            }
+          } catch (error) {
+            // console.error('Error adding member:', error);
+            toast.error("internal server error");
+          }
     }
 
 
@@ -315,7 +376,7 @@ const ModifiedAllMembers = () => {
                     <button
                         className="btn"
                         onClick={handleAddMember}
-                        style={{ width: "25%", backgroundColor: "#D32F2F", color: "white", border: "none", marginRight: "7px",marginBottom: "2px" }}
+                        style={{ width: "25%", backgroundColor: "#D32F2F", color: "white", border: "none", marginRight: "7px", marginBottom: "2px" }}
                     >Add Member</button>
                 </div>
 
@@ -324,8 +385,9 @@ const ModifiedAllMembers = () => {
     );
 };
 
-const AddMemberAndTeam = ({onSelectionChange}) => {
+const AddEventMember = ({ EventDetails }) => {
     const [selectedOption, setSelectedOption] = useState("MyTeam");
+
 
     // handle options selections
     const handleOptionChange = (option) => {
@@ -339,9 +401,6 @@ const AddMemberAndTeam = ({onSelectionChange}) => {
     return (
         <div className="Add-member-and-team">
             <div className="">
-
-          
-
                 <div className=" itemsColor py-2  rounded-4 team-and-member-btn  border d-flex   justify-content-center  ">
                     <button
                         className={`btn ${selectedOption === "MyTeam" ? "btn-primary" : ""}`}
@@ -359,7 +418,7 @@ const AddMemberAndTeam = ({onSelectionChange}) => {
 
                 <div className="">
                     {/* Render selected component */}
-                    {selectedOption === "MyTeam" ? <ModifiedMyTeam onSelectionChange={onSelectionChange} /> : <ModifiedAllMembers />}
+                    {selectedOption === "MyTeam" ? <ModifiedMyTeam EventDetails={EventDetails} /> : <ModifiedAllMembers EventDetails={EventDetails} />}
                 </div>
 
 
@@ -368,4 +427,4 @@ const AddMemberAndTeam = ({onSelectionChange}) => {
     );
 };
 
-export default AddMemberAndTeam;
+export default AddEventMember;

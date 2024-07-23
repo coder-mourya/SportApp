@@ -19,6 +19,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
 import success from "../../../assets/afterLogin picks/events/pic5.png";
+import moment from "moment";
 
 
 
@@ -67,6 +68,7 @@ const CreateGame = () => {
     }
 
     const handleCloseAddMemberAndTeam = () => setShowAddMemberAndTeam(false)
+    
     const [modelShow, setModelShow] = useState(false);
 
     const handleShowModel = () => {
@@ -87,20 +89,24 @@ const CreateGame = () => {
     };
 
     const handleStartTimeChange = (time) => {
-        const formatedTime = time.toLocaleTimeString('en-US')
+        // const formatedTime = time.toLocaleTimeString('en-US')
         setFormData((prevFormData) => ({
             ...prevFormData,
-            startTime: formatedTime
+            startTime: time,
+            endTime: ""
         }))
     };
 
     const handleEndTimeChange = (time) => {
-        const formatedTime = time.toLocaleTimeString('en-US')
+        // const formatedTime = time.toLocaleTimeString('en-US')
         setFormData((prevFormData) => ({
             ...prevFormData,
-            endTime: formatedTime
+            endTime: time
         }))
     };
+
+    const maxEndTime = formData.startTime ? new Date(new Date(formData.startTime).getTime() + 30 * 60000) : null;
+
 
     const handleDateFocus = () => {
         if (datePickerRef.current) {
@@ -188,24 +194,46 @@ const CreateGame = () => {
     // console.log("team member", teamMembers);
     // console.log("selected teamds", selectedTeamds);
 
-    const hanldleCreate = async () => {
+    const hanldleCreate = async () => { 
         const url = BaseUrl();
+        const storedMebers = JSON.parse(localStorage.getItem('memberId'));
+        const OtherMembers = Array.isArray(storedMebers) ? storedMebers : [];
+    
+        // Format the event date and times
+        const eventDateString = `${moment(formData.eventDate).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
+        const startTimeString = `${moment(formData.startTime).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
+        const endTimeString = `${moment(formData.endTime).format('YYYY-MM-DD')} ${moment(formData.endTime).format('h:mm A')} UTC`;
+    
+        // Convert to UTC and format in ISO 8601 with milliseconds and UTC timezone
+        const formattedEventDateUTC = moment.utc(eventDateString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        const formattedStartTimeUTC = moment.utc(startTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        const formattedEndTimeUTC = moment.utc(endTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    
         const data = {
             ...formData,
             teamIds: selectedTeamds,
-            eventMembers: Object.values(teamMembers).flat()
-        }
-
+            eventName: formData.eventName.toLocaleUpperCase(),
+            eventMembers: [...Object.values(teamMembers).flat(), ...OtherMembers],
+            endTime: formattedEndTimeUTC,
+            startTime: formattedStartTimeUTC,
+            eventDate: formattedEventDateUTC,
+            eventDateUTC: formattedEventDateUTC,
+            startTimeUTC: formattedStartTimeUTC,
+            endTimeUTC: formattedEndTimeUTC,
+        };
+    
+        localStorage.removeItem('memberId');
+    
         // console.log("event data", data);
-
-
+        // return; 
+    
         try {
             const response = await axios.post(`${url}/user/event/create`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
-
+            });
+    
             if (response.data.status === 200) {
                 console.log("event created successfully", response.data);
                 toast.success("Event created successfully");
@@ -213,14 +241,13 @@ const CreateGame = () => {
             } else {
                 console.log("error in creating event", response.data);
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error logging in user';
-                toast.error(errorMessage)
+                toast.error(errorMessage);
             }
         } catch (error) {
             console.log("error in creating event", error);
             toast.error("internal server error");
         }
-
-    }
+    };
 
 
 
@@ -233,7 +260,7 @@ const CreateGame = () => {
                     <SidebarSmallDevice />
                 </div>
 
-                <div className={`${mainContainerClass}  main mt-5 `}>
+                <div className={`${mainContainerClass}  main mt-4 `}>
 
 
                     <div className=" team-dashbord">
@@ -265,7 +292,7 @@ const CreateGame = () => {
                                         <select name="sportId" id="sportId"
                                             onChange={handleinputChange}
                                             value={formData.sportId}
-                                            n
+                                            required
                                             className="form-control sport-select mt-2">
                                             <option value="">Select</option>
 
@@ -291,6 +318,7 @@ const CreateGame = () => {
                                                 onFocus={handleDateFocus}
                                                 ref={datePickerRef}
                                                 dateFormat={"yyyy-MM-dd"}
+                                                minDate={new Date()}
 
                                             />
                                             <span className="input-with-icon date-icon">
@@ -302,9 +330,9 @@ const CreateGame = () => {
                                         <label htmlFor="startTime">Start time</label>
                                         <div className="input-group">
                                             <DatePicker
-                                                // selected={startTime}
+                                                selected={formData.startTime}
                                                 name="startTime"
-                                                value={formData.startTime}
+                                                // value={formData.startTime}
                                                 onChange={handleStartTimeChange}
                                                 showTimeSelect
                                                 showTimeSelectOnly
@@ -314,6 +342,9 @@ const CreateGame = () => {
                                                 placeholderText="Select start time"
                                                 onFocus={handleStartTimeFocus}
                                                 ref={startTimePickerRef}
+                                                minTime={new Date()}
+                                                // maxTime={new Date(new Date().setHours(new Date().getHours() + 1))}
+                                                maxTime={new Date().setHours(23, 59, 59)}
                                             />
                                         </div>
                                     </div>
@@ -321,9 +352,9 @@ const CreateGame = () => {
                                         <label htmlFor="endTime">End time</label>
                                         <div className="input-group">
                                             <DatePicker
-                                                // selected={endTime}
+                                                selected={formData.endTime}
                                                 name="endTime"
-                                                value={formData.endTime}
+                                                // value={formData.endTime}
                                                 onChange={handleEndTimeChange}
                                                 showTimeSelect
                                                 showTimeSelectOnly
@@ -333,6 +364,8 @@ const CreateGame = () => {
                                                 placeholderText="Select end time"
                                                 onFocus={handleEndTimeFocus}
                                                 ref={endTimePickerRef}
+                                                minTime={formData.startTime}
+                                                maxTime={maxEndTime}
                                             />
                                         </div>
                                     </div>

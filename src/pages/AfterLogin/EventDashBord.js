@@ -82,12 +82,12 @@ const EventDashBord = () => {
                     <Sidebar toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
                     <SidebarSmallDevice />
                 </div>
-                <div className={`${mainContainerClass}  main mt-5`}>
+                <div className={`${mainContainerClass}  main mt-2`}>
 
 
                     <div className="upper-contant ">
                         <div className="row All-options my-4 d-flex justify-content-center  justify-content-md-start">
-                            <div className="col-md-6 col-lg-6 Team-options itemsColor py-2 text-center rounded ">
+                            <div className="col-md-6 col-lg-6 Team-options itemsColor py-2  text-center rounded ">
                                 <button
                                     className={`btn ${selectedOption === "Practice" ? "btn-primary" : ""}`}
                                     onClick={() => handleOptionChange("Practice")}

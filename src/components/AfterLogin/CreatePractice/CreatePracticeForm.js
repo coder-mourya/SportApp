@@ -20,6 +20,7 @@ import { BaseUrl } from "../../../reducers/Api/bassUrl";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
+import moment from 'moment';
 
 
 const CreatePracticeForm = () => {
@@ -86,20 +87,23 @@ const CreatePracticeForm = () => {
     };
 
     const handleStartTimeChange = (time) => {
-        const formatedTime = time.toLocaleTimeString('en-US')
+        // const formatedTime = time.toLocaleTimeString('en-US')
         setFormData((prevFormData) => ({
             ...prevFormData,
-            startTime: formatedTime
+            startTime: time,
+            endTime: ""
         }))
     };
 
     const handleEndTimeChange = (time) => {
-        const formatedTime = time.toLocaleTimeString('en-US')
+        // const formatedTime = time.toLocaleTimeString('en-US')
         setFormData((prevFormData) => ({
             ...prevFormData,
-            endTime: formatedTime
+            endTime: time
         }))
     };
+
+    const maxEndTime = formData.startTime ? new Date(new Date(formData.startTime).getTime() + 30 * 60000) : null;
 
     const handleDateFocus = () => {
         if (datePickerRef.current) {
@@ -184,25 +188,49 @@ const CreatePracticeForm = () => {
         }))
     }
 
- 
 
-    const hanldleCreate = async () => { 
+
+
+
+    const hanldleCreate = async () => {
         const url = BaseUrl();
+        const storedMebers = JSON.parse(localStorage.getItem('memberId'));
+        const OtherMembers = Array.isArray(storedMebers) ? storedMebers : [];
+
+        // Format the event date and times
+        const eventDateString = `${moment(formData.eventDate).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
+        const startTimeString = `${moment(formData.startTime).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
+        const endTimeString = `${moment(formData.endTime).format('YYYY-MM-DD')} ${moment(formData.endTime).format('h:mm A')} UTC`;
+
+        // Convert to UTC and format in ISO 8601 with milliseconds and UTC timezone
+        const formattedEventDateUTC = moment.utc(eventDateString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        const formattedStartTimeUTC = moment.utc(startTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        const formattedEndTimeUTC = moment.utc(endTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+
         const data = {
             ...formData,
             teamIds: selectedTeamds,
-            eventMembers: Object.values(teamMembers).flat()
-        }
+            eventName: formData.eventName.toLocaleUpperCase(),
+            eventMembers: [...Object.values(teamMembers).flat(), ...OtherMembers],
+            endTime: formattedEndTimeUTC,
+            startTime: formattedStartTimeUTC,
+            eventDate: formattedEventDateUTC,
+            eventDateUTC: formattedEventDateUTC,
+            startTimeUTC: formattedStartTimeUTC,
+            endTimeUTC: formattedEndTimeUTC,
+        };
+
+        localStorage.removeItem('memberId');
 
         // console.log("event data", data);
-
+        // return; 
 
         try {
             const response = await axios.post(`${url}/user/event/create`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            });
 
             if (response.data.status === 200) {
                 console.log("event created successfully", response.data);
@@ -211,14 +239,14 @@ const CreatePracticeForm = () => {
             } else {
                 console.log("error in creating event", response.data);
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error logging in user';
-                toast.error(errorMessage)
+                toast.error(errorMessage);
             }
         } catch (error) {
             console.log("error in creating event", error);
             toast.error("internal server error");
         }
+    };
 
-    }
 
 
 
@@ -231,7 +259,7 @@ const CreatePracticeForm = () => {
                     <SidebarSmallDevice />
                 </div>
 
-                <div className={`${mainContainerClass}  main mt-5 `}>
+                <div className={`${mainContainerClass}  main mt-4 `}>
 
 
                     <div className=" team-dashbord">
@@ -263,10 +291,9 @@ const CreatePracticeForm = () => {
                                         <select name="sportId" id="sportId"
                                             onChange={handleinputChange}
                                             value={formData.sportId}
-                                            n
+                                            required
                                             className="form-control sport-select mt-2">
                                             <option value="">Select</option>
-
                                             {chosenSports.map((sports, index) => (
                                                 <option key={index} value={sports._id}>{sports.sports_name}</option>
                                             ))}
@@ -289,6 +316,7 @@ const CreatePracticeForm = () => {
                                                 onFocus={handleDateFocus}
                                                 ref={datePickerRef}
                                                 dateFormat={"yyyy-MM-dd"}
+                                                minDate={new Date()}
 
                                             />
                                             <span className="input-with-icon date-icon">
@@ -300,9 +328,9 @@ const CreatePracticeForm = () => {
                                         <label htmlFor="startTime">Start time</label>
                                         <div className="input-group">
                                             <DatePicker
-                                                // selected={startTime}
+                                                selected={formData.startTime}
                                                 name="startTime"
-                                                value={formData.startTime}
+                                                // value={formData.startTime}
                                                 onChange={handleStartTimeChange}
                                                 showTimeSelect
                                                 showTimeSelectOnly
@@ -311,6 +339,9 @@ const CreatePracticeForm = () => {
                                                 className="form-control"
                                                 placeholderText="Select start time"
                                                 onFocus={handleStartTimeFocus}
+                                                minTime={new Date()}
+                                                // maxTime={new Date(new Date().setHours(new Date().getHours() + 1))}
+                                                maxTime={new Date().setHours(23, 59, 59)}
                                                 ref={startTimePickerRef}
                                             />
                                         </div>
@@ -319,9 +350,9 @@ const CreatePracticeForm = () => {
                                         <label htmlFor="endTime">End time</label>
                                         <div className="input-group">
                                             <DatePicker
-                                                // selected={endTime}
+                                                selected={formData.endTime}
                                                 name="endTime"
-                                                value={formData.endTime}
+                                                // value={formData.endTime}
                                                 onChange={handleEndTimeChange}
                                                 showTimeSelect
                                                 showTimeSelectOnly
@@ -331,6 +362,8 @@ const CreatePracticeForm = () => {
                                                 placeholderText="Select end time"
                                                 onFocus={handleEndTimeFocus}
                                                 ref={endTimePickerRef}
+                                                minTime={formData.startTime}
+                                                maxTime={maxEndTime}
                                             />
                                         </div>
                                     </div>
@@ -399,29 +432,29 @@ const CreatePracticeForm = () => {
 
                         <Modal show={modelShow} onHide={handleCloseModel} centered>
                             <Modal.Header closeButton
-                            style={{borderBottom:"none"}}
+                                style={{ borderBottom: "none" }}
                             >
-                           
+
                             </Modal.Header>
 
                             <Modal.Title>
-                            <div className="d-flex justify-content-center">
-                            <img src={success} alt="pic" />
-                            </div>
+                                <div className="d-flex justify-content-center">
+                                    <img src={success} alt="pic" />
+                                </div>
                             </Modal.Title>
                             <Modal.Body>
                                 <div className="text-center">
                                     <h3>Successful!</h3>
                                     <p className="text-muted mt-2 px-5">Event has been successfully created and
-                                    Invite sent to the team members.</p>
+                                        Invite sent to the team members.</p>
 
                                     <button className="btn mt-5"
-                                    style={{
-                                        backgroundColor:"#D32F2F",
-                                        color:"white",
-                                        width: "50%"
-                                    }}
-                                    onClick={handleCloseModel}
+                                        style={{
+                                            backgroundColor: "#D32F2F",
+                                            color: "white",
+                                            width: "50%"
+                                        }}
+                                        onClick={handleCloseModel}
                                     >
                                         ok
                                     </button>

@@ -19,6 +19,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
 import success from "../../../assets/afterLogin picks/events/pic5.png";
+import moment from "moment";
+
 
 
 const CreateTournament = () => {
@@ -86,20 +88,24 @@ const CreateTournament = () => {
     };
 
     const handleStartTimeChange = (time) => {
-        const formatedTime = time.toLocaleTimeString('en-US')
+        // const formatedTime = time.toLocaleTimeString('en-US')
         setFormData((prevFormData) => ({
             ...prevFormData,
-            startTime: formatedTime
+            startTime: time,
+            endTime: ""
         }))
     };
 
     const handleEndTimeChange = (time) => {
-        const formatedTime = time.toLocaleTimeString('en-US')
+        // const formatedTime = time.toLocaleTimeString('en-US')
         setFormData((prevFormData) => ({
             ...prevFormData,
-            endTime: formatedTime
+            endTime: time
         }))
     };
+
+    const maxEndTime = formData.startTime ? new Date(new Date(formData.startTime).getTime() + 30 * 60000) : null;
+
 
     const handleDateFocus = () => {
         if (datePickerRef.current) {
@@ -187,39 +193,61 @@ const CreateTournament = () => {
     // console.log("team member", teamMembers);
     // console.log("selected teamds", selectedTeamds);
 
-    const hanldleCreate = async () => {
+  
+    const hanldleCreate = async () => { 
         const url = BaseUrl();
+        const storedMebers = JSON.parse(localStorage.getItem('memberId'));
+        const OtherMembers = Array.isArray(storedMebers) ? storedMebers : [];
+    
+        // Format the event date and times
+        const eventDateString = `${moment(formData.eventDate).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
+        const startTimeString = `${moment(formData.startTime).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
+        const endTimeString = `${moment(formData.endTime).format('YYYY-MM-DD')} ${moment(formData.endTime).format('h:mm A')} UTC`;
+    
+        // Convert to UTC and format in ISO 8601 with milliseconds and UTC timezone
+        const formattedEventDateUTC = moment.utc(eventDateString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        const formattedStartTimeUTC = moment.utc(startTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+        const formattedEndTimeUTC = moment.utc(endTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    
         const data = {
             ...formData,
             teamIds: selectedTeamds,
-            eventMembers: Object.values(teamMembers).flat()
-        }
-
+            eventName: formData.eventName.toLocaleUpperCase(),
+            eventMembers: [...Object.values(teamMembers).flat(), ...OtherMembers],
+            endTime: formattedEndTimeUTC,
+            startTime: formattedStartTimeUTC,
+            eventDate: formattedEventDateUTC,
+            eventDateUTC: formattedEventDateUTC,
+            startTimeUTC: formattedStartTimeUTC,
+            endTimeUTC: formattedEndTimeUTC,
+        };
+    
+        localStorage.removeItem('memberId');
+    
         // console.log("event data", data);
-
-
+        // return; 
+    
         try {
             const response = await axios.post(`${url}/user/event/create`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
-
+            });
+    
             if (response.data.status === 200) {
                 console.log("event created successfully", response.data);
+                toast.success("Event created successfully");
                 handleShowModel();
             } else {
                 console.log("error in creating event", response.data);
                 const errorMessage = response.data.errors ? response.data.errors.msg : 'Error logging in user';
-                toast.error(errorMessage)
+                toast.error(errorMessage);
             }
         } catch (error) {
             console.log("error in creating event", error);
             toast.error("internal server error");
         }
-
-    }
-
+    };
 
 
     return (
@@ -231,7 +259,7 @@ const CreateTournament = () => {
                     <SidebarSmallDevice />
                 </div>
 
-                <div className={`${mainContainerClass}  main mt-5 `}>
+                <div className={`${mainContainerClass}  main mt-4 `}>
 
 
                     <div className=" team-dashbord">
@@ -246,7 +274,7 @@ const CreateTournament = () => {
 
                             <form className="form practice-form" >
                                 <div className="row">
-                                    <div className="col-md-8">
+                                    <div className="col-md-4">
                                         <label htmlFor="name">Event Name</label>
                                         <input
                                             type="text"
@@ -263,7 +291,7 @@ const CreateTournament = () => {
                                         <select name="sportId" id="sportId"
                                             onChange={handleinputChange}
                                             value={formData.sportId}
-                                            n
+                                            required
                                             className="form-control sport-select mt-2">
                                             <option value="">Select</option>
 
@@ -271,6 +299,17 @@ const CreateTournament = () => {
                                                 <option key={index} value={sports._id}>{sports.sports_name}</option>
                                             ))}
                                         </select>
+                                    </div>
+
+                                    <div className="col-md-4">
+                                        <label htmlFor="opponentName"> Opponent Name</label>
+                                        <input type="text"
+                                            name="opponentName"
+                                            placeholder="Enter opponent name"
+                                            className="form-control"
+                                            onChange={handleinputChange}
+                                            value={formData.opponentName}
+                                        />
                                     </div>
 
                                 </div>
@@ -289,6 +328,7 @@ const CreateTournament = () => {
                                                 onFocus={handleDateFocus}
                                                 ref={datePickerRef}
                                                 dateFormat={"yyyy-MM-dd"}
+                                                minDate={new Date()}
 
                                             />
                                             <span className="input-with-icon date-icon">
@@ -312,6 +352,8 @@ const CreateTournament = () => {
                                                 placeholderText="Select start time"
                                                 onFocus={handleStartTimeFocus}
                                                 ref={startTimePickerRef}
+                                                minTime={new Date()}
+                                                maxTime={new Date().setHours(23, 59, 59)}
                                             />
                                         </div>
                                     </div>
@@ -331,6 +373,8 @@ const CreateTournament = () => {
                                                 placeholderText="Select end time"
                                                 onFocus={handleEndTimeFocus}
                                                 ref={endTimePickerRef}
+                                                minTime={formData.startTime}
+                                                maxTime={maxEndTime}
                                             />
                                         </div>
                                     </div>

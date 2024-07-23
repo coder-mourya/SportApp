@@ -1,8 +1,9 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BaseUrl } from './Api/bassUrl';
+import { logout } from './authSlice';
 
-export const fetchTeams = createAsyncThunk(`teams/fetchTeams`, async (token) => {
+export const fetchTeams = createAsyncThunk(`teams/fetchTeams`, async (token, {dispatch}) => {
     const teamUrl = BaseUrl();
 
     const response = await axios.get(`${teamUrl}/user/myteams/list`, {
@@ -10,13 +11,20 @@ export const fetchTeams = createAsyncThunk(`teams/fetchTeams`, async (token) => 
             Authorization : `Bearer ${token}`
         }
     });
+
+    if (response.data.status === 401) {
+        dispatch(logout());
+        return Promise.reject(new Error('Unauthorized'));
+    }
+
+
     return response.data.data.teamData.teamList;
 
 })
 
 export const fetchTeamDetails = createAsyncThunk(
     'teams/fetchTeamDetails',
-    async ({ teamId, token }) => {
+    async ({ teamId, token , dispatch }) => {
         // console.log("data is fechted" , teamId, token);
         const teamDetailsUrl = BaseUrl();
         const response = await axios.get(`${teamDetailsUrl}/user/team/details/${teamId}`, {
@@ -25,6 +33,11 @@ export const fetchTeamDetails = createAsyncThunk(
             },
         });
         
+        if (response.data.status === 401) {
+            dispatch(logout());
+            return Promise.reject(new Error('Unauthorized'));
+        }
+
         return response.data.data.teamDetails;
     }
 );

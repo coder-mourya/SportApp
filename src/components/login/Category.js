@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../../assets/Styles/AfterLogin/Full-LoginProcess.css"; // Import the CSS file
-import search from "../../assets/afterLogin picks/Sports category icons/Search.png";
+import search from "../../assets/afterLogin picks/home/Search.png";
 import axios from 'axios';
 import { BaseUrl } from '../../reducers/Api/bassUrl';
 import { useSelector } from 'react-redux';

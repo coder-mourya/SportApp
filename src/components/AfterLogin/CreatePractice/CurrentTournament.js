@@ -8,6 +8,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchEvents } from "../../../reducers/eventSlice";
 import { useEffect } from "react";
+import practice from "../../../assets/afterLogin picks/Practice/practice.svg";
+import { formatDate, formatTime } from "../../Utils/dateUtils";
+
 
 const CurrentTournament = () => {
 
@@ -23,20 +26,49 @@ const CurrentTournament = () => {
     }, [token, dispetch])
 
 
+    const Time = new Date();
+    const formatedDate = Time.toISOString()
+    const cuurentTime = Time.toISOString();
+
+    const hasCurrentTournament = eventData.some((event) => {
+        return event.eventType === "tournament" && event.eventDate >= formatedDate && event.endTime > cuurentTime;
+    })
+
+    if (!hasCurrentTournament) {
+        return  <div className="row justify-content-center align-items-center p-5">
+        <div className="col-12 text-center">
+            <img src={practice} alt="team pick" className="img-fluid mb-3" />
+            <p className="mb-0">You have no practice scheduled.</p>
+        </div>
+    </div>
+    }
+
     return (
         <div className="row  d-flex   align-items-center p-md-2 ">
 
 
             {eventData.map((event, index) => {
-                // const { formattedDate, formattedStartTime, formattedEndTime } = formatedDateTime(event.eventDate, event.startTime, event.endTime)
+               const eventFormatedDate = formatDate(event.eventDate);
+               const eventEndTime = formatTime(event.endTime);
+               const eventFormatedStartTime = formatTime(event.startTime);
 
-                if (event.eventType === "tournament") {
+                if (event.eventType === "tournament" && event.eventDate >= formatedDate && event.endTime > cuurentTime) {
 
                     return (
                         <div key={index} className="col-md-6  ">
                             <div className="p-3 event-item  my-2  rounded-4 d-flex">
-                                <div className="col-md-3 ">
+                            <div className="col-md-3 position-relative">
                                     <img src={eventPick} alt="event pick" className="img-fluid eventpick" />
+                                    <img src={event.sport.selected_image} alt="event pick" className="img-fluid eventpick"
+                                        style={{ 
+                                            width: "40px",
+                                            position: "absolute",
+                                            top: "50%",
+                                            left: "45%",
+                                            transform: "translate(-50%, -50%)"
+
+                                         }}
+                                    />
                                 </div>
                                 <div className="col-md-9 event-icons">
                                     <h4 className="mb-2">{window.innerWidth < 576 ? event.eventName.substring(0, 10) + ".." : event.eventName}</h4>
@@ -52,13 +84,13 @@ const CurrentTournament = () => {
                                     <div className="mb-2">
                                         <div className="d-flex ">
                                             <img src={schedule} alt="schedule" className="me-2 " />
-                                            <p className="mb-0">{event.eventDate}</p>
+                                            <p className="mb-0">{eventFormatedDate}</p>
                                         </div>
                                     </div>
                                     <div>
                                         <div className="d-flex ">
                                             <img src={watch} alt="watch" className="me-2" />
-                                            <p className="mb-0">{event.startTime} - {event.endTime}</p>
+                                            <p className="mb-0">{eventFormatedStartTime} - {eventEndTime}</p>
                                         </div>
                                     </div>
                                 </div>

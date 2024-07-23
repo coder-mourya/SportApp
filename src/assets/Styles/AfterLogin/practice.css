@@ -28,8 +28,6 @@
 
 }
 
-
-
 .practice-form textarea {
     background-color: #F4F5F9;
     height: 8rem;
@@ -46,7 +44,6 @@
 
 .practice-form .sport-select {
     padding: 0.8rem 0.5rem !important;
-    color: #9A9BA5 !important;
 
 }
 
@@ -73,6 +70,20 @@
 .practice-form .react-datepicker-wrapper {
     width: 100% !important;
     
+}
+
+
+
+.practice-form select:required:invalid{
+    color: #9A9BA5;
+}
+
+.practice-form option[value=""][disabled] {
+    display: none;
+}
+
+.practice-form option{
+    color: #9A9BA5;
 }
 
 
