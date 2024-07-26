@@ -105,6 +105,16 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
             navigate("/LoggedInHome");
 
           }
+
+          const eventId = localStorage.getItem('eventId');
+          if (eventId) {
+
+            localStorage.removeItem('eventId');
+            navigate("/EventDetails", { state: { eventId: eventId } });
+          } else {
+
+            navigate("/LoggedInHome");
+          }
         }
 
         closeOffcanvas();
@@ -207,27 +217,27 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
         if (res.data.status === 200) {
           const checkVerify = res.data.data.user;
           // console.log("check verify ", checkVerify);
-          if (!checkVerify.email ) {
+          if (!checkVerify.email) {
             handleShowUpdateEmail({ provider_id, fullName });
             return;
-          }else if(checkVerify.isEmailVerify === false){ 
+          } else if (checkVerify.isEmailVerify === false) {
             handleShowPendingMail({ email });
-          }else{                      
-
-          dispatch(loginSuccess(res.data));
-          toast.success('Login Successful');
-          // console.log("response facebook ", res.data.data);
-
-          const teamId = localStorage.getItem('teamId');
-          if (teamId) {
-            localStorage.removeItem('teamId');
-            navigate("/TeamDashbord", { state: { teamID: teamId } });
           } else {
-            navigate("/LoggedInHome");
-          }
 
-          closeOffcanvas();
-        }
+            dispatch(loginSuccess(res.data));
+            toast.success('Login Successful');
+            // console.log("response facebook ", res.data.data);
+
+            const teamId = localStorage.getItem('teamId');
+            if (teamId) {
+              localStorage.removeItem('teamId');
+              navigate("/TeamDashbord", { state: { teamID: teamId } });
+            } else {
+              navigate("/LoggedInHome");
+            }
+
+            closeOffcanvas();
+          }
         } else {
           const errorMessage = res.data.errors ? res.data.errors.msg : 'Error logging in user';
           toast.error(errorMessage);
@@ -269,12 +279,12 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
 
           const checkVerify = res.data.data.user;
           console.log("check verify ", checkVerify);
-          if (!checkVerify.email ) {
+          if (!checkVerify.email) {
             handleShowUpdateEmail({ provider_id, fullName });
             return;
-          }else if(checkVerify.isEmailVerify === false){ 
+          } else if (checkVerify.isEmailVerify === false) {
             handleShowPendingMail({ email });
-          }else{   
+          } else {
             dispatch(loginSuccess(res.data));
             toast.success('Login Successful');
             const teamId = localStorage.getItem('teamId');
@@ -284,8 +294,8 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
             } else {
               navigate("/LoggedInHome");
             }
-          
-          closeOffcanvas();
+
+            closeOffcanvas();
           }
         } else {
           const errorMessage = res.data.errors ? res.data.errors.msg : 'Error logging in user';

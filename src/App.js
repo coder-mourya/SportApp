@@ -43,6 +43,7 @@ import JoinTeam from './components/AfterLogin/CreateTeam/JoinTeam';
 import { useState } from 'react';
 import CreateGame from './components/AfterLogin/CreatePractice/CreateGame';
 import CreateTournament from './components/AfterLogin/CreatePractice/CreateTournament';
+import JoinEvent from './components/AfterLogin/Events/JoinEvent';
 // import { ToastContainer } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -80,6 +81,7 @@ function App() {
         <Route exact path="/privacy-policy/" element={<Policy />} />
         <Route exact path="/cookies-policy/" element={<Cookies />} />
         <Route exact path="/join-team/:teamId" element={<JoinTeam showLogin={showLogin} setShowLogin={setShowLogin} />} />
+        <Route exact path="/join-event/:eventId" element={<JoinEvent showLogin={showLogin} setShowLogin={setShowLogin} />} />
 
 
 

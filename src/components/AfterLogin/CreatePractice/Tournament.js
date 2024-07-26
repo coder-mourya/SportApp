@@ -18,7 +18,7 @@ const Tournament = () => {
 
     const dispetch = useDispatch();
 
-    console.log("events", eventData);
+    // console.log("events", eventData);
 
     useEffect(() =>{
         dispetch(fetchEvents(token))

@@ -35,7 +35,7 @@
 .memerStatus{
   display: flex;
   flex-direction: column;
-  height: 41rem;
+  height: 38.9rem;
  
 }
 
@@ -59,6 +59,21 @@
   color: white;
 }
 
+.cancel-event-btn button:nth-child(2) {
+  width: 100%;
+  background-color: #D32F2F;
+  color: white;
+}
+
+.cancel-event-btn button:nth-child(2):hover {
+  background-color: #e54545;
+  color: white;
+}
+
+.add-cost-btn button:hover{
+  background-color: #d3baba;
+  color: white;
+}
 
 
 
@@ -150,4 +165,14 @@
 
 .edit img{
     width: 60%;
+}
+
+.share-editEvent-btn{
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+}
+
+.share-editEvent-btn:hover{
+  background-color: #ffffff;
+  border: 1px solid #ccc;
 }

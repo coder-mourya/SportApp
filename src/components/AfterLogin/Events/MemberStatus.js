@@ -4,13 +4,15 @@ import AllExpenses from "./AllExpenses";
 import { useState } from "react";
 import "../../../assets/Styles/AfterLogin/event.css"
 
-const MemberStatus = () => {
+const MemberStatus = ({eventId}) => {
 
     const [activeButton, setActiveButton] = useState('Member');
 
     const handleButtonClick = (button) => {
       setActiveButton(button);
     };
+
+    // console.log("event id ", eventId);
 
 
 
@@ -35,12 +37,10 @@ const MemberStatus = () => {
                 </div>
            
 
-            {activeButton === 'Member' ? <Status /> : <AllExpenses />}
+            {activeButton === 'Member' ? <Status eventId={eventId} /> : <AllExpenses  eventId={eventId}/>}
 
 
-            <div className="download-list d-flex justify-content-center ">
-                <button className="btn">Download list</button>
-            </div>
+           
            
         </div>
 

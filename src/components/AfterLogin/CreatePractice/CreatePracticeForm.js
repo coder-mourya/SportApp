@@ -28,7 +28,7 @@ const CreatePracticeForm = () => {
     const [mainContainerClass, setMainContainerClass] = useState('col-md-11');
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [selectedTeamds, setSelectedTeamds] = useState([]);
-    const [teamMembers, setTeamMembers] = useState({});
+    const [teamMembers, setTeamMembers] = useState([]);
     const [autoComplte, setAutoComplte] = useState(null);
     const datePickerRef = useRef(null);
     const startTimePickerRef = useRef(null);

@@ -362,7 +362,7 @@ const EditTeam = ({ team, handleCloseEditTeam }) => {
                                     className="py-2 rounded"
                                     onChange={handleInputChange}
                                     name="tagline"
-                                    value={formData.tagline}
+                                    value={formData.tagLine}
 
                                 />
                                 <img src={user} alt="tagline" className="input-icon" />
@@ -380,6 +380,7 @@ const EditTeam = ({ team, handleCloseEditTeam }) => {
                                     value={formData.sport}
                                     onChange={handleInputChange}
                                     disabled={true}
+                                    style={{cursor:"not-allowed"}}
                                 />
                             </div>
                         </div>

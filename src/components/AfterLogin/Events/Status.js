@@ -3,8 +3,9 @@ import YesComponent from './YesComponent';
 import NoComponent from './NoComponent';
 import PendingComponent from './PendingComponent';
 
-const Status = () => {
+const Status = ({eventId}) => {
   const [activeButton, setActiveButton] = useState('Yes');
+  // console.log("event id in status", eventId);
 
   const handleButtonClick = (button) => {
     setActiveButton(button);
@@ -13,11 +14,11 @@ const Status = () => {
   const renderComponent = () => {
     switch (activeButton) {
       case 'Yes':
-        return <YesComponent />;
+        return <YesComponent eventId={eventId}/>;
       case 'No':
-        return <NoComponent />;
+        return <NoComponent  eventId={eventId}/>;
       case 'Pending':
-        return <PendingComponent />;
+        return <PendingComponent eventId={eventId}/>;
       default:
         return <YesComponent />;
     }

@@ -9,11 +9,12 @@ import { useDispatch } from "react-redux";
 import { fetchEvents } from "../../../reducers/eventSlice";
 import practice from "../../../assets/afterLogin picks/Practice/practice.svg";
 import { formatDate, formatTime } from "../../Utils/dateUtils";
+import { useNavigate } from "react-router-dom";
 
 
 
 const CurrentPractice = () => {
-
+    const Navigate = useNavigate();
     const token = useSelector((state) => state.auth.user.data.user.token);
     const dispetch = useDispatch();
     const eventData = useSelector((state) => state.events.events);
@@ -25,6 +26,9 @@ const CurrentPractice = () => {
     }, [token, dispetch])
 
 
+    const handleShowDetails = (event) => {
+        Navigate(`/EventDetails`, {state : {event : event}})
+    }
 
     const Time = new Date();
  ;
@@ -59,8 +63,8 @@ const CurrentPractice = () => {
                 if (event.eventType === "practice" && event.eventDate >= formatedDate && event.endTime >= cuurentTime) {
 
                     return (
-                        <div key={index} className="col-md-6  ">
-                            <div className="p-3 event-item  my-2  rounded-4 d-flex">
+                        <div key={index} className="col-md-6 " >
+                            <div className="p-3 event-item  my-2  rounded-4 d-flex" onClick={() => handleShowDetails(event)}>
                             <div className="col-md-3 position-relative">
                                     <img src={eventPick} alt="event pick" className="img-fluid eventpick" />
                                     <img src={event.sport.selected_image} alt="event pick" className="img-fluid eventpick"

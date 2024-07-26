@@ -85,7 +85,7 @@ const AddMember = ({handleCloseAddMember}) => {
                 toast.error(errorMessage)
             }
         } catch (error) {
-            // console.error("Error adding member:", error);
+            console.error("Error adding member:", error);
             toast.error("internal server error");
         }
     }
