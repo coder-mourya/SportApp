@@ -52,7 +52,8 @@ const CreateTournament = () => {
         endTime: "",
         notes: "",
         eventMembers: [],
-        teamIds: []
+        teamIds: [],
+        creatorIsAdmin: true,
 
     });
 

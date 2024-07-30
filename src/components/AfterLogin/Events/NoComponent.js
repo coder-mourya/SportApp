@@ -38,20 +38,23 @@ const NoComponent = ({ eventId }) => {
       ) : (
         <div className="row ">
           {EventDetails.allMemberDetails.map((member, index) => (
-            <div key={index} className="member-container col-md-12 d-flex  py-2 my-2 rounded-3">
-              <img src={member.image || logo} alt={member.name}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
 
-                }}
-              />
-              <div className=" d-flex justify-content-center align-items-center">
+            member.requestStatus === 3 && (
+              <div key={index} className="member-container col-md-12 d-flex  py-2 my-2 rounded-3">
+                <img src={member.image || logo} alt={member.name}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
 
-                <p className="ms-2">{member.fullName}</p>
+                  }}
+                />
+                <div className=" d-flex justify-content-center align-items-center">
+
+                  <p className="ms-2">{member.fullName}</p>
+                </div>
               </div>
-            </div>
+            )
           ))}
         </div>
       )}

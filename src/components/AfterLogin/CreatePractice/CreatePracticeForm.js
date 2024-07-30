@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import date from "../../../assets/afterLogin picks/Practice/date.svg";
 import success from "../../../assets/afterLogin picks/events/pic5.png";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -53,7 +52,8 @@ const CreatePracticeForm = () => {
         endTime: "",
         notes: "",
         eventMembers: [],
-        teamIds: []
+        teamIds: [],
+        creatorIsAdmin: true,
 
     });
 

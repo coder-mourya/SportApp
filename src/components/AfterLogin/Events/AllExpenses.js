@@ -67,7 +67,57 @@ const AllExpenses = ({ eventId }) => {
 
             if (res.status === 200) {
                 toast.success("Expenses added successfully");
+                dispatch(fetchEventsDetails({ eventId: eventId, token }));
                 handleCloseAddExpenses();
+            } else {
+                const errorMessage = res.data.errors ? res.data.errors.msg : "Error adding expenses";
+                toast.error(errorMessage);
+            }
+        } catch (error) {
+            toast.error("internal server error");
+        }
+    }
+
+    // edit expenses
+
+    const [showEditExpenses, setShowEditExpenses] = useState(false);
+    const [selectedExpenseId, setSelectedExpenseId] = useState(null);
+   const handleShowEditExpenses = (expenseId) => {
+    // console.log("selected expense id ", expenseId);
+    setShowEditExpenses(true);
+    setSelectedExpenseId(expenseId);
+   }
+    const handleCloseEditExpenses = () => setShowEditExpenses(false);
+
+
+    const handleEdit =  async () =>{
+        const EditCostUrl = BaseUrl();
+        
+        let data = {
+            eventId: eventId,
+            title: formData.title,
+            cost: formData.cost,
+            currencyCode: formData.currencyCode
+        }
+
+        const expenseId  = selectedExpenseId;
+
+        // console.log("edit cost data ", data, expenseId);
+
+        // return;
+
+        try {
+            const res = await axios.put(`${EditCostUrl}/user/event/edit/expense/${expenseId}`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+
+            if (res.status === 200) {
+                
+                toast.success(res.data.message);
+                dispatch(fetchEventsDetails({ eventId: eventId, token }));
+                handleCloseEditExpenses();
             } else {
                 const errorMessage = res.data.errors ? res.data.errors.msg : "Error adding expenses";
                 toast.error(errorMessage);
@@ -79,7 +129,7 @@ const AllExpenses = ({ eventId }) => {
 
 
     return (
-        <div className="AllExpences">
+        <div className="">
 
             {loading ? (
                 <div className="text-center loader flex-grow-1 d-flex justify-content-center align-items-center">
@@ -94,7 +144,7 @@ const AllExpenses = ({ eventId }) => {
                     />
                 </div>
             ) : (
-                <div className="row mt-4 members-expences">
+                <div className="row mt-4 members-expences AllExpences">
                     {EventDetails.eventExpenses.length === 0 ? (
                         <div className="py-5 d-flex flex-column">
                             <div className="d-flex justify-content-center align-items-center">
@@ -104,17 +154,7 @@ const AllExpenses = ({ eventId }) => {
                             </div>
                             <p className="text-center mt-2">There are no expenses.</p>
 
-                            <div className="mt-5">
-                                <button className="btn "
-                                    style={{
-                                        width: "100%",
-                                        backgroundColor: "#D32F2F",
-                                        color: "white",
-                                    }}
 
-                                    onClick={handleShowAddExpenses}
-                                >Add Expenses</button>
-                            </div>
                         </div>
 
                     ) : (
@@ -132,17 +172,38 @@ const AllExpenses = ({ eventId }) => {
                                         <h6>{expence.title}</h6>
                                         <p>  &#36;  {expence.cost}</p>
                                     </div>
-                                    <div className="me-4 d-flex justify-content-center edit">
+                                    <div className="me-4 d-flex justify-content-center edit"
+                                    style={{
+                                        cursor: "pointer",
+                                    }}
+
+                                  onClick={() => handleShowEditExpenses(expence._id)}
+                                    >
+
                                         <img src={edit} alt="edit" />
                                     </div>
                                 </div>
                             </div>
                         ))
                     )}
+
+
                 </div>
             )}
 
+            <div className="mt-2 ">
+                <button className="btn "
+                    style={{
+                        width: "100%",
+                        backgroundColor: "#D32F2F",
+                        color: "white",
+                    }}
 
+                    onClick={handleShowAddExpenses}
+                >Add Expenses</button>
+            </div>
+
+                    {/* add expenses */}
             <Modal show={showAddExpenses} onHide={handleCloseAddExpenses} centered>
                 <Modal.Header closeButton style={{ borderBottom: "none" }}>
                     <Modal.Title className="text-center">Add Cost</Modal.Title>
@@ -188,6 +249,56 @@ const AllExpenses = ({ eventId }) => {
                         </div>
                     </div>
                 </Modal.Body>
+
+            </Modal>
+
+            {/* edit expenses */}
+
+            <Modal show={showEditExpenses} onHide={handleCloseEditExpenses}>
+                    <Modal.Header closeButton style={{ borderBottom: "none" }}>
+                        <Modal.Title className="text-center">Edit Expenses</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                    <div className="px-3">
+                        <form >
+                            <div>
+                                <label htmlFor="title">Title</label>
+                                <input type="text"
+                                    placeholder="Enter here"
+                                    id="title"
+                                    name="title"
+                                    className="form-control py-2 mt-2"
+                                    value={formData.title}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+
+                            <div className="mt-3">
+                                <label htmlFor="about">Amount</label>
+                                <input type="text"
+                                    placeholder="Enter Amount"
+                                    id="cost"
+                                    name="cost"
+                                    className="form-control py-2 mt-2"
+                                    value={formData.cost}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                        </form>
+
+                        <div className="mt-5 add-cost-btn">
+                            <button className="btn"
+                                style={{ width: "100%", backgroundColor: "#D32F2F", color: "white" }}
+                                onClick={handleEdit}
+                            >
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                    </Modal.Body>
 
             </Modal>
 

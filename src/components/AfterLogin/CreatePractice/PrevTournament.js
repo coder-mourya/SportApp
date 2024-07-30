@@ -19,7 +19,7 @@ const PrevTournament = () => {
     const dispetch = useDispatch();
     const eventData = useSelector((state) => state.events.events);
 
-    console.log("events  in current", eventData);
+    // console.log("events  in current", eventData);
 
     useEffect(() => {
         dispetch(fetchEvents(token))

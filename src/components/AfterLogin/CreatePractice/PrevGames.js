@@ -10,6 +10,7 @@ import { fetchEvents } from "../../../reducers/eventSlice";
 import { useEffect } from "react";
 import practice from "../../../assets/afterLogin picks/Practice/practice.svg";
 import { formatDate, formatTime } from "../../Utils/dateUtils";
+import { useNavigate } from "react-router-dom";
 
 
 const PrevGames = () => {
@@ -18,8 +19,13 @@ const PrevGames = () => {
     const token = useSelector((state) => state.auth.user.data.user.token);
     const dispetch = useDispatch();
     const eventData = useSelector((state) => state.events.events);
+    const Navigate = useNavigate()
 
-    // console.log("events  in current", eventData);
+    // console.log("events  in prev games ", eventData);
+
+    const handleShowDetails = (event) => {
+        Navigate(`/EventDetails`, { state: { event: event } })
+    }
 
     useEffect(() => {
         dispetch(fetchEvents(token))
@@ -30,13 +36,15 @@ const PrevGames = () => {
     const cuurentTime = Time.toISOString();
 
     const hasGames = eventData.some((event) => {
-        return event.eventType === "game" && event.endTime > cuurentTime && event.eventDate < formatedDate;
+        return event.eventType === "game"
+            // && event.endTime > cuurentTime
+            // && event.eventDate > formatedDate;
     })
 
 
 
     if (!hasGames) {
-      return  <div className="row justify-content-center align-items-center p-5">
+        return <div className="row justify-content-center align-items-center p-5">
             <div className="col-12 text-center">
                 <img src={practice} alt="team pick" className="img-fluid mb-3" />
                 <p className="mb-0">You have no games scheduled.</p>
@@ -54,11 +62,14 @@ const PrevGames = () => {
                 const eventEndTime = formatTime(event.endTime);
                 const eventFormatedStartTime = formatTime(event.startTime);
 
-                if (event.eventType === "game" && event.endTime > cuurentTime && event.eventDate < formatedDate) {
+                if (event.eventType === "game"
+                    && event.endTime < cuurentTime
+                    && event.eventDate <= formatedDate
+                ) {
 
                     return (
                         <div key={index} className="col-md-6  ">
-                            <div className="p-3 event-item  my-2  rounded-4 d-flex">
+                            <div className="p-3 event-item  my-2  rounded-4 d-flex" onClick={() => handleShowDetails(event)}>
                                 <div className="col-md-3 position-relative">
                                     <img src={eventPick} alt="event pick" className="img-fluid eventpick" />
                                     <img src={event.sport.selected_image} alt="event pick" className="img-fluid eventpick"

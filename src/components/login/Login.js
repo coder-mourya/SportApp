@@ -159,7 +159,19 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
           } else {
             navigate("/LoggedInHome");
           }
+
+          const eventId = localStorage.getItem('eventId');
+          if (eventId) {
+
+            localStorage.removeItem('eventId');
+            navigate("/EventDetails", { state: { eventId: eventId } });
+          } else {
+
+            navigate("/LoggedInHome");
+          }
         }
+
+        
         closeOffcanvas();
       } else {
         const errorMessage = res.data.errors ? res.data.errors.msg : 'Error logging in user';
@@ -233,6 +245,15 @@ const LoginForm = ({ changeComponent, closeOffcanvas, goToLogin }) => {
               localStorage.removeItem('teamId');
               navigate("/TeamDashbord", { state: { teamID: teamId } });
             } else {
+              navigate("/LoggedInHome");
+            }
+            const eventId = localStorage.getItem('eventId');
+            if (eventId) {
+  
+              localStorage.removeItem('eventId');
+              navigate("/EventDetails", { state: { eventId: eventId } });
+            } else {
+  
               navigate("/LoggedInHome");
             }
 

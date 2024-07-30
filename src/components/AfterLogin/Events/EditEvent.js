@@ -197,7 +197,7 @@ const EditEvent = ({ EventDetails, handleCloseEditEvent }) => {
         // return; 
 
         try {
-            const response = await axios.post(`${url}/user/event/edit/${eventId}`, data, {
+            const response = await axios.put(`${url}/user/event/edit/${eventId}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -205,9 +205,9 @@ const EditEvent = ({ EventDetails, handleCloseEditEvent }) => {
 
             if (response.data.status === 200) {
                 console.log("event created successfully", response.data);
-                toast.success("Event created successfully");
+                const successMessage = response.data.message;
+                toast.success(successMessage);
                 handleCloseEditEvent();
-
 
             } else {
                 console.log("error in creating event", response.data);

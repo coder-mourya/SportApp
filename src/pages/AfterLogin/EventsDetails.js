@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { formatDate, formatTime } from "../../components/Utils/dateUtils";
 import logo from "../../assets/img/logo.png";
-import { confirmAlert } from 'react-confirm-alert';
 import { toast, ToastContainer } from "react-toastify";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import AddEventMember from "../../components/AfterLogin/Events/AddEventMember";
@@ -53,7 +52,7 @@ const EventDetails = () => {
     const token = useSelector((state) => state.auth.user.data.user.token);
     const user = useSelector((state) => state.auth.user.data.user);
     const currentUser = user.fullName;
-    // console.log("current user ", currentUser);
+    // console.log("current user ", user);
     const dispatch = useDispatch();
     const location = useLocation();
     const { event } = location.state;
@@ -96,6 +95,19 @@ const EventDetails = () => {
     const formateEndTime = formatTime(EventDetails?.endTime);
     const formateDate = formatDate(EventDetails?.eventDate);
 
+
+    
+    // confirmation map or address
+
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
+    const handleShowConfirmation = () => {
+        setShowConfirmation(true);  
+    }
+    const handleCLoseConfirmation = () => {
+        setShowConfirmation(false);
+    }
+
     const handleLocationClick = () => {
         const url = `https://www.google.com/maps/search/?api=1&query=${EventDetails.address}`;
         window.open(url, "_blank");
@@ -106,6 +118,8 @@ const EventDetails = () => {
         if (address) {
             navigator.clipboard.writeText(address).then(() => {
                 toast.success("Address copied to clipboard");
+                handleCLoseConfirmation();
+                
             }).catch(err => {
                 toast.error("Failed to copy address");
             })
@@ -114,34 +128,6 @@ const EventDetails = () => {
         }
     }
 
-    // confirmation map or address
-    const showConfirmation = () => {
-        confirmAlert({
-            // title: 'Confirmation',
-            // message: 'What you want',
-            buttons: [
-                {
-                    label: 'Open in map',
-                    className: 'yes-button',
-                    onClick: () => {
-                        handleLocationClick();
-                    }
-                },
-                {
-                    label: 'Copy address',
-                    className: 'no-button',
-                    onClick: () => {
-                        copyAddress();
-
-                    },
-                    //   style:{
-                    //     backgroundColor:'green',
-
-                    //   }
-                }
-            ]
-        });
-    };
 
     // Add member page 
     const [showAddEventMember, setShowAddEventMember] = useState(false);
@@ -247,21 +233,43 @@ const EventDetails = () => {
 
     // invite accept and reject
     const [showEventInvite, setEventShowInvite] = useState(false);
+    const [invitedMember, setInvitedMember] = useState({});
+    const [inviteAccepted, setInviteAccepted] = useState(false);
     const handleShowEventInvite = (member) => {
-        setEventShowInvite(true, member);
+        setEventShowInvite(true);
+        setInvitedMember(member);
     }
 
     const handleCloseEventInvite = () => {
         setEventShowInvite(false);
     };
 
-    useEffect(() => {
-        if (EventDetails && !EventDetails.isComplete) {
-            handleShowEventInvite(EventDetails)
-        }
-    })
+    const currentUserId = user._id;
+    // console.log("currentUserId", currentUserId);
 
-    const handleInviteAccept = async (eventId , status) => {
+    useEffect(() => {
+        // const inviteAccepted = localStorage.getItem('inviteAccepted');
+    
+       if(EventDetails && EventDetails.allMemberDetails){
+         const pendingMember = EventDetails.allMemberDetails.find(
+            member => member.requestStatus === 1 && member.memberId === currentUserId
+         );
+         
+         if(!inviteAccepted && eventIdFromLink){
+            handleShowEventInvite(pendingMember);
+            console.log("first 1");
+         }else if(!inviteAccepted && eventIdFromLink && pendingMember){
+            handleShowEventInvite(pendingMember);
+            // console.log("secound 2");    
+         }else if(pendingMember){
+            handleShowEventInvite(pendingMember);
+            // console.log("third 3");
+         }
+
+       }
+    }, [EventDetails, eventIdFromLink, currentUserId, inviteAccepted]);
+
+    const handleInviteAccept = async (eventId, status) => {
         const inviteUrl = BaseUrl();
 
         let data = {
@@ -269,6 +277,11 @@ const EventDetails = () => {
             status: status,
 
         }
+
+        if (invitedMember?._id) {
+            data["memberId"] = invitedMember?._id
+        }
+
 
         try {
             const response = await axios.post(`${inviteUrl}/user/event/request/accept-reject`, data,
@@ -284,9 +297,9 @@ const EventDetails = () => {
             if (response.data.status === 200) {
                 toast.success("Invite Accepted successfully");
                 dispatch(fetchEventsDetails({ eventId, token }));
+                setInviteAccepted(true);
                 handleCloseEventInvite();
-                // localStorage.setItem('inviteAccepted', 'true');
-                
+
             } else {
                 console.log("check error", response.data);
                 const message = response.data.errors.msg;
@@ -301,6 +314,10 @@ const EventDetails = () => {
         }
     }
 
+    // event type 
+    const eventType = EventDetails?.eventType.charAt(0).toUpperCase() + EventDetails?.eventType.slice(1);
+
+    // console.log("event type", eventType);
 
     return (
         <div className="container-fluid bodyColor ">
@@ -334,13 +351,38 @@ const EventDetails = () => {
                                     /> Share</button>
 
 
-                                <button className="btn ms-2 me-4 share-editEvent-btn"
+                                {EventDetails && !EventDetails.allMemberDetails.some((member) => member.requestStatus === 2 && member.memberId !== EventDetails.creatorId ) && (
+                                    <button className="btn ms-2 me-4 share-editEvent-btn"
                                     onClick={() => handleShowEditEvent(EventDetails)}
-                                ><img src={pen} alt="edit button"
-                                    style={{ marginRight: "5px" }}
-                                    />Edit</button>
+                                >
+                                    <img src={pen}
+                                        alt="edit button"
+                                        style={{ marginRight: "5px" }}
+                                    />
+                                    Edit
+                                </button>
+                               )}
 
-                                <button className="btn cancal-btn" onClick={handleShowDelete}>Cancal</button>
+                                {/* <button className="btn ms-2 me-4 share-editEvent-btn"
+                                    onClick={() => handleShowEditEvent(EventDetails)}
+                                >
+                                    <img src={pen}
+                                        alt="edit button"
+                                        style={{ marginRight: "5px" }}
+                                    />
+                                    Edit
+                                </button> */}
+
+                                {EventDetails && (
+                                    EventDetails.totalExpenses === 0 ?(
+                                    <button className="btn cancal-btn" onClick={handleShowDelete}>Cancal</button>
+
+                                    ):(
+                                    <button className="btn cancal-btn">Split Payment</button>
+
+                                    )
+                                )}
+                                
                             </div>
                         </div>
 
@@ -367,7 +409,7 @@ const EventDetails = () => {
                                         <div className="container-fluid ">
                                             <div className="row">
                                                 <div className="col-md-10 practice-btn">
-                                                    <button className="btn  mb-3">Practice</button>
+                                                    <button className="btn  mb-3">{eventType} </button>
                                                     {EventDetails && EventDetails.eventName && (
                                                         <h2>{EventDetails.eventName} </h2>
                                                     )}
@@ -375,7 +417,7 @@ const EventDetails = () => {
 
                                                 </div>
                                                 <div className="col-md-2 d-flex align-items-center position-relative">
-                                                    <img src={eventpick} alt="Event illustration" class="img-fluid" />
+                                                    <img src={eventpick} alt="Event illustration" className="img-fluid" />
                                                     {EventDetails && EventDetails.sport.image && (
                                                         <img src={EventDetails.sport.selected_image} alt="event pick" className="img-fluid eventpick"
                                                             style={{
@@ -405,7 +447,7 @@ const EventDetails = () => {
                                                             width: "30px",
                                                             cursor: "pointer",
                                                         }}
-                                                        onClick={showConfirmation}
+                                                        onClick={handleShowConfirmation}
 
                                                     />
                                                 </div>
@@ -474,6 +516,26 @@ const EventDetails = () => {
                                     </div>
 
                                 </div>
+
+                                {/* confrimation copy modal */}
+
+                                <Modal show={showConfirmation} onHide={handleCLoseConfirmation} centered>
+                                            <Modal.Body>
+                                                <div className="d-flex justify-content-center">
+                                                    <button onClick={copyAddress} className="btn me-2 "
+                                                    style={{width : "50%",
+                                                        border: "0.8px solid green",
+                                                    }}
+                                                    >Copy</button>
+                                                    <button onClick={handleLocationClick} className="btn  ms-2"
+                                                     style={{width : "50%",
+                                                        border: "0.8px solid green",
+                                                    }}
+                                                    >Open in map</button>
+                                                </div>
+
+                                            </Modal.Body>
+                                </Modal>
 
 
                                 {/* Add member  */}

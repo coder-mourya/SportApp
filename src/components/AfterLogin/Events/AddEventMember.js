@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchTeams } from "../../../reducers/teamSlice";
 import { toast } from "react-toastify";
-
+import { fetchEventsDetails } from "../../../reducers/eventSlice";
 
 import { fetchMembers } from "../../../reducers/memberSlice";
 import logo from "../../../assets/img/logo.png";
@@ -30,7 +30,7 @@ const ModifiedMyTeam = ({ EventDetails }) => {
     // console.log("event details in add member ", EventDetails);
     const eventId = EventDetails._id;
     const createrId = EventDetails.creatorId;
-    console.log("creator id ", createrId);
+    // console.log("creator id ", createrId);
     //    console.log("allTeams", allTeams);
 
     useEffect(() => {
@@ -90,7 +90,8 @@ const ModifiedMyTeam = ({ EventDetails }) => {
 
         if (response.data.status === 200) {
             toast.success("Member added successfully");
-            console.log("response", response);
+            dispatch(fetchEventsDetails({ eventId, token }));
+            // console.log("response", response);
         }else{
             toast.error("error in adding member");
         }

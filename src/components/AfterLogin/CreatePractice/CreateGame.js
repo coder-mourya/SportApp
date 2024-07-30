@@ -54,7 +54,9 @@ const CreateGame = () => {
         endTime: "",
         notes: "",
         eventMembers: [],
-        teamIds: []
+        teamIds: [],
+        creatorIsAdmin: true,
+
 
     });
 

@@ -39,10 +39,16 @@
  
 }
 
-.AllExpences , .Yes-component, .pending-component{
-
-  overflow-y: auto;
+.AllExpences  {
+  overflow-y: auto ;
   scrollbar-width: none;
+  max-height: 31rem;
+}
+
+.Yes-component, .pending-component{
+  overflow-y: auto ;
+  scrollbar-width: none;
+  max-height: 25rem;
 }
 
 
@@ -51,7 +57,7 @@
   width: 100%;
     background-color: #D32F2F;
     color: white;
-    
+     
 }
 
 .download-list button:hover{
