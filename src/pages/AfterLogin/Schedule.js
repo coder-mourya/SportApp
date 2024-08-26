@@ -81,34 +81,30 @@ const CustomCalendar = ({ onDateSelect, syncDates }) => {
 
 
     const hasEvent = (date) => {
-        const dateIso = formatDate(date);
-        // console.log("event dates ", dateIso);
+        const dateIso = format(date, 'yyyy-MM-dd'); // Format date to only include the date part (e.g., '2024-08-26')
+    
         const result = syncDates?.some(event => {
             let eventDateUtc;
-
+    
             if (event?.eventDateUTC) {
-
-                eventDateUtc = formatDate(event?.eventDateUTC)
-                // console.log("out side trure", eventDateUtc);
+                eventDateUtc = format(new Date(event.eventDateUTC), 'yyyy-MM-dd'); // Parse and format event date
             } else if (event?.event?.eventDateUTC) {
-
-                eventDateUtc = formatDate(event?.event?.eventDateUTC)
-                // console.log("inside trure", eventDateUtc);
+                eventDateUtc = format(new Date(event.event.eventDateUTC), 'yyyy-MM-dd');
             } else {
                 eventDateUtc = null;
             }
-
+    
             if (eventDateUtc === null) {
                 return false;
             }
-
-            const isSame = dateIso === eventDateUtc
-            return isSame
-        })
-        // console.log(`Final result for date ${dateIso}: ${result ? 'true' : 'false'}`);
-
-        return result
-    }
+    
+            return dateIso === eventDateUtc; 
+        });
+    
+        console.log(`Final result for date ${dateIso}: ${result ? 'true' : 'false'}`);
+    
+        return result;
+    };
 
 
 
