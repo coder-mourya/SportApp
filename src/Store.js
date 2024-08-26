@@ -4,13 +4,16 @@ import authReducer from './reducers/authSlice';
 import teamReducer from './reducers/teamSlice';
 import memberReducer from "./reducers/memberSlice";
 import eventReducer from "./reducers/eventSlice";
+import scheduleReducer from "./reducers/scheduleSlice";
+
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     teams: teamReducer,
     members : memberReducer ,
-    events : eventReducer 
+    events : eventReducer,
+    schedules : scheduleReducer 
   },
 });
 

@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
 import success from "../../../assets/afterLogin picks/events/pic5.png";
 import moment from "moment";
+import { ThreeDots } from "react-loader-spinner";
 
 
 
@@ -33,11 +34,12 @@ const CreateGame = () => {
     const [teamMembers, setTeamMembers] = useState({});
     const [autoComplte, setAutoComplte] = useState(null);
     const datePickerRef = useRef(null);
-    const startTimePickerRef = useRef(null);
+    // const startTimePickerRef = useRef(null);
     const endTimePickerRef = useRef(null);
     const token = useSelector(state => state.auth.user.data.user.token);
     const user = useSelector(state => state.auth.user.data.user);
     const chosenSports = user.chosenSports;
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -78,36 +80,48 @@ const CreateGame = () => {
     }
 
     const handleCloseModel = () => setModelShow(false)
-
     const handleDateChange = (date) => {
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const formatedDate = `${year}-${month}-${day}`;
+        const formattedDate = moment(date).format('YYYY-MM-DD');
         setFormData((prevFormData) => ({
             ...prevFormData,
-            eventDate: formatedDate
-        }))
+            eventDate: formattedDate,
+            startTime: '',
+            endTime: ''
+        }));
     };
 
-    const handleStartTimeChange = (time) => {
-        // const formatedTime = time.toLocaleTimeString('en-US')
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            startTime: time,
-            endTime: ""
-        }))
-    };
+    // Handle start time change
+const handleStartTimeChange = (time) => {
+    const selectedDate = moment(formData.eventDate);
+    const selectedTime = moment(time);
+    const updatedStartTime = selectedDate.set({
+        hour: selectedTime.hour(),
+        minute: selectedTime.minute()
+    }).toISOString();
+    
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        startTime: updatedStartTime,
+        endTime: '' // Reset end time to ensure it is after start time
+    }));
+};
 
-    const handleEndTimeChange = (time) => {
-        // const formatedTime = time.toLocaleTimeString('en-US')
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            endTime: time
-        }))
-    };
+   // Handle end time change
+const handleEndTimeChange = (time) => {
+    const selectedDate = moment(formData.eventDate);
+    const selectedTime = moment(time);
+    const updatedEndTime = selectedDate.set({
+        hour: selectedTime.hour(),
+        minute: selectedTime.minute()
+    }).toISOString();
+    
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        endTime: updatedEndTime
+    }));
+};
 
-    const maxEndTime = formData.startTime ? new Date(new Date(formData.startTime).getTime() + 30 * 60000) : null;
+    // const maxEndTime = formData.startTime ? new Date(new Date(formData.startTime).getTime() + 30 * 60000) : null;
 
 
     const handleDateFocus = () => {
@@ -116,17 +130,17 @@ const CreateGame = () => {
         }
     };
 
-    const handleStartTimeFocus = () => {
-        if (startTimePickerRef.current) {
-            startTimePickerRef.current.setOpen(true);
-        }
-    };
+    // const handleStartTimeFocus = () => {
+    //     if (startTimePickerRef.current) {
+    //         startTimePickerRef.current.setOpen(true);
+    //     }
+    // };
 
-    const handleEndTimeFocus = () => {
-        if (endTimePickerRef.current) {
-            endTimePickerRef.current.setOpen(true);
-        }
-    };
+    // const handleEndTimeFocus = () => {
+    //     if (endTimePickerRef.current) {
+    //         endTimePickerRef.current.setOpen(true);
+    //     }
+    // };
 
 
     const toggleSidebar = () => {
@@ -197,6 +211,7 @@ const CreateGame = () => {
     // console.log("selected teamds", selectedTeamds);
 
     const hanldleCreate = async () => { 
+        setLoading(true);
         const url = BaseUrl();
         const storedMebers = JSON.parse(localStorage.getItem('memberId'));
         const OtherMembers = Array.isArray(storedMebers) ? storedMebers : [];
@@ -248,6 +263,8 @@ const CreateGame = () => {
         } catch (error) {
             console.log("error in creating event", error);
             toast.error("internal server error");
+        }finally {
+            setLoading(false);
         }
     };
 
@@ -264,6 +281,17 @@ const CreateGame = () => {
 
                 <div className={`${mainContainerClass}  main mt-4 `}>
 
+                {loading ? <div className="text-center loader flex-grow-1 d-flex justify-content-center align-items-center">
+                        <ThreeDots
+                            height={80}
+                            width={80}
+                            color="green"
+                            ariaLabel="loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                        />
+                    </div> : null}
 
                     <div className=" team-dashbord">
 
@@ -312,6 +340,7 @@ const CreateGame = () => {
                                         <div className="input-group date">
                                             <DatePicker
                                                 // selected={startDate}
+                                                selected={formData.eventDate ? new Date(formData.eventDate) : null}
                                                 name="eventDate"
                                                 value={formData.eventDate}
                                                 onChange={handleDateChange}
@@ -332,7 +361,8 @@ const CreateGame = () => {
                                         <label htmlFor="startTime">Start time</label>
                                         <div className="input-group">
                                             <DatePicker
-                                                selected={formData.startTime}
+                                                // selected={formData.startTime}
+                                                selected={formData.startTime ? new Date(formData.startTime) : null}
                                                 name="startTime"
                                                 // value={formData.startTime}
                                                 onChange={handleStartTimeChange}
@@ -342,11 +372,12 @@ const CreateGame = () => {
                                                 dateFormat="h:mm aa"
                                                 className="form-control"
                                                 placeholderText="Select start time"
-                                                onFocus={handleStartTimeFocus}
-                                                ref={startTimePickerRef}
-                                                minTime={new Date()}
+                                                // onFocus={handleStartTimeFocus}
+                                                // minTime={new Date()}
+                                                minTime={formData.eventDate === moment().format('YYYY-MM-DD') ? new Date() : new Date().setHours(0, 0, 0, 0)}
                                                 // maxTime={new Date(new Date().setHours(new Date().getHours() + 1))}
                                                 maxTime={new Date().setHours(23, 59, 59)}
+                                            // ref={startTimePickerRef}
                                             />
                                         </div>
                                     </div>
@@ -354,20 +385,23 @@ const CreateGame = () => {
                                         <label htmlFor="endTime">End time</label>
                                         <div className="input-group">
                                             <DatePicker
-                                                selected={formData.endTime}
-                                                name="endTime"
-                                                // value={formData.endTime}
-                                                onChange={handleEndTimeChange}
-                                                showTimeSelect
-                                                showTimeSelectOnly
-                                                timeIntervals={15}
-                                                dateFormat="h:mm aa"
-                                                className="form-control"
-                                                placeholderText="Select end time"
-                                                onFocus={handleEndTimeFocus}
-                                                ref={endTimePickerRef}
-                                                minTime={formData.startTime}
-                                                maxTime={maxEndTime}
+                                                 // selected={formData.endTime}
+                                                 selected={formData.endTime ? new Date(formData.endTime) : null}
+                                                 name="endTime"
+                                                 // value={formData.endTime}
+                                                 onChange={handleEndTimeChange}
+                                                 showTimeSelect
+                                                 showTimeSelectOnly
+                                                 timeIntervals={15}
+                                                 dateFormat="h:mm aa"
+                                                 className="form-control"
+                                                 placeholderText="Select end time"
+                                                 // onFocus={handleEndTimeFocus}
+                                                 ref={endTimePickerRef}
+                                                 // minTime={formData.startTime}
+                                                 minTime={formData.startTime ? new Date(new Date(formData.startTime).getTime() + 15 * 60000) : new Date().setHours(0, 0, 0, 0)}
+                                                 // maxTime={maxEndTime}
+                                                 maxTime={new Date().setHours(23, 59, 59)}
                                             />
                                         </div>
                                     </div>
@@ -458,7 +492,7 @@ const CreateGame = () => {
                                         color:"white",
                                         width: "50%"
                                     }}
-                                    onClick={handleCloseModel}
+                                    onClick={handleCros}
                                     >
                                         ok
                                     </button>

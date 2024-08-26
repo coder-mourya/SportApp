@@ -1,0 +1,76 @@
+.custom-calendar .slick-slide {
+  padding: 0 5px;
+}
+
+.calendar-slide {
+  text-align: center;
+}
+
+.calendar-cell {
+ 
+  padding: 10px;
+}
+
+.weekday {
+  font-size: 16px;
+  color: #9A9BA5;
+}
+
+.custom-calendar .date {
+  font-size: 1.2em;
+  height: 40px;
+  width: 40px;
+  padding-top: 2px;
+  cursor: pointer;
+}
+
+.custom-calendar .date:hover {
+  background-color: #0d6efd;
+  color: white;
+  border-radius: 50%;
+}
+
+.different-month {
+  color: #aaa;
+}
+
+.calendar-header button {
+  width: 40px;
+  height: 40px;
+  border: .5px solid #ccc;
+  border-radius: 8px;
+}
+
+.calendar-header h2{
+  font-size:  24px;
+}
+
+/* .calendar-cell.today {
+  background-color: rgba(255, 0, 0, 0.1);  
+  border: 2px solid red; 
+  border-radius: 50%;  
+} */
+
+.calendar-cell.today .date {
+  color: white;
+  background-color: #D32F2F;
+  border-radius: 50%;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #0d6efd  !important;
+}
+
+.highlighted{
+  background-color: red;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.sync-btn:hover {
+    background-color: #9A9BA5 !important;
+    /* color: white !important; */
+}
+
+

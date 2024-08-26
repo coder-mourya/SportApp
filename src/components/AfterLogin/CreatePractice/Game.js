@@ -44,7 +44,7 @@ const Game = () => {
 
 
     return (
-        <div className="container-fluid itemsColor practice rounded">
+        <div className="container-fluid itemsColor practice rounded-4 mb-5" style={{ height: "39rem" }}>
             {eventData.length === 0 ? (
                 <div className="row justify-content-center align-items-center p-5">
                     <div className="col-12 text-center">

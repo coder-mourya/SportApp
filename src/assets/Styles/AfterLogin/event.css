@@ -1,66 +1,97 @@
-.cancal-btn{
-     width: 9rem !important;
-     color: #D32F2F !important;
-     border: 1px solid #D32F2F !important;
+.cancal-btn {
+  width: 9rem !important;
+  color: #D32F2F !important;
+  border: 1px solid #D32F2F !important;
 }
 
-.cancal-btn:hover{
-    background-color: #D32F2F !important;
-    color: white !important;
+.cancal-btn:hover {
+  background-color: #D32F2F !important;
+  color: white !important;
+}
+
+.payment-btn {
+  width: 9rem !important;
+  color: #D32F2F !important;
+  border: 1px solid #D32F2F !important;
+}
+
+.payment-btn:hover {
+  background-color: #D32F2F !important;
+  color: white !important;
+}
+
+.payment-btn:focus {
+  background-color: #D32F2F !important;
+  color: white !important;
+}
+
+.event-details-btns .active {
+  background-color: #D32F2F !important;
+  color: white !important;
 }
 
 
-.practice-btn button{
-    width: 20%;
-    background-color: #558ed5;
-    color: white;
+.practice-btn button {
+  width: 10rem;
+  background-color: #558ed5;
+  color: white;
 }
 
-.practice-btn button:hover{
-    background-color: #406a9d;
-    color: white;
+.practice-btn button:hover {
+  background-color: #406a9d;
+  color: white;
 }
 
-.add-btn button{
+.add-btn button {
   width: 100%;
   border: 1px solid #29388E;
   color: #283593;
 }
 
-.add-btn button:hover{
+.add-btn button:hover {
   background-color: #283593;
   color: white;
 }
 
-.memerStatus{
+.memerStatus {
   display: flex;
   flex-direction: column;
   height: 38.9rem;
- 
 }
 
-.AllExpences  {
-  overflow-y: auto ;
+.hoverable {
+  transition: background-color 0.3s ease;
+}
+
+.hoverable:hover {
+  background-color: #f0f0f0;
+  /* Change this to your desired hover background color */
+}
+
+
+.AllExpences {
+  overflow-y: auto;
   scrollbar-width: none;
   max-height: 31rem;
 }
 
-.Yes-component, .pending-component{
-  overflow-y: auto ;
+.Yes-component,
+.pending-component {
+  overflow-y: auto;
   scrollbar-width: none;
   max-height: 25rem;
 }
 
 
 
-.download-list button{
+.download-list button {
   width: 100%;
-    background-color: #D32F2F;
-    color: white;
-     
+  background-color: #D32F2F;
+  color: white;
+
 }
 
-.download-list button:hover{
+.download-list button:hover {
   background-color: #e54545;
   color: white;
 }
@@ -76,109 +107,183 @@
   color: white;
 }
 
-.add-cost-btn button:hover{
+.add-cost-btn button:hover {
   background-color: #d3baba;
   color: white;
 }
 
 
 
-  .team-members {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .team-members li {
-    display: inline-block;
-    position: relative;
-    margin-left: -1rem;
-  }
-  
-  .team-members li img {
-    border-radius: 50%;
-  }
-  
-  .last-item img {
-    filter: blur(1px);
-     opacity: 0.8;
-  }
-  
-  .extra-count {
-    position: absolute;
-    bottom: 0;
-    right: 2.3rem;
-    background-color: rgba(58, 56, 56, 0.7); /* Semi-transparent white background */
-    padding: 1rem; /* Adjust as needed */
-    border-radius: 50%; /* Make it circular */
-    font-size: 12px; /* Adjust as needed */
-    color: white;
-  }
-  
-
-
-  .status-btn button {
-    width: 40%;
-    position: relative;
-    overflow: hidden;
-    transition: background-color 0.3s ease;
-    border: none;
-  }
-  
-  .status-btn button::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: transparent; /* Initial color of the line */
-    transition: background-color 0.3s ease;
-  }
-  
-  .status-btn button:hover::before,
-  .status-btn button.btn-Active::before { /* Apply the same style for hover and active state */
-    background-color: #283593; /* Change line color on hover and when button is active */
-  }
-  
-  .status-btn button:active { /* Apply style when button is clicked */
-    background-color: #28a745; /* Change background color on click */
-  }
-  
-  .button-text {
-    color: #283593; /* Set the text color */
-    position: relative;
-    z-index: 1; /* Ensure text is above the line */
-  }
-  
-
-
-
- 
- 
-
-  .cownDown{
-    color: #D32F2F;
-  }
-
-
-.edit{
-    background-color: #ffffff;
-    width: 2.5rem;
-    height: 2rem;
-    border-radius: 5px;
+.team-members {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.edit img{
-    width: 60%;
+.team-members li {
+  display: inline-block;
+  position: relative;
+  margin-left: -1rem;
 }
 
-.share-editEvent-btn{
+.team-members li img {
+  border-radius: 50%;
+}
+
+.last-item img {
+  filter: blur(1px);
+  opacity: 0.8;
+}
+
+.extra-count {
+  position: absolute;
+  bottom: 0;
+  right: 2.3rem;
+  background-color: rgba(58, 56, 56, 0.7);
+  /* Semi-transparent white background */
+  padding: 1rem;
+  /* Adjust as needed */
+  border-radius: 50%;
+  /* Make it circular */
+  font-size: 12px;
+  /* Adjust as needed */
+  color: white;
+}
+
+
+
+.status-btn button {
+  width: 40%;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.status-btn button::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: transparent;
+  /* Initial color of the line */
+  transition: background-color 0.3s ease;
+}
+
+.status-btn button:hover::before,
+.status-btn button.btn-Active::before {
+  /* Apply the same style for hover and active state */
+  background-color: #283593;
+  /* Change line color on hover and when button is active */
+}
+
+.status-btn button:active {
+  /* Apply style when button is clicked */
+  background-color: #28a745;
+  /* Change background color on click */
+}
+
+.button-text {
+  color: #283593;
+  /* Set the text color */
+  position: relative;
+  z-index: 1;
+  /* Ensure text is above the line */
+}
+
+
+
+
+
+
+
+
+
+.cownDown {
+  color: #D32F2F;
+}
+
+
+.edit {
+  background-color: #ffffff;
+  width: 2.5rem;
+  height: 2rem;
+  border-radius: 5px;
+}
+
+.edit img {
+  width: 60%;
+}
+
+.share-editEvent-btn {
   background-color: #ffffff;
   border: 1px solid #ccc;
 }
 
-.share-editEvent-btn:hover{
+.share-editEvent-btn:hover {
   background-color: #ffffff;
   border: 1px solid #ccc;
+}
+
+.expence-delete-btn :nth-child(2):hover {
+  background-color: #D32F2F;
+  color: white;
+}
+
+.expence-delete-btn :nth-child(1):hover {
+  background-color: green;
+  color: white;
+}
+
+.currency-input-wrapper {
+  position: relative !important;
+}
+
+.currency-select {
+  position: absolute !important;
+  /* right: 0 !important; */
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 100px !important;
+  /* min-width: 80px !important; */
+
+}
+
+.css-13cymwt-control {
+  border-top: none !important;
+  border-bottom: none !important;
+
+}
+
+.css-19bb58m input {
+  width: 0 !important;
+  border: none !important;
+}
+
+.currency-input-with-dropdown {
+  padding-left: 105px !important;
+}
+
+.currency-input-without-dropdown {
+  padding-left: 0 !important;
+}
+
+
+
+@media (max-width: 1284px) {
+  .prev-button{
+    margin-left: 2rem;
+  }
+
+  .sideContainer{
+    margin-top: 1rem;
+  }
+
+  .event-details-heading{
+    display: none;
+  }
+
 }

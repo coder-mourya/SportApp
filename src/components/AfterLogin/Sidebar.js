@@ -45,7 +45,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/ComingSoon" onClick={toggleSidebar}>
+            <Link to="/schedule" onClick={toggleSidebar}>
               <img src={event2} alt="schedule" />
               <span>Schedule</span>
             </Link>
@@ -53,7 +53,7 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
         </MenuItem>
         <MenuItem className='custom-menu-item'>
           <div className='innerLink'>
-            <Link to="/ComingSoon" onClick={toggleSidebar}>
+            <Link to="/EventDashBord" onClick={toggleSidebar}>
               <img src={team2} alt="event" />
               <span>Event</span>
             </Link>

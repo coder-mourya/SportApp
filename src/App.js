@@ -44,6 +44,12 @@ import { useState } from 'react';
 import CreateGame from './components/AfterLogin/CreatePractice/CreateGame';
 import CreateTournament from './components/AfterLogin/CreatePractice/CreateTournament';
 import JoinEvent from './components/AfterLogin/Events/JoinEvent';
+import Schedule from './pages/AfterLogin/Schedule';
+import All from './components/AfterLogin/Schedule/All';
+import EventSchedule from './components/AfterLogin/Schedule/EventSchedule';
+import TrainingSchedule from './components/AfterLogin/Schedule/TrainingSchedule';
+import Payment from './components/AfterLogin/Events/Payment';
+import PaymentStatus from './components/AfterLogin/Events/PaymentStatus';
 // import { ToastContainer } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -51,7 +57,7 @@ function App() {
 
 
   const location = useLocation();
-  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord' || location.pathname === '/EventDashBord' || location.pathname === '/CreatePracticeForm' || location.pathname === '/EventDetails' || location.pathname === '/ViewProfile' || location.pathname === '/ChangePass'  || location.pathname === '/CreateGame' || location.pathname === '/CreateTournament';
+  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord' || location.pathname === '/EventDashBord' || location.pathname === '/CreatePracticeForm' || location.pathname === '/EventDetails' || location.pathname === '/ViewProfile' || location.pathname === '/ChangePass'  || location.pathname === '/CreateGame' || location.pathname === '/CreateTournament' || location.pathname === '/schedule' || location.pathname === '/All' || location.pathname === '/EventSchedule' || location.pathname === '/TrainingSchedule';
 
   const [showLogin, setShowLogin] = useState(false);
 
@@ -112,6 +118,13 @@ function App() {
         <Route exact path='/EventDetails' element={<ProtectedRoute element={EventDetails} />} />
         <Route exact path='/ViewProfile' element={<ProtectedRoute element={ViewProfile} />} />
         <Route exact path='/ChangePass' element={<ProtectedRoute element={ChangePass} />} />
+        <Route exact path='/schedule' element={<ProtectedRoute element={Schedule} />} />
+        <Route exact path='/all-schedule'  element={<ProtectedRoute element={All} />} />
+        <Route exact path='/event-schedule'  element={<ProtectedRoute element={EventSchedule} />} />
+        <Route exact path='/training-schedule'  element={<ProtectedRoute element={TrainingSchedule} />} />
+        <Route exact path='/payment'  element={<ProtectedRoute element={Payment} />} />
+        <Route exact path='/payment-status' element={<ProtectedRoute element={PaymentStatus} />} />
+
 
 
 

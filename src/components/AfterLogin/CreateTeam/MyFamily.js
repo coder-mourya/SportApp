@@ -52,7 +52,7 @@ const MyFamily = () => {
 
 
     return (
-        <div className="container-fluid itemsColor rounded-4 dashbords-container-hieght mb-2">
+        <div className="container-fluid itemsColor rounded-4 dashbords-container-hieght mb-2" style={{height : "39rem"}}>
             {loading ? (
                 <div className="text-center loader">
                     <ThreeDots
@@ -77,7 +77,9 @@ const MyFamily = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="row d-flex justify-content-start">
+                    <div className="row d-flex justify-content-start"
+                    
+                    >
                         {FamilyMembers.map((member, index) => (
                             <div key={index} className="col-md-4 p-4 row">
                                 <div className="bodyColor d-flex align-items-center p-4 rounded-4 All-members-container" 

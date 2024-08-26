@@ -22,9 +22,8 @@ export const fetchEvents = createAsyncThunk(`events/fetchEvents`, async (token, 
 });
 
 export const fetchEventsDetails = createAsyncThunk(`events/fetchEventsDetails`,
-
     async ({ eventId, token}, { dispatch }) => {
-        // console.log("event id ", eventId);
+        // console.log("redux called id", eventId, "token", token);
         const eventDetailsUrl = BaseUrl();
         const response = await axios.get(`${eventDetailsUrl}/user/event/details/${eventId}`, {
             headers: {

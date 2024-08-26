@@ -25,48 +25,64 @@ const PrevTournament = () => {
         dispetch(fetchEvents(token))
     }, [token, dispetch])
 
-    const Time = new Date();
-    const formatedDate = Time.toISOString()
-    const cuurentTime = Time.toISOString();
+    function getCurrentISODateTime() {
+        const now = new Date();
+        return `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}T${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}.${now.getMilliseconds().toString().padStart(3, '0')}Z`;
+    }
+
+    const cuurentTime = getCurrentISODateTime();
+    // const formatedDate = getCurrentISODateTime();
 
     const hasPrevTournament = eventData.some((event) => {
-        return event.eventType === "tournament" && event.endTime > cuurentTime && event.eventDate < formatedDate;
+        return event.eventType === "tournament"
+            && event.endTime > cuurentTime
+        //   && event.eventDate < formatedDate;
     })
 
     if (!hasPrevTournament) {
-        return  <div className="row justify-content-center align-items-center p-5">
-        <div className="col-12 text-center">
-            <img src={practice} alt="team pick" className="img-fluid mb-3" />
-            <p className="mb-0">You have no practice scheduled.</p>
+        return <div className="row justify-content-center align-items-center p-5">
+            <div className="col-12 text-center">
+                <img src={practice} alt="team pick" className="img-fluid mb-3" />
+                <p className="mb-0">You have no practice scheduled.</p>
+            </div>
         </div>
-    </div>
     }
 
 
     return (
-        <div className="row  d-flex   align-items-center p-md-2 ">
+        <div className="row  d-flex   align-items-start p-md-2 "
+            style={{
+                height: "33rem",
+                overflowY: "auto",
+                scrollbarWidth: "none",
+                msOverflowStyle: "none"
+            }}
+        >
 
             {eventData.map((event, index) => {
-               const eventFormatedDate = formatDate(event.eventDate);
-               const eventEndTime = formatTime(event.startTime);
-               const eventFormatedStartTime = formatTime(event.startTime);
+                const eventFormatedDate = formatDate(event.eventDate);
+                const eventEndTime = formatTime(event?.endTime, event?.location?.coordinates[1], event?.location?.coordinates[0]);
+                const eventFormatedStartTime = formatTime(event?.startTime, event?.location?.coordinates[1], event?.location?.coordinates[0]);
 
-                if (event.eventType === "tournament" && event.endTime > cuurentTime && event.eventDate < formatedDate) {
+                if (event.eventType === "tournament"
+                    && event.endTime > cuurentTime
+                    //   && event.eventDate < formatedDate
+                ) {
 
                     return (
                         <div key={index} className="col-md-6  ">
                             <div className="p-3 event-item  my-2  rounded-4 d-flex">
-                            <div className="col-md-3 position-relative">
+                                <div className="col-md-3 position-relative">
                                     <img src={eventPick} alt="event pick" className="img-fluid eventpick" />
                                     <img src={event.sport.selected_image} alt="event pick" className="img-fluid eventpick"
-                                        style={{ 
+                                        style={{
                                             width: "40px",
                                             position: "absolute",
                                             top: "50%",
                                             left: "45%",
                                             transform: "translate(-50%, -50%)"
 
-                                         }}
+                                        }}
                                     />
                                 </div>
                                 <div className="col-md-9 event-icons">
@@ -75,7 +91,13 @@ const PrevTournament = () => {
                                         <div className="d-flex ">
                                             <img src={location} alt="location" className="me-2 " />
                                             <p className="mb-0">
-                                                {window.innerWidth <= 576 ? event.address.substring(0, 10) + "..." : event.address}
+                                                {window.innerWidth <= 576
+                                                    ? (event.address.length > 10
+                                                        ? event.address.substring(0, 10) + "..."
+                                                        : event.address)
+                                                    : (event.address.length > 50
+                                                        ? event.address.substring(0, 50) + "..."
+                                                        : event.address)}
 
                                             </p>
                                         </div>

@@ -14,7 +14,7 @@ const EventDashBord = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [mainContainerClass, setMainContainerClass] = useState('col-md-11');
 
-   
+
 
     const Navigate = useNavigate();
 
@@ -56,19 +56,19 @@ const EventDashBord = () => {
         Navigate("/CreateTournament")
     }
 
-    const renderButton = () =>{
+    const renderButton = () => {
         switch (selectedOption) {
             case "Game":
                 return <button className="btn btn-danger mx-2" onClick={handleGameCreate}>
-                Create Game
+                    Create Game
                 </button>;
-                case "Tournament":
+            case "Tournament":
                 return <button className="btn btn-danger mx-2" onClick={handleTournamentCreate}>
-                Create Tournament
+                    Create Tournament
                 </button>;
             default:
                 return <button className="btn btn-danger mx-2" onClick={handleCreate}>
-                Create practice
+                    Create practice
                 </button>
         }
     }
@@ -87,7 +87,7 @@ const EventDashBord = () => {
 
                     <div className="upper-contant ">
                         <div className="row All-options my-4 d-flex justify-content-center  justify-content-md-start">
-                            <div className="col-md-6 col-lg-6 Team-options itemsColor py-2  text-center rounded ">
+                            <div className="col-md-6 col-lg-6 Team-options itemsColor py-2  text-center ">
                                 <button
                                     className={`btn ${selectedOption === "Practice" ? "btn-primary" : ""}`}
                                     onClick={() => handleOptionChange("Practice")}
@@ -115,7 +115,9 @@ const EventDashBord = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="container-fluid d-flex justify-content-center">{renderComponent()}</div>
+                    <div className=" d-flex justify-content-center">
+                        {renderComponent()}
+                    </div>
                 </div>
             </div>
         </div>

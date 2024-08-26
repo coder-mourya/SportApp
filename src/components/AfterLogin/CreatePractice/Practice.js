@@ -20,7 +20,7 @@ const Practice = () => {
 
     // console.log("events", eventData);
 
-    useEffect(() =>{
+    useEffect(() => {
         dispetch(fetchEvents(token))
     }, [token, dispetch])
 
@@ -44,7 +44,7 @@ const Practice = () => {
 
 
     return (
-        <div className="container-fluid itemsColor practice rounded">
+        <div className="container-fluid itemsColor practice rounded-4 mb-5" style={{ height: "39rem" }}>
             {eventData.length === 0 ? (
                 <div className="row justify-content-center align-items-center p-5">
                     <div className="col-12 text-center">
@@ -54,9 +54,9 @@ const Practice = () => {
                 </div>
             ) : (
 
-                <div className=" All-options my-2 d-flex justify-content-md-start   ">
+                <div className=" All-options my-2 d-flex justify-content-md-start">
                     <div className=" Team-options custom-option-btn itemsColor py-md-2  rounded  d-flex justify-content-md-center   justify-content-center "
-                    
+
                     >
                         <button
                             className={`btn ${selectedOption === "CurrentPractice" ? "btn-primary" : ""}`}
@@ -79,7 +79,7 @@ const Practice = () => {
 
 
 
-            <div className="container-fluid ">{renderComponent()}</div>
+            <div className="">{renderComponent()}</div>
 
         </div>
     );

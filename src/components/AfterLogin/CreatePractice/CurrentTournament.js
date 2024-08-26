@@ -26,12 +26,18 @@ const CurrentTournament = () => {
     }, [token, dispetch])
 
 
-    const Time = new Date();
-    const formatedDate = Time.toISOString()
-    const cuurentTime = Time.toISOString();
+    function getCurrentISODateTime() {
+        const now = new Date();
+        return `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}T${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}.${now.getMilliseconds().toString().padStart(3, '0')}Z`;
+    }
+
+    const cuurentTime = getCurrentISODateTime();
+    // const formatedDate = getCurrentISODateTime();
 
     const hasCurrentTournament = eventData.some((event) => {
-        return event.eventType === "tournament" && event.eventDate >= formatedDate && event.endTime > cuurentTime;
+        return event.eventType === "tournament"
+        //  && event.eventDate >= formatedDate 
+         && event.endTime > cuurentTime;
     })
 
     if (!hasCurrentTournament) {
@@ -44,15 +50,25 @@ const CurrentTournament = () => {
     }
 
     return (
-        <div className="row  d-flex   align-items-center p-md-2 ">
+        <div className="row  d-flex   align-items-start p-md-2 "
+        style={{
+            height: "33rem", 
+            overflowY: "auto",
+             scrollbarWidth: "none",
+            msOverflowStyle: "none"
+        }}
+        >
 
 
             {eventData.map((event, index) => {
                const eventFormatedDate = formatDate(event.eventDate);
-               const eventEndTime = formatTime(event.endTime);
-               const eventFormatedStartTime = formatTime(event.startTime);
+               const eventEndTime =  formatTime(event?.endTime, event?.location?.coordinates[1], event?.location?.coordinates[0]);
+               const eventFormatedStartTime = formatTime(event?.startTime, event?.location?.coordinates[1], event?.location?.coordinates[0]);
 
-                if (event.eventType === "tournament" && event.eventDate >= formatedDate && event.endTime > cuurentTime) {
+                if (event.eventType === "tournament"
+                    //  && event.eventDate >= formatedDate
+                      && event.endTime > cuurentTime) 
+                      {
 
                     return (
                         <div key={index} className="col-md-6  ">
@@ -76,7 +92,13 @@ const CurrentTournament = () => {
                                         <div className="d-flex ">
                                             <img src={location} alt="location" className="me-2 " />
                                             <p className="mb-0">
-                                                {window.innerWidth <= 576 ? event.address.substring(0, 10) + "..." : event.address}
+                                            {window.innerWidth <= 576
+                                                    ? (event.address.length > 10
+                                                        ? event.address.substring(0, 10) + "..."
+                                                        : event.address)
+                                                    : (event.address.length > 50
+                                                        ? event.address.substring(0, 50) + "..."
+                                                        : event.address)}
 
                                             </p>
                                         </div>

@@ -17,12 +17,15 @@ const PendingComponent = ({ eventId }) => {
 
     const EventDetails = useSelector((state) => state.events.eventDetails);
     const token = useSelector((state) => state.auth.user.data.user.token);
+    const user = useSelector((state) => state.auth.user.data.user);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [members, setMembers] = useState([]);
     // reminder count  and Reminder timer 
     const [reminderTimer, setReminderTimer] = useState(0);
-    // console.log("pending members ", members);
+    // console.log("reminder time in pending component ", reminderTimer);
+    const adminCheck = EventDetails?.allMemberDetails?.find((member) => member?.memberId === user?._id);
+
 
     // fetch event details
     useEffect(() => {
@@ -87,13 +90,18 @@ const PendingComponent = ({ eventId }) => {
     }, []);
 
 
-    const handleReminder = async () => {
+    const handleReminder = async (memberIds = []) => {
+        setLoading(true);
+        if(!adminCheck?.isAdmin){
+            toast.error("You are not authorized to send reminder");
+            setLoading(false);
+            return;
+        }
         const reminderUrl = BaseUrl();
         let data = new FormData();
-
         data.append("eventId", EventDetails._id)
-        data.append("memberId",  members.map((member) => member._id))
-        // console.log("reminder data ", ...data);
+        data.append("memberId", memberIds);
+        console.log("reminder data ", ...data);
         // return
 
 
@@ -105,7 +113,7 @@ const PendingComponent = ({ eventId }) => {
                 }
             })
 
-            // console.log(JSON.stringify(res));
+            console.log("response from reminder", res);
 
             if (res.data.status === 200) {
                 dispatch(fetchEventsDetails({ eventId: eventId, token }));
@@ -118,13 +126,36 @@ const PendingComponent = ({ eventId }) => {
             }
         } catch (error) {
             toast.error(error.message);
+        } finally {
+            setLoading(false);
         }
     }
 
 
 
+    const handleSingleReminder = (member) => {
+        if(!adminCheck?.isAdmin){
+            toast.error("You are not authorized to send reminder");
+        }else{
+            if(member.confirmationReminderCount < 3){
+                handleReminder([member._id]);
+            }else{
+                toast.error("You can not send reminder more than 3 times");
+            }
+        }
+    }
 
-
+    // const handleAllReminder = (member) => {
+    //     if(!adminCheck?.isAdmin){
+    //         toast.error("You are not authorized to send reminder");
+    //     }else{
+    //         if(member.confirmationReminderCount < 3){
+    //             handleReminder([member._id]);
+    //         }else{
+    //             toast.error("You can not send reminder more than 3 times");
+    //         }
+    //     }
+    // }
 
 
     return (
@@ -147,7 +178,7 @@ const PendingComponent = ({ eventId }) => {
 
                         member.requestStatus === 1 && (
                             <div key={index} className="member-container col-md-12 d-flex  row py-2 my-2 bodyColor rounded-3">
-                                <div className="col-md-2">
+                                <div className="col-2">
                                     <img src={member.image || logo} alt={member.name}
                                         style={{
                                             width: "50px",
@@ -157,12 +188,12 @@ const PendingComponent = ({ eventId }) => {
                                         }}
                                     />
                                 </div>
-                                <div className=" d-flex justify-content-center align-items-center col-md-6">
+                                <div className=" d-flex align-items-center col-8">
 
-                                    <p className="ms-2">{member.fullName}</p>
+                                    <p className="text-start ms-3">{member.fullName}</p>
                                 </div>
 
-                                <div className="d-flex justify-content-end align-items-center col-md-4 position-relative mt-2">
+                                <div className="d-flex justify-content-end align-items-center col-2 position-relative mt-2">
                                     <p className="cownDown">
                                         {reminderTimer[member._id] && reminderTimer[member._id].timeLeft.minutes > 0 ? (
                                             // Timer is running
@@ -184,7 +215,9 @@ const PendingComponent = ({ eventId }) => {
                                                 >
                                                     <p className="text-center">{member.confirmationReminderCount || 0}</p>
                                                 </div>
-                                                <img src={watch} alt="watch" style={{ width: "25px", cursor: "pointer" }} />
+                                                <img src={watch} alt="watch" style={{ width: "25px", cursor: "pointer" }}
+                                                    onClick={() => handleSingleReminder(member)}
+                                                />
                                             </>
                                         )}
                                     </p>
@@ -197,7 +230,7 @@ const PendingComponent = ({ eventId }) => {
             )}
 
             <div className="download-list mt-4 d-flex justify-content-center">
-                <button className="btn" onClick={handleReminder}>
+                <button className="btn" onClick={() => handleReminder(members.map(member => member._id))}>
                     Remind All
                 </button>
             </div>

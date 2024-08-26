@@ -57,8 +57,11 @@ const ChangePass = () => {
     const HandleSubmit = async (e) => {
         e.preventDefault();
 
-        if(formData.password !== formData.confirmPassword){
+        if(formData.newPassword !== formData.confirmPassword){
             setPasswordError('new password and confirm password does not match');
+            console.log("password", formData.newPassword, formData.confirmPassword);
+            
+            
             return;
 
         }else{

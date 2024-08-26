@@ -38,7 +38,9 @@ const AllMembers = () => {
 
 
     return (
-        <div className="container-fluid itemsColor rounded-4 dashbords-container-hieght mb-2">
+        <div className="container-fluid itemsColor rounded-4 dashbords-container-hieght mb-5"
+            style={{ height: "39rem" }}
+        >
             {loading ? (
                 <div className="text-center loader">
                     <ThreeDots
@@ -62,52 +64,61 @@ const AllMembers = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="row d-flex justify-content-start">
-                        {members.map((member, index) => (
-                            <div key={index} className="col-md-4 p-4 row">
-                                <div className="bodyColor d-flex align-items-center p-4 rounded-4 All-members-container"
-                                    onClick={() => handleMemberDetails(member)}
-                                    style={{
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    <div className="members-pick col-md-3">
-                                        {member.image ? (
+                    <div
+                        style={{
+                            height: "33rem",
+                            overflowY: "auto",
+                            scrollbarWidth: "none",
+                            msOverflowStyle: "none"
+                        }}
+                    >
+                        <div className="row d-flex justify-content-start">
+                            {members.map((member, index) => (
+                                <div key={index} className="col-md-4">
+                                    <div className="bodyColor d-flex align-items-center p-4 my-4 rounded-4 All-members-container"
+                                        onClick={() => handleMemberDetails(member)}
+                                        style={{
+                                            cursor: "pointer",
+                                        }}
+                                    >
+                                        <div className="members-pick col-md-3">
+                                            {member.image ? (
 
-                                            <img src={member.image} alt="Member" style={{ width: "88px", height: "88px", objectFit: "cover" }} />
-                                        ) : (
+                                                <img src={member.image} alt="Member" style={{ width: "88px", height: "88px", objectFit: "cover" }} />
+                                            ) : (
 
-                                            <img src={logo} alt="Member" style={{ width: "88px", height: "88px", objectFit: "cover" }} />
-                                        )}
-                                    </div>
-                                    <div className="col-md-9">
-                                        <div className="ms-3">
-                                            <p style={{ fontSize: "20px", fontWeight: "500" }}>{member.fullName}</p>
-                                            <div className="d-flex flex-wrap sports-list-picks">
-                                                {member.teamSport.map((sport, sportIndex) => (
-                                                    <div key={sportIndex} className="mb-2 d-flex align-items-center justify-content-center" style={{
-                                                        backgroundColor: "white",
-                                                        width: "32px",
-                                                        height: "32px",
-                                                        borderRadius: "50%",
-                                                        padding: "5px",
-                                                    }}>
-                                                        <img
-                                                            src={sport.selected_image}
-                                                            alt={sport.sports_name}
-                                                            className="img-fluid"
-                                                            style={{ width: "20px", height: "20px", objectFit: "cover" }}
-                                                        />
-                                                    </div>
-                                                ))}
+                                                <img src={logo} alt="Member" style={{ width: "88px", height: "88px", objectFit: "cover" }} />
+                                            )}
+                                        </div>
+                                        <div className="col-md-9">
+                                            <div className="ms-3">
+                                                <p style={{ fontSize: "20px", fontWeight: "500" }}>{member.fullName}</p>
+                                                <div className="d-flex flex-wrap sports-list-picks">
+                                                    {member.teamSport.map((sport, sportIndex) => (
+                                                        <div key={sportIndex} className="mb-2 d-flex align-items-center justify-content-center" style={{
+                                                            backgroundColor: "white",
+                                                            width: "32px",
+                                                            height: "32px",
+                                                            borderRadius: "50%",
+                                                            padding: "5px",
+                                                        }}>
+                                                            <img
+                                                                src={sport.selected_image}
+                                                                alt={sport.sports_name}
+                                                                className="img-fluid"
+                                                                style={{ width: "20px", height: "20px", objectFit: "cover" }}
+                                                            />
+                                                        </div>
+                                                    ))}
 
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 )
             )

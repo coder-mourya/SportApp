@@ -20,7 +20,7 @@ import { BaseUrl } from "../../../reducers/Api/bassUrl";
 
 
 // Modified version of MyTeam component
-const ModifiedMyTeam = ({ EventDetails }) => {
+const ModifiedMyTeam = ({ EventDetails, handleCLoseAddEventMember }) => {
     const [loading, setLoading] = useState(true);
     const [selectedTeamId, setSelectedTeamId] = useState([]);
     const [teamMembers, setTeamMembers] = useState([]);
@@ -71,6 +71,7 @@ const ModifiedMyTeam = ({ EventDetails }) => {
 
     // Add members from team to event
     const handleAddMemberTeam = async () => {
+        setLoading(true);
       try {
         const url = BaseUrl();
         const allMemberIds = selectedTeamId.flatMap(teamId => teamMembers[teamId] || []);
@@ -81,6 +82,7 @@ const ModifiedMyTeam = ({ EventDetails }) => {
             "memberId": uniqueMemberIds
         }
         console.log("check data", data);
+        // return;
         
         const response = await axios.post(`${url}/user/event/add/member`, data, {
             headers: {
@@ -89,15 +91,19 @@ const ModifiedMyTeam = ({ EventDetails }) => {
         })
 
         if (response.data.status === 200) {
+            
             toast.success("Member added successfully");
             dispatch(fetchEventsDetails({ eventId, token }));
-            // console.log("response", response);
+            // console.log("response", response.data);
+            handleCLoseAddEventMember();
         }else{
             toast.error("error in adding member");
         }
       } catch (error) {
         console.error('Error adding member:', error);
         toast.error("internal server error");
+      }finally{
+        setLoading(false);
       }
 
     }
@@ -219,7 +225,7 @@ const ModifiedMyTeam = ({ EventDetails }) => {
 
 
 // Modified version of AllMembers component
-const ModifiedAllMembers = ({EventDetails}) => {
+const ModifiedAllMembers = ({EventDetails, handleCLoseAddEventMember}) => {
 
     const token = useSelector(state => state.auth.user.data.user.token);
     const [loading, setLoading] = useState(true);
@@ -247,6 +253,7 @@ const ModifiedAllMembers = ({EventDetails}) => {
     }
 
     const handleAddMember = async () => {
+        setLoading(true);
         try {
             const url = BaseUrl();
            
@@ -254,7 +261,10 @@ const ModifiedAllMembers = ({EventDetails}) => {
                 "eventId": eventId,
                 "memberId": selectedMemberId
             }
-            console.log("check data", data);
+            // console.log("check data", data);
+            // setLoading(false)
+            // return;
+            
             
             const response = await axios.post(`${url}/user/event/add/member`, data, {
                 headers: {
@@ -264,13 +274,18 @@ const ModifiedAllMembers = ({EventDetails}) => {
     
             if (response.data.status === 200) {
                 toast.success("Member added successfully");
-                // console.log("response", response);
+                // console.log("check response", response.data);                
+                dispatch(fetchEventsDetails({ eventId, token }));
+                handleCLoseAddEventMember();
+                
             }else{
                 toast.error("error in adding member");
             }
           } catch (error) {
             // console.error('Error adding member:', error);
             toast.error("internal server error");
+          }finally{
+            setLoading(false);
           }
     }
 
@@ -386,7 +401,7 @@ const ModifiedAllMembers = ({EventDetails}) => {
     );
 };
 
-const AddEventMember = ({ EventDetails }) => {
+const AddEventMember = ({ EventDetails, handleCLoseAddEventMember }) => {
     const [selectedOption, setSelectedOption] = useState("MyTeam");
 
 
@@ -419,7 +434,7 @@ const AddEventMember = ({ EventDetails }) => {
 
                 <div className="">
                     {/* Render selected component */}
-                    {selectedOption === "MyTeam" ? <ModifiedMyTeam EventDetails={EventDetails} /> : <ModifiedAllMembers EventDetails={EventDetails} />}
+                    {selectedOption === "MyTeam" ? <ModifiedMyTeam EventDetails={EventDetails} handleCLoseAddEventMember={handleCLoseAddEventMember} /> : <ModifiedAllMembers EventDetails={EventDetails} handleCLoseAddEventMember={handleCLoseAddEventMember} />}
                 </div>
 
 

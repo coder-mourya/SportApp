@@ -63,7 +63,7 @@ const Status = ({ eventId }) => {
 
 
   return (
-    <div className="container">
+    <div className="container" >
       <div className="row mt-5">
         <div className="col-md-12 d-flex justify-content-around status-btn">
           {/* Buttons for the new component */}
