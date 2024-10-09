@@ -14,6 +14,7 @@ import payment from "../../assets/afterLogin picks/home/payment.png";
 import fav from "../../assets/afterLogin picks/home/fav.png";
 import help from "../../assets/afterLogin picks/home/Help.png";
 import training from "../../assets/afterLogin picks/home/event2.png";
+import message from "../../assets/afterLogin picks/home/message.svg";
 
 const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
 
@@ -23,77 +24,85 @@ const SidebarComponent = ({ toggleSidebar, sidebarOpen }) => {
   //   setIsSidebarOpen(!sidebarOpen);
   // };
 
-  
+
   return (
     <>
-    
+
       <div className="sidebar-header">
         <div className="hamburger" onClick={toggleSidebar}>
           {sidebarOpen ? '✕' : '☰'}
         </div>
       </div>
 
-    <Sidebar collapsed={!sidebarOpen} className='custom-sidebar'>
-      <Menu iconShape="square" className='custom-menu'>
-        <MenuItem className='custom-menu-item'>
-          <div className='innerLink'>
-            <Link to="/LoggedInHome" onClick={toggleSidebar}>
-              <img src={home} alt="home" />
-              <span>Home</span>
-            </Link>
-          </div>
-        </MenuItem>
-        <MenuItem className='custom-menu-item'>
-          <div className='innerLink'>
-            <Link to="/schedule" onClick={toggleSidebar}>
-              <img src={event2} alt="schedule" />
-              <span>Schedule</span>
-            </Link>
-          </div>
-        </MenuItem>
-        <MenuItem className='custom-menu-item'>
-          <div className='innerLink'>
-            <Link to="/EventDashBord" onClick={toggleSidebar}>
-              <img src={team2} alt="event" />
-              <span>Event</span>
-            </Link>
-          </div>
-        </MenuItem>
-        <MenuItem className='custom-menu-item'>
-          <div className='innerLink'>
-            <Link to="/ComingSoon" onClick={toggleSidebar}>
-              <img src={training} alt="training" />
-              <span>Training</span>
-            </Link>
-          </div>
-        </MenuItem>
-        <MenuItem className='custom-menu-item'>
-          <div className='innerLink'>
-            <Link to="/ComingSoon" onClick={toggleSidebar}>
-              <img src={fav} alt="fav" />
-              <span>Favourite</span>
-            </Link>
-          </div>
-        </MenuItem>
-        <MenuItem className='custom-menu-item'>
-          <div className='innerLink'>
-            <Link to="/ComingSoon" onClick={toggleSidebar}>
-              <img src={help} alt="help" />
-              <span>Help</span>
-            </Link>
-          </div>
-        </MenuItem>
-        <MenuItem className='custom-menu-item'>
-          <div className='innerLink'>
-            <Link to="/ComingSoon" onClick={toggleSidebar}>
-              <img src={payment} alt="payment" />
-              <span>Payment</span>
-            </Link>
-          </div>
-        </MenuItem>
-      </Menu>
+      <Sidebar collapsed={!sidebarOpen} className='custom-sidebar'>
+        <Menu iconShape="square" className='custom-menu'>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/LoggedInHome" onClick={toggleSidebar}>
+                <img src={home} alt="home" />
+                <span>Home</span>
+              </Link>
+            </div>
+          </MenuItem>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/schedule" onClick={toggleSidebar}>
+                <img src={event2} alt="schedule" />
+                <span>Schedule</span>
+              </Link>
+            </div>
+          </MenuItem>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/EventDashBord" onClick={toggleSidebar}>
+                <img src={team2} alt="event" />
+                <span>Event</span>
+              </Link>
+            </div>
+          </MenuItem>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/ComingSoon" onClick={toggleSidebar}>
+                <img src={training} alt="training" />
+                <span>Training</span>
+              </Link>
+            </div>
+          </MenuItem>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/ComingSoon" onClick={toggleSidebar}>
+                <img src={fav} alt="fav" />
+                <span>Favourite</span>
+              </Link>
+            </div>
+          </MenuItem>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/ComingSoon" onClick={toggleSidebar}>
+                <img src={help} alt="help" />
+                <span>Help</span>
+              </Link>
+            </div>
+          </MenuItem>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/ComingSoon" onClick={toggleSidebar}>
+                <img src={payment} alt="payment" />
+                <span>Payment</span>
+              </Link>
+            </div>
+          </MenuItem>
+          <MenuItem className='custom-menu-item'>
+            <div className='innerLink'>
+              <Link to="/chatScreen" onClick={toggleSidebar}>
+                <img src={message} alt="payment"  />
+                <span>Message</span>
+              </Link>
+            </div>
+          </MenuItem>
+        </Menu>
 
-    </Sidebar>
+      </Sidebar>
 
     </>
   );

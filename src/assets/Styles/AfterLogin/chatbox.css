@@ -7,7 +7,8 @@
 
 .chat-box-button {
   position: absolute;
-  bottom: 0; /* Adjust this value as needed */
+  bottom: 0;
+  /* Adjust this value as needed */
   right: 0;
   background-color: #007bff;
   color: #fff;
@@ -42,6 +43,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -56,8 +58,17 @@
   width: 70%;
 }
 
+.media {
+  height: 70px;
+  /* margin-right: 1rem; */
+}
+
+.media:hover{
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
 .media img {
-  width: 15%;
   margin-right: 1rem;
 }
 
@@ -68,4 +79,50 @@
 .search input {
   background-color: #F4F5F9;
   padding: 2px 3px;
+}
+
+.chat-dropdown button {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  background-color: transparent;
+}
+
+.chat-dropdown button:hover {
+  background-color: rgb(239, 156, 156);
+  color: white;
+
+}
+
+.chat-dropdown button span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #e59f9f;
+  margin-right: 0.5rem;
+}
+
+.chat-dropdown button img {
+  width: 20px;
+  height: 20px;
+  filter: invert(18%) sepia(91%) saturate(5098%) hue-rotate(359deg) brightness(94%) contrast(102%);
+}
+
+.chat-dropdown button:hover img {
+  filter: brightness(0) invert(1);
+}
+
+
+.selected-chat {
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+
+.wather-report span{
+  color: #007bff;
 }

@@ -20,7 +20,7 @@ import FAQPage from "./pages/FAQPage";
 import ContactPage from "./pages/ContactPage";
 import ComingSoon from "./components/ComingSoon";
 import CreateTeam from "./pages/AfterLogin/CreateTeam";
-import ChatBox from './components/AfterLogin/ChatBox';
+// import ChatBox from './components/AfterLogin/ChatBox';
 import Create from './components/AfterLogin/CreateTeam/Create';
 import AddMember from './components/AfterLogin/CreateTeam/AddMember';
 import TeamDashbord from './pages/AfterLogin/TeamDashBord';
@@ -50,6 +50,9 @@ import EventSchedule from './components/AfterLogin/Schedule/EventSchedule';
 import TrainingSchedule from './components/AfterLogin/Schedule/TrainingSchedule';
 import Payment from './components/AfterLogin/Events/Payment';
 import PaymentStatus from './components/AfterLogin/Events/PaymentStatus';
+import ChatsScreenDashBord from './pages/AfterLogin/ChatsScreenDashBord';
+import EventChats from './components/AfterLogin/Chats/EventChats';
+import TrainingList from './components/AfterLogin/Trainings/Training-list';
 // import { ToastContainer } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -57,7 +60,7 @@ function App() {
 
 
   const location = useLocation();
-  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord' || location.pathname === '/EventDashBord' || location.pathname === '/CreatePracticeForm' || location.pathname === '/EventDetails' || location.pathname === '/ViewProfile' || location.pathname === '/ChangePass'  || location.pathname === '/CreateGame' || location.pathname === '/CreateTournament' || location.pathname === '/schedule' || location.pathname === '/All' || location.pathname === '/EventSchedule' || location.pathname === '/TrainingSchedule';
+  const isRoute = location.pathname === "/ComingSoon" || location.pathname === '/LoggedInHome' || location.pathname === '/CreateTeam' || location.pathname === "/TeamDashbord" || location.pathname === "/MemberDashBord" || location.pathname === '/FamilyDashBord' || location.pathname === '/TrainingDashBord' || location.pathname === '/EventDashBord' || location.pathname === '/CreatePracticeForm' || location.pathname === '/EventDetails' || location.pathname === '/ViewProfile' || location.pathname === '/ChangePass'  || location.pathname === '/CreateGame' || location.pathname === '/CreateTournament' || location.pathname === '/schedule' || location.pathname === '/All' || location.pathname === '/EventSchedule' || location.pathname === '/TrainingSchedule' || location.pathname === '/chatScreen' || location.pathname === '/trainingDashBord' || location.pathname === '/training-list';
 
   const [showLogin, setShowLogin] = useState(false);
 
@@ -109,7 +112,7 @@ function App() {
         <Route exact path='/TeamDashbord' element={<ProtectedRoute element={TeamDashbord} />} />
         <Route exact path='/MemberDashBord' element={<ProtectedRoute element={MemberDashBord} />} />
         <Route exact path='/FamilyDashBord' element={<ProtectedRoute element={FamilyDashBord} />} />
-        <Route exact path='/TrainingDashBord' element={<ProtectedRoute element={TrainingDashBord} />} />
+        <Route exact path='/trainingDashBord' element={<ProtectedRoute element={TrainingDashBord} />} />
         <Route exact path='/EventDashBord' element={<ProtectedRoute element={EventDashBord} />} />
         <Route exact path='/CreatePracticeForm' element={<ProtectedRoute element={CreatePracticeForm} />} />
         <Route exact path='/CreateGame' element={<ProtectedRoute element={CreateGame} />} />
@@ -124,7 +127,13 @@ function App() {
         <Route exact path='/training-schedule'  element={<ProtectedRoute element={TrainingSchedule} />} />
         <Route exact path='/payment'  element={<ProtectedRoute element={Payment} />} />
         <Route exact path='/payment-status' element={<ProtectedRoute element={PaymentStatus} />} />
+        <Route exact path='/chatScreen' element={<ProtectedRoute element={ChatsScreenDashBord} />} />
+        <Route exact path='/eventChat' element={<ProtectedRoute element={EventChats} />} />
 
+        <Route exact path='/training-list' element={<ProtectedRoute element={TrainingList} />} />
+        {/* <Route exact path='/chat' element={<ChatBox element={ChatBox} />} /> */}
+
+        
 
 
 
@@ -133,7 +142,7 @@ function App() {
         <Route exact path='/ComingSoon' element={<ComingSoon />} />
 
       </Routes>
-      {isRoute && <ChatBox />}
+      {/* {isRoute && <ChatBox />} */}
 
 
       {!isRoute && <Footer />}

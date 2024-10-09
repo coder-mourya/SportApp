@@ -48,7 +48,7 @@ const LoggedInHome = () => {
   }
 
   const handleTrainingClick = () => {
-    Navigate("/ComingSoon");
+    Navigate("/training-list");
   }
 
 

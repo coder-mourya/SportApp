@@ -7,6 +7,7 @@ import Tournament from "../../components/AfterLogin/CreatePractice/Tournament";
 import "../../assets/Styles/colors.css";
 import "../../assets/Styles/AfterLogin/createTeam.css";
 import { useNavigate } from "react-router-dom";
+import ChatBox from "../../components/AfterLogin/Chats/ChatBox";
 
 
 const EventDashBord = () => {
@@ -118,6 +119,8 @@ const EventDashBord = () => {
                     <div className=" d-flex justify-content-center">
                         {renderComponent()}
                     </div>
+
+                    <ChatBox />
                 </div>
             </div>
         </div>

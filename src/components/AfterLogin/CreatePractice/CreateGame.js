@@ -72,7 +72,7 @@ const CreateGame = () => {
     }
 
     const handleCloseAddMemberAndTeam = () => setShowAddMemberAndTeam(false)
-    
+
     const [modelShow, setModelShow] = useState(false);
 
     const handleShowModel = () => {
@@ -91,35 +91,35 @@ const CreateGame = () => {
     };
 
     // Handle start time change
-const handleStartTimeChange = (time) => {
-    const selectedDate = moment(formData.eventDate);
-    const selectedTime = moment(time);
-    const updatedStartTime = selectedDate.set({
-        hour: selectedTime.hour(),
-        minute: selectedTime.minute()
-    }).toISOString();
-    
-    setFormData((prevFormData) => ({
-        ...prevFormData,
-        startTime: updatedStartTime,
-        endTime: '' // Reset end time to ensure it is after start time
-    }));
-};
+    const handleStartTimeChange = (time) => {
+        const selectedDate = moment(formData.eventDate);
+        const selectedTime = moment(time);
+        const updatedStartTime = selectedDate.set({
+            hour: selectedTime.hour(),
+            minute: selectedTime.minute()
+        }).toISOString();
 
-   // Handle end time change
-const handleEndTimeChange = (time) => {
-    const selectedDate = moment(formData.eventDate);
-    const selectedTime = moment(time);
-    const updatedEndTime = selectedDate.set({
-        hour: selectedTime.hour(),
-        minute: selectedTime.minute()
-    }).toISOString();
-    
-    setFormData((prevFormData) => ({
-        ...prevFormData,
-        endTime: updatedEndTime
-    }));
-};
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            startTime: updatedStartTime,
+            endTime: '' // Reset end time to ensure it is after start time
+        }));
+    };
+
+    // Handle end time change
+    const handleEndTimeChange = (time) => {
+        const selectedDate = moment(formData.eventDate);
+        const selectedTime = moment(time);
+        const updatedEndTime = selectedDate.set({
+            hour: selectedTime.hour(),
+            minute: selectedTime.minute()
+        }).toISOString();
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            endTime: updatedEndTime
+        }));
+    };
 
     // const maxEndTime = formData.startTime ? new Date(new Date(formData.startTime).getTime() + 30 * 60000) : null;
 
@@ -210,22 +210,22 @@ const handleEndTimeChange = (time) => {
     // console.log("team member", teamMembers);
     // console.log("selected teamds", selectedTeamds);
 
-    const hanldleCreate = async () => { 
+    const hanldleCreate = async () => {
         setLoading(true);
         const url = BaseUrl();
         const storedMebers = JSON.parse(localStorage.getItem('memberId'));
         const OtherMembers = Array.isArray(storedMebers) ? storedMebers : [];
-    
+
         // Format the event date and times
         const eventDateString = `${moment(formData.eventDate).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
         const startTimeString = `${moment(formData.startTime).format('YYYY-MM-DD')} ${moment(formData.startTime).format('h:mm A')} UTC`;
         const endTimeString = `${moment(formData.endTime).format('YYYY-MM-DD')} ${moment(formData.endTime).format('h:mm A')} UTC`;
-    
+
         // Convert to UTC and format in ISO 8601 with milliseconds and UTC timezone
         const formattedEventDateUTC = moment.utc(eventDateString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
         const formattedStartTimeUTC = moment.utc(startTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
         const formattedEndTimeUTC = moment.utc(endTimeString, 'YYYY-MM-DD h:mm A Z').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
-    
+
         const data = {
             ...formData,
             teamIds: selectedTeamds,
@@ -238,19 +238,19 @@ const handleEndTimeChange = (time) => {
             startTimeUTC: formattedStartTimeUTC,
             endTimeUTC: formattedEndTimeUTC,
         };
-    
+
         localStorage.removeItem('memberId');
-    
+
         // console.log("event data", data);
         // return; 
-    
+
         try {
             const response = await axios.post(`${url}/user/event/create`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-    
+
             if (response.data.status === 200) {
                 console.log("event created successfully", response.data);
                 toast.success("Event created successfully");
@@ -263,7 +263,7 @@ const handleEndTimeChange = (time) => {
         } catch (error) {
             console.log("error in creating event", error);
             toast.error("internal server error");
-        }finally {
+        } finally {
             setLoading(false);
         }
     };
@@ -281,7 +281,7 @@ const handleEndTimeChange = (time) => {
 
                 <div className={`${mainContainerClass}  main mt-4 `}>
 
-                {loading ? <div className="text-center loader flex-grow-1 d-flex justify-content-center align-items-center">
+                    {loading ? <div className="text-center loader flex-grow-1 d-flex justify-content-center align-items-center">
                         <ThreeDots
                             height={80}
                             width={80}
@@ -385,23 +385,23 @@ const handleEndTimeChange = (time) => {
                                         <label htmlFor="endTime">End time</label>
                                         <div className="input-group">
                                             <DatePicker
-                                                 // selected={formData.endTime}
-                                                 selected={formData.endTime ? new Date(formData.endTime) : null}
-                                                 name="endTime"
-                                                 // value={formData.endTime}
-                                                 onChange={handleEndTimeChange}
-                                                 showTimeSelect
-                                                 showTimeSelectOnly
-                                                 timeIntervals={15}
-                                                 dateFormat="h:mm aa"
-                                                 className="form-control"
-                                                 placeholderText="Select end time"
-                                                 // onFocus={handleEndTimeFocus}
-                                                 ref={endTimePickerRef}
-                                                 // minTime={formData.startTime}
-                                                 minTime={formData.startTime ? new Date(new Date(formData.startTime).getTime() + 15 * 60000) : new Date().setHours(0, 0, 0, 0)}
-                                                 // maxTime={maxEndTime}
-                                                 maxTime={new Date().setHours(23, 59, 59)}
+                                                // selected={formData.endTime}
+                                                selected={formData.endTime ? new Date(formData.endTime) : null}
+                                                name="endTime"
+                                                // value={formData.endTime}
+                                                onChange={handleEndTimeChange}
+                                                showTimeSelect
+                                                showTimeSelectOnly
+                                                timeIntervals={15}
+                                                dateFormat="h:mm aa"
+                                                className="form-control"
+                                                placeholderText="Select end time"
+                                                // onFocus={handleEndTimeFocus}
+                                                ref={endTimePickerRef}
+                                                // minTime={formData.startTime}
+                                                minTime={formData.startTime ? new Date(new Date(formData.startTime).getTime() + 15 * 60000) : new Date().setHours(0, 0, 0, 0)}
+                                                // maxTime={maxEndTime}
+                                                maxTime={new Date().setHours(23, 59, 59)}
                                             />
                                         </div>
                                     </div>
@@ -470,29 +470,29 @@ const handleEndTimeChange = (time) => {
 
                         <Modal show={modelShow} onHide={handleCloseModel} centered>
                             <Modal.Header closeButton
-                            style={{borderBottom:"none"}}
+                                style={{ borderBottom: "none" }}
                             >
-                           
+
                             </Modal.Header>
 
                             <Modal.Title>
-                            <div className="d-flex justify-content-center">
-                            <img src={success} alt="pic" />
-                            </div>
+                                <div className="d-flex justify-content-center">
+                                    <img src={success} alt="pic" />
+                                </div>
                             </Modal.Title>
                             <Modal.Body>
                                 <div className="text-center">
                                     <h3>Successful!</h3>
                                     <p className="text-muted mt-2 px-5">Event has been successfully created and
-                                    Invite sent to the team members.</p>
+                                        Invite sent to the team members.</p>
 
                                     <button className="btn mt-5"
-                                    style={{
-                                        backgroundColor:"#D32F2F",
-                                        color:"white",
-                                        width: "50%"
-                                    }}
-                                    onClick={handleCros}
+                                        style={{
+                                            backgroundColor: "#D32F2F",
+                                            color: "white",
+                                            width: "50%"
+                                        }}
+                                        onClick={handleCros}
                                     >
                                         ok
                                     </button>

@@ -250,6 +250,31 @@ export function getTimeZoneAbbreviationForCoordinates(latitude, longitude) {
 
 
 
+// dateUtils.js
+export function getCurrentISODateTime(date) {
+    if (!date) return null;
+
+    const originalDate = new Date(date);
+    if (isNaN(originalDate.getTime())) return null;
+
+    const isoDateTime = `${originalDate.getFullYear()}-${(originalDate.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${originalDate.getDate()
+            .toString()
+            .padStart(2, '0')}T${originalDate.getHours()
+                .toString()
+                .padStart(2, '0')}:${originalDate.getMinutes()
+                    .toString()
+                    .padStart(2, '0')}:${originalDate.getSeconds()
+                        .toString()
+                        .padStart(2, '0')}.${originalDate.getMilliseconds()
+                            .toString()
+                            .padStart(3, '0')}Z`;
+
+    return isoDateTime;
+}
+
+
 
 
 

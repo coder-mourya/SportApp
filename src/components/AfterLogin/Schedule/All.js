@@ -21,7 +21,7 @@ const All = ({ eventData }) => {
 
     return (
         <div className="row">
-            {eventData.length > 0 ? (
+            {eventData?.length > 0 ? (
                 eventData.map((eventWrapper, index) => {
                     const event = eventWrapper.event || eventWrapper; // Check if `event` is nested or directly available
                     const eventFormatedDate = formatDate(event.eventDate || event.event.eventDate);

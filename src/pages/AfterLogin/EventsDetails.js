@@ -20,7 +20,6 @@ import { ThreeDots } from "react-loader-spinner";
 import Modal from 'react-bootstrap/Modal';
 import deletepick from "../../assets/afterLogin picks/events/delete.svg";
 import payment from "../../assets/afterLogin picks/events/payment.svg";
-
 import { BaseUrl } from "../../reducers/Api/bassUrl";
 import axios from "axios";
 import share from "../../assets/afterLogin picks/My team/share.svg";
@@ -35,6 +34,8 @@ import { useRef } from "react";
 import logoIcon from "../../assets/img/logo.png";
 import { fetchSchedule } from "../../reducers/scheduleSlice";
 import currencySymbolMap from 'currency-symbol-map';
+import ChatBox from "../../components/AfterLogin/Chats/ChatBox";
+
 
 
 
@@ -76,7 +77,7 @@ const EventDetails = () => {
     const eventIdFromLink = location.state?.eventId;
     // console.log("event id from link", eventIdFromLink);
     // console.log("event id ", eventId, "token" , token);
-    console.log("event details ", EventDetails);
+    // console.log("event details ", EventDetails);
 
     const adminCheck = EventDetails?.allMemberDetails?.find((member) => member?.memberId === user?._id);
 
@@ -499,6 +500,7 @@ const EventDetails = () => {
                     <SidebarSmallDevice />
                 </div>
                 <div className={`${mainContainerClass} main`}>
+
                     <div className="member-dashbord">
 
                         <div className="row bodyColor py-md-4 py-3" style={{ position: "sticky", top: "9%", zIndex: "1" }}>
@@ -792,6 +794,8 @@ const EventDetails = () => {
                                             renderComponent()
                                         )}
                                     </div>
+
+                                    <ChatBox eventId={eventId}/>
 
                                 </div>
 

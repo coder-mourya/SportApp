@@ -9,12 +9,11 @@ import location from "../../assets/afterLogin picks/home/location.png";
 import schedule from "../../assets/afterLogin picks/home/schedule.png";
 import watch from "../../assets/afterLogin picks/home/watch.png";
 import Sessions from "../../components/AfterLogin/CreatePractice/Sessions";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
 
 const TrainingDashBord = () => {
-
-
     const [mainContainerClass, setMainContainerClass] = useState("col-md-11");
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -24,14 +23,10 @@ const TrainingDashBord = () => {
     };
 
 
-
-
-
-
     const Naviaget = useNavigate();
 
     const handleClose = () => {
-        Naviaget("/CreateTeam")
+        Naviaget("/loggedInHome");
     }
 
     // Dummy array of events
@@ -45,21 +40,40 @@ const TrainingDashBord = () => {
         },
     ];
 
+    const [showAvailability, setShowAvailability] = useState(false);
+
+    const handleShowAvailability = () => {
+        setShowAvailability(true);
+    };
+
+    const handleCloseAvailability = () => {
+        setShowAvailability(false);
+    };
+
+
+
     return (
-        <div className="container-fluid bodyColor ">
+        <div className="container-fluid bodyColor training-dashbord-container">
             <div className="row">
                 <div className="col">
                     <Sidebar toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
                     <SidebarSmallDevice />
                 </div>
-                <div className={`${mainContainerClass} main mt-5`}>
+                <div className={`${mainContainerClass} main mt-3`}>
                     <div className="member-dashbord">
-                        <div className="d-flex">
-                            <button className="btn prev-button" onClick={handleClose}>
-                                <img src={arrow} alt="previous" />
-                            </button>
 
-                            <h4 className="ms-3">Riya Training</h4>
+                        <div className="d-flex justify-content-between">
+                            <div className="d-flex align-items-center">
+                                <button className="btn prev-button" onClick={handleClose}>
+                                    <img src={arrow} alt="previous" />
+                                </button>
+
+                                <h4 className="ms-3">Facility details</h4>
+                            </div>
+
+                            <div>
+                                <button className="btn btn-danger" onClick={handleShowAvailability}>Check Availability</button>
+                            </div>
                         </div>
 
                         <div className="row my-4">
@@ -129,13 +143,74 @@ const TrainingDashBord = () => {
 
                                 <div className="calender rounded-4  itemsColor p-4">
 
-                                   <Sessions />
+                                    <Sessions />
 
                                 </div>
 
                             </div>
 
                         </div>
+
+                        {/* check availablity */}
+
+                        <Offcanvas show={showAvailability} onHide={handleCloseAvailability} placement="end">
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title>Check availability</Offcanvas.Title>
+                            </Offcanvas.Header>
+
+                            <Offcanvas.Body>
+                                {/* Step progress bar */}
+                                <div className="step-progress">
+                                    <div className="step-item active">
+                                        <span className="step-number">1</span>
+                                        <p>Select member</p>
+                                    </div>
+                                    <div className="step-item">
+                                        <span className="step-number">2</span>
+                                        <p>Select Date & Time</p>
+                                    </div>
+                                    <div className="step-item">
+                                        <span className="step-number">3</span>
+                                        <p>Your cart</p>
+                                    </div>
+                                </div>
+
+                                {/* Booking for Section */}
+                                <div className="booking-section">
+                                    <p className="booking-title">Booking for</p>
+                                    <div className="radio-options d-flex">
+                                        <div className="form-check me-4">
+                                            <input className="form-check-input" type="radio" name="bookingFor" id="myself" defaultChecked />
+                                            <label className="form-check-label" htmlFor="myself">Myself</label>
+                                        </div>
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="radio" name="bookingFor" id="familyMember" />
+                                            <label className="form-check-label" htmlFor="familyMember">Family Member</label>
+                                        </div>
+                                    </div>
+
+                                    {/* Avatar selection */}
+                                    <div className="member-avatars d-flex justify-content-start mt-3">
+                                        <div className="avatar selected">
+                                            <img src="avatar1.jpg" alt="Avatar 1" />
+                                        </div>
+                                        <div className="avatar">
+                                            <img src="avatar2.jpg" alt="Avatar 2" />
+                                        </div>
+                                        <div className="avatar">
+                                            <img src="avatar3.jpg" alt="Avatar 3" />
+                                        </div>
+                                        {/* Add additional avatar elements as needed */}
+                                    </div>
+                                </div>
+                            </Offcanvas.Body>
+
+                            {/* Bottom fixed button */}
+                            <div className="offcanvas-footer">
+                                <button className="btn btn-danger w-100 mx-2">Next</button>
+                            </div>
+                        </Offcanvas>
+
                     </div>
                 </div>
             </div>

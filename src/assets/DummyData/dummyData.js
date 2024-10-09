@@ -46,6 +46,11 @@ export const chats = [
   { id: 2, "name": 'Jane', "message": 'Hey, how are you?', "image": chat2 },
   { id: 3, "name": 'Jane Smith', "message": 'What\'s up?', "image": chat3 },
   { id: 4, "name": 'Alice', "message": 'Nice weather today, isn\'t it?', "image": chat4 },
+  { id: 5, "name": 'Bob', "message": 'How\'s your day going?', "image": chat5 },
+  { id: 1, "name": 'John Doe', "message": 'Hello there!',  "image": chat1 },
+  { id: 2, "name": 'Jane', "message": 'Hey, how are you?', "image": chat2 },
+  { id: 3, "name": 'Jane Smith', "message": 'What\'s up?', "image": chat3 },
+  { id: 4, "name": 'Alice', "message": 'Nice weather today, isn\'t it?', "image": chat4 },
   { id: 5, "name": 'Bob', "message": 'How\'s your day going?', "image": chat5 }
 
 

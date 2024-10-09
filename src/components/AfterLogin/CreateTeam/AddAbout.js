@@ -76,7 +76,7 @@ const AddAboutMe = ({teamId, handleCloseAboutMe}) => {
         const updateAboutMeUrl = BaseUrl();
     
         try {
-            const response = await axios.put(`${updateAboutMeUrl}/api/v1/user/update/aboutMe`, formDataToSend, {
+            const response = await axios.put(`${updateAboutMeUrl}/user/update/aboutMe`, formDataToSend, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'

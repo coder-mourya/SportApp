@@ -101,7 +101,7 @@ const CustomCalendar = ({ onDateSelect, syncDates }) => {
             return dateIso === eventDateUtc; 
         });
     
-        console.log(`Final result for date ${dateIso}: ${result ? 'true' : 'false'}`);
+        // console.log(`Final result for date ${dateIso}: ${result ? 'true' : 'false'}`);
     
         return result;
     };

@@ -1,0 +1,205 @@
+.filter-container {
+  max-width: 400px;
+  border-radius: 10px;
+  /* position: relative; */
+  height: 100%; 
+  overflow-y: auto; /* Enable scrolling for the filter items */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  /* padding-bottom: 100px; */
+}
+
+.offcanvas-body-custom {
+  position: relative;
+  overflow-y: auto;
+  height: calc(100vh - 70px); /* Adjust to fit the offcanvas with header */
+}
+  
+  .filter-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2d2d2d;
+  }
+  
+  .filter-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #03061F;
+    margin-bottom: 8px;
+  }
+  
+  .btn-filter {
+    width: 50px;
+    height: 50px;
+    color: #9A9BA5;
+    border: 1px solid #E6E7E9 !important;
+    border-radius: 8px !important;
+    /* font-weight: bold; */
+    margin-right: 10px;
+    border: none;
+  }
+  
+  .btn-filter:hover {
+    background-color: #d9d9d9;
+  }
+  
+  .btn-filter-lg {
+    width: 200px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #E6E7E9;
+    color: #9A9BA5;
+  }
+  
+  .btn-filter-lg:hover {
+    background-color: #d9d9d9;
+  }
+  
+  .custom-range {
+    accent-color: #ff4d4f;
+    height: 6px;
+    border-radius: 5px;
+  }
+  
+  .btn-day {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    border: none;
+    color: #444;
+  }
+  
+  .selected-day {
+    background-color: #D32F2F;
+    color: white;
+  }
+  
+  .form-check-input:checked {
+    background-color: #ff4d4f;
+    border-color: #ff4d4f;
+  }
+  
+  .btn-lg {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  .fixed-bottom-container {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+  }
+
+  .fixed-bottom-container button {
+    width: 100%;
+
+  }
+
+
+
+
+  /* check availablity styles  */
+
+  .training-dashbord-container .offcanvas.offcanvas-end{
+      width: 30% !important;
+  }
+
+  /* Progress Bar */
+.progress-bar-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  color: #9A9BA5;
+}
+
+.step.active .step-number {
+  background-color: #D32F2F;
+  color: white;
+}
+
+.step-number {
+  background-color: #e0e0e0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.step p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.progress-bar-container::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: #e0e0e0;
+}
+
+.progress-bar-container .step.active + .step::before {
+  background-color: #D32F2F;
+}
+
+/* Booking Section */
+.booking-section {
+  margin-bottom: 20px;
+}
+
+.booking-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.booking-options {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+
+.form-check {
+  margin-right: 15px;
+}
+
+.form-check-input {
+  accent-color: #D32F2F;
+}
+
+.member-avatars {
+  display: flex;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Bottom Button */
+.bottom-button {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background-color: white;
+  border-top: 1px solid #ddd;
+}
+
+
