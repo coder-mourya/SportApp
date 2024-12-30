@@ -1,162 +1,162 @@
+.training-options button {
+  width: 10rem;
+}
+.training-options .selected-button {
+  background-color: #283593;
+  color: white;
+}
+
+.training-options button:hover{
+  background-color: #283593;
+  color: white;
+}
+
+.training-options .training-options-button {
+  width: 30%;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+}
+
 .filter-container {
   max-width: 400px;
   border-radius: 10px;
   /* position: relative; */
-  height: 100%; 
-  overflow-y: auto; /* Enable scrolling for the filter items */
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  height: 100%;
+  overflow-y: auto;
+  /* Enable scrolling for the filter items */
+  scrollbar-width: none;
+  /* Hide scrollbar for Firefox */
   /* padding-bottom: 100px; */
 }
 
 .offcanvas-body-custom {
   position: relative;
   overflow-y: auto;
-  height: calc(100vh - 70px); /* Adjust to fit the offcanvas with header */
-}
-  
-  .filter-header {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2d2d2d;
-  }
-  
-  .filter-label {
-    font-size: 16px;
-    font-weight: 600;
-    color: #03061F;
-    margin-bottom: 8px;
-  }
-  
-  .btn-filter {
-    width: 50px;
-    height: 50px;
-    color: #9A9BA5;
-    border: 1px solid #E6E7E9 !important;
-    border-radius: 8px !important;
-    /* font-weight: bold; */
-    margin-right: 10px;
-    border: none;
-  }
-  
-  .btn-filter:hover {
-    background-color: #d9d9d9;
-  }
-  
-  .btn-filter-lg {
-    width: 200px;
-    height: 40px;
-    border-radius: 8px;
-    border: 1px solid #E6E7E9;
-    color: #9A9BA5;
-  }
-  
-  .btn-filter-lg:hover {
-    background-color: #d9d9d9;
-  }
-  
-  .custom-range {
-    accent-color: #ff4d4f;
-    height: 6px;
-    border-radius: 5px;
-  }
-  
-  .btn-day {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #f2f2f2;
-    border: none;
-    color: #444;
-  }
-  
-  .selected-day {
-    background-color: #D32F2F;
-    color: white;
-  }
-  
-  .form-check-input:checked {
-    background-color: #ff4d4f;
-    border-color: #ff4d4f;
-  }
-  
-  .btn-lg {
-    padding: 10px 20px;
-    font-size: 16px;
-  }
-  
-  .fixed-bottom-container {
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    background-color: #ffffff;
-  }
-
-  .fixed-bottom-container button {
-    width: 100%;
-
-  }
-
-
-
-
-  /* check availablity styles  */
-
-  .training-dashbord-container .offcanvas.offcanvas-end{
-      width: 30% !important;
-  }
-
-  /* Progress Bar */
-.progress-bar-container {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  position: relative;
+  height: calc(100vh - 70px);
+  /* Adjust to fit the offcanvas with header */
 }
 
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
+.filter-header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2d2d2d;
+}
+
+.filter-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #03061F;
+  margin-bottom: 8px;
+}
+
+.btn-filter {
+  width: 50px;
+  height: 50px;
+  color: #9A9BA5;
+  border: 1px solid #E6E7E9 !important;
+  border-radius: 8px !important;
+  /* font-weight: bold; */
+  margin-right: 10px;
+  border: none;
+}
+
+.btn-filter:hover {
+  background-color: #d9d9d9;
+}
+
+.btn-filter-lg {
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #E6E7E9;
   color: #9A9BA5;
 }
 
-.step.active .step-number {
+.btn-filter-lg:hover {
+  background-color: #d9d9d9;
+}
+
+.custom-range {
+  accent-color: #ff4d4f;
+  height: 6px;
+  border-radius: 5px;
+}
+
+.btn-day {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  border: none;
+  color: #444;
+}
+
+.selected-day {
   background-color: #D32F2F;
   color: white;
 }
 
-.step-number {
-  background-color: #e0e0e0;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5px;
+.form-check-input:checked {
+  background-color: #ff4d4f !important;
+  border-color: #ff4d4f !important;
 }
 
-.step p {
-  margin: 0;
-  font-size: 14px;
+.btn-lg {
+  padding: 10px 20px;
+  font-size: 16px;
 }
 
-.progress-bar-container::before {
-  content: '';
-  position: absolute;
-  top: 15px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background-color: #e0e0e0;
+.fixed-bottom-container {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffffff;
 }
 
-.progress-bar-container .step.active + .step::before {
-  background-color: #D32F2F;
+.fixed-bottom-container button {
+  width: 100%;
+
 }
+
+
+
+
+/* check availablity styles  */
+
+.training-offcanvas {
+  width: 30% !important;
+}
+
+/* Progress Bar */
+
+
+
+
 
 /* Booking Section */
+
+.step-progress .active {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #D32F2F;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FDF4F4;
+}
+
+.step-progress .inactive{
+  width: 30px;
+  height: 30px;
+  border: 1px dashed #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
 .booking-section {
   margin-bottom: 20px;
 }
@@ -185,9 +185,9 @@
   display: flex;
 }
 
-.avatar {
-  width: 50px;
-  height: 50px;
+.avatar img {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -203,3 +203,98 @@
 }
 
 
+
+.trainingDays span {
+  font-size: 20px;
+  background-color: #F2F2F3;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: skew(-10deg);
+  /* Italic effect */
+  border-radius: 6px;
+
+}
+
+.trainingDays .active {
+  background-color: #2E3192;
+  /* Active days color */
+  color: white;
+}
+
+.custom-date-picker{
+  width: 27rem !important;
+}
+
+
+.expectation .custom-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px; /* Rounded corners */
+  background-color: #F7F8FA; /* Light background */
+  font-size: 0.95rem;
+  color: #6C757D; 
+  resize: none; /* Disable resizing */
+}
+
+.expectation .custom-textarea::placeholder {
+  color: #6C757D; /* Placeholder color */
+  font-style: italic;
+}
+
+.expectation .custom-textarea:focus {
+  outline: none;
+  border: 1px solid #6C757D; /* Add focus effect */
+  box-shadow: none;
+}
+
+.expectation .form-label {
+  font-size: 0.85rem;
+  /* color: #6C757D; */
+  margin-bottom: 4px;
+}
+
+
+.stols-selection button:hover{
+  background-color: #9A9BA5 !important;
+  color: white !important;
+}
+
+.training-list .training-cover-image {
+  width: 166px;
+  height: 190px;
+  object-fit: cover;
+   
+}
+
+.filter-btn:hover{
+  /* color: #03061F !important; */
+  background-color: #283593 !important;
+}
+
+.filter-btn:hover img{
+  filter: brightness(0) invert(1);
+}
+
+@media screen and (max-width: 1284px) {
+  .training-options .training-options-button {
+    width: 98%;
+    margin-top: 1.5rem;
+  }
+
+  .training-list .training-cover-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+     
+  }
+
+  .training-list .event-icons img{
+    width: 20px;
+    height: 20px;
+  }
+
+}

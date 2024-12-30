@@ -143,8 +143,7 @@ const Create = ({ handleCloseCreateTeam , ValidationForm}) => {
                         formData={formData.teamDetails}
                         onFormDataChange={(data) => handleFormDataChange('teamDetails', data)}
                         onNext={handleNext}
-                        
-                        
+                                                
                     />
                 ) : (
                     <AboutMe

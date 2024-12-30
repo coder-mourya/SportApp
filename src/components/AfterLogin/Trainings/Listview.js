@@ -7,14 +7,18 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchEvents } from "../../../reducers/eventSlice";
 import AllList from "./All-list";
-import Badminton from "./Badminton";
-import Criket from "./Criket";
+// import Badminton from "./Badminton";
+// import Criket from "./Criket";
 
 
 const Listview = () => {
     const [selectedOption, setSelectedOption] = useState("All");
     const eventData = useSelector((state) => state.events.events);
     const token = useSelector((state) => state.auth.user.data.user.token);
+    const userData = useSelector((state) => state.auth.user.data.user);
+    const chosenSports = userData?.chosenSports || [];
+    console.log("user data", userData?.chosenSports);
+    
 
     const dispetch = useDispatch();
 
@@ -30,14 +34,21 @@ const Listview = () => {
         setSelectedOption(option);
     };
 
+    const SportComponent = ({ sportName }) => {
+        return (
+            <div>
+                <h3>{sportName} Component</h3>
+                {/* You can add more dynamic content related to the sport here */}
+                <p>This is the {sportName} section, where you can display sport-specific data.</p>
+            </div>
+        );
+    };
+
     const renderComponent = () => {
-        switch (selectedOption) {
-            case "Badminton":
-                return <Badminton />;
-            case "Criket":
-                return <Criket />;
-            default:
-                return <AllList />;
+        if (selectedOption === "All") {
+            return <AllList />;
+        } else {
+            return <SportComponent sportName={selectedOption} />;
         }
     };
 
@@ -57,29 +68,32 @@ const Listview = () => {
                 </div>
             ) : (
 
-                <div className=" All-options my-2 d-flex justify-content-md-start">
-                    <div className="Team-options custom-option-btn itemsColor py-md-2 ps-2 rounded  d-flex justify-content-md-center   justify-content-center "
-                        style={{ marginLeft: "0" }}
+                <div className="All-options my-2 d-flex justify-content-md-start">
+                    <div className="itemsColor py-2 ps-2 rounded-4 training-options d-flex "
+                        style={{ marginLeft: "0",
+                            border: "1px solid #ccc",
+                            overflowX: "auto",
+                            whiteSpace: "nowrap",                           
+                         }}
+
                     >
                         <button
-                            className={`btn ${selectedOption === "All" ? "btn-primary" : ""}`}
+                            className={`btn  ${selectedOption === "All" ? "selected-button" : ""}`}
                             onClick={() => handleOptionChange("All")}
                         >
                             All
                         </button>
-                        <button
-                            className={`btn ${selectedOption === "Criket" ? "btn-primary" : ""}`}
-                            onClick={() => handleOptionChange("Criket")}
-                        >
-                            Criket
-                        </button>
 
-                        <button
-                            className={`btn ${selectedOption === "Badminton" ? "btn-primary" : ""}`}
-                            onClick={() => handleOptionChange("Badminton")}
-                        >
-                            Badminton
-                        </button>
+                         {/* Dynamically render buttons for each sport in chosenSports */}
+                         {chosenSports.map((sport, index) => (
+                            <button
+                                key={index}
+                                className={`btn mx-2 ${selectedOption === sport.sports_name ? "selected-button" : ""}`}
+                                onClick={() => handleOptionChange(sport.sports_name)}
+                            >
+                                {sport.sports_name}
+                            </button>
+                        ))}
 
                     </div>
 

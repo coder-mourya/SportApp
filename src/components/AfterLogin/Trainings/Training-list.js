@@ -66,19 +66,19 @@ const TrainingList = () => {
 
 
                     <div className="upper-contant ">
-                        <div className="row All-options my-4 d-flex justify-content-center  justify-content-md-between">
-                            <div className="col-md-6 col-lg-6 Team-options itemsColor py-2  text-center "
-                                style={{ width: "30%" }}
+                        <div className="row All-options my-4 d-flex justify-content-center  justify-content-md-between training-options">
+                            <div className="col-md-6 col-lg-6 col-6  itemsColor py-2  text-center training-options-button"
+                                
                             >
                                 <button
-                                    className={`btn ${selectedOption === "List" ? "btn-primary" : ""}`}
+                                    className={`btn mx-2 ${selectedOption === "List" ? "selected-button" : ""}`}
                                     onClick={() => handleOptionChange("List")}
                                 >
                                     List view
                                 </button>
 
                                 <button
-                                    className={`btn ${selectedOption === "Map" ? "btn-primary" : ""}`}
+                                    className={`btn mx-2 ${selectedOption === "Map" ? "selected-button" : ""}`}
                                     onClick={() => handleOptionChange("Map")}
                                 >
                                     Map view
@@ -86,13 +86,13 @@ const TrainingList = () => {
 
 
                             </div>
-                            <div className="col-md-6 col-lg-6 create-options py-2 ">
+                            <div className="col-md-6 col-lg-6 col-6 create-options py-2 ">
                                 <div className=" d-flex justify-content-md-end justify-content-center ">
                                     <button className="btn d-flex justify-content-center align-items-center" style={{ borderRadius: "5px", backgroundColor: "#FFFFFF", width: "40px", height: "40px" }}>
                                         <img src={search} alt="search " style={{ width: "30px" }} />
                                     </button>
 
-                                    <button className="btn" style={{ borderRadius: "5px", backgroundColor: "#FFFFFF", width: "100px", height: "40px" }}
+                                    <button className="btn filter-btn" style={{ borderRadius: "5px", backgroundColor: "#FFFFFF", width: "100px", height: "40px" }}
 
                                         onClick={handleShowFilter}
                                     >

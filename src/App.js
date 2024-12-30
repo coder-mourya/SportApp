@@ -53,6 +53,8 @@ import PaymentStatus from './components/AfterLogin/Events/PaymentStatus';
 import ChatsScreenDashBord from './pages/AfterLogin/ChatsScreenDashBord';
 import EventChats from './components/AfterLogin/Chats/EventChats';
 import TrainingList from './components/AfterLogin/Trainings/Training-list';
+import AvailabltyStep2 from './components/AfterLogin/Trainings/AvailabltyStep2';
+import AllList from './components/AfterLogin/Trainings/All-list';
 // import { ToastContainer } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -131,6 +133,8 @@ function App() {
         <Route exact path='/eventChat' element={<ProtectedRoute element={EventChats} />} />
 
         <Route exact path='/training-list' element={<ProtectedRoute element={TrainingList} />} />
+        <Route exact path='/Availablty-step2' element={<ProtectedRoute element={AvailabltyStep2} />} />
+        <Route exact path='/all-list' element={<ProtectedRoute element={AllList} />} />
         {/* <Route exact path='/chat' element={<ChatBox element={ChatBox} />} /> */}
 
         

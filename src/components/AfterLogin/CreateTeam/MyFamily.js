@@ -18,8 +18,6 @@ const MyFamily = () => {
 
 
     useEffect(() => {
-
-
         // Fetch members data
         const GetMembers = async () => {
             const MemberUrl = BaseUrl();
